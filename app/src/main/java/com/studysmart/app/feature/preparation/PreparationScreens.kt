@@ -241,12 +241,6 @@ fun PreparationSessionScreen(
                     modifier = Modifier.testTag("preparation_session_loading"),
                 )
             } else {
-                val completedCount = session.items.count { it.isCompleted }
-                val progress = if (session.uniqueQuestionCount == 0) {
-                    0f
-                } else {
-                    completedCount.toFloat() / session.uniqueQuestionCount.toFloat()
-                }
                 Text(
                     text = "Card ${session.reviewCount + 1} · ${session.uniqueQuestionCount} unique",
                     style = MaterialTheme.typography.labelLarge,
@@ -254,7 +248,7 @@ fun PreparationSessionScreen(
                     modifier = Modifier.testTag("preparation_card_position"),
                 )
                 LinearProgressIndicator(
-                    progress = { progress.coerceIn(0f, 1f) },
+                    progress = { session.completionProgress },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(8.dp)
@@ -359,7 +353,7 @@ fun PreparationSessionScreen(
                                 ratingTransition = RatingTransition(Rating.EASY, currentCardKey)
                                 onRate(Rating.EASY)
                             },
-                            enabled = !state.isSaving && activeRatingTransition == null,
+                            enabled = !state.isSaving && state.mutationError == null && activeRatingTransition == null,
                             modifier = Modifier.weight(1f).testTag("preparation_rating_easy"),
                         )
                     }
@@ -545,12 +539,12 @@ fun PreparationSummaryScreen(
                     onRetry = onRetry,
                     modifier = Modifier.testTag("preparation_summary_incomplete"),
                 )
-                state.session == null -> MissingContentScreen(
+                state.session == null || state.summary == null -> MissingContentScreen(
                     title = "Preparation summary",
                     onBack = onBack,
                 )
                 else -> SummaryContent(
-                    session = state.session,
+                    summary = state.summary,
                     readiness = state.readiness,
                     isReadinessLoading = state.isReadinessLoading,
                     readinessError = state.readinessError,
@@ -564,17 +558,13 @@ fun PreparationSummaryScreen(
 
 @Composable
 private fun SummaryContent(
-    session: PreparationSessionModel,
+    summary: PreparationSummaryProjection,
     readiness: com.studysmart.app.feature.readiness.ReadinessEstimate?,
     isReadinessLoading: Boolean,
     readinessError: String?,
     onRetryReadiness: () -> Unit,
     onBack: () -> Unit,
 ) {
-    val counts = session.reviewEvents.groupingBy { it.rating }.eachCount()
-    val needsImprovement = session.items.count {
-        it.lastRating == Rating.AGAIN || it.lastRating == Rating.HARD
-    }
     Text("Nice work!", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
     Text(
         "Your review history has been saved.",
@@ -586,17 +576,17 @@ private fun SummaryContent(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ResultMetric(
-            value = session.uniqueQuestionCount.toString(),
+            value = summary.uniqueQuestionCount.toString(),
             label = "Unique questions",
             modifier = Modifier.weight(1f),
         )
         ResultMetric(
-            value = session.reviewCount.toString(),
+            value = summary.presentationCount.toString(),
             label = "Presentations",
             modifier = Modifier.weight(1f),
         )
         ResultMetric(
-            value = needsImprovement.toString(),
+            value = summary.needsImprovementCount.toString(),
             label = "Needs improvement",
             modifier = Modifier.weight(1f),
         )
@@ -606,10 +596,10 @@ private fun SummaryContent(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        SummaryMetric("Again", counts[Rating.AGAIN] ?: 0, Modifier.weight(1f))
-        SummaryMetric("Hard", counts[Rating.HARD] ?: 0, Modifier.weight(1f))
-        SummaryMetric("Good", counts[Rating.GOOD] ?: 0, Modifier.weight(1f))
-        SummaryMetric("Easy", counts[Rating.EASY] ?: 0, Modifier.weight(1f))
+        SummaryMetric("Again", summary.ratingCounts.getValue(Rating.AGAIN), Modifier.weight(1f))
+        SummaryMetric("Hard", summary.ratingCounts.getValue(Rating.HARD), Modifier.weight(1f))
+        SummaryMetric("Good", summary.ratingCounts.getValue(Rating.GOOD), Modifier.weight(1f))
+        SummaryMetric("Easy", summary.ratingCounts.getValue(Rating.EASY), Modifier.weight(1f))
     }
     ReadinessEstimateCard(
         estimate = readiness,
@@ -624,8 +614,7 @@ private fun SummaryContent(
         fontWeight = FontWeight.Bold,
         modifier = Modifier.testTag("preparation_recently_reviewed"),
     )
-    session.items
-        .sortedByDescending { it.lastPresentedAt }
+    summary.recentlyReviewed
         .forEach { item ->
             Card(
                 modifier = Modifier

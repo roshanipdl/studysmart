@@ -73,6 +73,11 @@ class BrowseNavigationTest {
         composeRule.onNodeWithTag("course_course-yearly-example").performClick()
         composeRule.awaitNodeWithText("Choose Year")
         composeRule.onNodeWithText("Choose Year").assertIsDisplayed()
+        composeRule.onNodeWithTag("period_period-example-year-1").performClick()
+        composeRule.awaitNodeWithTag("subject_subject-year1-foundations")
+        composeRule.onNodeWithTag("subject_subject-year1-foundations").performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
+        composeRule.onNodeWithTag("chapter_chapter-year1-foundations-01").assertIsDisplayed()
     }
 
     @Test
@@ -204,6 +209,26 @@ class BrowseNavigationTest {
         composeRule.onAllNodesWithText("Test").get(0).performClick()
         composeRule.awaitNodeWithTag("test_answer_input")
         assertEquals(1, attemptCount())
+    }
+
+    @Test
+    fun emptyTestNotNowKeepsChapterContextAndCreatesNoAttempt() {
+        composeRule.setStudySmartContent(
+            container(InMemoryPreferencesRepository(TestDefaults(questionSource = TestQuestionSource.IMPORTANT))),
+            startRoute = AppRoutes.subject("subject-bca-s1-dbms"),
+        )
+        composeRule.awaitNodeWithTag("chapters_screen")
+        composeRule.onAllNodesWithText("Test").get(0).performClick()
+        composeRule.awaitNodeWithTag("no_test_questions_sheet")
+        assertEquals(0, attemptCount())
+        composeRule.onNodeWithText("Not now").performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
+        composeRule.onNodeWithTag("chapter_chapter-bca-s1-dbms-01").assertIsDisplayed()
+        composeRule.waitUntil(5_000) {
+            composeRule.onAllNodesWithText("No test attempt was created.")
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+        }
+        assertEquals(0, attemptCount())
     }
 
     @Test

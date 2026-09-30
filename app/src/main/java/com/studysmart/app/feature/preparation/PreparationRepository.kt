@@ -89,6 +89,13 @@ data class PreparationSessionModel(
 
     val isComplete: Boolean
         get() = status == PreparationSessionStatus.COMPLETED
+
+    val completionProgress: Float
+        get() = if (uniqueQuestionCount == 0) {
+            0f
+        } else {
+            (items.count { it.isCompleted }.toFloat() / uniqueQuestionCount).coerceIn(0f, 1f)
+        }
 }
 
 data class PreparationSessionRequest(

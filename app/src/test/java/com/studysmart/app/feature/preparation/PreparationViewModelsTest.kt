@@ -70,11 +70,15 @@ class PreparationViewModelsTest {
         viewModel.rate(Rating.GOOD)
 
         assertTrue(viewModel.uiState.value.mutationError != null)
+        val failedRequest = repository.ratingRequests.single()
+        viewModel.rate(Rating.EASY)
+        assertEquals(listOf(failedRequest), repository.ratingRequests)
         viewModel.retryMutation()
 
         assertTrue(viewModel.uiState.value.mutationError == null)
         assertFalse(viewModel.uiState.value.isSaving)
         assertEquals(2, repository.ratingRequests.size)
+        assertEquals(listOf(failedRequest, failedRequest), repository.ratingRequests)
     }
 
     @Test
@@ -118,6 +122,26 @@ class PreparationViewModelsTest {
     }
 
     @Test
+    fun summaryProjectsCompletedDataAndClearsItWhenTheSessionDisappears() = runTest {
+        val completed = sampleSession().copy(
+            status = PreparationSessionStatus.COMPLETED,
+            reviewCount = 1,
+            items = sampleSession().items.map { it.copy(isCompleted = true, lastRating = Rating.GOOD) },
+            reviewEvents = listOf(PreparationReviewEventModel("review-1", "question-1", Rating.GOOD, Instant.EPOCH)),
+        )
+        val repository = FakePreparationRepository(initialSession = completed)
+        val viewModel = PreparationSummaryViewModel(
+            "session-1", repository, FakeReadinessRepository(), TestDispatcherProvider(),
+        )
+        assertEquals(projectPreparationSummary(completed), viewModel.uiState.value.summary)
+        repository.sessionState.value = null
+        assertTrue(viewModel.uiState.value.isMissingContent)
+        assertEquals(null, viewModel.uiState.value.summary)
+        assertEquals(null, viewModel.uiState.value.readiness)
+        assertFalse(viewModel.uiState.value.isReadinessLoading)
+    }
+
+    @Test
     fun summaryReportsIncompleteSessionWithoutCreatingReplacementWork() = runTest {
         val repository = FakePreparationRepository()
         val viewModel = PreparationSummaryViewModel(
@@ -156,7 +180,7 @@ private class FakePreparationRepository(
     private val failFirstCreation: Boolean = false,
     private val failFirstRating: Boolean = false,
 ) : PreparationRepository {
-    private val sessionState = MutableStateFlow(initialSession)
+    val sessionState = MutableStateFlow(initialSession)
     val creationRequests = mutableListOf<PreparationSessionRequest>()
     val ratingRequests = mutableListOf<PreparationRatingRequest>()
 
@@ -208,7 +232,7 @@ private class FakePreparationRepository(
     }
 }
 
-private fun sampleSession(): PreparationSessionModel = PreparationSessionModel(
+internal fun sampleSession(): PreparationSessionModel = PreparationSessionModel(
     id = "session-1",
     courseId = "course-1",
     academicPeriodId = "period-1",

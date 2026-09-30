@@ -59,6 +59,8 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+
+    sourceSets.getByName("androidTest").assets.srcDir("schemas")
 }
 
 ksp {

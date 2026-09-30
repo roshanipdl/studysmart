@@ -7,6 +7,10 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.studysmart.app.core.model.TestDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -114,6 +118,42 @@ class PreferencesRepositoryTest {
         assertEquals(TestDefaults.DEFAULT_DURATION_MINUTES, defaults.durationMinutes)
         assertEquals(TestDefaults.DEFAULT_TIMED_MODE, defaults.timedMode)
         assertEquals(TestQuestionSource.RANDOM, defaults.questionSource)
+    }
+
+    @Test
+    fun contextAndDefaultsSurviveClosingAndReopeningThePreferencesFile() = runTest {
+        val file = temporaryFolder.root.resolve("restart.preferences_pb")
+        val defaults = TestDefaults(20, true, 45, TestQuestionSource.WEAK)
+        var job = SupervisorJob()
+        var repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
+            scope = CoroutineScope(Dispatchers.IO + job), produceFile = { file },
+        ))
+        try {
+            repository.setSelectedContext("course-1", "period-1")
+            repository.updateTestDefaults(defaults)
+            job.cancelAndJoin()
+            job = SupervisorJob()
+            repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
+                scope = CoroutineScope(Dispatchers.IO + job), produceFile = { file },
+            ))
+            val reopened = repository.preferences.first()
+            assertEquals(SelectedAcademicContext("course-1", "period-1"), reopened.selectedContext)
+            assertEquals(defaults, reopened.testDefaults)
+
+            repository.selectCourse("course-2")
+            job.cancelAndJoin()
+            job = SupervisorJob()
+            repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
+                scope = CoroutineScope(Dispatchers.IO + job), produceFile = { file },
+            ))
+            val reselected = repository.preferences.first()
+            assertEquals("course-2", reselected.selectedCourseId)
+            assertNull(reselected.selectedAcademicPeriodId)
+            assertNull(reselected.selectedContext)
+            assertEquals(defaults, reselected.testDefaults)
+        } finally {
+            job.cancelAndJoin()
+        }
     }
 
     @Test

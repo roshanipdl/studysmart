@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.studysmart.app.app.AppContainer
@@ -67,7 +68,12 @@ class PreparationNavigationTest {
         composeRule.onNodeWithText("Your review history has been saved.").assertIsDisplayed()
         composeRule.onNodeWithTag("preparation_readiness_slot").assertIsDisplayed()
         composeRule.onNodeWithText("Exam readiness estimate").assertIsDisplayed()
-        composeRule.onNodeWithTag("preparation_summary_back").performClick()
+        composeRule.onNodeWithTag("preparation_recently_reviewed").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_summary_item_question-bca-s1-dbms-direct")
+            .performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_summary_item_question-bca-s1-dbms-topic")
+            .performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_summary_back").performScrollTo().performClick()
         composeRule.awaitNodeWithTag("chapters_screen")
     }
 

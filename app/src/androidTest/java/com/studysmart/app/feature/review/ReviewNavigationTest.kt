@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.studysmart.app.app.AppContainer
@@ -22,6 +23,8 @@ import com.studysmart.app.testing.assertNoNodeWithTag
 import com.studysmart.app.testing.createInMemoryStudySmartDatabase
 import com.studysmart.app.testing.setStudySmartContent
 import java.time.Instant
+import java.time.Clock
+import java.time.ZoneOffset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -121,6 +124,26 @@ class ReviewNavigationTest {
         composeRule.awaitNodeWithTag("preparation_session_screen")
         composeRule.onNodeWithText("Due review").assertIsDisplayed()
         composeRule.assertNoNodeWithTag("review_start_due")
+        composeRule.onNodeWithTag("preparation_reveal").performClick()
+        composeRule.awaitNodeWithTag("preparation_answer")
+        composeRule.onNodeWithTag("preparation_rating_good").performClick()
+        composeRule.awaitNodeWithTag("preparation_summary_screen")
+        composeRule.onNodeWithTag("preparation_recently_reviewed").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_summary_item_question-bca-s1-dbms-direct")
+            .performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_readiness_slot").performScrollTo().assertIsDisplayed()
+        runBlocking {
+            val schedule = database!!.preparationDao()
+                .getReviewSchedule("local-user", "question-bca-s1-dbms-direct")!!
+            assertEquals(Instant.parse("2026-01-04T00:00:00Z"), schedule.nextReviewAt)
+            assertEquals(1, database!!.openHelper.writableDatabase
+                .query("SELECT COUNT(*) FROM review_records").use { cursor ->
+                    cursor.moveToFirst()
+                    cursor.getInt(0)
+                })
+        }
+        composeRule.onNodeWithTag("preparation_summary_back").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("review_no_due")
     }
 
     private fun container(
@@ -131,6 +154,7 @@ class ReviewNavigationTest {
             context = ApplicationProvider.getApplicationContext(),
             database = database!!,
             preferences = preferences,
+            clock = Clock.fixed(Instant.parse("2026-01-01T00:00:00Z"), ZoneOffset.UTC),
         )
     }
 }

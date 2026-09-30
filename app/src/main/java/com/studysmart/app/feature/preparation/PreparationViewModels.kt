@@ -281,6 +281,7 @@ class PreparationSessionViewModel(
 data class PreparationSummaryUiState(
     val isLoading: Boolean = true,
     val session: PreparationSessionModel? = null,
+    val summary: PreparationSummaryProjection? = null,
     val isMissingContent: Boolean = false,
     val isNotCompleted: Boolean = false,
     val readiness: ReadinessEstimate? = null,
@@ -332,6 +333,7 @@ class PreparationSummaryViewModel(
                         session = session,
                         isMissingContent = session == null,
                         isNotCompleted = session != null && !session.isComplete,
+                        summary = session?.takeIf { it.isComplete }?.let(::projectPreparationSummary),
                         isReadinessLoading = session != null,
                         readiness = null,
                         readinessError = null,
