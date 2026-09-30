@@ -1,6 +1,8 @@
 package com.studysmart.app.app
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -30,16 +32,29 @@ class StudySmartNavigationTest {
         composeRule.awaitNodeWithTag("bottom_navigation")
 
         composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
-        composeRule.onNodeWithTag("bottom_navigation_courses").assertIsDisplayed()
+        composeRule.awaitNodeWithTag("courses_screen")
+        composeRule.onNodeWithTag("bottom_navigation_courses").assertIsSelected()
+        composeRule.onNodeWithTag("bottom_navigation_home").assertIsNotSelected()
 
         composeRule.onNodeWithTag("bottom_navigation_review").performClick()
-        composeRule.onNodeWithTag("bottom_navigation_review").assertIsDisplayed()
+        composeRule.awaitNodeWithTag("review_screen")
+        composeRule.onNodeWithTag("bottom_navigation_review").assertIsSelected()
+        composeRule.onNodeWithTag("bottom_navigation_courses").assertIsNotSelected()
 
         composeRule.onNodeWithTag("bottom_navigation_progress").performClick()
-        composeRule.onNodeWithTag("bottom_navigation_progress").assertIsDisplayed()
+        composeRule.awaitNodeWithText("Progress is a Stage One destination.")
+        composeRule.onNodeWithTag("bottom_navigation_progress").assertIsSelected()
+        composeRule.onNodeWithTag("bottom_navigation_review").assertIsNotSelected()
 
         composeRule.onNodeWithTag("bottom_navigation_important").performClick()
-        composeRule.onNodeWithTag("bottom_navigation_important").assertIsDisplayed()
+        composeRule.awaitNodeWithText("Bookmarks are a Stage One destination.")
+        composeRule.onNodeWithTag("bottom_navigation_important").assertIsSelected()
+        composeRule.onNodeWithTag("bottom_navigation_progress").assertIsNotSelected()
+
+        composeRule.onNodeWithTag("bottom_navigation_home").performClick()
+        composeRule.awaitNodeWithTag("home_screen")
+        composeRule.onNodeWithTag("bottom_navigation_home").assertIsSelected()
+        composeRule.onNodeWithTag("bottom_navigation_important").assertIsNotSelected()
     }
 
     @Test
