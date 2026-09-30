@@ -14,6 +14,7 @@ import com.studysmart.app.app.AppContainer
 import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.core.data.SelectedAcademicContext
 import com.studysmart.app.core.data.StudyPreferences
+import com.studysmart.app.core.navigation.AppRoutes
 import com.studysmart.app.testing.awaitNodeWithTag
 import com.studysmart.app.testing.assertNoNodeWithTag
 import com.studysmart.app.testing.createInMemoryStudySmartDatabase
@@ -36,6 +37,31 @@ class PreparationNavigationTest {
     @After
     fun closeDatabase() {
         database?.close()
+    }
+
+    @Test
+    fun topicPreparationAgainRepeatsAndCompletesWithoutChapterDirectQuestions() {
+        composeRule.setStudySmartContent(
+            container(), startRoute = AppRoutes.prepareTopic("topic-bca-s1-dbms-01"),
+        )
+        composeRule.awaitNodeWithTag("preparation_reveal")
+        composeRule.onNodeWithText("What is a DBMS?").assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_reveal").performClick()
+        composeRule.awaitNodeWithTag("preparation_answer")
+        composeRule.onNodeWithText("A DBMS manages storage, access, and manipulation of data.").assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_rating_again").performClick()
+        composeRule.awaitNodeWithTag("preparation_reveal")
+        composeRule.onNodeWithText("What is a DBMS?").assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_reveal").performClick()
+        composeRule.awaitNodeWithTag("preparation_answer")
+        composeRule.onNodeWithText("A DBMS manages storage, access, and manipulation of data.").assertIsDisplayed()
+        composeRule.onNodeWithTag("preparation_rating_good").performClick()
+        composeRule.awaitNodeWithTag("preparation_summary_screen")
+        composeRule.onNodeWithTag("preparation_summary_item_question-bca-s1-dbms-topic")
+            .performScrollTo().assertIsDisplayed()
+        composeRule.assertNoNodeWithTag("preparation_summary_item_question-bca-s1-dbms-direct")
+        composeRule.onNodeWithTag("preparation_summary_back").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
     }
 
     @Test
