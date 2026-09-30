@@ -6,6 +6,8 @@ import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Relation
+import androidx.room.Transaction
 import androidx.room.Update
 import com.studysmart.app.core.model.Rating
 import java.time.Instant
@@ -29,6 +31,25 @@ data class TestAttemptContextRow(
     @ColumnInfo(name = "topic_id") val topicId: String?,
 )
 
+data class TestAttemptWithQuestionRows(
+    @Embedded val attempt: TestAttemptEntity,
+    @Relation(
+        entity = TestAttemptQuestionEntity::class,
+        parentColumn = "id",
+        entityColumn = "testAttemptId",
+    )
+    val questionRows: List<TestAttemptQuestionWithAnswerRows>,
+)
+
+data class TestAttemptQuestionWithAnswerRows(
+    @Embedded val question: TestAttemptQuestionEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "testAttemptQuestionId",
+    )
+    val answerRows: List<TestAnswerEntity>,
+)
+
 @Dao
 interface TestAttemptDao {
     @Query(
@@ -38,7 +59,7 @@ interface TestAttemptDao {
                CASE WHEN latest.id IS NULL THEN 0 ELSE 1 END AS has_review,
                latest_test_answer.keywordMatchPercent AS latest_test_percentage,
                latest_test_answer.requiresReview AS latest_test_requires_review,
-               0 AS is_important,
+               CASE WHEN flag.questionId IS NULL THEN 0 ELSE 1 END AS is_important,
                CAST(NULL AS INTEGER) AS bookmark_created_at
         FROM questions q
         JOIN chapters ch ON ch.id = q.chapterId
@@ -46,6 +67,8 @@ interface TestAttemptDao {
         JOIN academic_periods p ON p.id = s.academicPeriodId
         JOIN courses c ON c.id = p.courseId
         LEFT JOIN topics t ON t.id = q.topicId
+        LEFT JOIN user_question_flags flag
+          ON flag.userId = :userId AND flag.questionId = q.id AND flag.isImportant = 1
         LEFT JOIN review_records latest
           ON latest.id = (
               SELECT rr.id
@@ -188,6 +211,14 @@ interface TestAttemptDao {
     @Query("SELECT * FROM test_attempts WHERE id = :attemptId LIMIT 1")
     fun observeAttempt(attemptId: String): Flow<TestAttemptEntity?>
 
+    @Transaction
+    @Query("SELECT * FROM test_attempts WHERE id = :attemptId LIMIT 1")
+    fun observeAttemptWithQuestions(attemptId: String): Flow<TestAttemptWithQuestionRows?>
+
+    @Transaction
+    @Query("SELECT * FROM test_attempts WHERE id = :attemptId LIMIT 1")
+    suspend fun getAttemptWithQuestions(attemptId: String): TestAttemptWithQuestionRows?
+
     @Query("SELECT * FROM test_attempts WHERE id = :attemptId LIMIT 1")
     suspend fun getAttempt(attemptId: String): TestAttemptEntity?
 
@@ -201,6 +232,16 @@ interface TestAttemptDao {
             "(SELECT id FROM test_attempt_questions WHERE testAttemptId = :attemptId)",
     )
     fun observeAttemptAnswers(attemptId: String): Flow<List<TestAnswerEntity>>
+
+    @Query(
+        "SELECT answer.* FROM test_answers answer JOIN test_attempt_questions question " +
+            "ON question.id = answer.testAttemptQuestionId " +
+            "WHERE question.testAttemptId = :attemptId AND question.id = :attemptQuestionId LIMIT 1",
+    )
+    suspend fun getAnswerForAttemptQuestion(
+        attemptId: String,
+        attemptQuestionId: String,
+    ): TestAnswerEntity?
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAttempt(attempt: TestAttemptEntity)
@@ -219,6 +260,86 @@ interface TestAttemptDao {
 
     @Update
     suspend fun updateAttempt(attempt: TestAttemptEntity)
+
+    @Query(
+        "UPDATE test_attempts SET status = 'in_progress', startedAt = :startedAt, " +
+            "startedAtElapsedRealtimeMillis = :startedAtElapsedRealtimeMillis, " +
+            "startedBootId = :startedBootId, deadlineAt = :deadlineAt " +
+            "WHERE id = :attemptId AND status = 'created'",
+    )
+    suspend fun startAttempt(
+        attemptId: String,
+        startedAt: Instant,
+        startedAtElapsedRealtimeMillis: Long,
+        startedBootId: String?,
+        deadlineAt: Instant?,
+    ): Int
+
+    @Query(
+        "UPDATE test_answers SET answerText = :answerText, isFlagged = :isFlagged, " +
+            "accumulatedTimeMillis = :accumulatedTimeMillis, " +
+            "timeSpentSeconds = :timeSpentSeconds, updatedAt = :updatedAt " +
+            "WHERE testAttemptQuestionId = :attemptQuestionId AND EXISTS (" +
+            "SELECT 1 FROM test_attempt_questions q JOIN test_attempts a " +
+            "ON a.id = q.testAttemptId WHERE q.id = :attemptQuestionId " +
+            "AND a.id = :attemptId AND a.status = 'in_progress')",
+    )
+    suspend fun updateAnswerDraft(
+        attemptId: String,
+        attemptQuestionId: String,
+        answerText: String,
+        isFlagged: Boolean,
+        accumulatedTimeMillis: Long,
+        timeSpentSeconds: Long,
+        updatedAt: Instant,
+    ): Int
+
+    @Query(
+        "UPDATE test_attempts SET status = 'submitting' " +
+            "WHERE id = :attemptId AND status = 'in_progress'",
+    )
+    suspend fun claimAttemptForSubmission(attemptId: String): Int
+
+    @Query(
+        "UPDATE test_answers SET normalizedAnswer = :normalizedAnswer, " +
+            "matchedKeywordsJson = :matchedKeywordsJson, missingKeywordsJson = :missingKeywordsJson, " +
+            "keywordMatchPercent = :keywordMatchPercent, score = :score, maxScore = :maxScore, " +
+            "requiresReview = :requiresReview, updatedAt = :updatedAt " +
+            "WHERE testAttemptQuestionId = :attemptQuestionId AND EXISTS (" +
+            "SELECT 1 FROM test_attempt_questions q JOIN test_attempts a " +
+            "ON a.id = q.testAttemptId WHERE q.id = :attemptQuestionId " +
+            "AND a.id = :attemptId AND a.status = 'submitting')",
+    )
+    suspend fun updateAnswerEvaluation(
+        attemptId: String,
+        attemptQuestionId: String,
+        normalizedAnswer: String,
+        matchedKeywordsJson: String,
+        missingKeywordsJson: String,
+        keywordMatchPercent: Double?,
+        score: Double,
+        maxScore: Double,
+        requiresReview: Boolean,
+        updatedAt: Instant,
+    ): Int
+
+    @Query(
+        "UPDATE test_attempts SET submittedAt = :submittedAt, completedAt = :submittedAt, " +
+            "timeTakenSeconds = :timeTakenSeconds, score = :score, maxScore = :maxScore, " +
+            "percentage = :percentage, completionReason = :completionReason, " +
+            "evaluatorVersion = :evaluatorVersion, status = 'submitted' " +
+            "WHERE id = :attemptId AND status = 'submitting'",
+    )
+    suspend fun completeSubmission(
+        attemptId: String,
+        submittedAt: Instant,
+        timeTakenSeconds: Long,
+        score: Double,
+        maxScore: Double,
+        percentage: Double,
+        completionReason: String,
+        evaluatorVersion: String,
+    ): Int
 
     @Query(
         "DELETE FROM test_attempts WHERE id = :attemptId " +

@@ -274,3 +274,16 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         DatabaseSeed.seedReleaseTestContent(db)
     }
 }
+
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            "ALTER TABLE test_attempts ADD COLUMN startedAtElapsedRealtimeMillis INTEGER",
+        )
+        db.execSQL("ALTER TABLE test_attempts ADD COLUMN startedBootId TEXT")
+        db.execSQL("ALTER TABLE test_attempts ADD COLUMN deadlineAt INTEGER")
+        db.execSQL(
+            "ALTER TABLE test_answers ADD COLUMN accumulatedTimeMillis INTEGER NOT NULL DEFAULT 0",
+        )
+    }
+}

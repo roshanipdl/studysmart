@@ -1,5 +1,6 @@
 package com.studysmart.app.core.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -130,6 +131,9 @@ data class TestAttemptEntity(
     val isTimed: Boolean,
     val timeLimitSeconds: Long?,
     val startedAt: Instant?,
+    val startedAtElapsedRealtimeMillis: Long? = null,
+    val startedBootId: String? = null,
+    val deadlineAt: Instant? = null,
     val submittedAt: Instant?,
     val completedAt: Instant?,
     val timeTakenSeconds: Long?,
@@ -197,6 +201,7 @@ data class TestAnswerEntity(
     val selectedOption: String?,
     val isFlagged: Boolean,
     val timeSpentSeconds: Long?,
+    @ColumnInfo(defaultValue = "0") val accumulatedTimeMillis: Long = 0,
     val keywordMatchPercent: Double?,
     val normalizedAnswer: String?,
     val matchedKeywordsJson: String?,

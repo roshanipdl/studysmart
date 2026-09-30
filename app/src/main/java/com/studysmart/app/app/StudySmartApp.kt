@@ -70,7 +70,11 @@ fun StudySmartApp(
                 StudyBottomNavigation(
                     currentRoute = currentRoute,
                     onDestinationSelected = { destination ->
-                        if (currentRoute == AppRoutes.PREPARE_SESSION || currentRoute == AppRoutes.MOCK_TEST) {
+                        if (
+                            currentRoute == AppRoutes.PREPARE_SESSION ||
+                            currentRoute == AppRoutes.MOCK_TEST ||
+                            currentRoute == AppRoutes.TEST_DEFAULTS
+                        ) {
                             pendingTopLevelDestination = destination
                         } else {
                             pendingTopLevelDestination = null

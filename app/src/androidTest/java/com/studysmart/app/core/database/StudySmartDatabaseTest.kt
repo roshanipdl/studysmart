@@ -157,7 +157,7 @@ class StudySmartDatabaseTest {
                 StudySmartDatabase::class.java,
                 databaseName,
             )
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                 .allowMainThreadQueries()
                 .build()
             try {
@@ -188,6 +188,26 @@ class StudySmartDatabaseTest {
                     assertTrue(it.moveToFirst())
                     assertTrue(it.getInt(0) > 0)
                 }
+                val attemptColumns = mutableSetOf<String>()
+                migrated.query("PRAGMA table_info(test_attempts)").use { columns ->
+                    val nameIndex = columns.getColumnIndexOrThrow("name")
+                    while (columns.moveToNext()) attemptColumns += columns.getString(nameIndex)
+                }
+                assertTrue("startedAtElapsedRealtimeMillis" in attemptColumns)
+                assertTrue("startedBootId" in attemptColumns)
+                assertTrue("deadlineAt" in attemptColumns)
+
+                var accumulatedTimeDefault: String? = null
+                migrated.query("PRAGMA table_info(test_answers)").use { columns ->
+                    val nameIndex = columns.getColumnIndexOrThrow("name")
+                    val defaultIndex = columns.getColumnIndexOrThrow("dflt_value")
+                    while (columns.moveToNext()) {
+                        if (columns.getString(nameIndex) == "accumulatedTimeMillis") {
+                            accumulatedTimeDefault = columns.getString(defaultIndex)
+                        }
+                    }
+                }
+                assertEquals("0", accumulatedTimeDefault)
             } finally {
                 migratedDatabase.close()
             }

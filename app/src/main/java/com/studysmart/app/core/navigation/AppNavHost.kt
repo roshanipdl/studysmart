@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.activity.compose.BackHandler
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -46,7 +47,10 @@ import com.studysmart.app.feature.test.TestAttemptLauncherViewModel
 import com.studysmart.app.feature.test.TestAttemptEffect
 import com.studysmart.app.feature.test.TestAttemptViewModel
 import com.studysmart.app.feature.test.TestAttemptScreen
+import com.studysmart.app.feature.test.TestDefaultsScreen
+import com.studysmart.app.feature.test.TestDefaultsViewModel
 import com.studysmart.app.feature.test.isTransient
+import com.studysmart.app.feature.settings.SettingsScreen
 
 @Composable
 fun AppNavHost(
@@ -198,9 +202,10 @@ fun AppNavHost(
                 LaunchedEffect(testLauncherViewModel) {
                     testLauncherViewModel.effects.collect { effect ->
                         when (effect) {
-                            is TestAttemptLauncherEffect.Created -> navController.navigate(
-                                AppRoutes.mockTest(effect.attemptId),
-                            )
+                            is TestAttemptLauncherEffect.Created -> {
+                                navController.navigate(AppRoutes.mockTest(effect.attemptId))
+                                testLauncherViewModel.onCreatedNavigationHandled()
+                            }
                         }
                     }
                 }
@@ -448,12 +453,34 @@ fun AppNavHost(
                                     testAttemptBackRoute(effect.originType, effect.subjectId),
                                 )
                             }
+                            is TestAttemptEffect.Submitted -> navController.navigate(
+                                AppRoutes.testResult(effect.attemptId),
+                            ) {
+                                popUpTo(entry.destination.id) { inclusive = true }
+                                launchSingleTop = true
+                            }
                         }
                     }
                 }
+                BackHandler(
+                    enabled = state.attempt?.attempt?.status?.isTransient() == true,
+                    onBack = viewModel::showDiscardConfirmation,
+                )
                 TestAttemptScreen(
                     state = state,
                     onRetry = viewModel::retry,
+                    onRetryMutation = viewModel::retryMutation,
+                    onAnswerChanged = viewModel::onAnswerChanged,
+                    onFlag = viewModel::toggleFlag,
+                    onPrevious = viewModel::previousQuestion,
+                    onNext = viewModel::nextQuestion,
+                    onSelectQuestion = viewModel::selectQuestion,
+                    onFlushDraft = viewModel::flushDraft,
+                    onRequestSubmit = viewModel::requestSubmit,
+                    onConfirmSubmit = viewModel::confirmSubmit,
+                    onCancelSubmit = viewModel::cancelSubmitConfirmation,
+                    onConfirmExpiredSubmit = viewModel::confirmExpiredSubmit,
+                    onDiscardAfterExpiry = viewModel::discardAfterExpiry,
                     onClose = viewModel::showDiscardConfirmation,
                     onDiscard = viewModel::discard,
                     onCancelDiscard = {
@@ -469,6 +496,9 @@ fun AppNavHost(
                             ),
                         )
                     },
+                    onViewResult = { navController.navigate(AppRoutes.testResult(attemptId)) },
+                    onAppBackgrounded = viewModel::onAppBackgrounded,
+                    onAppForegrounded = viewModel::onAppForegrounded,
                 )
             }
         }
@@ -488,10 +518,43 @@ fun AppNavHost(
             PlaceholderScreen(title = "Search", onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
         }
         composable(AppRoutes.SETTINGS) {
-            PlaceholderScreen(title = "Settings", onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
+            SettingsScreen(
+                onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
+                onOpenTestDefaults = { navController.navigate(AppRoutes.TEST_DEFAULTS) },
+            )
         }
         composable(AppRoutes.TEST_DEFAULTS) {
-            PlaceholderScreen(title = "Test Defaults", onBack = { navController.navigateBackOrFallback(AppRoutes.SETTINGS) })
+            val viewModel: TestDefaultsViewModel = viewModel(
+                factory = container.viewModelFactory { graph -> graph.testDefaultsViewModel() },
+            )
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            LaunchedEffect(pendingTopLevelDestination, state.isSaving, state.isSaveError) {
+                val destination = pendingTopLevelDestination ?: return@LaunchedEffect
+                if (!state.isSaving && !state.isSaveError) {
+                    onPendingTopLevelDestinationConsumed()
+                    navController.navigateTopLevel(destination)
+                }
+            }
+            val navigateBack = {
+                if (!state.isSaving) {
+                    if (state.isSaveError || pendingTopLevelDestination != null) {
+                        onPendingTopLevelDestinationConsumed()
+                    }
+                    navController.navigateBackOrFallback(AppRoutes.SETTINGS)
+                }
+            }
+            BackHandler(onBack = navigateBack)
+            TestDefaultsScreen(
+                state = state,
+                onBack = navigateBack,
+                onRetry = viewModel::retry,
+                onDecrementCount = viewModel::decrementQuestionCount,
+                onIncrementCount = viewModel::incrementQuestionCount,
+                onSetTimedMode = viewModel::setTimedMode,
+                onDecrementDuration = { state.defaults?.let { viewModel.setDurationMinutes(it.durationMinutes - 1) } },
+                onIncrementDuration = { state.defaults?.let { viewModel.setDurationMinutes(it.durationMinutes + 1) } },
+                onSetSource = viewModel::setQuestionSource,
+            )
         }
         composable(
             route = AppRoutes.CHAPTER,

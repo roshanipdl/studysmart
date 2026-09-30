@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.studysmart.app.core.common.DispatcherProvider
 import com.studysmart.app.core.common.IdGenerator
+import com.studysmart.app.core.model.TestQuestionSource
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,6 +18,7 @@ data class TestAttemptLauncherUiState(
     val isCreating: Boolean = false,
     val attemptId: String? = null,
     val isNoQuestions: Boolean = false,
+    val noQuestionsSource: TestQuestionSource? = null,
     val isMissingScope: Boolean = false,
     val error: String? = null,
 )
@@ -38,7 +41,8 @@ class TestAttemptLauncherViewModel(
     private var request: ChapterTestAttemptRequest? = null
 
     fun start(chapterId: String) {
-        if (_uiState.value.isCreating) return
+        val state = _uiState.value
+        if (state.isCreating || state.attemptId != null || state.isNoQuestions || state.error != null) return
         if (request?.chapterId != chapterId) {
             request = ChapterTestAttemptRequest(
                 chapterId = chapterId,
@@ -54,35 +58,42 @@ class TestAttemptLauncherViewModel(
     }
 
     fun dismissNoQuestions() {
-        _uiState.value = _uiState.value.copy(isNoQuestions = false, error = null)
+        request = null
+        _uiState.value = TestAttemptLauncherUiState()
+    }
+
+    fun onCreatedNavigationHandled() {
+        request = null
+        _uiState.value = TestAttemptLauncherUiState()
     }
 
     private fun create() {
         val currentRequest = request ?: return
         viewModelScope.launch(dispatchers.main) {
             _uiState.value = TestAttemptLauncherUiState(isCreating = true)
-            runCatching { repository.createChapterAttempt(currentRequest) }
-                .onSuccess { result ->
-                    _uiState.value = when (result) {
-                        is TestAttemptCreationResult.Created -> TestAttemptLauncherUiState(
-                            attemptId = result.attemptId,
-                        )
-                        TestAttemptCreationResult.NoQuestions -> TestAttemptLauncherUiState(
-                            isNoQuestions = true,
-                        )
-                        TestAttemptCreationResult.MissingScope -> TestAttemptLauncherUiState(
-                            isMissingScope = true,
-                        )
-                    }
-                    if (result is TestAttemptCreationResult.Created) {
+            try {
+                when (val result = repository.createChapterAttempt(currentRequest)) {
+                    is TestAttemptCreationResult.Created -> {
+                        _uiState.value = TestAttemptLauncherUiState(attemptId = result.attemptId)
                         _effects.tryEmit(TestAttemptLauncherEffect.Created(result.attemptId))
                     }
+                    is TestAttemptCreationResult.NoQuestions -> {
+                        request = null
+                        _uiState.value = TestAttemptLauncherUiState(
+                            isNoQuestions = true,
+                            noQuestionsSource = result.questionSource,
+                        )
+                    }
+                    TestAttemptCreationResult.MissingScope -> {
+                        _uiState.value = TestAttemptLauncherUiState(isMissingScope = true)
+                    }
                 }
-                .onFailure { error ->
-                    _uiState.value = TestAttemptLauncherUiState(
-                        error = error.message ?: "Unable to start the test.",
-                    )
-                }
+            } catch (error: Throwable) {
+                if (error is CancellationException) throw error
+                _uiState.value = TestAttemptLauncherUiState(
+                    error = error.message ?: "Unable to start the test.",
+                )
+            }
         }
     }
 }

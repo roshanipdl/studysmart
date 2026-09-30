@@ -156,6 +156,66 @@ object KeywordSnapshotCodec {
     }
 }
 
+/** Versioned immutable JSON evidence for matched or missing normalized keywords. */
+object KeywordEvidenceCodec {
+    const val CURRENT_VERSION = 1
+
+    fun encode(keywords: List<String>): String {
+        require(keywords.distinct().size == keywords.size) { "keyword evidence contains duplicates" }
+        require(keywords.all { it.isNotBlank() && it == KeywordNormalizer.normalize(it) }) {
+            "keyword evidence must contain normalized non-empty values"
+        }
+        return buildString {
+            append("{\"version\":")
+            append(CURRENT_VERSION)
+            append(",\"keywords\":[")
+            keywords.forEachIndexed { index, keyword ->
+                if (index > 0) append(',')
+                append('"')
+                append(escapeJsonString(keyword))
+                append('"')
+            }
+            append("]}")
+        }
+    }
+
+    fun decode(value: String): List<String> {
+        val root = JsonCursor(value).parseRootObject()
+        require(root.keys == setOf("version", "keywords")) { "invalid keyword evidence fields" }
+        require((root["version"] as? Number)?.toInt() == CURRENT_VERSION) {
+            "unsupported keyword evidence version"
+        }
+        val values = root["keywords"] as? List<*>
+            ?: throw IllegalArgumentException("keyword evidence must be an array")
+        val keywords = values.map { it as? String ?: throw IllegalArgumentException("keyword must be a string") }
+        require(keywords.distinct().size == keywords.size) { "keyword evidence contains duplicates" }
+        require(keywords.all { it.isNotBlank() && it == KeywordNormalizer.normalize(it) }) {
+            "keyword evidence must contain normalized non-empty values"
+        }
+        return keywords
+    }
+}
+
+private fun escapeJsonString(value: String): String = buildString {
+    value.forEach { character ->
+        when (character) {
+            '\\' -> append("\\\\")
+            '"' -> append("\\\"")
+            '\b' -> append("\\b")
+            '\u000C' -> append("\\f")
+            '\n' -> append("\\n")
+            '\r' -> append("\\r")
+            '\t' -> append("\\t")
+            else -> if (character.code < 0x20) {
+                append("\\u")
+                append(character.code.toString(16).padStart(4, '0'))
+            } else {
+                append(character)
+            }
+        }
+    }
+}
+
 private class JsonCursor(
     private val source: String,
 ) {

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.studysmart.app.core.common.DefaultDispatcherProvider
 import com.studysmart.app.core.common.IdGenerator
+import com.studysmart.app.core.common.MonotonicClock
 import com.studysmart.app.core.common.RandomSource
 import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.core.data.StudyPreferences
@@ -113,6 +114,61 @@ class TestAttemptRepositoryTest {
     }
 
     @Test
+    fun chapterImportantSourceUsesOnlyBookmarksOwnedByTheCurrentUser() = runBlocking {
+        database.openHelper.writableDatabase.execSQL(
+            "INSERT INTO users(id, displayName, createdAt, updatedAt) VALUES (?, ?, ?, ?)",
+            arrayOf<Any>("another-user", "Another student", 0L, 0L),
+        )
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity(
+                userId = "local-user",
+                questionId = "question-bca-s1-dbms-direct",
+                isImportant = true,
+                createdAt = Instant.EPOCH,
+            ),
+        )
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity(
+                userId = "local-user",
+                questionId = "question-bca-s1-dbms-topic",
+                isImportant = false,
+                createdAt = Instant.EPOCH,
+            ),
+        )
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity(
+                userId = "another-user",
+                questionId = "question-bca-s1-dbms-topic",
+                isImportant = true,
+                createdAt = Instant.EPOCH,
+            ),
+        )
+        val repository = repository(
+            TestDefaults(questionCount = 30, questionSource = TestQuestionSource.IMPORTANT),
+        )
+
+        val result = repository.createChapterAttempt(
+            ChapterTestAttemptRequest(
+                chapterId = "chapter-bca-s1-dbms-01",
+                creationRequestId = "chapter-important-request",
+            ),
+        ) as TestAttemptCreationResult.Created
+
+        val questionIds = database.testAttemptDao()
+            .observeAttemptQuestions(result.attemptId)
+            .first()
+            .map { it.questionId }
+        assertEquals(listOf("question-bca-s1-dbms-direct"), questionIds)
+
+        val otherUserCandidates = database.testAttemptDao()
+            .getChapterCandidates("another-user", "chapter-bca-s1-dbms-01")
+        assertEquals(
+            listOf("question-bca-s1-dbms-topic"),
+            otherUserCandidates.filter { it.isImportant }.map { it.question.id },
+        )
+    }
+
+    @Test
     fun discardDeletesActiveAttemptChildren() = runBlocking {
         val repository = repository(TestDefaults(questionSource = TestQuestionSource.ALL))
         val created = repository.createChapterAttempt(
@@ -129,6 +185,227 @@ class TestAttemptRepositoryTest {
     }
 
     @Test
+    fun attemptStartsOnceAndDraftUpdatesOnlyItsOwnedAnswer() = runBlocking {
+        val repository = repository(TestDefaults(questionSource = TestQuestionSource.ALL))
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest(
+                chapterId = "chapter-bca-s1-dbms-01",
+                creationRequestId = "start-request",
+            ),
+        ) as TestAttemptCreationResult.Created
+
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        assertEquals(
+            TestAttemptStartResult.AlreadyInProgress,
+            repository.startAttempt(created.attemptId),
+        )
+        val attempt = database.testAttemptDao().getAttempt(created.attemptId)!!
+        assertEquals(TestAttemptStatus.IN_PROGRESS, attempt.status)
+        assertEquals(Instant.parse("2026-01-01T00:00:00Z"), attempt.startedAt)
+        assertEquals(10_000L, attempt.startedAtElapsedRealtimeMillis)
+        assertEquals("test-boot", attempt.startedBootId)
+        assertEquals(null, attempt.deadlineAt)
+
+        val firstQuestion = database.testAttemptDao()
+            .observeAttemptQuestions(created.attemptId)
+            .first()
+            .first()
+        assertEquals(
+            TestAnswerSaveResult.Saved,
+            repository.saveAnswerDraft(
+                created.attemptId,
+                TestAnswerDraft(
+                    attemptQuestionId = firstQuestion.id,
+                    answerText = "draft answer",
+                    isFlagged = true,
+                    accumulatedTimeMillis = 2_400L,
+                ),
+            ),
+        )
+        val saved = database.testAttemptDao().getAnswerForAttemptQuestion(
+            created.attemptId,
+            firstQuestion.id,
+        )!!
+        assertEquals("draft answer", saved.answerText)
+        assertTrue(saved.isFlagged)
+        assertEquals(2_400L, saved.accumulatedTimeMillis)
+        assertEquals(2L, saved.timeSpentSeconds)
+
+        database.testAttemptDao().updateAttempt(
+            attempt.copy(status = TestAttemptStatus.SUBMITTED),
+        )
+        assertEquals(
+            TestAnswerSaveResult.AlreadySubmitted,
+            repository.saveAnswerDraft(
+                created.attemptId,
+                TestAnswerDraft(firstQuestion.id, "must not overwrite", false, 3_000L),
+            ),
+        )
+        assertEquals(
+            "draft answer",
+            database.testAttemptDao().getAnswerForAttemptQuestion(
+                created.attemptId,
+                firstQuestion.id,
+            )?.answerText,
+        )
+    }
+
+    @Test
+    fun submissionPersistsFinalDraftEvidenceAndRepeatedSubmitDoesNotReevaluate() = runBlocking {
+        val monotonic = MutableMonotonicClock(10_000L)
+        val repository = repository(
+            TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL),
+            monotonicClock = monotonic,
+        )
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "submit-request"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val question = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().single()
+        monotonic.now = 13_000L
+
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(question.id, "Database organised collection", true, 3_000L),
+            ),
+        )
+        val submitted = database.testAttemptDao().getAttempt(created.attemptId)!!
+        val answer = database.testAttemptDao().getAnswerForAttemptQuestion(created.attemptId, question.id)!!
+        assertEquals(TestAttemptStatus.SUBMITTED, submitted.status)
+        assertEquals("submitted", submitted.completionReason)
+        assertEquals(3L, submitted.timeTakenSeconds)
+        assertEquals("database organised collection", answer.normalizedAnswer)
+        assertEquals(100.0, answer.keywordMatchPercent!!, 0.0)
+        assertTrue(answer.isFlagged)
+        assertEquals(
+            listOf("database", "organised collection"),
+            com.studysmart.app.core.model.KeywordEvidenceCodec.decode(answer.matchedKeywordsJson!!),
+        )
+        assertEquals(
+            TestSubmissionResult.AlreadySubmitted,
+            repository.submitAttempt(created.attemptId, TestSubmitAction.MANUAL, null),
+        )
+        assertEquals(100.0, database.testAttemptDao().getAttempt(created.attemptId)?.percentage!!, 0.0)
+    }
+
+    @Test
+    fun expiryLocksDraftsAndOnlyExplicitExpiredSubmitScores() = runBlocking {
+        val monotonic = MutableMonotonicClock(10_000L)
+        val repository = repository(
+            TestDefaults(
+                questionCount = 1,
+                timedMode = true,
+                durationMinutes = 1,
+                questionSource = TestQuestionSource.ALL,
+            ),
+            monotonicClock = monotonic,
+        )
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "expiry-request"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val question = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().single()
+        monotonic.now = 70_000L
+
+        assertEquals(
+            TestAnswerSaveResult.Expired,
+            repository.saveAnswerDraft(
+                created.attemptId,
+                TestAnswerDraft(question.id, "pre-expiry draft", false, 60_000L),
+            ),
+        )
+        assertEquals(
+            TestSubmissionResult.Expired,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(question.id, "pre-expiry draft", false, 60_000L),
+            ),
+        )
+        assertEquals(TestAttemptStatus.IN_PROGRESS, database.testAttemptDao().getAttempt(created.attemptId)?.status)
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.EXPIRED_CONFIRMATION,
+                TestAnswerDraft(question.id, "pre-expiry draft", false, 60_000L),
+            ),
+        )
+        val completed = database.testAttemptDao().getAttempt(created.attemptId)!!
+        assertEquals("time_expired", completed.completionReason)
+        assertEquals(60L, completed.timeTakenSeconds)
+    }
+
+    @Test
+    fun resetMonotonicAnchorFailsClosedAsExplicitExpiry() = runBlocking {
+        val monotonic = MutableMonotonicClock(10_000L)
+        val repository = repository(
+            TestDefaults(
+                questionCount = 1,
+                timedMode = true,
+                durationMinutes = 1,
+                questionSource = TestQuestionSource.ALL,
+            ),
+            monotonicClock = monotonic,
+        )
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "reboot-request"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val question = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().single()
+        monotonic.now = 30_000L
+        monotonic.boot = "new-boot"
+
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.EXPIRED_CONFIRMATION,
+                TestAnswerDraft(question.id, "frozen draft", false, 0L),
+            ),
+        )
+        val completed = database.testAttemptDao().getAttempt(created.attemptId)!!
+        assertEquals("time_expired", completed.completionReason)
+        assertEquals(60L, completed.timeTakenSeconds)
+    }
+
+    @Test
+    fun evaluatorFailureRollsBackSubmissionClaimAndEvidence() = runBlocking {
+        val base = repository(TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL))
+        val created = base.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "rollback-submit"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, base.startAttempt(created.attemptId))
+        val question = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().single()
+        val failingRepository = repository(
+            TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL),
+            answerEvaluator = object : AnswerEvaluator {
+                override val version = "test-failure"
+                override fun evaluate(
+                    questions: List<com.studysmart.app.core.database.TestAttemptQuestionEntity>,
+                    answers: List<com.studysmart.app.core.database.TestAnswerEntity>,
+                ): TestEvaluation = error("evaluator failure")
+            },
+        )
+
+        org.junit.Assert.assertThrows(IllegalStateException::class.java) {
+            kotlinx.coroutines.runBlocking {
+                failingRepository.submitAttempt(
+                    created.attemptId,
+                    TestSubmitAction.MANUAL,
+                    TestAnswerDraft(question.id, "draft", false, 1_000L),
+                )
+            }
+        }
+        val unchanged = database.testAttemptDao().getAttempt(created.attemptId)!!
+        assertEquals(TestAttemptStatus.IN_PROGRESS, unchanged.status)
+        assertEquals(null, database.testAttemptDao().getAnswerForAttemptQuestion(created.attemptId, question.id)?.normalizedAnswer)
+    }
+
+    @Test
     fun emptySourcePoolCreatesNoAttempt() = runBlocking {
         val repository = repository(TestDefaults(questionSource = TestQuestionSource.WEAK))
 
@@ -139,7 +416,7 @@ class TestAttemptRepositoryTest {
             ),
         )
 
-        assertEquals(TestAttemptCreationResult.NoQuestions, result)
+        assertEquals(TestAttemptCreationResult.NoQuestions(TestQuestionSource.WEAK), result)
         assertEquals(
             0,
             database.openHelper.writableDatabase.query("SELECT COUNT(*) FROM test_attempts").use {
@@ -208,14 +485,30 @@ class TestAttemptRepositoryTest {
         assertNotNull(database.testAttemptDao().getAttempt(submitted.attemptId))
     }
 
-    private fun repository(defaults: TestDefaults): RoomTestAttemptRepository = RoomTestAttemptRepository(
+    private fun repository(
+        defaults: TestDefaults,
+        monotonicClock: MonotonicClock = FixedMonotonicClock,
+        answerEvaluator: AnswerEvaluator = KeywordAnswerEvaluator(),
+    ): RoomTestAttemptRepository = RoomTestAttemptRepository(
         database = database,
         preferencesRepository = FixedPreferencesRepository(defaults),
         clock = Clock.fixed(Instant.parse("2026-01-01T00:00:00Z"), ZoneOffset.UTC),
         randomSource = FixedRandomSource,
         idGenerator = FixedIdGenerator(),
         dispatchers = DefaultDispatcherProvider,
+        monotonicClock = monotonicClock,
+        answerEvaluator = answerEvaluator,
     )
+}
+
+private object FixedMonotonicClock : MonotonicClock {
+    override fun elapsedRealtimeMillis(): Long = 10_000L
+    override fun bootId(): String = "test-boot"
+}
+
+private class MutableMonotonicClock(var now: Long, var boot: String = "test-boot") : MonotonicClock {
+    override fun elapsedRealtimeMillis(): Long = now
+    override fun bootId(): String = boot
 }
 
 private object FixedRandomSource : RandomSource {

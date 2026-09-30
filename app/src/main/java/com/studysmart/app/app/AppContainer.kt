@@ -8,6 +8,8 @@ import com.studysmart.app.core.common.DefaultIdGenerator
 import com.studysmart.app.core.common.DefaultRandomSource
 import com.studysmart.app.core.common.DispatcherProvider
 import com.studysmart.app.core.common.IdGenerator
+import com.studysmart.app.core.common.AndroidMonotonicClock
+import com.studysmart.app.core.common.MonotonicClock
 import com.studysmart.app.core.common.RandomSource
 import com.studysmart.app.core.database.StudySmartDatabase
 import com.studysmart.app.core.data.CurriculumRepository
@@ -35,6 +37,9 @@ import com.studysmart.app.feature.test.RoomTestAttemptRepository
 import com.studysmart.app.feature.test.TestAttemptRepository
 import com.studysmart.app.feature.test.TestAttemptLauncherViewModel
 import com.studysmart.app.feature.test.TestAttemptViewModel
+import com.studysmart.app.feature.test.TestDefaultsViewModel
+import com.studysmart.app.feature.test.AnswerEvaluator
+import com.studysmart.app.feature.test.KeywordAnswerEvaluator
 import java.time.Clock
 
 /** The manual dependency graph for the local application. */
@@ -43,6 +48,8 @@ class AppContainer(
     val database: StudySmartDatabase = StudySmartDatabase.create(context.applicationContext),
     val dispatchers: DispatcherProvider = DefaultDispatcherProvider,
     val clock: Clock = Clock.systemUTC(),
+    val monotonicClock: MonotonicClock = AndroidMonotonicClock,
+    val answerEvaluator: AnswerEvaluator = KeywordAnswerEvaluator(),
     val randomSource: RandomSource = DefaultRandomSource(),
     val idGenerator: IdGenerator = DefaultIdGenerator(),
     val preferences: PreferencesRepository = DataStorePreferencesRepository(context),
@@ -64,6 +71,8 @@ class AppContainer(
         randomSource = randomSource,
         idGenerator = idGenerator,
         dispatchers = dispatchers,
+        monotonicClock = monotonicClock,
+        answerEvaluator = answerEvaluator,
     ),
     val startupCleanupCoordinator: StartupCleanupCoordinator = RoomStartupCleanupCoordinator(
         database = database,
@@ -153,6 +162,13 @@ class AppContainer(
     fun testAttemptViewModel(attemptId: String): TestAttemptViewModel = TestAttemptViewModel(
         attemptId = attemptId,
         repository = testAttemptRepository,
+        dispatchers = dispatchers,
+        clock = clock,
+        monotonicClock = monotonicClock,
+    )
+
+    fun testDefaultsViewModel(): TestDefaultsViewModel = TestDefaultsViewModel(
+        preferencesRepository = preferences,
         dispatchers = dispatchers,
     )
 
