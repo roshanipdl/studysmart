@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -44,6 +45,7 @@ class ReadinessRepositoryTest {
             dao = dao,
             clock = clock,
             clockRefreshMillis = 1_000L,
+            calculationDispatcher = StandardTestDispatcher(testScheduler),
         )
         val estimates = mutableListOf<ReadinessEstimate?>()
         val job = backgroundScope.launch {

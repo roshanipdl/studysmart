@@ -53,6 +53,56 @@ class ReadinessRepositoryTest {
     }
 
     @Test
+    fun submittedAnswerQueryReturnsOnlyFiveLatestEligibleAttemptsPerScope() = runBlocking {
+        val attemptRepository = RoomTestAttemptRepository(
+            database = database,
+            preferencesRepository = FixedPreferencesRepository(TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)),
+            clock = Clock.fixed(now, ZoneOffset.UTC),
+            randomSource = FixedRandomSource,
+            idGenerator = FixedIdGenerator(),
+            dispatchers = DefaultDispatcherProvider,
+            monotonicClock = FixedMonotonicClock,
+            answerEvaluator = KeywordAnswerEvaluator(),
+        )
+        val chapterAttempts = mutableListOf<String>()
+        repeat(8) { index ->
+            val created = attemptRepository.createChapterAttempt(
+                ChapterTestAttemptRequest(chapterId = "chapter-bca-s1-dbms-01", creationRequestId = "bounded-$index"),
+            ) as TestAttemptCreationResult.Created
+            chapterAttempts += created.attemptId
+            attemptRepository.startAttempt(created.attemptId)
+            assertEquals(TestSubmissionResult.Submitted, attemptRepository.submitAttempt(created.attemptId, TestSubmitAction.MANUAL, null))
+        }
+        // All timestamps tie: selection must use attempt ID descending, just like the calculator.
+        val expected = chapterAttempts.sortedDescending().take(5)
+        val rows = database.readinessDao().observeSubmittedAnswers(
+            "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-dbms-01",
+        ).first()
+        assertEquals(expected, rows.map { it.attemptId }.distinct())
+        assertEquals(10, rows.size)
+        assertTrue(rows.groupBy { it.attemptId }.values.all { it.size == 2 })
+        repeat(6) { index ->
+            val created = attemptRepository.createChapterAttempt(
+                ChapterTestAttemptRequest(chapterId = "chapter-bca-s1-web-01", creationRequestId = "outside-$index"),
+            ) as TestAttemptCreationResult.Created
+            attemptRepository.startAttempt(created.attemptId)
+            assertEquals(TestSubmissionResult.Submitted, attemptRepository.submitAttempt(created.attemptId, TestSubmitAction.MANUAL, null))
+            database.openHelper.writableDatabase.execSQL(
+                "UPDATE test_attempts SET submittedAt = ? WHERE id = ?",
+                arrayOf<Any>(now.plusSeconds(60).toEpochMilli(), created.attemptId),
+            )
+        }
+        val stillScoped = database.readinessDao().observeSubmittedAnswers(
+            "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-dbms-01",
+        ).first()
+        assertEquals(expected, stillScoped.map { it.attemptId }.distinct())
+        val outside = database.readinessDao().observeSubmittedAnswers(
+            "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-web-01",
+        ).first()
+        assertEquals(5, outside.size)
+    }
+
+    @Test
     fun readinessQueryCountsActiveScopeQuestionsAndObservesSubmittedTestOverlay() = runBlocking {
         val scope = ReadinessScope(
             courseId = "course-bca",

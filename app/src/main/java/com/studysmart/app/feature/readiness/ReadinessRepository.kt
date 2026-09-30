@@ -4,10 +4,13 @@ import com.studysmart.app.core.database.ReadinessDao
 import com.studysmart.app.core.database.ReadinessQuestionRow
 import com.studysmart.app.core.database.ReadinessTestAnswerRow
 import java.time.Clock
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 data class ReadinessScope(
     val courseId: String,
@@ -35,6 +38,7 @@ class RoomReadinessRepository(
     private val calculator: ReadinessCalculator = ReadinessCalculator(),
     private val userId: String = LOCAL_USER_ID,
     private val clockRefreshMillis: Long = DEFAULT_CLOCK_REFRESH_MILLIS,
+    private val calculationDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ReadinessRepository {
     init {
         require(clockRefreshMillis > 0L) { "clockRefreshMillis must be positive" }
@@ -69,7 +73,7 @@ class RoomReadinessRepository(
                 testAnswers = answers.map { it.toInput() },
                 now = now,
             )
-        }
+        }.flowOn(calculationDispatcher)
     }
 
     private fun ReadinessQuestionRow.toInput() = ReadinessQuestionInput(

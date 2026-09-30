@@ -87,11 +87,13 @@ interface ReadinessDao {
 
     @Query(
         """
+        WITH scoped_answers AS (
         SELECT a.id AS attempt_id,
                aq.questionId AS question_id,
                a.submittedAt AS submitted_at,
                answer.score AS score,
-               aq.maxScoreSnapshot AS max_score
+               aq.maxScoreSnapshot AS max_score,
+               aq.displayOrder AS display_order
         FROM test_attempts a
         JOIN test_attempt_questions aq ON aq.testAttemptId = a.id
         JOIN test_answers answer ON answer.testAttemptQuestionId = aq.id
@@ -114,7 +116,16 @@ interface ReadinessDao {
           AND p.isActive = 1
           AND c.isActive = 1
           AND (q.topicId IS NULL OR (t.id IS NOT NULL AND t.chapterId = ch.id AND t.isActive = 1))
-        ORDER BY a.submittedAt DESC, a.id DESC, aq.displayOrder
+        )
+        SELECT attempt_id, question_id, submitted_at, score, max_score
+        FROM scoped_answers
+        WHERE attempt_id IN (
+            SELECT attempt_id FROM scoped_answers
+            GROUP BY attempt_id
+            ORDER BY MAX(submitted_at) DESC, attempt_id DESC
+            LIMIT 5
+        )
+        ORDER BY submitted_at DESC, attempt_id DESC, display_order
         """,
     )
     fun observeSubmittedAnswers(
