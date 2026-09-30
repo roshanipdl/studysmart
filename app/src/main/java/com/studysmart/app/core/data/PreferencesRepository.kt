@@ -44,6 +44,11 @@ interface PreferencesRepository {
 
     suspend fun clearSelectedPeriod()
 
+    /** Compare and clear atomically so stale validation cannot erase a newer selection. */
+    suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?): Boolean
+
+    suspend fun clearSelectedPeriodIfUnchanged(courseId: String, academicPeriodId: String): Boolean
+
     suspend fun clearSelectedContext()
 
     suspend fun updateTestDefaults(defaults: TestDefaults) = Unit
@@ -108,6 +113,39 @@ class DataStorePreferencesRepository(
 
     override suspend fun clearSelectedPeriod() {
         dataStore.edit { values -> values.remove(SELECTED_ACADEMIC_PERIOD_ID) }
+    }
+
+    override suspend fun clearSelectedCourseIfUnchanged(
+        courseId: String,
+        academicPeriodId: String?,
+    ): Boolean {
+        var cleared = false
+        dataStore.edit { values ->
+            if (values[SELECTED_COURSE_ID] == courseId &&
+                values[SELECTED_ACADEMIC_PERIOD_ID] == academicPeriodId
+            ) {
+                values.remove(SELECTED_COURSE_ID)
+                values.remove(SELECTED_ACADEMIC_PERIOD_ID)
+                cleared = true
+            }
+        }
+        return cleared
+    }
+
+    override suspend fun clearSelectedPeriodIfUnchanged(
+        courseId: String,
+        academicPeriodId: String,
+    ): Boolean {
+        var cleared = false
+        dataStore.edit { values ->
+            if (values[SELECTED_COURSE_ID] == courseId &&
+                values[SELECTED_ACADEMIC_PERIOD_ID] == academicPeriodId
+            ) {
+                values.remove(SELECTED_ACADEMIC_PERIOD_ID)
+                cleared = true
+            }
+        }
+        return cleared
     }
 
     override suspend fun clearSelectedContext() {

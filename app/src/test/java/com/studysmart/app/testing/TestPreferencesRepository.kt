@@ -58,6 +58,18 @@ class TestPreferencesRepository(
         clearSelectedCourse()
     }
 
+    override suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?): Boolean {
+        if (state.value.selectedCourseId != courseId || state.value.selectedAcademicPeriodId != academicPeriodId) return false
+        clearSelectedCourse()
+        return true
+    }
+
+    override suspend fun clearSelectedPeriodIfUnchanged(courseId: String, academicPeriodId: String): Boolean {
+        if (state.value.selectedCourseId != courseId || state.value.selectedAcademicPeriodId != academicPeriodId) return false
+        clearSelectedPeriod()
+        return true
+    }
+
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
     }

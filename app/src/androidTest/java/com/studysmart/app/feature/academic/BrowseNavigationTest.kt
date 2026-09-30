@@ -3,6 +3,7 @@ package com.studysmart.app.feature.academic
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
@@ -21,12 +22,14 @@ import com.studysmart.app.core.model.TestDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import com.studysmart.app.core.navigation.AppRoutes
 import com.studysmart.app.testing.awaitNodeWithTag
+import com.studysmart.app.testing.assertNoNodeWithTag
 import com.studysmart.app.testing.awaitNodeWithText
 import com.studysmart.app.testing.createInMemoryStudySmartDatabase
 import com.studysmart.app.testing.setStudySmartContent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.CompletableDeferred
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -78,6 +81,86 @@ class BrowseNavigationTest {
         composeRule.onNodeWithTag("subject_subject-year1-foundations").performClick()
         composeRule.awaitNodeWithTag("chapters_screen")
         composeRule.onNodeWithTag("chapter_chapter-year1-foundations-01").assertIsDisplayed()
+    }
+
+    @Test
+    fun homeWaitsForCoursePersistenceBeforeOpeningPeriods() {
+        val backing = InMemoryPreferencesRepository()
+        val release = CompletableDeferred<Unit>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun selectCourse(courseId: String) {
+                release.await()
+                backing.selectCourse(courseId)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences))
+        composeRule.awaitNodeWithTag("course_course-bca")
+        composeRule.onNodeWithTag("course_course-bca").performClick()
+        composeRule.awaitNodeWithTag("home_selection_saving")
+        composeRule.onNodeWithTag("course_course-bca").assertHasNoClickAction()
+        composeRule.onNodeWithTag("course_course-yearly-example").assertHasNoClickAction()
+        composeRule.assertNoNodeWithTag("academic_period_screen")
+        assertEquals(null, backing.current.selectedCourseId)
+        release.complete(Unit)
+        composeRule.awaitNodeWithTag("period_period-bca-semester-1")
+        assertEquals("course-bca", backing.current.selectedCourseId)
+        composeRule.onNodeWithTag("period_period-bca-semester-1").performClick()
+        composeRule.awaitNodeWithTag("subjects_screen")
+        assertEquals(SelectedAcademicContext("course-bca", "period-bca-semester-1"), backing.current.selectedContext)
+    }
+
+    @Test
+    fun coursesSelectionFailureKeepsCardsAndRetriesBeforeNavigation() {
+        val backing = InMemoryPreferencesRepository()
+        val writes = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun selectCourse(courseId: String) {
+                writes += courseId
+                if (writes.size == 1) error("injected course save failure")
+                backing.selectCourse(courseId)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.COURSES)
+        composeRule.awaitNodeWithTag("course_course-bca")
+        composeRule.onNodeWithTag("course_course-bca").performClick()
+        composeRule.awaitNodeWithTag("courses_selection_error")
+        composeRule.onNodeWithTag("course_course-bca").assertHasNoClickAction()
+        composeRule.assertNoNodeWithTag("academic_period_screen")
+        assertEquals(null, backing.current.selectedCourseId)
+        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("period_period-bca-semester-1")
+        assertEquals(listOf("course-bca", "course-bca"), writes.toList())
+        assertEquals("course-bca", backing.current.selectedCourseId)
+    }
+
+    @Test
+    fun periodSelectionFailureAndPendingRetryDoNotAdvanceOrAcceptMoreTaps() {
+        val backing = InMemoryPreferencesRepository()
+        val release = CompletableDeferred<Unit>()
+        val writes = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun setSelectedContext(courseId: String, academicPeriodId: String) {
+                writes += academicPeriodId
+                if (writes.size == 1) error("injected period save failure")
+                release.await()
+                backing.setSelectedContext(courseId, academicPeriodId)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.academicPeriod("course-bca"))
+        composeRule.awaitNodeWithTag("period_period-bca-semester-1")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").performClick()
+        composeRule.awaitNodeWithTag("academic_period_selection_error")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").assertHasNoClickAction()
+        composeRule.assertNoNodeWithTag("subjects_screen")
+        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("academic_period_selection_saving")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").assertHasNoClickAction()
+        composeRule.assertNoNodeWithTag("subjects_screen")
+        assertEquals(null, backing.current.selectedContext)
+        release.complete(Unit)
+        composeRule.awaitNodeWithTag("subjects_screen")
+        assertEquals(listOf("period-bca-semester-1", "period-bca-semester-1"), writes.toList())
+        assertEquals(SelectedAcademicContext("course-bca", "period-bca-semester-1"), backing.current.selectedContext)
     }
 
     @Test
@@ -273,7 +356,7 @@ class BrowseNavigationTest {
     }
 
     private fun container(
-        preferences: InMemoryPreferencesRepository = InMemoryPreferencesRepository(),
+        preferences: PreferencesRepository = InMemoryPreferencesRepository(),
     ): AppContainer {
         database = createInMemoryStudySmartDatabase(
             ApplicationProvider.getApplicationContext(),
@@ -344,5 +427,17 @@ private class InMemoryPreferencesRepository(
 
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
+    }
+
+    override suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?): Boolean {
+        if (state.value.selectedCourseId != courseId || state.value.selectedAcademicPeriodId != academicPeriodId) return false
+        clearSelectedCourse()
+        return true
+    }
+
+    override suspend fun clearSelectedPeriodIfUnchanged(courseId: String, academicPeriodId: String): Boolean {
+        if (state.value.selectedCourseId != courseId || state.value.selectedAcademicPeriodId != academicPeriodId) return false
+        clearSelectedPeriod()
+        return true
     }
 }

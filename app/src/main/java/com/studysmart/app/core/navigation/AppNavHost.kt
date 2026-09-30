@@ -78,11 +78,13 @@ fun AppNavHost(
             HomeScreen(
                 uiState = state,
                 onRetry = homeViewModel::retry,
+                onRetrySelection = homeViewModel::retrySelection,
                 onSearch = { navController.navigate(AppRoutes.SEARCH) },
                 onSettings = { navController.navigate(AppRoutes.SETTINGS) },
                 onCourseSelected = { courseId ->
-                    homeViewModel.selectCourse(courseId)
-                    navController.navigateAcademicPeriod(courseId, AppRoutes.HOME)
+                    homeViewModel.selectCourse(courseId) {
+                        navController.navigateAcademicPeriod(courseId, AppRoutes.HOME)
+                    }
                 },
             )
         }
@@ -94,9 +96,11 @@ fun AppNavHost(
             CoursesScreen(
                 uiState = state,
                 onRetry = coursesViewModel::retry,
+                onRetrySelection = coursesViewModel::retrySelection,
                 onCourseSelected = { courseId ->
-                    coursesViewModel.selectCourse(courseId)
-                    navController.navigateAcademicPeriod(courseId, AppRoutes.COURSES)
+                    coursesViewModel.selectCourse(courseId) {
+                        navController.navigateAcademicPeriod(courseId, AppRoutes.COURSES)
+                    }
                 },
             )
         }
@@ -146,6 +150,7 @@ fun AppNavHost(
                 AcademicPeriodScreen(
                     uiState = state,
                     onRetry = academicPeriodViewModel::retry,
+                    onRetrySelection = academicPeriodViewModel::retrySelection,
                     onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
                     onPeriodSelected = { periodId ->
                         academicPeriodViewModel.selectPeriod(periodId) {

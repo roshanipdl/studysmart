@@ -30,6 +30,7 @@ fun HomeScreen(
     onSettings: () -> Unit,
     onCourseSelected: (String) -> Unit = {},
     contentPadding: PaddingValues = PaddingValues(20.dp),
+    onRetrySelection: () -> Unit = onRetry,
 ) {
     Scaffold(
         containerColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
@@ -52,6 +53,16 @@ fun HomeScreen(
                 .testTag("home_screen"),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            if (uiState.isSelecting) {
+                LoadingState(message = "Saving course", modifier = Modifier.testTag("home_selection_saving"))
+            }
+            if (uiState.selectionError != null) {
+                ErrorState(
+                    message = uiState.selectionError,
+                    onRetry = onRetrySelection,
+                    modifier = Modifier.testTag("home_selection_error"),
+                )
+            }
             when {
                 uiState.isLoading -> LoadingState(
                     modifier = Modifier.testTag("home_loading"),
@@ -81,6 +92,7 @@ fun HomeScreen(
                             meta = "${course.periodCount} academic periods",
                             selected = course.id == uiState.selectedCourseId,
                             onClick = { onCourseSelected(course.id) },
+                            enabled = !uiState.isSelecting && uiState.selectionError == null,
                             modifier = Modifier.testTag("course_${course.id}"),
                         )
                     }

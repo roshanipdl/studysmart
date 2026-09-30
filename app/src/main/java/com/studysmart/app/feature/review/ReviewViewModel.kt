@@ -159,7 +159,7 @@ class ReviewViewModel(
 
                     if (courses.none { it.id == courseId }) {
                         try {
-                            preferencesRepository.clearSelectedCourse()
+                            preferencesRepository.clearSelectedCourseIfUnchanged(courseId, academicPeriodId)
                             _uiState.value = ReviewUiState(
                                 isLoading = false,
                                 isContextRequired = true,
@@ -175,7 +175,7 @@ class ReviewViewModel(
                         if (curriculumRepository.isValidPeriod(courseId, academicPeriodId)) {
                             observeDueReview(courseId, academicPeriodId)
                         } else {
-                            preferencesRepository.clearSelectedPeriod()
+                            preferencesRepository.clearSelectedPeriodIfUnchanged(courseId, academicPeriodId)
                             _uiState.value = ReviewUiState(
                                 isLoading = false,
                                 isContextRequired = true,

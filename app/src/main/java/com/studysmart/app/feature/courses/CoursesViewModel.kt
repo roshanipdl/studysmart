@@ -7,12 +7,15 @@ import com.studysmart.app.core.data.CurriculumRepository
 import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.feature.home.HomeCourseUiModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class CoursesUiState(
     val isLoading: Boolean = true,
@@ -20,6 +23,8 @@ data class CoursesUiState(
     val selectedCourseId: String? = null,
     val selectedAcademicPeriodId: String? = null,
     val error: String? = null,
+    val isSelecting: Boolean = false,
+    val selectionError: String? = null,
 )
 
 class CoursesViewModel(
@@ -31,19 +36,46 @@ class CoursesViewModel(
     val uiState: StateFlow<CoursesUiState> = _uiState.asStateFlow()
 
     private var observeJob: Job? = null
+    private var pendingSelection: Pair<String, () -> Unit>? = null
 
     init {
         observe()
     }
 
     fun retry() {
-        _uiState.value = CoursesUiState()
+        if (_uiState.value.isSelecting) return
+        _uiState.value = _uiState.value.copy(isLoading = true, error = null)
         observe()
     }
 
-    fun selectCourse(courseId: String) {
-        viewModelScope.launch(dispatchers.io) {
-            preferencesRepository.selectCourse(courseId)
+    fun retrySelection() {
+        if (_uiState.value.isSelecting) return
+        pendingSelection?.let { (courseId, onSelected) -> persistSelection(courseId, onSelected) }
+    }
+
+    fun selectCourse(courseId: String, onSelected: () -> Unit = {}) {
+        val state = _uiState.value
+        if (state.isLoading || state.isSelecting || state.selectionError != null ||
+            state.courses.none { it.id == courseId }
+        ) return
+        pendingSelection = courseId to onSelected
+        persistSelection(courseId, onSelected)
+    }
+
+    private fun persistSelection(courseId: String, onSelected: () -> Unit) {
+        _uiState.value = _uiState.value.copy(isSelecting = true, selectionError = null)
+        viewModelScope.launch(dispatchers.main) {
+            try {
+                withContext(dispatchers.io) { preferencesRepository.selectCourse(courseId) }
+            } catch (error: Throwable) {
+                if (error is CancellationException) throw error
+                _uiState.value = _uiState.value.copy(selectionError = "Unable to save your course. Retry.")
+                return@launch
+            } finally {
+                _uiState.value = _uiState.value.copy(isSelecting = false)
+            }
+            pendingSelection = null
+            onSelected()
         }
     }
 
@@ -71,31 +103,35 @@ class CoursesViewModel(
                 )
             }
                 .catch { error ->
-                    _uiState.value = CoursesUiState(
+                    _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         error = error.message ?: "Unable to load courses.",
                     )
                 }
-                .collect { state ->
-                    _uiState.value = state
-                    validateSelectedContext(state)
+                .collectLatest { state ->
+                    _uiState.value = state.copy(
+                        isSelecting = _uiState.value.isSelecting,
+                        selectionError = _uiState.value.selectionError,
+                    )
+                    try {
+                        withContext(dispatchers.io) { validateSelectedContext(state) }
+                    } catch (error: Throwable) {
+                        if (error is CancellationException) throw error
+                        _uiState.value = _uiState.value.copy(error = "Unable to verify your study context. Retry.")
+                    }
                 }
         }
     }
 
-    private fun validateSelectedContext(state: CoursesUiState) {
+    private suspend fun validateSelectedContext(state: CoursesUiState) {
         val courseId = state.selectedCourseId ?: return
         if (state.courses.none { it.id == courseId }) {
-            viewModelScope.launch(dispatchers.io) {
-                preferencesRepository.clearSelectedCourse()
-            }
+            preferencesRepository.clearSelectedCourseIfUnchanged(courseId, state.selectedAcademicPeriodId)
             return
         }
         val periodId = state.selectedAcademicPeriodId ?: return
-        viewModelScope.launch(dispatchers.io) {
-            if (!curriculumRepository.isValidPeriod(courseId, periodId)) {
-                preferencesRepository.clearSelectedPeriod()
-            }
+        if (!curriculumRepository.isValidPeriod(courseId, periodId)) {
+            preferencesRepository.clearSelectedPeriodIfUnchanged(courseId, periodId)
         }
     }
 }

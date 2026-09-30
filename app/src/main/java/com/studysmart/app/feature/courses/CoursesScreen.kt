@@ -28,6 +28,7 @@ fun CoursesScreen(
     onRetry: () -> Unit,
     onCourseSelected: (String) -> Unit,
     contentPadding: PaddingValues = PaddingValues(20.dp),
+    onRetrySelection: () -> Unit = onRetry,
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -48,6 +49,16 @@ fun CoursesScreen(
                 .testTag("courses_screen"),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            if (uiState.isSelecting) {
+                LoadingState(message = "Saving course", modifier = Modifier.testTag("courses_selection_saving"))
+            }
+            if (uiState.selectionError != null) {
+                ErrorState(
+                    message = uiState.selectionError,
+                    onRetry = onRetrySelection,
+                    modifier = Modifier.testTag("courses_selection_error"),
+                )
+            }
             when {
                 uiState.isLoading -> LoadingState(modifier = Modifier.testTag("courses_loading"))
                 uiState.error != null -> ErrorState(
@@ -72,6 +83,7 @@ fun CoursesScreen(
                             meta = "${course.periodCount} academic periods",
                             selected = course.id == uiState.selectedCourseId,
                             onClick = { onCourseSelected(course.id) },
+                            enabled = !uiState.isSelecting && uiState.selectionError == null,
                             variant = CourseCardVariant.FULL_WIDTH,
                             modifier = Modifier.testTag("course_${course.id}"),
                         )

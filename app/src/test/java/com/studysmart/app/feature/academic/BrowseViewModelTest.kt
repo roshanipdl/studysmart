@@ -20,11 +20,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class BrowseViewModelTest {
     private val course = CourseBrowseModel(
         id = "course-1",
@@ -59,12 +63,13 @@ class BrowseViewModelTest {
             ),
         )
         val preferences: PreferencesRepository = TestPreferencesRepository()
-        val dispatchers = TestDispatcherProvider()
+        val dispatchers = TestDispatcherProvider(StandardTestDispatcher(testScheduler))
 
         val courses = CoursesViewModel(repository, preferences, dispatchers)
         val academic = AcademicPeriodViewModel("course-1", repository, preferences, dispatchers)
         val subjects = SubjectsViewModel("period-1", repository, dispatchers)
         val chapters = ChaptersViewModel("subject-1", repository, dispatchers)
+        runCurrent()
 
         assertFalse(courses.uiState.value.isLoading)
         assertEquals(1, courses.uiState.value.courses.size)
@@ -81,8 +86,9 @@ class BrowseViewModelTest {
             courseId = "deleted-course",
             curriculumRepository = repository,
             preferencesRepository = TestPreferencesRepository(),
-            dispatchers = TestDispatcherProvider(),
+            dispatchers = TestDispatcherProvider(StandardTestDispatcher(testScheduler)),
         )
+        runCurrent()
 
         assertFalse(viewModel.uiState.value.isLoading)
         assertTrue(viewModel.uiState.value.isMissingContent)
@@ -96,11 +102,13 @@ class BrowseViewModelTest {
             courseId = "course-1",
             curriculumRepository = FakeBrowseRepository(),
             preferencesRepository = preferences,
-            dispatchers = TestDispatcherProvider(),
+            dispatchers = TestDispatcherProvider(StandardTestDispatcher(testScheduler)),
         )
+        runCurrent()
         var navigated = false
 
         viewModel.selectPeriod("deleted-period") { navigated = true }
+        runCurrent()
 
         assertFalse(navigated)
         assertTrue(viewModel.uiState.value.isMissingContent)
@@ -108,11 +116,12 @@ class BrowseViewModelTest {
     }
 }
 
-private class FakeBrowseRepository(
+internal class FakeBrowseRepository(
     private val courses: List<CourseBrowseModel> = emptyList(),
     private val coursePeriods: CoursePeriodsBrowseModel? = null,
     private val periodSubjects: PeriodSubjectsBrowseModel? = null,
     private val subjectChapters: SubjectChaptersBrowseModel? = null,
+    private val validatePeriod: (suspend (String, String) -> Boolean)? = null,
 ) : CurriculumRepository {
     override fun observeCourses(): Flow<List<CourseBrowseModel>> = flowOf(courses)
 
@@ -135,5 +144,6 @@ private class FakeBrowseRepository(
         emptyList()
 
     override suspend fun isValidPeriod(courseId: String, academicPeriodId: String): Boolean =
-        coursePeriods?.course?.id == courseId && coursePeriods.periods.any { it.id == academicPeriodId }
+        validatePeriod?.invoke(courseId, academicPeriodId)
+            ?: (coursePeriods?.course?.id == courseId && coursePeriods.periods.any { it.id == academicPeriodId })
 }

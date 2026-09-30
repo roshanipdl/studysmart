@@ -4,11 +4,15 @@ import com.studysmart.app.testing.TestDispatcherProvider
 import com.studysmart.app.testing.TestHomeRepository
 import com.studysmart.app.testing.TestPreferencesRepository
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
     @Test
     fun homeEmitsConfiguredCoursesAndSelectedContext() = runTest {
@@ -25,8 +29,9 @@ class HomeViewModelTest {
                 ),
             ),
             preferencesRepository = TestPreferencesRepository(),
-            dispatchers = TestDispatcherProvider(),
+            dispatchers = TestDispatcherProvider(StandardTestDispatcher(testScheduler)),
         )
+        runCurrent()
 
         assertFalse(viewModel.uiState.value.isLoading)
         assertEquals(1, viewModel.uiState.value.courses.size)
@@ -39,8 +44,9 @@ class HomeViewModelTest {
         val viewModel = HomeViewModel(
             homeRepository = TestHomeRepository(failure = IllegalStateException("load failed")),
             preferencesRepository = TestPreferencesRepository(),
-            dispatchers = TestDispatcherProvider(),
+            dispatchers = TestDispatcherProvider(StandardTestDispatcher(testScheduler)),
         )
+        runCurrent()
 
         assertFalse(viewModel.uiState.value.isLoading)
         assertNotNull(viewModel.uiState.value.error)

@@ -314,14 +314,9 @@ fun AcademicPeriodCard(
     period: AcademicPeriodBrowseModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
-    Card(
-        onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 56.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-    ) {
+    val content: @Composable () -> Unit = {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -344,6 +339,13 @@ fun AcademicPeriodCard(
             }
             Text("›", style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
+    }
+    val cardModifier = modifier.fillMaxWidth().heightIn(min = 56.dp)
+    val colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+    if (enabled) {
+        Card(onClick = onClick, modifier = cardModifier, colors = colors) { content() }
+    } else {
+        Card(modifier = cardModifier, colors = colors) { content() }
     }
 }
 

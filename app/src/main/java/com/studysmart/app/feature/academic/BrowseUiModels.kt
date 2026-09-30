@@ -9,6 +9,8 @@ data class AcademicPeriodUiState(
     val content: CoursePeriodsBrowseModel? = null,
     val isMissingContent: Boolean = false,
     val error: String? = null,
+    val isSelecting: Boolean = false,
+    val selectionError: String? = null,
 )
 
 data class SubjectsUiState(

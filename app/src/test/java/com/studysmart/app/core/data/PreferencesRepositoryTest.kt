@@ -14,6 +14,8 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -167,5 +169,55 @@ class PreferencesRepositoryTest {
             TestDefaults(questionCount = 31)
         }
         assertEquals(TestDefaults(), repository.preferences.first().testDefaults)
+    }
+
+    @Test
+    fun conditionalPeriodClearKeepsCourseAndDefaultsOnlyWhenBothIdsMatch() = runTest {
+        val repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create {
+            temporaryFolder.root.resolve("conditional_period.preferences_pb")
+        })
+        val defaults = TestDefaults(15, true, 45, TestQuestionSource.WEAK)
+        repository.updateTestDefaults(defaults)
+        repository.setSelectedContext("course-1", "period-1")
+
+        assertFalse(repository.clearSelectedPeriodIfUnchanged("course-2", "period-1"))
+        assertFalse(repository.clearSelectedPeriodIfUnchanged("course-1", "old-period"))
+        assertEquals(SelectedAcademicContext("course-1", "period-1"), repository.preferences.first().selectedContext)
+        assertTrue(repository.clearSelectedPeriodIfUnchanged("course-1", "period-1"))
+        val cleared = repository.preferences.first()
+        assertEquals("course-1", cleared.selectedCourseId)
+        assertNull(cleared.selectedAcademicPeriodId)
+        assertEquals(defaults, cleared.testDefaults)
+    }
+
+    @Test
+    fun staleCourseAndPeriodClearsDoNotEraseAReplacementContext() = runTest {
+        val repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create {
+            temporaryFolder.root.resolve("conditional_context.preferences_pb")
+        })
+        repository.setSelectedContext("course-1", "period-1")
+        repository.setSelectedContext("course-2", "period-2")
+
+        assertFalse(repository.clearSelectedCourseIfUnchanged("course-1", "period-1"))
+        assertFalse(repository.clearSelectedPeriodIfUnchanged("course-1", "period-1"))
+        assertFalse(repository.clearSelectedCourseIfUnchanged("course-2", "old-period"))
+        assertEquals(SelectedAcademicContext("course-2", "period-2"), repository.preferences.first().selectedContext)
+        assertTrue(repository.clearSelectedCourseIfUnchanged("course-2", "period-2"))
+        assertNull(repository.preferences.first().selectedCourseId)
+        assertNull(repository.preferences.first().selectedAcademicPeriodId)
+    }
+
+    @Test
+    fun courseOnlyClearRequiresThePeriodToStillBeAbsent() = runTest {
+        val repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create {
+            temporaryFolder.root.resolve("conditional_course_only.preferences_pb")
+        })
+        repository.selectCourse("course-1")
+        repository.setSelectedContext("course-1", "period-1")
+        assertFalse(repository.clearSelectedCourseIfUnchanged("course-1", null))
+        assertEquals(SelectedAcademicContext("course-1", "period-1"), repository.preferences.first().selectedContext)
+        repository.selectCourse("course-1")
+        assertTrue(repository.clearSelectedCourseIfUnchanged("course-1", null))
+        assertNull(repository.preferences.first().selectedCourseId)
     }
 }

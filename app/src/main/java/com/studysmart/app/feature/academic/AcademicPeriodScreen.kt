@@ -31,6 +31,7 @@ fun AcademicPeriodScreen(
     onBack: () -> Unit,
     onPeriodSelected: (String) -> Unit,
     contentPadding: PaddingValues = PaddingValues(20.dp),
+    onRetrySelection: () -> Unit = onRetry,
 ) {
     if (!uiState.isLoading && uiState.error == null && uiState.isMissingContent) {
         MissingContentScreen(title = "Academic Period", onBack = onBack)
@@ -56,6 +57,16 @@ fun AcademicPeriodScreen(
                 .testTag("academic_period_screen"),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            if (uiState.isSelecting) {
+                LoadingState(message = "Saving academic period", modifier = Modifier.testTag("academic_period_selection_saving"))
+            }
+            if (uiState.selectionError != null) {
+                ErrorState(
+                    message = uiState.selectionError,
+                    onRetry = onRetrySelection,
+                    modifier = Modifier.testTag("academic_period_selection_error"),
+                )
+            }
             when {
                 uiState.isLoading -> LoadingState(modifier = Modifier.testTag("academic_period_loading"))
                 uiState.error != null -> ErrorState(
@@ -86,6 +97,7 @@ fun AcademicPeriodScreen(
                         AcademicPeriodCard(
                             period = period,
                             onClick = { onPeriodSelected(period.id) },
+                            enabled = !uiState.isSelecting && uiState.selectionError == null,
                             modifier = Modifier.testTag("period_${period.id}"),
                         )
                     }

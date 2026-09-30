@@ -145,6 +145,8 @@ private class FixedPreferencesRepository(defaults: TestDefaults) : PreferencesRe
     override suspend fun clearSelectedCourse() = Unit
     override suspend fun clearSelectedPeriod() = Unit
     override suspend fun clearSelectedContext() = Unit
+    override suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?) = false
+    override suspend fun clearSelectedPeriodIfUnchanged(courseId: String, academicPeriodId: String) = false
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
     }
