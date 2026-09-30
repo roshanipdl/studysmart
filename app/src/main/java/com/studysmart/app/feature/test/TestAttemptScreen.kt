@@ -63,6 +63,7 @@ import java.util.Locale
 fun TestAttemptScreen(
     state: TestAttemptUiState,
     onRetry: () -> Unit,
+    onRetryOrigin: () -> Unit,
     onRetryMutation: () -> Unit,
     onAnswerChanged: (String) -> Unit,
     onFlag: () -> Unit,
@@ -118,9 +119,11 @@ fun TestAttemptScreen(
                     }
                 },
                 navigationIcon = {
+                    val canClose = !state.isDiscarding && !state.isSubmitting &&
+                        (state.attempt?.attempt?.status?.isTransient() == true || state.canNavigateBack)
                     androidx.compose.material3.IconButton(
-                        onClick = if (state.isReadOnly) onBack else onClose,
-                        enabled = !state.isDiscarding && !state.isSubmitting,
+                        onClick = if (state.attempt?.attempt?.status?.isTransient() == true) onClose else onBack,
+                        enabled = canClose,
                         modifier = Modifier.testTag("test_close"),
                     ) {
                         androidx.compose.material3.Icon(
@@ -190,7 +193,12 @@ fun TestAttemptScreen(
                         onClick = onViewResult,
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    SecondaryButton(text = "Back", onClick = onBack, modifier = Modifier.fillMaxWidth())
+                    SecondaryButton(
+                        text = "Back",
+                        onClick = onBack,
+                        enabled = state.canNavigateBack,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
                 }
                 else -> {
                     ActiveTestContent(
@@ -205,6 +213,27 @@ fun TestAttemptScreen(
                         onRetryMutation = onRetryMutation,
                     )
                 }
+            }
+            if (state.isLoadingOrigin) {
+                Text(
+                    "Checking where to return…",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("test_attempt_origin_loading"),
+                )
+            }
+            if (state.originError != null) {
+                Text(
+                    "Unable to verify the saved return destination. Retry before leaving this test.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.testTag("test_attempt_origin_error"),
+                )
+                OutlinedButton(
+                    onClick = onRetryOrigin,
+                    enabled = !state.isLoadingOrigin,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("test_attempt_retry_origin"),
+                ) { Text("Retry origin lookup") }
             }
         }
     }

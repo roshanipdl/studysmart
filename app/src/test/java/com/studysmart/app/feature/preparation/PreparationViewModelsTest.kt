@@ -6,6 +6,9 @@ import com.studysmart.app.core.model.PreparationScopeType
 import com.studysmart.app.core.model.PreparationSessionStatus
 import com.studysmart.app.core.model.QuestionType
 import com.studysmart.app.core.model.Rating
+import com.studysmart.app.feature.readiness.ReadinessEstimate
+import com.studysmart.app.feature.readiness.ReadinessRepository
+import com.studysmart.app.feature.readiness.ReadinessScope
 import com.studysmart.app.testing.TestDispatcherProvider
 import java.time.Instant
 import kotlinx.coroutines.flow.Flow
@@ -120,6 +123,7 @@ class PreparationViewModelsTest {
         val viewModel = PreparationSummaryViewModel(
             sessionId = "session-1",
             repository = repository,
+            readinessRepository = FakeReadinessRepository(),
             dispatchers = TestDispatcherProvider(),
         )
 
@@ -134,6 +138,11 @@ class PreparationViewModelsTest {
         originReferenceId = "chapter-1",
         creationRequestId = id,
     )
+}
+
+private class FakeReadinessRepository : ReadinessRepository {
+    override fun observeReadiness(scope: ReadinessScope): Flow<ReadinessEstimate?> =
+        kotlinx.coroutines.flow.flowOf(null)
 }
 
 private class FixedIdGenerator : IdGenerator {

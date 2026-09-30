@@ -66,6 +66,7 @@ class PreparationNavigationTest {
         composeRule.awaitNodeWithTag("preparation_summary_screen")
         composeRule.onNodeWithText("Your review history has been saved.").assertIsDisplayed()
         composeRule.onNodeWithTag("preparation_readiness_slot").assertIsDisplayed()
+        composeRule.onNodeWithText("Exam readiness estimate").assertIsDisplayed()
         composeRule.onNodeWithTag("preparation_summary_back").performClick()
         composeRule.awaitNodeWithTag("chapters_screen")
     }

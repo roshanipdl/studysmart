@@ -33,11 +33,14 @@ import com.studysmart.app.feature.preparation.RoomPreparationRepository
 import com.studysmart.app.feature.review.ReviewRepository
 import com.studysmart.app.feature.review.ReviewViewModel
 import com.studysmart.app.feature.review.RoomReviewRepository
+import com.studysmart.app.feature.readiness.ReadinessRepository
+import com.studysmart.app.feature.readiness.RoomReadinessRepository
 import com.studysmart.app.feature.test.RoomTestAttemptRepository
 import com.studysmart.app.feature.test.TestAttemptRepository
 import com.studysmart.app.feature.test.TestAttemptLauncherViewModel
 import com.studysmart.app.feature.test.TestAttemptViewModel
 import com.studysmart.app.feature.test.TestDefaultsViewModel
+import com.studysmart.app.feature.test.TestResultViewModel
 import com.studysmart.app.feature.test.AnswerEvaluator
 import com.studysmart.app.feature.test.KeywordAnswerEvaluator
 import java.time.Clock
@@ -64,6 +67,10 @@ class AppContainer(
         dispatchers = dispatchers,
     ),
     val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao()),
+    val readinessRepository: ReadinessRepository = RoomReadinessRepository(
+        dao = database.readinessDao(),
+        clock = clock,
+    ),
     val testAttemptRepository: TestAttemptRepository = RoomTestAttemptRepository(
         database = database,
         preferencesRepository = preferences,
@@ -140,6 +147,7 @@ class AppContainer(
         PreparationSummaryViewModel(
             sessionId = sessionId,
             repository = preparationRepository,
+            readinessRepository = readinessRepository,
             dispatchers = dispatchers,
         )
 
@@ -147,6 +155,7 @@ class AppContainer(
         preferencesRepository = preferences,
         curriculumRepository = curriculumRepository,
         reviewRepository = reviewRepository,
+        readinessRepository = readinessRepository,
         preparationRepository = preparationRepository,
         clock = clock,
         idGenerator = idGenerator,
@@ -165,6 +174,13 @@ class AppContainer(
         dispatchers = dispatchers,
         clock = clock,
         monotonicClock = monotonicClock,
+    )
+
+    fun testResultViewModel(attemptId: String): TestResultViewModel = TestResultViewModel(
+        attemptId = attemptId,
+        repository = testAttemptRepository,
+        idGenerator = idGenerator,
+        dispatchers = dispatchers,
     )
 
     fun testDefaultsViewModel(): TestDefaultsViewModel = TestDefaultsViewModel(

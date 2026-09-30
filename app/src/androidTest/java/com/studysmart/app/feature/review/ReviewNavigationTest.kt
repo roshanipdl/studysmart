@@ -83,6 +83,8 @@ class ReviewNavigationTest {
 
         composeRule.awaitNodeWithTag("review_no_due")
         composeRule.onNodeWithTag("review_no_due").assertIsDisplayed()
+        composeRule.awaitNodeWithTag("review_readiness")
+        composeRule.onNodeWithText("Exam readiness estimate").assertIsDisplayed()
         assertEquals(
             0,
             composeRule.onAllNodesWithText("Retry")

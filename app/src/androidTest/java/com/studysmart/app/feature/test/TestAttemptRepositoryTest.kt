@@ -9,6 +9,10 @@ import com.studysmart.app.core.common.RandomSource
 import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.core.data.StudyPreferences
 import com.studysmart.app.core.database.UserQuestionFlagEntity
+import com.studysmart.app.core.database.QuestionKeywordEntity
+import com.studysmart.app.core.model.KeywordSnapshotCodec
+import com.studysmart.app.core.model.TestAttemptOriginType
+import com.studysmart.app.core.model.TestAttemptScopeType
 import com.studysmart.app.core.model.TestDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import com.studysmart.app.app.RoomStartupCleanupCoordinator
@@ -20,10 +24,12 @@ import java.time.ZoneOffset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -74,6 +80,403 @@ class TestAttemptRepositoryTest {
                 .first { it.questionId == "question-bca-s1-dbms-direct" }
                 .questionTextSnapshot,
         )
+    }
+
+    @Test
+    fun newTestUsesCurrentDefaultsAndPreservesBaseChapterScopeAcrossConcurrentRetries() = runBlocking {
+        val defaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)
+        val preferences = FixedPreferencesRepository(defaults)
+        val repository = repository(defaults, preferencesRepository = preferences)
+        val sourceAttemptId = createSubmittedChapterAttempt(repository, "new-test-source")
+        val sourceBefore = database.testAttemptDao().getAttemptWithQuestions(sourceAttemptId)
+        preferences.updateTestDefaults(
+            TestDefaults(
+                questionCount = 2,
+                timedMode = true,
+                durationMinutes = 12,
+                questionSource = TestQuestionSource.WEAK,
+            ),
+        )
+        val request = ResultFollowUpAttemptRequest(sourceAttemptId, "new-test-follow-up")
+
+        val results = kotlinx.coroutines.coroutineScope {
+            listOf(
+                async { repository.createNewAttemptFromResult(request) },
+                async { repository.createNewAttemptFromResult(request) },
+            ).map { it.await() }
+        }
+
+        assertTrue(results[0] is TestAttemptCreationResult.Created)
+        assertEquals(results[0], results[1])
+        val followUpId = (results[0] as TestAttemptCreationResult.Created).attemptId
+        val followUp = database.testAttemptDao().getAttempt(followUpId)!!
+        assertEquals(TestAttemptScopeType.CHAPTER, followUp.scopeType)
+        assertEquals("chapter-bca-s1-dbms-01", followUp.scopeReferenceId)
+        assertEquals(TestAttemptOriginType.NEW_TEST, followUp.originType)
+        assertEquals(sourceAttemptId, followUp.originReferenceId)
+        assertEquals(2, followUp.requestedQuestionCount)
+        assertEquals(1, followUp.actualQuestionCount)
+        assertEquals(TestQuestionSource.WEAK, followUp.questionSource)
+        assertEquals(720L, followUp.timeLimitSeconds)
+        assertEquals(
+            listOf("question-bca-s1-dbms-topic"),
+            database.testAttemptDao().observeAttemptQuestions(followUpId).first().map { it.questionId },
+        )
+        assertEquals(sourceBefore, database.testAttemptDao().getAttemptWithQuestions(sourceAttemptId))
+        assertEquals(2, attemptCount())
+    }
+
+    @Test
+    fun retestWeakUsesOnlyFrozenReviewSubsetFreshActiveSnapshotsAndCurrentTimingDefaults() = runBlocking {
+        val initialDefaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)
+        val preferences = FixedPreferencesRepository(initialDefaults)
+        val repository = repository(initialDefaults, preferencesRepository = preferences)
+        val sourceAttemptId = createSubmittedChapterAttempt(
+            repository,
+            "retest-source",
+            directAnswer = "",
+        )
+        val sourceBefore = database.testAttemptDao().getAttemptWithQuestions(sourceAttemptId)!!
+        val sourceQuestions = sourceBefore.questionRows.map { it.question }
+        val sourceTopicQuestion = sourceQuestions.single { it.questionId == "question-bca-s1-dbms-topic" }
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET question = ?, answer = ? WHERE id = ?",
+            arrayOf("Updated DBMS question", "Updated reference answer", sourceTopicQuestion.questionId),
+        )
+        database.openHelper.writableDatabase.execSQL(
+            "DELETE FROM question_keywords WHERE questionId = ?",
+            arrayOf(sourceTopicQuestion.questionId),
+        )
+        database.testAttemptDao().insertQuestionKeywords(
+            listOf(QuestionKeywordEntity(sourceTopicQuestion.questionId, "updated keyword", 2.0, 1)),
+        )
+        preferences.updateTestDefaults(
+            TestDefaults(
+                questionCount = 1,
+                timedMode = true,
+                durationMinutes = 15,
+                questionSource = TestQuestionSource.IMPORTANT,
+            ),
+        )
+        val request = ResultFollowUpAttemptRequest(sourceAttemptId, "retest-follow-up")
+
+        val first = repository.createRetestWeakAttempt(request) as TestAttemptCreationResult.Created
+        val second = repository.createRetestWeakAttempt(request)
+        val retest = database.testAttemptDao().getAttempt(first.attemptId)!!
+        val retestQuestions = database.testAttemptDao()
+            .observeAttemptQuestions(first.attemptId)
+            .first()
+        val retestQuestionIds = retestQuestions.map { it.questionId }
+        val retestQuestion = retestQuestions.single { it.questionId == sourceTopicQuestion.questionId }
+
+        assertEquals(first, second)
+        assertEquals(TestAttemptScopeType.RETEST_WEAK, retest.scopeType)
+        assertEquals(sourceAttemptId, retest.scopeReferenceId)
+        assertEquals(TestAttemptOriginType.RETEST_WEAK, retest.originType)
+        assertEquals(sourceAttemptId, retest.originReferenceId)
+        assertEquals(2, retest.requestedQuestionCount)
+        assertEquals(2, retest.actualQuestionCount)
+        assertEquals(TestQuestionSource.ALL, retest.questionSource)
+        assertEquals(null, retest.selectionSeed)
+        assertEquals(900L, retest.timeLimitSeconds)
+        assertEquals(
+            listOf("question-bca-s1-dbms-direct", "question-bca-s1-dbms-topic"),
+            retestQuestionIds,
+        )
+        assertEquals("Updated DBMS question", retestQuestion.questionTextSnapshot)
+        assertEquals("Updated reference answer", retestQuestion.referenceAnswerSnapshot)
+        assertEquals(
+            listOf("updated keyword"),
+            KeywordSnapshotCodec.decode(retestQuestion.keywordSnapshotJson).map { it.keyword },
+        )
+        assertEquals(sourceBefore, database.testAttemptDao().getAttemptWithQuestions(sourceAttemptId))
+        assertEquals(2, attemptCount())
+
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(first.attemptId))
+        val retestSubmit = repository.submitAttempt(
+            first.attemptId,
+            TestSubmitAction.MANUAL,
+            TestAnswerDraft(retestQuestions.first().id, "", false, 0L),
+        )
+        assertEquals(TestSubmissionResult.Submitted, retestSubmit)
+        val retestOfRetest = repository.createRetestWeakAttempt(
+            ResultFollowUpAttemptRequest(first.attemptId, "retest-of-retest"),
+        ) as TestAttemptCreationResult.Created
+        val chained = database.testAttemptDao().getAttempt(retestOfRetest.attemptId)!!
+        assertEquals(TestAttemptScopeType.RETEST_WEAK, chained.scopeType)
+        assertEquals(first.attemptId, chained.scopeReferenceId)
+        assertEquals(first.attemptId, chained.originReferenceId)
+        assertEquals("chapter-bca-s1-dbms-01", chained.chapterId)
+
+        preferences.updateTestDefaults(
+            TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL),
+        )
+        val newTestFromRetest = repository.createNewAttemptFromResult(
+            ResultFollowUpAttemptRequest(first.attemptId, "new-test-from-retest"),
+        ) as TestAttemptCreationResult.Created
+        val chainedNewTest = database.testAttemptDao().getAttempt(newTestFromRetest.attemptId)!!
+        assertEquals(TestAttemptScopeType.CHAPTER, chainedNewTest.scopeType)
+        assertEquals("chapter-bca-s1-dbms-01", chainedNewTest.scopeReferenceId)
+        assertEquals(TestAttemptOriginType.NEW_TEST, chainedNewTest.originType)
+        assertEquals(first.attemptId, chainedNewTest.originReferenceId)
+    }
+
+    @Test
+    fun newTestFromImportantRetainsPeriodScopeAndUsesCurrentDefaults() = runBlocking {
+        val initialDefaults = TestDefaults(questionCount = 1, questionSource = TestQuestionSource.IMPORTANT)
+        val preferences = FixedPreferencesRepository(initialDefaults)
+        val repository = repository(initialDefaults, preferencesRepository = preferences)
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity("local-user", "question-bca-s1-dbms-direct", true, Instant.EPOCH),
+        )
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity("local-user", "question-bca-s1-dbms-topic", true, Instant.EPOCH),
+        )
+        val created = repository.createImportantAttempt(
+            ImportantTestAttemptRequest(
+                "course-bca",
+                "period-bca-semester-1",
+                creationRequestId = "important-follow-up-source",
+            ),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val sourceQuestion = database.testAttemptDao()
+            .observeAttemptQuestions(created.attemptId).first().single()
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(sourceQuestion.id, "", false, 0L),
+            ),
+        )
+        preferences.updateTestDefaults(TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL))
+
+        val newTest = repository.createNewAttemptFromResult(
+            ResultFollowUpAttemptRequest(created.attemptId, "new-important-scope"),
+        ) as TestAttemptCreationResult.Created
+        val attempt = database.testAttemptDao().getAttempt(newTest.attemptId)!!
+
+        assertEquals(TestAttemptScopeType.IMPORTANT, attempt.scopeType)
+        assertEquals("period-bca-semester-1", attempt.scopeReferenceId)
+        assertEquals("course-bca", attempt.courseId)
+        assertEquals("period-bca-semester-1", attempt.academicPeriodId)
+        assertEquals(2, attempt.requestedQuestionCount)
+        assertEquals(2, attempt.actualQuestionCount)
+        assertEquals(TestQuestionSource.ALL, attempt.questionSource)
+        assertEquals(
+            TestResultOrigin(TestAttemptOriginType.IMPORTANT, null),
+            repository.loadAttemptOrigin(newTest.attemptId),
+        )
+        val resultContext = repository.loadResultActionContext(created.attemptId)!!
+        assertEquals(TestAttemptOriginType.IMPORTANT, resultContext.origin.originType)
+        assertEquals(null, resultContext.origin.subjectId)
+        assertEquals(1, resultContext.activeReviewQuestionCount)
+    }
+
+    @Test
+    fun resultActionContextFollowsRetestLinksToTheBaseOrigin() = runBlocking {
+        val defaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)
+        val repository = repository(defaults)
+        val source = createSubmittedChapterAttempt(repository, "result-origin-source")
+
+        val sourceContext = repository.loadResultActionContext(source)!!
+        assertEquals(TestAttemptOriginType.CHAPTER, sourceContext.origin.originType)
+        assertEquals("subject-bca-s1-dbms", sourceContext.origin.subjectId)
+        assertEquals(1, sourceContext.activeReviewQuestionCount)
+
+        val retest = repository.createRetestWeakAttempt(
+            ResultFollowUpAttemptRequest(source, "result-origin-retest"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(
+            TestResultOrigin(TestAttemptOriginType.CHAPTER, "subject-bca-s1-dbms"),
+            repository.loadAttemptOrigin(retest.attemptId),
+        )
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(retest.attemptId))
+        val retestQuestion = database.testAttemptDao()
+            .observeAttemptQuestions(retest.attemptId).first().single()
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                retest.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(retestQuestion.id, "", false, 0L),
+            ),
+        )
+
+        val retestContext = repository.loadResultActionContext(retest.attemptId)!!
+        assertEquals(TestAttemptOriginType.CHAPTER, retestContext.origin.originType)
+        assertEquals("subject-bca-s1-dbms", retestContext.origin.subjectId)
+        assertEquals(1, retestContext.activeReviewQuestionCount)
+    }
+
+    @Test
+    fun retestWeakDoesNotCreateAnAttemptWhenFrozenReviewSubsetIsEmpty() = runBlocking {
+        val defaults = TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL)
+        val repository = repository(defaults)
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "strong-source"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val question = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().single()
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(question.id, "database organised collection", false, 0L),
+            ),
+        )
+        val before = attemptCount()
+
+        val result = repository.createRetestWeakAttempt(
+            ResultFollowUpAttemptRequest(created.attemptId, "empty-retest"),
+        )
+
+        assertEquals(TestAttemptCreationResult.NoQuestions(TestQuestionSource.ALL), result)
+        assertEquals(before, attemptCount())
+    }
+
+    @Test
+    fun followUpRejectsMissingForeignNonSubmittedCorruptAndCyclicSources() = runBlocking {
+        val defaults = TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL)
+        val repository = repository(defaults)
+        assertEquals(
+            TestAttemptCreationResult.MissingSource,
+            repository.createNewAttemptFromResult(ResultFollowUpAttemptRequest("absent", "missing-source")),
+        )
+        assertNull(repository.loadAttemptOrigin("absent"))
+
+        val notSubmitted = repository.createChapterAttempt(
+            ChapterTestAttemptRequest("chapter-bca-s1-dbms-01", creationRequestId = "not-submitted-source"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(
+            TestAttemptCreationResult.MissingSource,
+            repository.createNewAttemptFromResult(
+                ResultFollowUpAttemptRequest(notSubmitted.attemptId, "non-submitted-follow-up"),
+            ),
+        )
+
+        val foreign = createSubmittedChapterAttempt(repository, "foreign-source")
+        database.openHelper.writableDatabase.execSQL(
+            "INSERT INTO users(id, displayName, createdAt, updatedAt) VALUES (?, ?, ?, ?)",
+            arrayOf<Any>("foreign-user", "Foreign", 0L, 0L),
+        )
+        val foreignAttempt = database.testAttemptDao().getAttempt(foreign)!!
+        database.testAttemptDao().updateAttempt(foreignAttempt.copy(userId = "foreign-user"))
+        assertNull(repository.loadAttemptOrigin(foreign))
+        assertEquals(
+            TestAttemptCreationResult.MissingSource,
+            repository.createNewAttemptFromResult(ResultFollowUpAttemptRequest(foreign, "foreign-follow-up")),
+        )
+        val localParent = createSubmittedChapterAttempt(repository, "local-parent-with-foreign-link")
+        val localChild = repository.createNewAttemptFromResult(
+            ResultFollowUpAttemptRequest(localParent, "child-with-foreign-link"),
+        ) as TestAttemptCreationResult.Created
+        val localChildAttempt = database.testAttemptDao().getAttempt(localChild.attemptId)!!
+        database.testAttemptDao().updateAttempt(localChildAttempt.copy(originReferenceId = foreign))
+        assertNull(repository.loadAttemptOrigin(localChild.attemptId))
+
+        val brokenLink = createSubmittedChapterAttempt(repository, "broken-link-source")
+        val brokenLinkAttempt = database.testAttemptDao().getAttempt(brokenLink)!!
+        database.testAttemptDao().updateAttempt(
+            brokenLinkAttempt.copy(
+                originType = TestAttemptOriginType.NEW_TEST,
+                originReferenceId = "missing-linked-attempt",
+            ),
+        )
+        assertNull(repository.loadAttemptOrigin(brokenLink))
+        assertEquals(
+            TestAttemptCreationResult.MissingSource,
+            repository.createNewAttemptFromResult(
+                ResultFollowUpAttemptRequest(brokenLink, "broken-link-follow-up"),
+            ),
+        )
+
+        val nonSubmittedParent = createSubmittedChapterAttempt(repository, "navigation-parent")
+        val child = repository.createNewAttemptFromResult(
+            ResultFollowUpAttemptRequest(nonSubmittedParent, "navigation-child"),
+        ) as TestAttemptCreationResult.Created
+        val parentAttempt = database.testAttemptDao().getAttempt(nonSubmittedParent)!!
+        database.testAttemptDao().updateAttempt(parentAttempt.copy(status = TestAttemptStatus.IN_PROGRESS))
+        assertNull(repository.loadAttemptOrigin(child.attemptId))
+
+        val corrupt = createSubmittedChapterAttempt(repository, "corrupt-source")
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE test_answers SET matchedKeywordsJson = '{}' WHERE testAttemptQuestionId IN " +
+                "(SELECT id FROM test_attempt_questions WHERE testAttemptId = ? LIMIT 1)",
+            arrayOf(corrupt),
+        )
+        assertEquals(
+            TestAttemptCreationResult.CorruptSource,
+            repository.createRetestWeakAttempt(ResultFollowUpAttemptRequest(corrupt, "corrupt-follow-up")),
+        )
+
+        val cyclic = createSubmittedChapterAttempt(repository, "cyclic-source")
+        val cyclicAttempt = database.testAttemptDao().getAttempt(cyclic)!!
+        database.testAttemptDao().updateAttempt(
+            cyclicAttempt.copy(
+                originType = TestAttemptOriginType.NEW_TEST,
+                originReferenceId = cyclic,
+            ),
+        )
+        assertNull(repository.loadAttemptOrigin(cyclic))
+        assertEquals(
+            TestAttemptCreationResult.MissingSource,
+            repository.createNewAttemptFromResult(ResultFollowUpAttemptRequest(cyclic, "cyclic-follow-up")),
+        )
+    }
+
+    @Test
+    fun followUpSnapshotInsertFailureRollsBackAndSameRequestCanRetry() = runBlocking {
+        val defaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)
+        val repository = repository(defaults)
+        val source = createSubmittedChapterAttempt(repository, "rollback-source")
+        database.openHelper.writableDatabase.execSQL(
+            "CREATE TRIGGER fail_follow_up_snapshot BEFORE INSERT ON test_attempt_questions " +
+                "WHEN (SELECT creationRequestId FROM test_attempts WHERE id = NEW.testAttemptId) = " +
+                "'rollback-follow-up' BEGIN SELECT RAISE(ABORT, 'snapshot insert failure'); END",
+        )
+        var failed = false
+        try {
+            repository.createNewAttemptFromResult(
+                ResultFollowUpAttemptRequest(source, "rollback-follow-up"),
+            )
+        } catch (_: Exception) {
+            failed = true
+        }
+        assertTrue(failed)
+        assertEquals(null, database.testAttemptDao().getAttemptByCreationRequestId("rollback-follow-up"))
+        assertEquals(1, attemptCount())
+        database.openHelper.writableDatabase.execSQL("DROP TRIGGER fail_follow_up_snapshot")
+
+        val retried = repository.createNewAttemptFromResult(
+            ResultFollowUpAttemptRequest(source, "rollback-follow-up"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(
+            retried,
+            repository.createNewAttemptFromResult(ResultFollowUpAttemptRequest(source, "rollback-follow-up")),
+        )
+        assertEquals(2, attemptCount())
+    }
+
+    @Test
+    fun retestWeakExcludesQuestionsWhoseCurrentCurriculumIsInactive() = runBlocking {
+        val defaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL)
+        val repository = repository(defaults)
+        val source = createSubmittedChapterAttempt(repository, "inactive-retest-source")
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET isActive = 0 WHERE id = ?",
+            arrayOf("question-bca-s1-dbms-topic"),
+        )
+        val before = attemptCount()
+
+        val result = repository.createRetestWeakAttempt(
+            ResultFollowUpAttemptRequest(source, "inactive-retest"),
+        )
+
+        assertEquals(TestAttemptCreationResult.NoQuestions(TestQuestionSource.ALL), result)
+        assertEquals(before, attemptCount())
     }
 
     @Test
@@ -485,13 +888,46 @@ class TestAttemptRepositoryTest {
         assertNotNull(database.testAttemptDao().getAttempt(submitted.attemptId))
     }
 
+    private suspend fun createSubmittedChapterAttempt(
+        repository: RoomTestAttemptRepository,
+        creationRequestId: String,
+        directAnswer: String = "Database is an organised collection",
+    ): String {
+        val created = repository.createChapterAttempt(
+            ChapterTestAttemptRequest(
+                chapterId = "chapter-bca-s1-dbms-01",
+                creationRequestId = creationRequestId,
+            ),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        val questions = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first()
+        val directQuestion = questions.single { it.questionId == "question-bca-s1-dbms-direct" }
+        assertEquals(
+            TestSubmissionResult.Submitted,
+            repository.submitAttempt(
+                created.attemptId,
+                TestSubmitAction.MANUAL,
+                TestAnswerDraft(directQuestion.id, directAnswer, false, 0L),
+            ),
+        )
+        return created.attemptId
+    }
+
+    private fun attemptCount(): Int = database.openHelper.writableDatabase
+        .query("SELECT COUNT(*) FROM test_attempts")
+        .use { cursor ->
+            cursor.moveToFirst()
+            cursor.getInt(0)
+        }
+
     private fun repository(
         defaults: TestDefaults,
         monotonicClock: MonotonicClock = FixedMonotonicClock,
         answerEvaluator: AnswerEvaluator = KeywordAnswerEvaluator(),
+        preferencesRepository: PreferencesRepository = FixedPreferencesRepository(defaults),
     ): RoomTestAttemptRepository = RoomTestAttemptRepository(
         database = database,
-        preferencesRepository = FixedPreferencesRepository(defaults),
+        preferencesRepository = preferencesRepository,
         clock = Clock.fixed(Instant.parse("2026-01-01T00:00:00Z"), ZoneOffset.UTC),
         randomSource = FixedRandomSource,
         idGenerator = FixedIdGenerator(),

@@ -47,6 +47,10 @@ import com.studysmart.app.feature.test.TestAttemptLauncherViewModel
 import com.studysmart.app.feature.test.TestAttemptEffect
 import com.studysmart.app.feature.test.TestAttemptViewModel
 import com.studysmart.app.feature.test.TestAttemptScreen
+import com.studysmart.app.feature.test.TestResultEffect
+import com.studysmart.app.feature.test.TestResultScreen
+import com.studysmart.app.feature.test.TestResultOrigin
+import com.studysmart.app.feature.test.TestResultViewModel
 import com.studysmart.app.feature.test.TestDefaultsScreen
 import com.studysmart.app.feature.test.TestDefaultsViewModel
 import com.studysmart.app.feature.test.isTransient
@@ -397,6 +401,7 @@ fun AppNavHost(
                 PreparationSummaryScreen(
                     state = state,
                     onRetry = viewModel::retry,
+                    onRetryReadiness = viewModel::retryReadiness,
                     onBack = {
                         navController.navigateBackOrFallback(
                             preparationBackRoute(
@@ -424,6 +429,7 @@ fun AppNavHost(
                 )
                 val state by viewModel.uiState.collectAsStateWithLifecycle()
                 val latestPendingTopLevelDestination by rememberUpdatedState(pendingTopLevelDestination)
+                val latestResolvedAttemptOrigin by rememberUpdatedState(state.resolvedOrigin)
                 val pendingTabDiscardRequested = remember { mutableStateOf(false) }
                 LaunchedEffect(
                     pendingTopLevelDestination,
@@ -444,13 +450,13 @@ fun AppNavHost(
                 LaunchedEffect(viewModel) {
                     viewModel.effects.collect { effect ->
                         when (effect) {
-                            is TestAttemptEffect.Discarded -> {
+                            TestAttemptEffect.Discarded -> {
                                 pendingTabDiscardRequested.value = false
                                 latestPendingTopLevelDestination?.let { destination ->
                                     onPendingTopLevelDestinationConsumed()
                                     navController.navigateTopLevel(destination)
-                                } ?: navController.navigateBackOrFallback(
-                                    testAttemptBackRoute(effect.originType, effect.subjectId),
+                                } ?: navController.navigateToOrigin(
+                                    latestResolvedAttemptOrigin?.let(::testAttemptBackRoute) ?: AppRoutes.HOME,
                                 )
                             }
                             is TestAttemptEffect.Submitted -> navController.navigate(
@@ -462,13 +468,19 @@ fun AppNavHost(
                         }
                     }
                 }
-                BackHandler(
-                    enabled = state.attempt?.attempt?.status?.isTransient() == true,
-                    onBack = viewModel::showDiscardConfirmation,
-                )
+                val activeAttemptIsTransient = state.attempt?.attempt?.status?.isTransient() == true
+                BackHandler {
+                    when {
+                        activeAttemptIsTransient -> viewModel.showDiscardConfirmation()
+                        state.canNavigateBack -> navController.navigateToOrigin(
+                            state.resolvedOrigin?.let(::testAttemptBackRoute) ?: AppRoutes.HOME,
+                        )
+                    }
+                }
                 TestAttemptScreen(
                     state = state,
                     onRetry = viewModel::retry,
+                    onRetryOrigin = viewModel::retryOrigin,
                     onRetryMutation = viewModel::retryMutation,
                     onAnswerChanged = viewModel::onAnswerChanged,
                     onFlag = viewModel::toggleFlag,
@@ -489,12 +501,11 @@ fun AppNavHost(
                         onPendingTopLevelDestinationConsumed()
                     },
                     onBack = {
-                        navController.navigateBackOrFallback(
-                            testAttemptBackRoute(
-                                state.attempt?.attempt?.originType,
-                                state.attempt?.attempt?.subjectId,
-                            ),
-                        )
+                        if (state.canNavigateBack) {
+                            navController.navigateToOrigin(
+                                state.resolvedOrigin?.let(::testAttemptBackRoute) ?: AppRoutes.HOME,
+                            )
+                        }
                     },
                     onViewResult = { navController.navigate(AppRoutes.testResult(attemptId)) },
                     onAppBackgrounded = viewModel::onAppBackgrounded,
@@ -506,13 +517,46 @@ fun AppNavHost(
             route = AppRoutes.TEST_RESULT,
             arguments = listOf(navArgument("testAttemptId") { type = NavType.StringType }),
         ) { entry ->
-            ContextualPlaceholder(
-                entry = entry,
-                argumentName = "testAttemptId",
-                title = "Test Result",
-                supportingText = "Test results are available after MVP-9.",
-                onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
-            )
+            val attemptId = entry.arguments?.getString("testAttemptId")
+            if (attemptId.isNullOrBlank()) {
+                MissingContentScreen(
+                    title = "Test result",
+                    onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
+                )
+            } else {
+                val viewModel: TestResultViewModel = viewModel(
+                    factory = container.viewModelFactory { graph -> graph.testResultViewModel(attemptId) },
+                )
+                val state by viewModel.uiState.collectAsStateWithLifecycle()
+                val resultBackRoute = testResultBackRoute(state.origin)
+                val navigateBackToResultOrigin = {
+                    if (state.canNavigateBack) navController.navigateToOrigin(resultBackRoute)
+                }
+                BackHandler { navigateBackToResultOrigin() }
+                LaunchedEffect(viewModel) {
+                    viewModel.effects.collect { effect ->
+                        when (effect) {
+                            is TestResultEffect.OpenAttempt -> navController.navigate(
+                                AppRoutes.mockTest(effect.attemptId),
+                            ) {
+                                popUpTo(entry.destination.id) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
+                    }
+                }
+                TestResultScreen(
+                    state = state,
+                    onRetry = viewModel::retry,
+                    onRetryOrigin = viewModel::retryOrigin,
+                    onRetryFollowUp = viewModel::retryFollowUp,
+                    onRetryActionContext = viewModel::retryActionContext,
+                    onToggleQuestion = viewModel::toggleQuestion,
+                    onRetestWeak = viewModel::startRetestWeak,
+                    onNewTest = viewModel::startNewTest,
+                    onBack = navigateBackToResultOrigin,
+                )
+            }
         }
         composable(AppRoutes.SEARCH) {
             PlaceholderScreen(title = "Search", onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
@@ -624,14 +668,21 @@ private fun preparationBackRoute(
     null -> AppRoutes.HOME
 }
 
-private fun testAttemptBackRoute(
-    originType: TestAttemptOriginType?,
-    subjectId: String?,
-): String = when (originType) {
+private fun testAttemptBackRoute(origin: TestResultOrigin?): String = when (origin?.originType) {
     TestAttemptOriginType.CHAPTER,
     TestAttemptOriginType.NEW_TEST,
     TestAttemptOriginType.RETEST_WEAK,
-    -> subjectId?.let(AppRoutes::subject) ?: AppRoutes.HOME
+    -> origin.subjectId?.let(AppRoutes::subject) ?: AppRoutes.HOME
     TestAttemptOriginType.IMPORTANT -> AppRoutes.IMPORTANT
     null -> AppRoutes.HOME
 }
+
+private fun testResultBackRoute(origin: com.studysmart.app.feature.test.TestResultOrigin?): String =
+    when (origin?.originType) {
+        TestAttemptOriginType.CHAPTER -> origin.subjectId?.let(AppRoutes::subject) ?: AppRoutes.HOME
+        TestAttemptOriginType.IMPORTANT -> AppRoutes.IMPORTANT
+        TestAttemptOriginType.NEW_TEST,
+        TestAttemptOriginType.RETEST_WEAK,
+        null,
+        -> AppRoutes.HOME
+    }

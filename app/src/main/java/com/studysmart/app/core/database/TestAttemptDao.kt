@@ -164,6 +164,40 @@ interface TestAttemptDao {
 
     @Query(
         """
+        SELECT q.*,
+               CAST(NULL AS TEXT) AS latest_rating,
+               0 AS has_review,
+               CAST(NULL AS REAL) AS latest_test_percentage,
+               CAST(NULL AS INTEGER) AS latest_test_requires_review,
+               CASE WHEN flag.questionId IS NULL THEN 0 ELSE 1 END AS is_important,
+               flag.createdAt AS bookmark_created_at
+        FROM questions q
+        JOIN chapters ch ON ch.id = q.chapterId
+        JOIN subjects s ON s.id = ch.subjectId
+        JOIN academic_periods p ON p.id = s.academicPeriodId
+        JOIN courses c ON c.id = p.courseId
+        LEFT JOIN topics t ON t.id = q.topicId
+        LEFT JOIN user_question_flags flag
+          ON flag.userId = :userId AND flag.questionId = q.id AND flag.isImportant = 1
+        WHERE q.id IN (:questionIds)
+          AND c.id = :courseId AND p.id = :academicPeriodId
+          AND (:chapterId IS NULL OR ch.id = :chapterId)
+          AND q.isActive = 1 AND ch.isActive = 1 AND s.isActive = 1
+          AND p.isActive = 1 AND c.isActive = 1
+          AND (q.topicId IS NULL OR (t.id IS NOT NULL AND t.chapterId = ch.id AND t.isActive = 1))
+        ORDER BY q.sortOrder, q.id
+        """,
+    )
+    suspend fun getActiveCandidatesForQuestionIds(
+        userId: String,
+        courseId: String,
+        academicPeriodId: String,
+        chapterId: String?,
+        questionIds: List<String>,
+    ): List<TestCandidateRow>
+
+    @Query(
+        """
         SELECT c.id AS course_id,
                p.id AS academic_period_id,
                s.id AS subject_id,

@@ -50,6 +50,7 @@ import com.studysmart.app.core.ui.LoadingState
 import com.studysmart.app.core.ui.LocalStudySmartSemanticColors
 import com.studysmart.app.core.ui.MissingContentScreen
 import com.studysmart.app.core.ui.PrimaryButton
+import com.studysmart.app.core.ui.ReadinessEstimateCard
 import com.studysmart.app.core.ui.RatingButton
 import com.studysmart.app.core.ui.RatingButtonVariant
 import com.studysmart.app.core.ui.ResultMetric
@@ -505,6 +506,7 @@ private const val CARD_SWIPE_DURATION_MILLIS = 420
 fun PreparationSummaryScreen(
     state: PreparationSummaryUiState,
     onRetry: () -> Unit,
+    onRetryReadiness: () -> Unit,
     onBack: () -> Unit,
 ) {
     if (!state.isLoading && state.isMissingContent) {
@@ -547,7 +549,14 @@ fun PreparationSummaryScreen(
                     title = "Preparation summary",
                     onBack = onBack,
                 )
-                else -> SummaryContent(session = state.session, onBack = onBack)
+                else -> SummaryContent(
+                    session = state.session,
+                    readiness = state.readiness,
+                    isReadinessLoading = state.isReadinessLoading,
+                    readinessError = state.readinessError,
+                    onRetryReadiness = onRetryReadiness,
+                    onBack = onBack,
+                )
             }
         }
     }
@@ -556,6 +565,10 @@ fun PreparationSummaryScreen(
 @Composable
 private fun SummaryContent(
     session: PreparationSessionModel,
+    readiness: com.studysmart.app.feature.readiness.ReadinessEstimate?,
+    isReadinessLoading: Boolean,
+    readinessError: String?,
+    onRetryReadiness: () -> Unit,
     onBack: () -> Unit,
 ) {
     val counts = session.reviewEvents.groupingBy { it.rating }.eachCount()
@@ -598,26 +611,13 @@ private fun SummaryContent(
         SummaryMetric("Good", counts[Rating.GOOD] ?: 0, Modifier.weight(1f))
         SummaryMetric("Easy", counts[Rating.EASY] ?: 0, Modifier.weight(1f))
     }
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .testTag("preparation_readiness_slot"),
-        color = MaterialTheme.colorScheme.primaryContainer,
-        shape = RoundedCornerShape(14.dp),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Exam readiness estimate",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-            Text(
-                text = "Available after evaluated test results are added.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-        }
-    }
+    ReadinessEstimateCard(
+        estimate = readiness,
+        isLoading = isReadinessLoading,
+        error = readinessError,
+        onRetry = onRetryReadiness,
+        testTag = "preparation_readiness_slot",
+    )
     Text(
         "Recently reviewed",
         style = MaterialTheme.typography.titleLarge,

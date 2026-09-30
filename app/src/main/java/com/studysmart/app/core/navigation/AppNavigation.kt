@@ -27,6 +27,17 @@ fun NavHostController.navigateTopLevel(route: String) {
     }
 }
 
+fun NavHostController.navigateToOrigin(route: String) {
+    navigate(route) {
+        popUpTo(graph.startDestinationId) {
+            inclusive = true
+            saveState = false
+        }
+        launchSingleTop = true
+        restoreState = false
+    }
+}
+
 fun NavHostController.navigateAcademicPeriod(courseId: String, originRoute: String) {
     navigate(AppRoutes.academicPeriod(courseId))
     currentBackStackEntry?.savedStateHandle?.set(BROWSE_ORIGIN_KEY, originRoute)

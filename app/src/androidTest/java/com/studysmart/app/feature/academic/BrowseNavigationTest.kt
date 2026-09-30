@@ -9,6 +9,8 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.studysmart.app.app.AppContainer
@@ -92,7 +94,63 @@ class BrowseNavigationTest {
         composeRule.onNodeWithTag("test_submit").performClick()
         composeRule.awaitNodeWithText("Submit test?")
         composeRule.onNodeWithTag("test_confirm_submit").performClick()
-        composeRule.awaitNodeWithText("Test results are available after MVP-9.")
+        composeRule.awaitNodeWithTag("test_result_screen")
+        composeRule.onNodeWithText("Test complete").assertIsDisplayed()
+        composeRule.onNodeWithTag("test_result_keyword_match").assertIsDisplayed()
+        composeRule.onNodeWithTag("test_result_question_1").performClick()
+        composeRule.awaitNodeWithText("Your answer")
+        composeRule.onNodeWithText("Keyword match is a text-matching estimate, not a measure of semantic correctness.")
+            .assertIsDisplayed()
+        awaitEnabled("test_result_new_test")
+        composeRule.onNodeWithTag("test_result_new_test").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("test_answer_input")
+        composeRule.onNodeWithTag("test_submit").performClick()
+        composeRule.awaitNodeWithText("Submit test?")
+        composeRule.onNodeWithTag("test_confirm_submit").performClick()
+        composeRule.awaitNodeWithText("Test complete")
+        awaitEnabled("test_result_retest_weak")
+        composeRule.onNodeWithTag("test_result_retest_weak").performScrollTo().performClick()
+        composeRule.awaitNodeWithText("Question 1 of 2")
+        composeRule.onNodeWithTag("test_submit").performClick()
+        composeRule.awaitNodeWithText("Submit test?")
+        composeRule.onNodeWithTag("test_confirm_submit").performClick()
+        composeRule.awaitNodeWithText("Test complete")
+        composeRule.onNodeWithTag("test_result_back").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
+    }
+
+    @Test
+    fun resultDisablesRetestWeakWhenNoAnswersNeedReview() {
+        composeRule.setStudySmartContent(
+            container(
+                InMemoryPreferencesRepository(
+                    TestDefaults(questionSource = TestQuestionSource.ALL),
+                ),
+            ),
+        )
+
+        composeRule.awaitNodeWithTag("course_course-bca")
+        composeRule.onNodeWithTag("course_course-bca").performClick()
+        composeRule.awaitNodeWithText("Choose Semester")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").performClick()
+        composeRule.awaitNodeWithText("Select subject")
+        composeRule.onNodeWithTag("subject_subject-bca-s1-dbms").performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
+        composeRule.onAllNodesWithText("Test").get(0).performClick()
+        composeRule.awaitNodeWithText("What is a database?")
+        composeRule.onNodeWithTag("test_answer_input").performTextInput("database organised collection")
+        composeRule.onNodeWithTag("test_next").performClick()
+        composeRule.awaitNodeWithText("What is a DBMS?")
+        composeRule.onNodeWithTag("test_answer_input").performTextInput("DBMS storage access")
+        composeRule.onNodeWithTag("test_submit").performClick()
+        composeRule.awaitNodeWithText("Submit test?")
+        composeRule.onNodeWithTag("test_confirm_submit").performClick()
+
+        composeRule.awaitNodeWithTag("test_result_retest_empty")
+        composeRule.onNodeWithTag("test_result_retest_weak").assertIsNotEnabled()
+        composeRule.onNodeWithTag("test_result_new_test").performScrollTo().assertIsEnabled()
+        composeRule.onNodeWithTag("test_result_back").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
     }
 
     @Test
@@ -208,6 +266,12 @@ class BrowseNavigationTest {
             cursor.moveToFirst()
             cursor.getInt(0)
         }
+
+    private fun awaitEnabled(tag: String) {
+        composeRule.waitUntil(5_000) {
+            runCatching { composeRule.onNodeWithTag(tag).assertIsEnabled() }.isSuccess
+        }
+    }
 }
 
 private class InMemoryPreferencesRepository(

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.studysmart.app.core.common.AndroidMonotonicClock
 import com.studysmart.app.core.common.DispatcherProvider
 import com.studysmart.app.core.common.MonotonicClock
-import com.studysmart.app.core.model.TestAttemptOriginType
 import com.studysmart.app.core.model.TestAttemptStatus
 import java.time.Clock
 import kotlinx.coroutines.CancellationException
@@ -34,6 +33,10 @@ data class TestQuestionNavigationState(
 data class TestAttemptUiState(
     val isLoading: Boolean = true,
     val attempt: TestAttemptModel? = null,
+    val resolvedOrigin: TestResultOrigin? = null,
+    val isLoadingOrigin: Boolean = true,
+    val canRetryOrigin: Boolean = false,
+    val originError: String? = null,
     val isMissingContent: Boolean = false,
     val isCorruptContent: Boolean = false,
     val currentQuestionIndex: Int = 0,
@@ -55,16 +58,15 @@ data class TestAttemptUiState(
     val error: String? = null,
     val mutationError: String? = null,
 ) {
+    val canNavigateBack: Boolean
+        get() = !isLoadingOrigin && !canRetryOrigin
+
     val isReadOnly: Boolean
         get() = attempt?.attempt?.status == TestAttemptStatus.SUBMITTED
 }
 
 sealed interface TestAttemptEffect {
-    data class Discarded(
-        val originType: TestAttemptOriginType?,
-        val originReferenceId: String?,
-        val subjectId: String?,
-    ) : TestAttemptEffect
+    data object Discarded : TestAttemptEffect
 
     data class Submitted(val attemptId: String) : TestAttemptEffect
 }
@@ -95,15 +97,29 @@ class TestAttemptViewModel(
     private var frozenExpiryDraft: TestAnswerDraft? = null
     private var expiryFrozen = false
     private var submissionEffectEmitted = false
+    private var hasResolvedNavigationOrigin = false
+    private var originJob: Job? = null
 
     init {
         observe()
     }
 
     fun retry() {
-        _uiState.value = TestAttemptUiState()
+        val previous = _uiState.value
+        _uiState.value = TestAttemptUiState(
+            resolvedOrigin = previous.resolvedOrigin,
+            isLoadingOrigin = previous.isLoadingOrigin,
+            canRetryOrigin = previous.canRetryOrigin,
+            originError = previous.originError,
+        )
         startRequested = false
         observe()
+    }
+
+    fun retryOrigin() {
+        if (_uiState.value.isLoadingOrigin || !_uiState.value.canRetryOrigin) return
+        hasResolvedNavigationOrigin = false
+        resolveNavigationOrigin()
     }
 
     fun onAnswerChanged(value: String) {
@@ -243,13 +259,7 @@ class TestAttemptViewModel(
                                 isDiscarding = false,
                                 showDiscardConfirmation = false,
                             )
-                            _effects.tryEmit(
-                                TestAttemptEffect.Discarded(
-                                    originType = current.originType,
-                                    originReferenceId = current.originReferenceId,
-                                    subjectId = current.subjectId,
-                                ),
-                            )
+                            _effects.tryEmit(TestAttemptEffect.Discarded)
                         }
                     }
                     .onFailure { error ->
@@ -303,10 +313,11 @@ class TestAttemptViewModel(
         observeJob = viewModelScope.launch(dispatchers.main) {
             repository.observeAttempt(attemptId)
                 .catch { error ->
-                    _uiState.value = TestAttemptUiState(
+                    _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         error = error.message ?: "Unable to load the test attempt.",
                     )
+                    if (!hasResolvedNavigationOrigin) resolveNavigationOrigin()
                 }
                 .collect { model ->
                     if (model == null) {
@@ -314,6 +325,9 @@ class TestAttemptViewModel(
                             isLoading = false,
                             attempt = null,
                             isMissingContent = true,
+                            isLoadingOrigin = false,
+                            canRetryOrigin = false,
+                            originError = null,
                             error = null,
                         )
                         return@collect
@@ -324,10 +338,14 @@ class TestAttemptViewModel(
                             isLoading = false,
                             attempt = model,
                             isCorruptContent = true,
+                            isLoadingOrigin = false,
+                            canRetryOrigin = false,
+                            originError = null,
                             error = integrityError,
                         )
                         return@collect
                     }
+                    if (!hasResolvedNavigationOrigin) resolveNavigationOrigin()
                     model.answers.forEach { answer ->
                         if (answer.testAttemptQuestionId !in dirtyQuestionIds) {
                             draftCache[answer.testAttemptQuestionId] = DraftValue(
@@ -388,6 +406,34 @@ class TestAttemptViewModel(
                         }
                     }
                 }
+        }
+    }
+
+    private fun resolveNavigationOrigin() {
+        if (hasResolvedNavigationOrigin || originJob?.isActive == true) return
+        _uiState.value = _uiState.value.copy(
+            isLoadingOrigin = true,
+            canRetryOrigin = false,
+            originError = null,
+        )
+        originJob = viewModelScope.launch(dispatchers.main) {
+            try {
+                val origin = repository.loadAttemptOrigin(attemptId)
+                hasResolvedNavigationOrigin = true
+                _uiState.value = _uiState.value.copy(
+                    resolvedOrigin = origin,
+                    isLoadingOrigin = false,
+                    canRetryOrigin = false,
+                    originError = null,
+                )
+            } catch (error: Throwable) {
+                if (error is CancellationException) throw error
+                _uiState.value = _uiState.value.copy(
+                    isLoadingOrigin = false,
+                    canRetryOrigin = true,
+                    originError = error.message ?: "Unable to verify where to return from this test.",
+                )
+            }
         }
     }
 

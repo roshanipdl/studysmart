@@ -7,6 +7,9 @@ import com.studysmart.app.core.common.IdGenerator
 import com.studysmart.app.core.model.PreparationOriginType
 import com.studysmart.app.core.model.PreparationSessionStatus
 import com.studysmart.app.core.model.Rating
+import com.studysmart.app.feature.readiness.ReadinessEstimate
+import com.studysmart.app.feature.readiness.ReadinessRepository
+import com.studysmart.app.feature.readiness.ReadinessScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -280,26 +283,36 @@ data class PreparationSummaryUiState(
     val session: PreparationSessionModel? = null,
     val isMissingContent: Boolean = false,
     val isNotCompleted: Boolean = false,
+    val readiness: ReadinessEstimate? = null,
+    val isReadinessLoading: Boolean = false,
+    val readinessError: String? = null,
     val error: String? = null,
 )
 
 class PreparationSummaryViewModel(
     private val sessionId: String,
     private val repository: PreparationRepository,
+    private val readinessRepository: ReadinessRepository,
     private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PreparationSummaryUiState())
     val uiState: StateFlow<PreparationSummaryUiState> = _uiState.asStateFlow()
 
     private var observeJob: Job? = null
+    private var readinessJob: Job? = null
 
     init {
         observe()
     }
 
     fun retry() {
+        readinessJob?.cancel()
         _uiState.value = PreparationSummaryUiState()
         observe()
+    }
+
+    fun retryReadiness() {
+        observeReadiness(_uiState.value.session)
     }
 
     private fun observe() {
@@ -307,17 +320,62 @@ class PreparationSummaryViewModel(
         observeJob = viewModelScope.launch(dispatchers.main) {
             repository.observeSession(sessionId)
                 .catch { error ->
+                    readinessJob?.cancel()
                     _uiState.value = PreparationSummaryUiState(
                         isLoading = false,
                         error = error.message ?: "Unable to load the preparation summary.",
                     )
                 }
                 .collect { session ->
-                    _uiState.value = PreparationSummaryUiState(
+                    _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         session = session,
                         isMissingContent = session == null,
                         isNotCompleted = session != null && !session.isComplete,
+                        isReadinessLoading = session != null,
+                        readiness = null,
+                        readinessError = null,
+                        error = null,
+                    )
+                    observeReadiness(session)
+                }
+        }
+    }
+
+    private fun observeReadiness(session: PreparationSessionModel?) {
+        readinessJob?.cancel()
+        if (session == null) {
+            _uiState.value = _uiState.value.copy(
+                readiness = null,
+                isReadinessLoading = false,
+                readinessError = null,
+            )
+            return
+        }
+        val scope = ReadinessScope(
+            courseId = session.courseId,
+            academicPeriodId = session.academicPeriodId,
+            subjectId = session.subjectId,
+            chapterId = session.chapterId,
+        )
+        _uiState.value = _uiState.value.copy(
+            readiness = null,
+            isReadinessLoading = true,
+            readinessError = null,
+        )
+        readinessJob = viewModelScope.launch(dispatchers.main) {
+            readinessRepository.observeReadiness(scope)
+                .catch { error ->
+                    _uiState.value = _uiState.value.copy(
+                        isReadinessLoading = false,
+                        readinessError = error.message ?: "Unable to load readiness estimate.",
+                    )
+                }
+                .collect { estimate ->
+                    _uiState.value = _uiState.value.copy(
+                        isReadinessLoading = false,
+                        readiness = estimate,
+                        readinessError = null,
                     )
                 }
         }

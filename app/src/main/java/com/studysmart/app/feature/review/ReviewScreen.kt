@@ -20,6 +20,7 @@ import com.studysmart.app.core.ui.EmptyState
 import com.studysmart.app.core.ui.ErrorState
 import com.studysmart.app.core.ui.LoadingState
 import com.studysmart.app.core.ui.PrimaryButton
+import com.studysmart.app.core.ui.ReadinessEstimateCard
 import com.studysmart.app.core.ui.ResultMetric
 import com.studysmart.app.core.ui.StudyTopBar
 import com.studysmart.app.core.ui.StudyTopBarVariant
@@ -64,13 +65,9 @@ fun ReviewScreen(
                     message = "Select a course and academic period before opening Review.",
                     modifier = Modifier.testTag("review_context_required"),
                 )
-                state.isNoDue -> EmptyState(
-                    title = "No due reviews",
-                    message = "There are no scheduled questions to review in this context.",
-                    modifier = Modifier.testTag("review_no_due"),
-                )
                 else -> DueReviewContent(
                     state = state,
+                    onRetryReadiness = onRetry,
                     onStartDueReview = onStartDueReview,
                 )
             }
@@ -81,6 +78,7 @@ fun ReviewScreen(
 @Composable
 private fun DueReviewContent(
     state: ReviewUiState,
+    onRetryReadiness: () -> Unit,
     onStartDueReview: () -> Unit,
 ) {
     Text(
@@ -93,32 +91,47 @@ private fun DueReviewContent(
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        ResultMetric(
-            value = state.dueCount.toString(),
-            label = "Due",
-            modifier = Modifier
-                .weight(1f)
-                .testTag("review_due_count"),
+    if (state.isNoDue) {
+        EmptyState(
+            title = "No due reviews",
+            message = "There are no scheduled questions to review in this context.",
+            modifier = Modifier.testTag("review_no_due"),
         )
-        ResultMetric(
-            value = state.overdueCount.toString(),
-            label = "Overdue",
+    } else {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            ResultMetric(
+                value = state.dueCount.toString(),
+                label = "Due",
+                modifier = Modifier
+                    .weight(1f)
+                    .testTag("review_due_count"),
+            )
+            ResultMetric(
+                value = state.overdueCount.toString(),
+                label = "Overdue",
+                modifier = Modifier
+                    .weight(1f)
+                    .testTag("review_overdue_count"),
+            )
+        }
+        PrimaryButton(
+            text = if (state.isStarting) "Starting review..." else "Start Due Review",
+            onClick = onStartDueReview,
+            enabled = !state.isStarting,
             modifier = Modifier
-                .weight(1f)
-                .testTag("review_overdue_count"),
+                .fillMaxWidth()
+                .testTag("review_start_due"),
         )
     }
-    PrimaryButton(
-        text = if (state.isStarting) "Starting review..." else "Start Due Review",
-        onClick = onStartDueReview,
-        enabled = !state.isStarting,
-        modifier = Modifier
-            .fillMaxWidth()
-            .testTag("review_start_due"),
+    ReadinessEstimateCard(
+        estimate = state.readiness,
+        isLoading = state.isReadinessLoading,
+        error = state.readinessError,
+        onRetry = onRetryReadiness,
+        testTag = "review_readiness",
     )
     if (state.isStarting) {
         LoadingState(

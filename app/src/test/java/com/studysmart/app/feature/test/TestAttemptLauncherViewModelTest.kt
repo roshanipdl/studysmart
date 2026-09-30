@@ -146,5 +146,17 @@ private class FakeTestAttemptRepository(
         request: ImportantTestAttemptRequest,
     ): TestAttemptCreationResult = result
 
+    override suspend fun createNewAttemptFromResult(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = result
+
+    override suspend fun createRetestWeakAttempt(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = result
+
+    override suspend fun loadResultActionContext(attemptId: String): TestResultActionContext? = null
+
+    override suspend fun loadAttemptOrigin(attemptId: String): TestResultOrigin? = null
+
     override suspend fun discardActiveAttempt(attemptId: String): Boolean = true
 }

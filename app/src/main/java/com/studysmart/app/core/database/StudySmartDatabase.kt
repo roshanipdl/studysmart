@@ -37,6 +37,8 @@ abstract class StudySmartDatabase : RoomDatabase() {
 
     abstract fun testAttemptDao(): TestAttemptDao
 
+    abstract fun readinessDao(): ReadinessDao
+
     companion object {
         fun create(context: Context): StudySmartDatabase =
             Room.databaseBuilder(

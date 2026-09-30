@@ -37,6 +37,8 @@ sealed interface TestAttemptCreationResult {
     data class Created(val attemptId: String) : TestAttemptCreationResult
     data class NoQuestions(val questionSource: TestQuestionSource) : TestAttemptCreationResult
     data object MissingScope : TestAttemptCreationResult
+    data object MissingSource : TestAttemptCreationResult
+    data object CorruptSource : TestAttemptCreationResult
 }
 
 data class ChapterTestAttemptRequest(
@@ -52,10 +54,25 @@ data class ImportantTestAttemptRequest(
     val creationRequestId: String,
 )
 
+data class ResultFollowUpAttemptRequest(
+    val sourceAttemptId: String,
+    val creationRequestId: String,
+)
+
 data class TestAttemptModel(
     val attempt: TestAttemptEntity,
     val questions: List<TestAttemptQuestionEntity>,
     val answers: List<TestAnswerEntity>,
+)
+
+data class TestResultOrigin(
+    val originType: TestAttemptOriginType,
+    val subjectId: String?,
+)
+
+data class TestResultActionContext(
+    val origin: TestResultOrigin,
+    val activeReviewQuestionCount: Int,
 )
 
 sealed interface TestAttemptStartResult {
@@ -115,6 +132,14 @@ interface TestAttemptRepository {
     suspend fun createChapterAttempt(request: ChapterTestAttemptRequest): TestAttemptCreationResult
 
     suspend fun createImportantAttempt(request: ImportantTestAttemptRequest): TestAttemptCreationResult
+
+    suspend fun createNewAttemptFromResult(request: ResultFollowUpAttemptRequest): TestAttemptCreationResult
+
+    suspend fun createRetestWeakAttempt(request: ResultFollowUpAttemptRequest): TestAttemptCreationResult
+
+    suspend fun loadResultActionContext(attemptId: String): TestResultActionContext?
+
+    suspend fun loadAttemptOrigin(attemptId: String): TestResultOrigin?
 
     suspend fun discardActiveAttempt(attemptId: String): Boolean
 }
@@ -419,6 +444,72 @@ class RoomTestAttemptRepository(
         )
     }
 
+    override suspend fun createNewAttemptFromResult(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = withContext(dispatchers.io) {
+        validateFollowUpRequest(request)
+        createFollowUpAttempt(request, retestWeak = false)
+    }
+
+    override suspend fun createRetestWeakAttempt(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = withContext(dispatchers.io) {
+        validateFollowUpRequest(request)
+        createFollowUpAttempt(request, retestWeak = true)
+    }
+
+    override suspend fun loadResultActionContext(attemptId: String): TestResultActionContext? =
+        withContext(dispatchers.io) {
+            require(attemptId.isNotBlank()) { "attemptId must not be blank" }
+            database.withTransaction {
+                val sourceBundle = dao.getAttemptWithQuestions(attemptId) ?: return@withTransaction null
+                val source = sourceBundle.toModel()
+                if (source.attempt.userId != userId || source.attempt.status != TestAttemptStatus.SUBMITTED) {
+                    return@withTransaction null
+                }
+                val report = when (val projection = TestResultProjector.project(source)) {
+                    is TestResultProjection.Available -> projection.report
+                    TestResultProjection.NotSubmitted,
+                    is TestResultProjection.Corrupt,
+                    -> return@withTransaction null
+                }
+                val baseAttempt = resolveBaseAttempt(source.attempt) ?: return@withTransaction null
+                val context = loadBaseContext(baseAttempt) ?: return@withTransaction null
+                val origin = baseAttempt.validatedOrigin() ?: return@withTransaction null
+                val reviewQuestionIds = report.questions
+                    .filter { it.answer.requiresReview == true }
+                    .map { it.snapshot.questionId }
+                val activeReviewCount = if (reviewQuestionIds.isEmpty()) {
+                    0
+                } else {
+                    dao.getActiveCandidatesForQuestionIds(
+                        userId = userId,
+                        courseId = context.courseId,
+                        academicPeriodId = context.academicPeriodId,
+                        chapterId = baseAttempt.chapterId.takeIf {
+                            baseAttempt.scopeType == TestAttemptScopeType.CHAPTER
+                        },
+                        questionIds = reviewQuestionIds,
+                    ).size
+                }
+                TestResultActionContext(
+                    origin = origin,
+                    activeReviewQuestionCount = activeReviewCount,
+                )
+            }
+        }
+
+    override suspend fun loadAttemptOrigin(attemptId: String): TestResultOrigin? =
+        withContext(dispatchers.io) {
+            require(attemptId.isNotBlank()) { "attemptId must not be blank" }
+            database.withTransaction {
+                val attempt = dao.getAttempt(attemptId) ?: return@withTransaction null
+                val baseAttempt = resolveNavigationBaseAttempt(attempt) ?: return@withTransaction null
+                if (loadBaseContext(baseAttempt) == null) return@withTransaction null
+                baseAttempt.validatedOrigin()
+            }
+        }
+
     private suspend fun createAttempt(
         creationRequestId: String,
         contextLoader: suspend () -> TestAttemptContextRow?,
@@ -445,78 +536,296 @@ class RoomTestAttemptRepository(
                 defaults = defaults,
                 selectionSeed = selectionSeed,
             ) ?: return@withTransaction TestAttemptCreationResult.NoQuestions(defaults.questionSource)
-            val candidateById = candidates.associateBy { it.question.id }
-            val now = clock.instant()
-            val attemptId = idGenerator.nextId("test-attempt")
-            val attempt = TestAttemptEntity(
-                id = attemptId,
-                userId = userId,
-                courseId = context.courseId,
-                academicPeriodId = context.academicPeriodId,
-                subjectId = context.subjectId,
-                chapterId = context.chapterId,
-                topicId = context.topicId,
+            persistAttempt(
+                creationRequestId = creationRequestId,
+                context = context,
+                candidates = candidates,
+                plan = plan,
+                defaults = defaults,
                 scopeType = scopeType,
                 scopeReferenceId = scopeReferenceId,
                 originType = originType,
                 originReferenceId = originReferenceId,
-                creationRequestId = creationRequestId,
-                requestedQuestionCount = defaults.questionCount,
-                actualQuestionCount = plan.orderedQuestionIds.size,
-                questionSource = defaults.questionSource,
-                selectionSeed = plan.selectionSeed,
-                isTimed = defaults.timedMode,
-                timeLimitSeconds = defaults.timeLimitSeconds,
-                startedAt = null,
-                submittedAt = null,
-                completedAt = null,
-                timeTakenSeconds = null,
+            )
+        }
+    }
+
+    private suspend fun createFollowUpAttempt(
+        request: ResultFollowUpAttemptRequest,
+        retestWeak: Boolean,
+    ): TestAttemptCreationResult {
+        val currentDefaults = preferencesRepository.preferences.first().testDefaults
+        return database.withTransaction {
+            dao.getAttemptByCreationRequestId(request.creationRequestId)?.let { existing ->
+                return@withTransaction if (existing.userId == userId) {
+                    TestAttemptCreationResult.Created(existing.id)
+                } else {
+                    TestAttemptCreationResult.MissingSource
+                }
+            }
+
+            val sourceBundle = dao.getAttemptWithQuestions(request.sourceAttemptId)
+                ?: return@withTransaction TestAttemptCreationResult.MissingSource
+            val source = sourceBundle.toModel()
+            if (source.attempt.userId != userId || source.attempt.status != TestAttemptStatus.SUBMITTED) {
+                return@withTransaction TestAttemptCreationResult.MissingSource
+            }
+            val sourceReport = when (val projection = TestResultProjector.project(source)) {
+                is TestResultProjection.Available -> projection.report
+                TestResultProjection.NotSubmitted -> return@withTransaction TestAttemptCreationResult.MissingSource
+                is TestResultProjection.Corrupt -> return@withTransaction TestAttemptCreationResult.CorruptSource
+            }
+
+            val baseAttempt = resolveBaseAttempt(source.attempt)
+                ?: return@withTransaction TestAttemptCreationResult.MissingSource
+            val context = loadBaseContext(baseAttempt)
+                ?: return@withTransaction TestAttemptCreationResult.MissingScope
+
+            if (retestWeak) {
+                val reviewQuestionIds = sourceReport.questions
+                    .filter { it.answer.requiresReview == true }
+                    .map { it.snapshot.questionId }
+                if (reviewQuestionIds.isEmpty()) {
+                    return@withTransaction TestAttemptCreationResult.NoQuestions(TestQuestionSource.ALL)
+                }
+                val candidates = dao.getActiveCandidatesForQuestionIds(
+                    userId = userId,
+                    courseId = context.courseId,
+                    academicPeriodId = context.academicPeriodId,
+                    chapterId = baseAttempt.chapterId.takeIf {
+                        baseAttempt.scopeType == TestAttemptScopeType.CHAPTER
+                    },
+                    questionIds = reviewQuestionIds,
+                ).associateBy { it.question.id }
+                val orderedCandidates = reviewQuestionIds.mapNotNull(candidates::get)
+                if (orderedCandidates.isEmpty()) {
+                    return@withTransaction TestAttemptCreationResult.NoQuestions(TestQuestionSource.ALL)
+                }
+                val retestDefaults = currentDefaults.copy(
+                    questionCount = orderedCandidates.size,
+                    questionSource = TestQuestionSource.ALL,
+                )
+                val plan = selectionEngine.createPlan(
+                    candidates = orderedCandidates.map { it.toCandidate() },
+                    defaults = retestDefaults,
+                    selectionSeed = null,
+                ) ?: return@withTransaction TestAttemptCreationResult.NoQuestions(TestQuestionSource.ALL)
+                persistAttempt(
+                    creationRequestId = request.creationRequestId,
+                    context = context,
+                    candidates = orderedCandidates,
+                    plan = plan,
+                    defaults = retestDefaults,
+                    scopeType = TestAttemptScopeType.RETEST_WEAK,
+                    scopeReferenceId = source.attempt.id,
+                    originType = TestAttemptOriginType.RETEST_WEAK,
+                    originReferenceId = source.attempt.id,
+                )
+            } else {
+                val candidates = loadBaseCandidates(baseAttempt)
+                val selectionSeed = if (currentDefaults.questionSource == TestQuestionSource.ALL) {
+                    null
+                } else {
+                    randomSource.nextLong()
+                }
+                val plan = selectionEngine.createPlan(
+                    candidates = candidates.map { it.toCandidate() },
+                    defaults = currentDefaults,
+                    selectionSeed = selectionSeed,
+                ) ?: return@withTransaction TestAttemptCreationResult.NoQuestions(currentDefaults.questionSource)
+                persistAttempt(
+                    creationRequestId = request.creationRequestId,
+                    context = context,
+                    candidates = candidates,
+                    plan = plan,
+                    defaults = currentDefaults,
+                    scopeType = baseAttempt.scopeType,
+                    scopeReferenceId = baseAttempt.scopeReferenceId,
+                    originType = TestAttemptOriginType.NEW_TEST,
+                    originReferenceId = source.attempt.id,
+                )
+            }
+        }
+    }
+
+    private suspend fun resolveBaseAttempt(source: TestAttemptEntity): TestAttemptEntity? {
+        val visited = mutableSetOf<String>()
+        var current = source
+        while (true) {
+            if (!visited.add(current.id) || current.userId != userId ||
+                current.status != TestAttemptStatus.SUBMITTED
+            ) {
+                return null
+            }
+            if (current.originType != TestAttemptOriginType.NEW_TEST &&
+                current.originType != TestAttemptOriginType.RETEST_WEAK
+            ) {
+                return current
+            }
+            val sourceId = current.originReferenceId?.takeIf(String::isNotBlank) ?: return null
+            current = dao.getAttempt(sourceId) ?: return null
+        }
+    }
+
+    private suspend fun resolveNavigationBaseAttempt(source: TestAttemptEntity): TestAttemptEntity? {
+        val visited = mutableSetOf<String>()
+        var current = source
+        while (true) {
+            if (!visited.add(current.id) || current.userId != userId) return null
+            if (current.originType != TestAttemptOriginType.NEW_TEST &&
+                current.originType != TestAttemptOriginType.RETEST_WEAK
+            ) {
+                return current
+            }
+            val sourceId = current.originReferenceId?.takeIf(String::isNotBlank) ?: return null
+            val parent = dao.getAttempt(sourceId) ?: return null
+            if (parent.userId != userId || parent.status != TestAttemptStatus.SUBMITTED) return null
+            current = parent
+        }
+    }
+
+    private suspend fun loadBaseContext(base: TestAttemptEntity): TestAttemptContextRow? {
+        val context = when (base.scopeType) {
+            TestAttemptScopeType.CHAPTER -> {
+                val chapterId = base.chapterId?.takeIf { base.scopeReferenceId == it } ?: return null
+                dao.getChapterContext(chapterId)
+            }
+            TestAttemptScopeType.IMPORTANT -> {
+                val periodId = base.academicPeriodId
+                    .takeIf { base.scopeReferenceId == it } ?: return null
+                dao.getCoursePeriodContext(base.courseId, periodId)
+            }
+            TestAttemptScopeType.TOPIC,
+            TestAttemptScopeType.RETEST_WEAK,
+            TestAttemptScopeType.STATUS_FILTER,
+            -> return null
+        } ?: return null
+        if (context.courseId != base.courseId || context.academicPeriodId != base.academicPeriodId ||
+            context.subjectId != base.subjectId || context.chapterId != base.chapterId ||
+            context.topicId != base.topicId
+        ) {
+            return null
+        }
+        return context
+    }
+
+    private fun TestAttemptEntity.validatedOrigin(): TestResultOrigin? {
+        val expectedOriginType = when (scopeType) {
+            TestAttemptScopeType.CHAPTER -> TestAttemptOriginType.CHAPTER
+            TestAttemptScopeType.IMPORTANT -> TestAttemptOriginType.IMPORTANT
+            TestAttemptScopeType.TOPIC,
+            TestAttemptScopeType.RETEST_WEAK,
+            TestAttemptScopeType.STATUS_FILTER,
+            -> return null
+        }
+        if (originType != expectedOriginType) return null
+        return TestResultOrigin(expectedOriginType, subjectId)
+    }
+
+    private suspend fun loadBaseCandidates(base: TestAttemptEntity): List<TestCandidateRow> =
+        when (base.scopeType) {
+            TestAttemptScopeType.CHAPTER -> dao.getChapterCandidates(userId, requireNotNull(base.chapterId))
+            TestAttemptScopeType.IMPORTANT -> dao.getImportantCandidates(
+                userId,
+                base.courseId,
+                base.academicPeriodId,
+            )
+            TestAttemptScopeType.TOPIC,
+            TestAttemptScopeType.RETEST_WEAK,
+            TestAttemptScopeType.STATUS_FILTER,
+            -> emptyList()
+        }
+
+    private suspend fun persistAttempt(
+        creationRequestId: String,
+        context: TestAttemptContextRow,
+        candidates: List<TestCandidateRow>,
+        plan: TestSelectionPlan,
+        defaults: TestDefaults,
+        scopeType: TestAttemptScopeType,
+        scopeReferenceId: String?,
+        originType: TestAttemptOriginType,
+        originReferenceId: String?,
+    ): TestAttemptCreationResult.Created {
+        val candidateById = candidates.associateBy { it.question.id }
+        check(plan.orderedQuestionIds.all { it in candidateById }) {
+            "test selection references a missing active candidate"
+        }
+        val now = clock.instant()
+        val attemptId = idGenerator.nextId("test-attempt")
+        val attempt = TestAttemptEntity(
+            id = attemptId,
+            userId = userId,
+            courseId = context.courseId,
+            academicPeriodId = context.academicPeriodId,
+            subjectId = context.subjectId,
+            chapterId = context.chapterId,
+            topicId = context.topicId,
+            scopeType = scopeType,
+            scopeReferenceId = scopeReferenceId,
+            originType = originType,
+            originReferenceId = originReferenceId,
+            creationRequestId = creationRequestId,
+            requestedQuestionCount = defaults.questionCount,
+            actualQuestionCount = plan.orderedQuestionIds.size,
+            questionSource = defaults.questionSource,
+            selectionSeed = plan.selectionSeed,
+            isTimed = defaults.timedMode,
+            timeLimitSeconds = defaults.timeLimitSeconds,
+            startedAt = null,
+            submittedAt = null,
+            completedAt = null,
+            timeTakenSeconds = null,
+            score = null,
+            maxScore = null,
+            percentage = null,
+            status = TestAttemptStatus.CREATED,
+            completionReason = null,
+            evaluatorVersion = null,
+        )
+        val snapshots = plan.orderedQuestionIds.mapIndexed { displayOrder, questionId ->
+            val candidate = candidateById.getValue(questionId)
+            val keywords = dao.getQuestionKeywords(questionId).toSnapshotEntries()
+            TestAttemptQuestionEntity(
+                id = idGenerator.nextId("test-attempt-question"),
+                testAttemptId = attemptId,
+                questionId = questionId,
+                displayOrder = displayOrder,
+                questionTextSnapshot = candidate.question.question,
+                referenceAnswerSnapshot = candidate.question.answer,
+                questionTypeSnapshot = candidate.question.questionType,
+                maxScoreSnapshot = candidate.question.maxScore,
+                keywordSnapshotJson = KeywordSnapshotCodec.encode(keywords),
+                keywordSnapshotVersion = KeywordSnapshotCodec.CURRENT_VERSION,
+            )
+        }
+        val answers = snapshots.map { snapshot ->
+            TestAnswerEntity(
+                id = idGenerator.nextId("test-answer"),
+                testAttemptQuestionId = snapshot.id,
+                answerText = "",
+                selectedOption = null,
+                isFlagged = false,
+                timeSpentSeconds = null,
+                keywordMatchPercent = null,
+                normalizedAnswer = null,
+                matchedKeywordsJson = null,
+                missingKeywordsJson = null,
                 score = null,
                 maxScore = null,
-                percentage = null,
-                status = TestAttemptStatus.CREATED,
-                completionReason = null,
-                evaluatorVersion = null,
+                requiresReview = null,
+                updatedAt = now,
             )
-            val snapshots = plan.orderedQuestionIds.mapIndexed { displayOrder, questionId ->
-                val candidate = candidateById.getValue(questionId)
-                val keywords = dao.getQuestionKeywords(questionId).toSnapshotEntries()
-                TestAttemptQuestionEntity(
-                    id = idGenerator.nextId("test-attempt-question"),
-                    testAttemptId = attemptId,
-                    questionId = questionId,
-                    displayOrder = displayOrder,
-                    questionTextSnapshot = candidate.question.question,
-                    referenceAnswerSnapshot = candidate.question.answer,
-                    questionTypeSnapshot = candidate.question.questionType,
-                    maxScoreSnapshot = candidate.question.maxScore,
-                    keywordSnapshotJson = KeywordSnapshotCodec.encode(keywords),
-                    keywordSnapshotVersion = KeywordSnapshotCodec.CURRENT_VERSION,
-                )
-            }
-            val answers = snapshots.map { snapshot ->
-                TestAnswerEntity(
-                    id = idGenerator.nextId("test-answer"),
-                    testAttemptQuestionId = snapshot.id,
-                    answerText = "",
-                    selectedOption = null,
-                    isFlagged = false,
-                    timeSpentSeconds = null,
-                    keywordMatchPercent = null,
-                    normalizedAnswer = null,
-                    matchedKeywordsJson = null,
-                    missingKeywordsJson = null,
-                    score = null,
-                    maxScore = null,
-                    requiresReview = null,
-                    updatedAt = now,
-                )
-            }
-            dao.insertAttempt(attempt)
-            dao.insertAttemptQuestions(snapshots)
-            dao.insertAnswers(answers)
-            TestAttemptCreationResult.Created(attemptId)
         }
+        dao.insertAttempt(attempt)
+        dao.insertAttemptQuestions(snapshots)
+        dao.insertAnswers(answers)
+        return TestAttemptCreationResult.Created(attemptId)
+    }
+
+    private fun validateFollowUpRequest(request: ResultFollowUpAttemptRequest) {
+        require(request.sourceAttemptId.isNotBlank()) { "sourceAttemptId must not be blank" }
+        require(request.creationRequestId.isNotBlank()) { "creationRequestId must not be blank" }
     }
 
     override suspend fun discardActiveAttempt(attemptId: String): Boolean = withContext(dispatchers.io) {

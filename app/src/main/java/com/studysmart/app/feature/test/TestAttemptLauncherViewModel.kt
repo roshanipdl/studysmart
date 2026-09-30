@@ -87,6 +87,16 @@ class TestAttemptLauncherViewModel(
                     TestAttemptCreationResult.MissingScope -> {
                         _uiState.value = TestAttemptLauncherUiState(isMissingScope = true)
                     }
+                    TestAttemptCreationResult.MissingSource -> {
+                        _uiState.value = TestAttemptLauncherUiState(
+                            error = "The source test result is no longer available.",
+                        )
+                    }
+                    TestAttemptCreationResult.CorruptSource -> {
+                        _uiState.value = TestAttemptLauncherUiState(
+                            error = "The source test result cannot be used safely.",
+                        )
+                    }
                 }
             } catch (error: Throwable) {
                 if (error is CancellationException) throw error

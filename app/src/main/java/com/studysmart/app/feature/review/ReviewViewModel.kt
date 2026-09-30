@@ -9,6 +9,9 @@ import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.feature.preparation.DueReviewSessionRequest
 import com.studysmart.app.feature.preparation.PreparationCreationResult
 import com.studysmart.app.feature.preparation.PreparationRepository
+import com.studysmart.app.feature.readiness.ReadinessEstimate
+import com.studysmart.app.feature.readiness.ReadinessRepository
+import com.studysmart.app.feature.readiness.ReadinessScope
 import java.time.Clock
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -32,6 +35,9 @@ data class ReviewUiState(
     val overdueCount: Int = 0,
     val isNoDue: Boolean = false,
     val isStarting: Boolean = false,
+    val readiness: ReadinessEstimate? = null,
+    val isReadinessLoading: Boolean = false,
+    val readinessError: String? = null,
     val error: String? = null,
 )
 
@@ -43,6 +49,7 @@ class ReviewViewModel(
     private val preferencesRepository: PreferencesRepository,
     private val curriculumRepository: CurriculumRepository,
     private val reviewRepository: ReviewRepository,
+    private val readinessRepository: ReadinessRepository,
     private val preparationRepository: PreparationRepository,
     private val clock: Clock,
     private val idGenerator: IdGenerator,
@@ -195,30 +202,53 @@ class ReviewViewModel(
             isContextRequired = false,
             courseId = courseId,
             academicPeriodId = academicPeriodId,
+            readiness = null,
+            isReadinessLoading = true,
+            readinessError = null,
             error = null,
         )
-        reviewRepository.observeDueReview(
-            courseId = courseId,
-            academicPeriodId = academicPeriodId,
-            now = clock.instant(),
-        ).catch { error ->
-            _uiState.value = ReviewUiState(
-                isLoading = false,
-                courseId = courseId,
-                academicPeriodId = academicPeriodId,
-                error = error.message ?: "Unable to load due reviews.",
-            )
-        }.collect { summary ->
-            _uiState.value = _uiState.value.copy(
-                isLoading = false,
-                isContextRequired = false,
-                courseId = courseId,
-                academicPeriodId = academicPeriodId,
-                dueCount = summary.dueCount,
-                overdueCount = summary.overdueCount,
-                isNoDue = summary.dueCount == 0,
-                error = null,
-            )
+        kotlinx.coroutines.coroutineScope {
+            launch {
+                reviewRepository.observeDueReview(
+                    courseId = courseId,
+                    academicPeriodId = academicPeriodId,
+                    now = clock.instant(),
+                ).catch { error ->
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        courseId = courseId,
+                        academicPeriodId = academicPeriodId,
+                        error = error.message ?: "Unable to load due reviews.",
+                    )
+                }.collect { summary ->
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        isContextRequired = false,
+                        courseId = courseId,
+                        academicPeriodId = academicPeriodId,
+                        dueCount = summary.dueCount,
+                        overdueCount = summary.overdueCount,
+                        isNoDue = summary.dueCount == 0,
+                        error = null,
+                    )
+                }
+            }
+            launch {
+                readinessRepository.observeReadiness(
+                    ReadinessScope(courseId = courseId, academicPeriodId = academicPeriodId),
+                ).catch { error ->
+                    _uiState.value = _uiState.value.copy(
+                        isReadinessLoading = false,
+                        readinessError = error.message ?: "Unable to load readiness estimate.",
+                    )
+                }.collect { estimate ->
+                    _uiState.value = _uiState.value.copy(
+                        isReadinessLoading = false,
+                        readiness = estimate,
+                        readinessError = null,
+                    )
+                }
+            }
         }
     }
 }

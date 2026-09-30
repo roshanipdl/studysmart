@@ -40,6 +40,7 @@ fun StudyTopBar(
     onSearch: (() -> Unit)? = null,
     onSettings: (() -> Unit)? = null,
     navigationContentDescription: String = "Back",
+    backEnabled: Boolean = true,
 ) {
     TopAppBar(
         title = {
@@ -72,7 +73,7 @@ fun StudyTopBar(
         },
         navigationIcon = {
             if (onBack != null && variant != StudyTopBarVariant.HOME && variant != StudyTopBarVariant.TEST_TIMER) {
-                IconButton(onClick = onBack) {
+                IconButton(onClick = onBack, enabled = backEnabled) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = navigationContentDescription,

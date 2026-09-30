@@ -15,6 +15,7 @@ import com.studysmart.app.core.model.TestQuestionSource
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -31,6 +32,42 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestAttemptViewModelTest {
+    @Test
+    fun originLookupFailureBlocksBackUntilAConfirmedLookupCanBeRetried() = runTest {
+        val repository = FakeAttemptRepository(inProgressAttempt()).apply { originFailuresRemaining = 1 }
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
+        runCurrent()
+
+        assertTrue(viewModel.uiState.value.canRetryOrigin)
+        assertFalse(viewModel.uiState.value.canNavigateBack)
+
+        viewModel.retryOrigin()
+        runCurrent()
+
+        assertFalse(viewModel.uiState.value.canRetryOrigin)
+        assertTrue(viewModel.uiState.value.canNavigateBack)
+        assertNull(viewModel.uiState.value.resolvedOrigin)
+    }
+
+    @Test
+    fun createdAttemptStartsWhileOriginLookupIsSuspended() = runTest {
+        val pendingOrigin = CompletableDeferred<TestResultOrigin?>()
+        val repository = FakeAttemptRepository(createdAttempt(), pendingOrigin)
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
+        runCurrent()
+
+        assertEquals(1, repository.startAttemptCalls)
+        assertEquals(TestAttemptStatus.IN_PROGRESS, viewModel.uiState.value.attempt?.attempt?.status)
+        assertTrue(viewModel.uiState.value.isLoadingOrigin)
+        assertFalse(viewModel.uiState.value.canNavigateBack)
+
+        pendingOrigin.complete(TestResultOrigin(TestAttemptOriginType.CHAPTER, "subject-1"))
+        runCurrent()
+
+        assertFalse(viewModel.uiState.value.isLoadingOrigin)
+        assertTrue(viewModel.uiState.value.canNavigateBack)
+    }
+
     @Test
     fun displaysDraftCountsAndPersistsDebouncedAnswer() = runTest {
         val repository = FakeAttemptRepository(inProgressAttempt())
@@ -284,18 +321,35 @@ private class TestDispatcherProvider(
     override val io: CoroutineDispatcher = main
 }
 
-private class FakeAttemptRepository(initial: TestAttemptModel?) : TestAttemptRepository {
+private class FakeAttemptRepository(
+    initial: TestAttemptModel?,
+    private val pendingOrigin: CompletableDeferred<TestResultOrigin?>? = null,
+) : TestAttemptRepository {
     val state = MutableStateFlow(initial)
     val savedDrafts = mutableListOf<TestAnswerDraft>()
     val submissions = mutableListOf<SubmissionCall>()
     var failSaves: Boolean = false
     var failedSubmissionsRemaining: Int = 0
     var discardCount: Int = 0
+    var originFailuresRemaining: Int = 0
+    var startAttemptCalls: Int = 0
 
     override fun observeAttempt(attemptId: String): Flow<TestAttemptModel?> = state
 
-    override suspend fun startAttempt(attemptId: String): TestAttemptStartResult =
-        TestAttemptStartResult.AlreadyInProgress
+    override suspend fun startAttempt(attemptId: String): TestAttemptStartResult {
+        startAttemptCalls++
+        val current = state.value ?: return TestAttemptStartResult.Missing
+        if (current.attempt.status != TestAttemptStatus.CREATED) return TestAttemptStartResult.AlreadyInProgress
+        state.value = current.copy(
+            attempt = current.attempt.copy(
+                status = TestAttemptStatus.IN_PROGRESS,
+                startedAt = Instant.parse("2026-01-01T00:00:00Z"),
+                startedAtElapsedRealtimeMillis = 10_000L,
+                startedBootId = "test-boot",
+            ),
+        )
+        return TestAttemptStartResult.Started
+    }
 
     override suspend fun saveAnswerDraft(
         attemptId: String,
@@ -326,6 +380,24 @@ private class FakeAttemptRepository(initial: TestAttemptModel?) : TestAttemptRep
     override suspend fun createImportantAttempt(
         request: ImportantTestAttemptRequest,
     ): TestAttemptCreationResult = TestAttemptCreationResult.NoQuestions(TestQuestionSource.RANDOM)
+
+    override suspend fun createNewAttemptFromResult(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = TestAttemptCreationResult.MissingSource
+
+    override suspend fun createRetestWeakAttempt(
+        request: ResultFollowUpAttemptRequest,
+    ): TestAttemptCreationResult = TestAttemptCreationResult.MissingSource
+
+    override suspend fun loadResultActionContext(attemptId: String): TestResultActionContext? = null
+
+    override suspend fun loadAttemptOrigin(attemptId: String): TestResultOrigin? {
+        if (originFailuresRemaining > 0) {
+            originFailuresRemaining--
+            error("simulated origin lookup failure")
+        }
+        return pendingOrigin?.await()
+    }
 
     override suspend fun discardActiveAttempt(attemptId: String): Boolean {
         discardCount++
@@ -434,4 +506,16 @@ private fun inProgressAttempt(timed: Boolean = false): TestAttemptModel {
         )
     }
     return TestAttemptModel(attempt, questions, answers)
+}
+
+private fun createdAttempt(): TestAttemptModel = inProgressAttempt().let { model ->
+    model.copy(
+        attempt = model.attempt.copy(
+            status = TestAttemptStatus.CREATED,
+            startedAt = null,
+            startedAtElapsedRealtimeMillis = null,
+            startedBootId = null,
+            deadlineAt = null,
+        ),
+    )
 }

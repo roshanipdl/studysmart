@@ -17,6 +17,9 @@ import com.studysmart.app.feature.preparation.PreparationRatingResult
 import com.studysmart.app.feature.preparation.PreparationRepository
 import com.studysmart.app.feature.preparation.PreparationSessionModel
 import com.studysmart.app.feature.preparation.PreparationSessionRequest
+import com.studysmart.app.feature.readiness.ReadinessEstimate
+import com.studysmart.app.feature.readiness.ReadinessRepository
+import com.studysmart.app.feature.readiness.ReadinessScope
 import com.studysmart.app.testing.TestDispatcherProvider
 import com.studysmart.app.testing.TestPreferencesRepository
 import java.time.Clock
@@ -74,6 +77,20 @@ class ReviewViewModelTest {
         assertEquals(4, viewModel.uiState.value.dueCount)
         assertEquals(2, viewModel.uiState.value.overdueCount)
         assertFalse(viewModel.uiState.value.isNoDue)
+    }
+
+    @Test
+    fun validContextAlsoExposesReadinessEstimate() = runTest {
+        val viewModel = createViewModel(
+            preferences = TestPreferencesRepository(
+                StudyPreferences(SelectedAcademicContext("course-1", "period-1")),
+            ),
+            summary = DueReviewSummary(dueCount = 2, overdueCount = 1),
+        )
+
+        assertEquals(72.5, viewModel.uiState.value.readiness?.score)
+        assertEquals(73, viewModel.uiState.value.readiness?.displayPercent)
+        assertFalse(viewModel.uiState.value.isReadinessLoading)
     }
 
     @Test
@@ -151,14 +168,31 @@ class ReviewViewModelTest {
         preferences: TestPreferencesRepository = TestPreferencesRepository(),
         preparation: FakePreparationRepository = FakePreparationRepository(),
         summary: DueReviewSummary = DueReviewSummary(0, 0),
+        readiness: ReadinessRepository = FakeReadinessRepository(),
     ): ReviewViewModel = ReviewViewModel(
         preferencesRepository = preferences,
         curriculumRepository = FakeCurriculumRepository(courses),
         reviewRepository = FakeReviewRepository(summary),
+        readinessRepository = readiness,
         preparationRepository = preparation,
         clock = clock,
         idGenerator = FixedIdGenerator(),
         dispatchers = TestDispatcherProvider(),
+    )
+}
+
+private class FakeReadinessRepository : ReadinessRepository {
+    override fun observeReadiness(scope: ReadinessScope): Flow<ReadinessEstimate?> = flowOf(
+        ReadinessEstimate(
+            score = 72.5,
+            masteryScore = 70.0,
+            recentTestScore = 80.0,
+            coverageScore = 60.0,
+            freshnessScore = 90.0,
+            activeQuestionCount = 10,
+            ratedQuestionCount = 6,
+            recentAttemptCount = 2,
+        ),
     )
 }
 
