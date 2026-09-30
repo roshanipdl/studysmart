@@ -17,6 +17,11 @@ import com.studysmart.app.testing.createInMemoryStudySmartDatabase
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
+import java.time.ZoneId
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -85,14 +90,48 @@ class DueReviewRepositoryTest {
         schedule("question-bca-s1-dbms-topic", now)
         schedule("question-bca-s1-web-01", now.plusSeconds(1))
 
-        val summary = RoomReviewRepository(database.preparationDao()).observeDueReview(
+        val summary = RoomReviewRepository(database.preparationDao(), Clock.fixed(now, ZoneOffset.UTC)).observeDueReview(
             courseId = "course-bca",
             academicPeriodId = "period-bca-semester-1",
-            now = now,
         ).first()
 
         assertEquals(2, summary.dueCount)
         assertEquals(1, summary.overdueCount)
+    }
+
+    @Test
+    fun dueSummaryRefreshesAtExactBoundaryAndAfterBackwardClockChanges() = runBlocking {
+        withContext(Dispatchers.IO) {
+            schedule("question-bca-s1-dbms-direct", now.plusSeconds(1))
+        }
+        val clock = MutableReviewClock(now)
+        val summaries = Channel<DueReviewSummary>(Channel.UNLIMITED)
+        val job = launch {
+            RoomReviewRepository(database.preparationDao(), clock, clockRefreshMillis = 100L)
+                .observeDueReview("course-bca", "period-bca-semester-1")
+                .collect { summaries.send(it) }
+        }
+        try {
+        assertEquals(DueReviewSummary(0, 0), withTimeout(5_000L) { summaries.receive() })
+        clock.current = now.plusSeconds(1)
+        assertEquals(DueReviewSummary(1, 0), withTimeout(5_000L) { summaries.receive() })
+        clock.current = now.plusSeconds(2)
+        assertEquals(DueReviewSummary(1, 1), withTimeout(5_000L) { summaries.receive() })
+        clock.current = now
+        assertEquals(DueReviewSummary(0, 0), withTimeout(5_000L) { summaries.receive() })
+        } finally {
+            job.cancel()
+        }
+    }
+
+    @Test
+    fun dueSummaryRejectsNonPositiveRefreshIntervals() {
+        listOf(0L, -1L).forEach { interval ->
+            val failure = runCatching {
+                RoomReviewRepository(database.preparationDao(), Clock.fixed(now, ZoneOffset.UTC), clockRefreshMillis = interval)
+            }.exceptionOrNull()
+            assertTrue(failure is IllegalArgumentException)
+        }
     }
 
     @Test
@@ -177,6 +216,12 @@ class DueReviewRepositoryTest {
             ),
         )
     }
+}
+
+private class MutableReviewClock(var current: Instant) : Clock() {
+    override fun instant(): Instant = current
+    override fun getZone(): ZoneId = ZoneOffset.UTC
+    override fun withZone(zone: ZoneId): Clock = Clock.fixed(current, zone)
 }
 
 private object UnconfinedDispatcherProvider : DispatcherProvider {

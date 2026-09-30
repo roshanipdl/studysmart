@@ -212,7 +212,6 @@ class ReviewViewModel(
                 reviewRepository.observeDueReview(
                     courseId = courseId,
                     academicPeriodId = academicPeriodId,
-                    now = clock.instant(),
                 ).catch { error ->
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,

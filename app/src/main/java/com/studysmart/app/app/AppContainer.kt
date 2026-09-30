@@ -66,7 +66,7 @@ class AppContainer(
         idGenerator = idGenerator,
         dispatchers = dispatchers,
     ),
-    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao()),
+    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao(), clock),
     val readinessRepository: ReadinessRepository = RoomReadinessRepository(
         dao = database.readinessDao(),
         clock = clock,

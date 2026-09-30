@@ -202,7 +202,6 @@ private class FakeReviewRepository(
     override fun observeDueReview(
         courseId: String,
         academicPeriodId: String,
-        now: Instant,
     ): Flow<DueReviewSummary> = flowOf(summary)
 }
 
