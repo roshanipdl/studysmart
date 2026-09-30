@@ -557,15 +557,20 @@ class TestAttemptViewModel(
             val draft = draftFor(question.id)
             _uiState.value = _uiState.value.copy(isSaving = true, mutationError = null)
             val result = runCatching {
-                repository.saveAnswerDraft(
-                    attemptId,
-                    TestAnswerDraft(
-                        attemptQuestionId = question.id,
-                        answerText = draft.answerText,
-                        isFlagged = draft.isFlagged,
-                        accumulatedTimeMillis = draft.accumulatedTimeMillis,
-                    ),
-                )
+                try {
+                    repository.saveAnswerDraft(
+                        attemptId,
+                        TestAnswerDraft(
+                            attemptQuestionId = question.id,
+                            answerText = draft.answerText,
+                            isFlagged = draft.isFlagged,
+                            accumulatedTimeMillis = draft.accumulatedTimeMillis,
+                        ),
+                    )
+                } finally {
+                    // Dirty drafts remain available for replacement flush or expired submission.
+                    _uiState.value = _uiState.value.copy(isSaving = false)
+                }
             }
             result.fold(
                 onSuccess = { saved ->

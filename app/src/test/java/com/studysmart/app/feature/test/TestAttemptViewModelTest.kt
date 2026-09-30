@@ -322,6 +322,53 @@ class TestAttemptViewModelTest {
     }
 
     @Test
+    fun cancellingExecutingDebouncedSaveOnFocusLossReleasesLockAndRetriesDraft() = runTest {
+        val repository = FakeAttemptRepository(inProgressAttempt()).apply {
+            pendingSave = CompletableDeferred()
+        }
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
+        runCurrent()
+        viewModel.onAnswerChanged("Pending response")
+        advanceTimeBy(350)
+        runCurrent()
+        assertEquals(1, repository.saveCalls)
+        assertTrue(viewModel.uiState.value.isSaving)
+        repository.pendingSave = null
+        viewModel.flushDraft()
+        runCurrent()
+        assertFalse(viewModel.uiState.value.isSaving)
+        assertFalse(viewModel.uiState.value.isDraftSaveFailed)
+        assertNull(viewModel.uiState.value.mutationError)
+        assertEquals(2, repository.saveCalls)
+        assertEquals("Pending response", repository.savedDrafts.single().answerText)
+    }
+
+    @Test
+    fun cancellingExecutingSaveAcrossExpiryReleasesLockAndPreservesFrozenDraft() = runTest {
+        val repository = FakeAttemptRepository(inProgressAttempt(timed = true)).apply {
+            pendingSave = CompletableDeferred()
+        }
+        val monotonic = MutableMonotonicClock(10_000L)
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler), monotonicClock = monotonic)
+        runCurrent()
+        viewModel.onAnswerChanged("Frozen pending response")
+        advanceTimeBy(350)
+        runCurrent()
+        assertTrue(viewModel.uiState.value.isSaving)
+        monotonic.now = 70_000L
+        viewModel.onAppBackgrounded()
+        runCurrent()
+        assertFalse(viewModel.uiState.value.isSaving)
+        assertFalse(viewModel.uiState.value.isDraftSaveFailed)
+        assertTrue(viewModel.uiState.value.isExpired)
+        viewModel.onAppForegrounded()
+        viewModel.confirmExpiredSubmit()
+        runCurrent()
+        assertEquals(TestSubmitAction.EXPIRED_CONFIRMATION, repository.submissions.single().action)
+        assertEquals("Frozen pending response", repository.submissions.single().finalDraft?.answerText)
+    }
+
+    @Test
     fun expiredAttemptSubmitsFrozenDraftDespiteEarlierDraftSaveFailure() = runTest {
         val repository = FakeAttemptRepository(inProgressAttempt(timed = true)).apply { failSaves = true }
         val monotonic = MutableMonotonicClock(10_000L)
@@ -375,6 +422,8 @@ private class FakeAttemptRepository(
     val savedDrafts = mutableListOf<TestAnswerDraft>()
     val submissions = mutableListOf<SubmissionCall>()
     var failSaves: Boolean = false
+    var pendingSave: CompletableDeferred<Unit>? = null
+    var saveCalls: Int = 0
     var failedSubmissionsRemaining: Int = 0
     var discardCount: Int = 0
     var failedDiscardsRemaining: Int = 0
@@ -402,6 +451,8 @@ private class FakeAttemptRepository(
         attemptId: String,
         draft: TestAnswerDraft,
     ): TestAnswerSaveResult {
+        saveCalls++
+        pendingSave?.await()
         if (failSaves) error("simulated save failure")
         savedDrafts += draft
         return TestAnswerSaveResult.Saved
