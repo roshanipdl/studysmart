@@ -296,13 +296,20 @@ fun TestAttemptScreen(
         AlertDialog(
             onDismissRequest = onCancelDiscard,
             title = { Text("Discard test?") },
-            text = { Text("This test attempt, snapshots, and draft answers will be deleted.") },
+            text = {
+                Column {
+                    Text("This test attempt, snapshots, and draft answers will be deleted.")
+                    state.discardError?.let {
+                        Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("test_discard_error"))
+                    }
+                }
+            },
             confirmButton = {
                 TextButton(
                     onClick = onDiscard,
                     enabled = !state.isDiscarding,
                     modifier = Modifier.testTag("test_discard"),
-                ) { Text("Discard") }
+                ) { Text(if (state.discardError == null) "Discard" else "Retry discard") }
             },
             dismissButton = {
                 TextButton(

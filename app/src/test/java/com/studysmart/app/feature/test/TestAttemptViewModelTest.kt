@@ -104,6 +104,50 @@ class TestAttemptViewModelTest {
     }
 
     @Test
+    fun failedDiscardAndCancelKeepDraftFailureAvailableForRetry() = runTest {
+        val repository = FakeAttemptRepository(inProgressAttempt()).apply {
+            failSaves = true
+            failedDiscardsRemaining = 1
+        }
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
+        runCurrent()
+        viewModel.onAnswerChanged("Unsaved response")
+        advanceTimeBy(350)
+        runCurrent()
+        val saveError = viewModel.uiState.value.mutationError
+        viewModel.showDiscardConfirmation()
+        viewModel.discard()
+        runCurrent()
+        assertTrue(viewModel.uiState.value.showDiscardConfirmation)
+        assertTrue(viewModel.uiState.value.discardError != null)
+        assertEquals(saveError, viewModel.uiState.value.mutationError)
+        viewModel.hideDiscardConfirmation()
+        assertNull(viewModel.uiState.value.discardError)
+        assertEquals(saveError, viewModel.uiState.value.mutationError)
+        repository.failSaves = false
+        viewModel.retryMutation()
+        runCurrent()
+        assertNull(viewModel.uiState.value.mutationError)
+        assertEquals("Unsaved response", repository.savedDrafts.last().answerText)
+    }
+
+    @Test
+    fun failedDiscardCanBeRetriedWithoutDeletingTheAttemptEarly() = runTest {
+        val repository = FakeAttemptRepository(inProgressAttempt()).apply { failedDiscardsRemaining = 1 }
+        val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
+        runCurrent()
+        viewModel.showDiscardConfirmation()
+        viewModel.discard()
+        runCurrent()
+        assertTrue(repository.state.value != null)
+        assertTrue(viewModel.uiState.value.discardError != null)
+        viewModel.discard()
+        runCurrent()
+        assertNull(repository.state.value)
+        assertFalse(viewModel.uiState.value.showDiscardConfirmation)
+    }
+
+    @Test
     fun saveFailureBlocksNavigationButConfirmedDiscardStillWorks() = runTest {
         val repository = FakeAttemptRepository(inProgressAttempt()).apply { failSaves = true }
         val viewModel = viewModel(repository, StandardTestDispatcher(testScheduler))
@@ -331,6 +375,7 @@ private class FakeAttemptRepository(
     var failSaves: Boolean = false
     var failedSubmissionsRemaining: Int = 0
     var discardCount: Int = 0
+    var failedDiscardsRemaining: Int = 0
     var originFailuresRemaining: Int = 0
     var startAttemptCalls: Int = 0
 
@@ -401,6 +446,10 @@ private class FakeAttemptRepository(
 
     override suspend fun discardActiveAttempt(attemptId: String): Boolean {
         discardCount++
+        if (failedDiscardsRemaining > 0) {
+            failedDiscardsRemaining--
+            error("temporary discard failure")
+        }
         state.value = null
         return true
     }

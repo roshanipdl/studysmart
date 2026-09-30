@@ -34,6 +34,30 @@ class PreparationScreenStateTest {
     @After fun closeDatabase() { database?.close() }
 
     @Test
+    fun discardFailureIsVisibleInsideTheDialogAndRetryAndCancelRemainAvailable() {
+        val state = mutableStateOf(PreparationSessionUiState(
+            showDiscardConfirmation = true, discardError = "Unable to discard this session.",
+        ))
+        var retries = 0
+        var cancels = 0
+        composeRule.setContent {
+            StudySmartTheme {
+                PreparationSessionScreen(
+                    state = state.value, onReveal = {}, onRate = {}, onRetry = {},
+                    onClose = {}, onDiscard = { retries++ },
+                    onCancelDiscard = { cancels++; state.value = state.value.copy(showDiscardConfirmation = false) },
+                    onLoadRetry = {}, onBackFallback = {}, onOpenSummary = {},
+                )
+            }
+        }
+        composeRule.onNodeWithTag("preparation_discard_error").assertIsDisplayed()
+        composeRule.onNodeWithText("Retry discard").assertIsEnabled().performClick()
+        assertEquals(1, retries)
+        composeRule.onNodeWithTag("preparation_cancel_discard").assertIsEnabled().performClick()
+        assertEquals(1, cancels)
+    }
+
+    @Test
     fun summaryLoadingFailureAndMissingStatesOfferOnlyValidRecoveryActions() {
         val state = mutableStateOf(PreparationSummaryUiState())
         var retries = 0

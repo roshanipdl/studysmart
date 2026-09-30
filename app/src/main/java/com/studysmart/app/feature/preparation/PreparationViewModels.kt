@@ -83,6 +83,7 @@ data class PreparationSessionUiState(
     val isStaleSession: Boolean = false,
     val isSaving: Boolean = false,
     val mutationError: String? = null,
+    val discardError: String? = null,
     val error: String? = null,
     val showDiscardConfirmation: Boolean = false,
 )
@@ -120,11 +121,12 @@ class PreparationSessionViewModel(
     }
 
     fun showDiscardConfirmation() {
-        _uiState.value = _uiState.value.copy(showDiscardConfirmation = true, mutationError = null)
+        _uiState.value = _uiState.value.copy(showDiscardConfirmation = true, discardError = null)
     }
 
     fun hideDiscardConfirmation() {
-        _uiState.value = _uiState.value.copy(showDiscardConfirmation = false)
+        if (_uiState.value.isSaving) return
+        _uiState.value = _uiState.value.copy(showDiscardConfirmation = false, discardError = null)
     }
 
     fun revealAnswer() {
@@ -179,7 +181,7 @@ class PreparationSessionViewModel(
         if (_uiState.value.isSaving) return
         val session = _uiState.value.session
         viewModelScope.launch(dispatchers.main) {
-            _uiState.value = _uiState.value.copy(isSaving = true, mutationError = null)
+            _uiState.value = _uiState.value.copy(isSaving = true, discardError = null)
             runCatching { repository.discardSession(sessionId) }
                 .onSuccess { discarded ->
                     if (!discarded) {
@@ -204,7 +206,7 @@ class PreparationSessionViewModel(
                 .onFailure { error ->
                     _uiState.value = _uiState.value.copy(
                         isSaving = false,
-                        mutationError = error.message ?: "Unable to discard this session.",
+                        discardError = error.message ?: "Unable to discard this session.",
                     )
                 }
         }

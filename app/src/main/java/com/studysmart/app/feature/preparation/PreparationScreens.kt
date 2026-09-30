@@ -379,13 +379,20 @@ fun PreparationSessionScreen(
         AlertDialog(
             onDismissRequest = onCancelDiscard,
             title = { Text("Discard this session?") },
-            text = { Text("Committed review history will remain, but this active session will be deleted.") },
+            text = {
+                Column {
+                    Text("Committed review history will remain, but this active session will be deleted.")
+                    state.discardError?.let {
+                        Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("preparation_discard_error"))
+                    }
+                }
+            },
             confirmButton = {
                 TextButton(
                     onClick = onDiscard,
                     enabled = !state.isSaving,
                     modifier = Modifier.testTag("preparation_discard"),
-                ) { Text("Discard session") }
+                ) { Text(if (state.discardError == null) "Discard session" else "Retry discard") }
             },
             dismissButton = {
                 TextButton(

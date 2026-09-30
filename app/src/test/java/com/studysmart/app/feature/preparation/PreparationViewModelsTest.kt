@@ -82,6 +82,39 @@ class PreparationViewModelsTest {
     }
 
     @Test
+    fun failedDiscardAndCancelPreserveThePendingRatingForRetry() = runTest {
+        val repository = FakePreparationRepository(failFirstRating = true, failFirstDiscard = true)
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider())
+        viewModel.revealAnswer()
+        viewModel.rate(Rating.GOOD)
+        val request = repository.ratingRequests.single()
+        val ratingError = viewModel.uiState.value.mutationError
+        viewModel.showDiscardConfirmation()
+        viewModel.discardSession()
+        assertTrue(viewModel.uiState.value.showDiscardConfirmation)
+        assertTrue(viewModel.uiState.value.discardError != null)
+        assertEquals(ratingError, viewModel.uiState.value.mutationError)
+        viewModel.hideDiscardConfirmation()
+        assertEquals(null, viewModel.uiState.value.discardError)
+        assertEquals(ratingError, viewModel.uiState.value.mutationError)
+        viewModel.retryMutation()
+        assertEquals(listOf(request, request), repository.ratingRequests)
+    }
+
+    @Test
+    fun failedDiscardCanBeRetriedWithoutDeletingTheSessionEarly() = runTest {
+        val repository = FakePreparationRepository(failFirstDiscard = true)
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider())
+        viewModel.showDiscardConfirmation()
+        viewModel.discardSession()
+        assertTrue(repository.sessionState.value != null)
+        assertTrue(viewModel.uiState.value.discardError != null)
+        viewModel.discardSession()
+        assertEquals(null, repository.sessionState.value)
+        assertFalse(viewModel.uiState.value.showDiscardConfirmation)
+    }
+
+    @Test
     fun missingSessionExposesRecoveryState() = runTest {
         val repository = FakePreparationRepository(initialSession = null)
         val viewModel = PreparationSessionViewModel(
@@ -179,10 +212,12 @@ private class FakePreparationRepository(
     initialSession: PreparationSessionModel? = sampleSession(),
     private val failFirstCreation: Boolean = false,
     private val failFirstRating: Boolean = false,
+    private val failFirstDiscard: Boolean = false,
 ) : PreparationRepository {
     val sessionState = MutableStateFlow(initialSession)
     val creationRequests = mutableListOf<PreparationSessionRequest>()
     val ratingRequests = mutableListOf<PreparationRatingRequest>()
+    private var discardCalls = 0
 
     override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = sessionState.asStateFlow()
 
@@ -227,6 +262,8 @@ private class FakePreparationRepository(
     }
 
     override suspend fun discardSession(sessionId: String): Boolean {
+        discardCalls++
+        if (failFirstDiscard && discardCalls == 1) error("temporary discard failure")
         sessionState.value = null
         return true
     }

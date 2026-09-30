@@ -57,6 +57,7 @@ data class TestAttemptUiState(
     val showDiscardConfirmation: Boolean = false,
     val error: String? = null,
     val mutationError: String? = null,
+    val discardError: String? = null,
 ) {
     val canNavigateBack: Boolean
         get() = !isLoadingOrigin && !canRetryOrigin
@@ -224,7 +225,7 @@ class TestAttemptViewModel(
                 showDiscardConfirmation = true,
                 showSubmitConfirmation = false,
                 showExpiredConfirmation = false,
-                mutationError = null,
+                discardError = null,
             )
         }
     }
@@ -234,6 +235,7 @@ class TestAttemptViewModel(
             _uiState.value = _uiState.value.copy(
                 showDiscardConfirmation = false,
                 showExpiredConfirmation = _uiState.value.isExpired,
+                discardError = null,
             )
         }
     }
@@ -245,7 +247,7 @@ class TestAttemptViewModel(
         viewModelScope.launch(dispatchers.main) {
             cancelDebouncedSave()
             mutationMutex.withLock {
-                _uiState.value = _uiState.value.copy(isDiscarding = true, mutationError = null)
+                _uiState.value = _uiState.value.copy(isDiscarding = true, discardError = null)
                 runCatching { repository.discardActiveAttempt(current.id) }
                     .onSuccess { discarded ->
                         if (!discarded) {
@@ -266,7 +268,7 @@ class TestAttemptViewModel(
                         if (error is CancellationException) throw error
                         _uiState.value = _uiState.value.copy(
                             isDiscarding = false,
-                            mutationError = error.message ?: "Unable to discard this test attempt.",
+                            discardError = error.message ?: "Unable to discard this test attempt.",
                         )
                     }
             }
