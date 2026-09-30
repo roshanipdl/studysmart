@@ -202,7 +202,7 @@ class TestAttemptViewModel(
 
     fun confirmExpiredSubmit() {
         if (!_uiState.value.showExpiredConfirmation || _uiState.value.isSubmitting ||
-            _uiState.value.isSaving || _uiState.value.isDraftSaveFailed
+            _uiState.value.isSaving
         ) return
         viewModelScope.launch(dispatchers.main) {
             val finalDraft = frozenExpiryDraft ?: currentDraftForSubmission()

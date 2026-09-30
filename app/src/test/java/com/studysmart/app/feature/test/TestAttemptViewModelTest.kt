@@ -322,7 +322,7 @@ class TestAttemptViewModelTest {
     }
 
     @Test
-    fun expiredAttemptCannotSubmitWhileDraftSaveFailureIsUnresolved() = runTest {
+    fun expiredAttemptSubmitsFrozenDraftDespiteEarlierDraftSaveFailure() = runTest {
         val repository = FakeAttemptRepository(inProgressAttempt(timed = true)).apply { failSaves = true }
         val monotonic = MutableMonotonicClock(10_000L)
         val viewModel = viewModel(
@@ -342,8 +342,10 @@ class TestAttemptViewModelTest {
         viewModel.confirmExpiredSubmit()
         runCurrent()
 
-        assertTrue(repository.submissions.isEmpty())
-        assertTrue(viewModel.uiState.value.mutationError != null)
+        assertEquals(1, repository.submissions.size)
+        assertEquals(TestSubmitAction.EXPIRED_CONFIRMATION, repository.submissions.single().action)
+        assertEquals("Not persisted", repository.submissions.single().finalDraft?.answerText)
+        assertNull(viewModel.uiState.value.mutationError)
     }
 
     @Test

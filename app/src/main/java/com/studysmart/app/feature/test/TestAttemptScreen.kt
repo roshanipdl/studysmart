@@ -270,8 +270,8 @@ fun TestAttemptScreen(
             text = {
                 Text(
                     when {
-                        state.isDraftSaveFailed -> "A draft answer could not be saved. Discard this attempt to continue."
                         state.mutationError != null -> state.mutationError
+                        state.isDraftSaveFailed -> "Submit to save and evaluate your locked answers, or discard the attempt."
                         else -> "Your answers are locked. Submit to evaluate them, or discard the attempt."
                     },
                 )
@@ -279,7 +279,7 @@ fun TestAttemptScreen(
             confirmButton = {
                 TextButton(
                     onClick = onConfirmExpiredSubmit,
-                    enabled = !state.isSubmitting && !state.isSaving && !state.isDraftSaveFailed,
+                    enabled = !state.isSubmitting && !state.isSaving,
                     modifier = Modifier.testTag("test_expired_submit"),
                 ) { Text("Submit") }
             },
