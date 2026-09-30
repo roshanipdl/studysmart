@@ -43,6 +43,56 @@ class BrowseNavigationTest {
 
     private var database: com.studysmart.app.core.database.StudySmartDatabase? = null
 
+    @Test
+    fun defaultsTabExitWaitsForPendingPreferenceWrite() {
+        val backing = InMemoryPreferencesRepository()
+        val release = CompletableDeferred<Unit>()
+        val entered = CompletableDeferred<Unit>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateTestDefaults(defaults: TestDefaults) {
+                entered.complete(Unit)
+                release.await()
+                backing.updateTestDefaults(defaults)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.TEST_DEFAULTS)
+        composeRule.awaitNodeWithText("Valid changes are saved automatically.")
+        composeRule.onNodeWithContentDescription("Increase Question count").performClick()
+        composeRule.waitUntil(5_000) { entered.isCompleted }
+        composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
+        composeRule.onNodeWithTag("test_defaults_screen").assertIsDisplayed()
+        composeRule.assertNoNodeWithTag("courses_screen")
+        assertEquals(10, backing.current.testDefaults.questionCount)
+        release.complete(Unit)
+        composeRule.awaitNodeWithTag("courses_screen")
+        assertEquals(11, backing.current.testDefaults.questionCount)
+    }
+
+    @Test
+    fun defaultsFailedSaveRetainsPendingTabExitUntilRetrySucceeds() {
+        val backing = InMemoryPreferencesRepository()
+        var writes = 0
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateTestDefaults(defaults: TestDefaults) {
+                writes++
+                if (writes == 1) error("injected defaults save failure")
+                backing.updateTestDefaults(defaults)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.TEST_DEFAULTS)
+        composeRule.awaitNodeWithText("Valid changes are saved automatically.")
+        composeRule.onNodeWithContentDescription("Increase Question count").performClick()
+        composeRule.awaitNodeWithTag("test_defaults_save_error")
+        composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
+        composeRule.onNodeWithTag("test_defaults_screen").assertIsDisplayed()
+        composeRule.assertNoNodeWithTag("courses_screen")
+        assertEquals(10, backing.current.testDefaults.questionCount)
+        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("courses_screen")
+        assertEquals(11, backing.current.testDefaults.questionCount)
+        assertEquals(2, writes)
+    }
+
     @After
     fun closeDatabase() {
         database?.close()
