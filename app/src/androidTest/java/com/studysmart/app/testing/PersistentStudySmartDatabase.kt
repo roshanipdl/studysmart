@@ -28,7 +28,7 @@ fun createPersistentStudySmartDatabase(context: Context, name: String): StudySma
     require(name.startsWith("mvp10-test-")) { "Only isolated MVP-10 test databases are allowed." }
     return Room.databaseBuilder(context, StudySmartDatabase::class.java, name)
         .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
-        .addCallback(DatabaseSeed.callback())
+        .addCallback(DatabaseSeed.callback(includeVariantSeed = false))
         .build()
 }
 

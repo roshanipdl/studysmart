@@ -10,7 +10,7 @@ fun createInMemoryStudySmartDatabase(
     seed: Boolean = true,
 ): StudySmartDatabase =
     (Room.inMemoryDatabaseBuilder(context, StudySmartDatabase::class.java).let { builder ->
-        if (seed) builder.addCallback(DatabaseSeed.callback()) else builder
+        if (seed) builder.addCallback(DatabaseSeed.callback(includeVariantSeed = false)) else builder
     })
         .allowMainThreadQueries()
         .build()

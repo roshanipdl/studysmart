@@ -19,7 +19,7 @@ class StudySmartDatabaseTest {
         val database = Room.inMemoryDatabaseBuilder(
             context,
             StudySmartDatabase::class.java,
-        ).addCallback(DatabaseSeed.callback()).allowMainThreadQueries().build()
+        ).addCallback(DatabaseSeed.callback(includeVariantSeed = false)).allowMainThreadQueries().build()
 
         database.openHelper.writableDatabase
 
@@ -51,7 +51,7 @@ class StudySmartDatabaseTest {
         val database = Room.inMemoryDatabaseBuilder(
             context,
             StudySmartDatabase::class.java,
-        ).addCallback(DatabaseSeed.callback()).allowMainThreadQueries().build()
+        ).addCallback(DatabaseSeed.callback(includeVariantSeed = false)).allowMainThreadQueries().build()
 
         val courses = database.curriculumDao().observeActiveCourses().first()
         assertEquals(listOf("course-bca", "course-yearly-example"), courses.map { it.course.id })
@@ -81,7 +81,7 @@ class StudySmartDatabaseTest {
         val database = Room.inMemoryDatabaseBuilder(
             context,
             StudySmartDatabase::class.java,
-        ).addCallback(DatabaseSeed.callback()).allowMainThreadQueries().build()
+        ).addCallback(DatabaseSeed.callback(includeVariantSeed = false)).allowMainThreadQueries().build()
 
         try {
             val dao = database.curriculumDao()

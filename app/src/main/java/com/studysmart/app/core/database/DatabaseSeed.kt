@@ -5,12 +5,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.studysmart.app.core.model.KeywordNormalizer
 
 object DatabaseSeed {
-    fun callback(): RoomDatabase.Callback = object : RoomDatabase.Callback() {
+    fun callback(includeVariantSeed: Boolean = true): RoomDatabase.Callback = object : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             seedReleaseCurriculum(db)
             seedReleaseTestContent(db)
-            // Variant-specific history and demo data stays outside the release path.
-            applyVariantSeed(db)
+        }
+
+        override fun onOpen(db: SupportSQLiteDatabase) {
+            // Additive debug content must also reach already-installed databases.
+            // The release implementation is a no-op; tests can retain baseline fixtures.
+            if (includeVariantSeed) applyVariantSeed(db)
         }
     }
 
