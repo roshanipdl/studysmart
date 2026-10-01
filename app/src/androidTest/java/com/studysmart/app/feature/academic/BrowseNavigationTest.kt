@@ -4,6 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertHasNoClickAction
+import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -211,6 +213,55 @@ class BrowseNavigationTest {
         composeRule.awaitNodeWithTag("subjects_screen")
         assertEquals(listOf("period-bca-semester-1", "period-bca-semester-1"), writes.toList())
         assertEquals(SelectedAcademicContext("course-bca", "period-bca-semester-1"), backing.current.selectedContext)
+    }
+
+    @Test
+    fun mixedResultRetestsOnlyWeakQuestionAndNewTestUsesUpdatedDefaults() {
+        val preferences = InMemoryPreferencesRepository(TestDefaults(questionCount = 2, questionSource = TestQuestionSource.ALL))
+        composeRule.setStudySmartContent(container(preferences))
+        composeRule.awaitNodeWithTag("course_course-bca")
+        composeRule.onNodeWithTag("course_course-bca").performClick()
+        composeRule.awaitNodeWithTag("period_period-bca-semester-1")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").performClick()
+        composeRule.awaitNodeWithTag("subject_subject-bca-s1-dbms")
+        composeRule.onNodeWithTag("subject_subject-bca-s1-dbms").performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
+        composeRule.onAllNodesWithText("Test").get(0).performClick()
+
+        composeRule.awaitNodeWithText("What is a database?")
+        composeRule.onNodeWithTag("test_answer_input").performTextInput("database organised collection")
+        composeRule.onNodeWithTag("test_next").performScrollTo().performClick()
+        composeRule.awaitNodeWithText("What is a DBMS?")
+        composeRule.onNodeWithTag("test_answer_input").performTextInput("dbms")
+        composeRule.onNodeWithTag("test_submit").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("test_confirm_submit")
+        composeRule.onNodeWithTag("test_confirm_submit").performClick()
+        composeRule.awaitNodeWithTag("test_result_screen")
+        awaitEnabled("test_result_retest_weak")
+        composeRule.onNodeWithText("2.67 / 4").assertIsDisplayed()
+        composeRule.onNodeWithTag("test_result_review_count").assertIsDisplayed()
+        composeRule.onNodeWithText("1").assertIsDisplayed()
+        composeRule.onNodeWithTag("test_result_question_1").assertTextContains("No review flag", substring = true)
+        composeRule.onNodeWithTag("test_result_question_2").assertTextContains("Needs review", substring = true)
+        composeRule.onNodeWithTag("test_result_question_2").performScrollTo().performClick()
+        composeRule.onNodeWithText("Your answer").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithText("dbms").performScrollTo().assertIsDisplayed()
+
+        composeRule.onNodeWithTag("test_result_retest_weak").performScrollTo().performClick()
+        composeRule.awaitNodeWithText("Question 1 of 1")
+        composeRule.onNodeWithText("What is a DBMS?").assertIsDisplayed()
+        composeRule.onNodeWithTag("test_answer_input").performScrollTo().performTextInput("dbms storage access")
+        composeRule.onNodeWithTag("test_submit").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("test_confirm_submit")
+        composeRule.onNodeWithTag("test_confirm_submit").performClick()
+        composeRule.awaitNodeWithTag("test_result_screen")
+        awaitEnabled("test_result_new_test")
+        runBlocking { preferences.updateTestDefaults(TestDefaults(questionCount = 1, questionSource = TestQuestionSource.ALL)) }
+        composeRule.onNodeWithTag("test_result_new_test").performScrollTo().performClick()
+        composeRule.awaitNodeWithText("Question 1 of 1")
+        composeRule.onNodeWithTag("test_close").performClick()
+        composeRule.onNodeWithTag("test_discard").performClick()
+        composeRule.awaitNodeWithTag("chapters_screen")
     }
 
     @Test

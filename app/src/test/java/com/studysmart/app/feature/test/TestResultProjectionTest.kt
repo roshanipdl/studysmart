@@ -105,6 +105,56 @@ class TestResultProjectionTest {
         assertTrue(TestResultProjector.project(corrupt) is TestResultProjection.Corrupt)
     }
 
+    @Test
+    fun projectsIndependentlyFrozenLegacyAndCaseFoldedUnicodeEvidence() {
+        val question = snapshot(0, listOf("straße" to 1.0))
+        val original = answer(question, "STRASSE", 0)
+        val baseline = completedModel().attempt
+        listOf("keyword-v1" to false, "keyword-v2" to true).forEach { (version, matched) ->
+            val score = if (matched) 2.0 else 0.0
+            val evidence = original.copy(
+                normalizedAnswer = "strasse",
+                matchedKeywordsJson = if (matched) {
+                    "{\"version\":1,\"keywords\":[\"straße\"]}"
+                } else {
+                    "{\"version\":1,\"keywords\":[]}"
+                },
+                missingKeywordsJson = if (matched) {
+                    "{\"version\":1,\"keywords\":[]}"
+                } else {
+                    "{\"version\":1,\"keywords\":[\"straße\"]}"
+                },
+                keywordMatchPercent = if (matched) 100.0 else 0.0,
+                score = score, maxScore = 2.0, requiresReview = !matched,
+            )
+            val model = TestAttemptModel(
+                attempt = baseline.copy(
+                    requestedQuestionCount = 1,
+                    actualQuestionCount = 1,
+                    score = score,
+                    maxScore = 2.0,
+                    percentage = if (matched) 100.0 else 0.0,
+                    evaluatorVersion = version,
+                ),
+                questions = listOf(question),
+                answers = listOf(evidence),
+            )
+            val projection = TestResultProjector.project(model)
+            assertTrue(projection is TestResultProjection.Available)
+            assertEquals(score, (projection as TestResultProjection.Available).report.score, 0.0)
+            assertTrue(
+                TestResultProjector.project(
+                    model.copy(attempt = model.attempt.copy(evaluatorVersion = "unsupported")),
+                ) is TestResultProjection.Corrupt,
+            )
+            assertTrue(
+                TestResultProjector.project(
+                    model.copy(attempt = model.attempt.copy(evaluatorVersion = null)),
+                ) is TestResultProjection.Corrupt,
+            )
+        }
+    }
+
     private fun completedModel(allZeroKeywords: Boolean = false): TestAttemptModel {
         val questions = listOf(
             snapshot(0, if (allZeroKeywords) emptyList() else listOf("alpha" to 2.0, "beta" to 1.0)),
@@ -112,7 +162,7 @@ class TestResultProjectionTest {
             snapshot(2, if (allZeroKeywords) emptyList() else emptyList()),
         )
         val answerText = listOf("alpha response", "gamma response", "ungraded text")
-        val evaluated = KeywordAnswerEvaluator().evaluate(
+        val evaluated = KeywordAnswerEvaluator(KeywordAnswerEvaluator.LEGACY_VERSION).evaluate(
             questions,
             questions.mapIndexed { index, question ->
                 answer(question, answerText[index], index)

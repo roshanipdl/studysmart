@@ -2,14 +2,23 @@ package com.studysmart.app.feature.test
 
 import com.studysmart.app.core.database.TestAnswerEntity
 import com.studysmart.app.core.database.TestAttemptQuestionEntity
+import com.studysmart.app.core.model.CaseFoldKeywordNormalizer
 import com.studysmart.app.core.model.KeywordNormalizer
 import com.studysmart.app.core.model.KeywordSnapshotCodec
 import com.studysmart.app.core.model.QuestionType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class KeywordAnswerEvaluator : AnswerEvaluator {
-    override val version: String = VERSION
+class KeywordAnswerEvaluator(override val version: String = CURRENT_VERSION) : AnswerEvaluator {
+    init {
+        require(version == LEGACY_VERSION || version == CURRENT_VERSION) { "unsupported evaluator version" }
+    }
+
+    private fun normalize(value: String): String = if (version == LEGACY_VERSION) {
+        KeywordNormalizer.normalize(value)
+    } else {
+        CaseFoldKeywordNormalizer.normalize(value)
+    }
 
     override fun evaluate(
         questions: List<TestAttemptQuestionEntity>,
@@ -40,7 +49,7 @@ class KeywordAnswerEvaluator : AnswerEvaluator {
                 "unsupported keyword snapshot version"
             }
             val answer = answersByQuestion.getValue(question.id)
-            val normalizedAnswer = KeywordNormalizer.normalize(answer.answerText)
+            val normalizedAnswer = normalize(answer.answerText)
             val keywordEntries = KeywordSnapshotCodec.decode(question.keywordSnapshotJson)
             if (keywordEntries.isEmpty()) {
                 EvaluatedTestAnswer(
@@ -56,10 +65,11 @@ class KeywordAnswerEvaluator : AnswerEvaluator {
                 )
             } else {
                 val matched = keywordEntries.filter { entry ->
-                    if (' ' in entry.keyword) {
-                        normalizedAnswer.contains(entry.keyword)
+                    val comparison = normalize(entry.keyword)
+                    if (' ' in comparison) {
+                        normalizedAnswer.contains(comparison)
                     } else {
-                        containsWholeWord(normalizedAnswer, entry.keyword)
+                        containsWholeWord(normalizedAnswer, comparison)
                     }
                 }
                 val matchedSet = matched.mapTo(HashSet()) { it.keyword }
@@ -166,8 +176,9 @@ class KeywordAnswerEvaluator : AnswerEvaluator {
             .divide(HUNDRED, 2, RoundingMode.HALF_UP)
             .toDouble()
 
-    private companion object {
-        const val VERSION = "keyword-v1"
+    companion object {
+        const val LEGACY_VERSION = "keyword-v1"
+        const val CURRENT_VERSION = "keyword-v2"
         const val REVIEW_THRESHOLD_PERCENT = 50.0
         val HUNDRED: BigDecimal = BigDecimal.valueOf(100)
     }

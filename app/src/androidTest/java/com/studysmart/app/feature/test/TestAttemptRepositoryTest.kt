@@ -678,6 +678,7 @@ class TestAttemptRepositoryTest {
         val submitted = database.testAttemptDao().getAttempt(created.attemptId)!!
         val answer = database.testAttemptDao().getAnswerForAttemptQuestion(created.attemptId, question.id)!!
         assertEquals(TestAttemptStatus.SUBMITTED, submitted.status)
+        assertEquals(KeywordAnswerEvaluator.CURRENT_VERSION, submitted.evaluatorVersion)
         assertEquals("submitted", submitted.completionReason)
         assertEquals(3L, submitted.timeTakenSeconds)
         assertEquals("database organised collection", answer.normalizedAnswer)

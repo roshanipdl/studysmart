@@ -10,15 +10,18 @@ import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.core.data.StudyPreferences
 import com.studysmart.app.core.database.ReviewRecordEntity
 import com.studysmart.app.core.database.ReviewScheduleEntity
+import com.studysmart.app.core.database.UserQuestionFlagEntity
 import com.studysmart.app.core.database.StudySmartDatabase
 import com.studysmart.app.core.model.LearningState
 import com.studysmart.app.core.model.TestDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import com.studysmart.app.feature.test.ChapterTestAttemptRequest
+import com.studysmart.app.feature.test.ImportantTestAttemptRequest
 import com.studysmart.app.feature.test.KeywordAnswerEvaluator
 import com.studysmart.app.feature.test.RoomTestAttemptRepository
 import com.studysmart.app.feature.test.TestAnswerDraft
 import com.studysmart.app.feature.test.TestAttemptCreationResult
+import com.studysmart.app.feature.test.TestAttemptStartResult
 import com.studysmart.app.feature.test.TestSubmitAction
 import com.studysmart.app.feature.test.TestSubmissionResult
 import com.studysmart.app.testing.createInMemoryStudySmartDatabase
@@ -100,6 +103,47 @@ class ReadinessRepositoryTest {
             "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-web-01",
         ).first()
         assertEquals(5, outside.size)
+    }
+
+    @Test
+    fun narrowReadinessScopesKeepOnlyTheirRowsFromOneMixedImportantAttempt() = runBlocking {
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity("local-user", "question-bca-s1-dbms-direct", true, now.minusSeconds(2)),
+        )
+        database.testAttemptDao().insertQuestionFlag(
+            UserQuestionFlagEntity("local-user", "question-bca-s1-web-01", true, now.minusSeconds(1)),
+        )
+        val defaults = TestDefaults(questionCount = 2, questionSource = TestQuestionSource.IMPORTANT)
+        val repository = RoomTestAttemptRepository(
+            database = database,
+            preferencesRepository = FixedPreferencesRepository(defaults),
+            clock = Clock.fixed(now, ZoneOffset.UTC),
+            randomSource = FixedRandomSource,
+            idGenerator = FixedIdGenerator(),
+            dispatchers = DefaultDispatcherProvider,
+            monotonicClock = FixedMonotonicClock,
+            answerEvaluator = KeywordAnswerEvaluator(),
+        )
+        val created = repository.createImportantAttempt(
+            ImportantTestAttemptRequest("course-bca", "period-bca-semester-1", creationRequestId = "mixed-scope-readiness"),
+        ) as TestAttemptCreationResult.Created
+        assertEquals(TestAttemptStartResult.Started, repository.startAttempt(created.attemptId))
+        assertEquals(
+            setOf("question-bca-s1-dbms-direct", "question-bca-s1-web-01"),
+            database.testAttemptDao().observeAttemptQuestions(created.attemptId).first().map { it.questionId }.toSet(),
+        )
+        assertEquals(TestSubmissionResult.Submitted, repository.submitAttempt(created.attemptId, TestSubmitAction.MANUAL, null))
+
+        val dbmsRows = database.readinessDao().observeSubmittedAnswers(
+            "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-dbms-01",
+        ).first()
+        val webRows = database.readinessDao().observeSubmittedAnswers(
+            "local-user", "course-bca", "period-bca-semester-1", null, "chapter-bca-s1-web-01",
+        ).first()
+        assertEquals(listOf("question-bca-s1-dbms-direct"), dbmsRows.map { it.questionId })
+        assertEquals(listOf("question-bca-s1-web-01"), webRows.map { it.questionId })
+        assertEquals(listOf(created.attemptId), dbmsRows.map { it.attemptId }.distinct())
+        assertEquals(listOf(created.attemptId), webRows.map { it.attemptId }.distinct())
     }
 
     @Test

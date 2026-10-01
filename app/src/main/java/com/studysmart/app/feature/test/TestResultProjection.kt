@@ -4,7 +4,6 @@ import com.studysmart.app.core.database.TestAnswerEntity
 import com.studysmart.app.core.database.TestAttemptEntity
 import com.studysmart.app.core.database.TestAttemptQuestionEntity
 import com.studysmart.app.core.model.KeywordEvidenceCodec
-import com.studysmart.app.core.model.KeywordNormalizer
 import com.studysmart.app.core.model.KeywordSnapshotCodec
 import com.studysmart.app.core.model.TestAttemptStatus
 import java.math.BigDecimal
@@ -62,10 +61,9 @@ object TestResultProjector {
         require(attempt.actualQuestionCount in 1..30) { "invalid submitted question count" }
         require(model.integrityIssue() == null) { "submitted snapshots are invalid" }
         require(attempt.questionsAreComplete(model)) { "submitted snapshots or answers are incomplete" }
-        val evaluator = KeywordAnswerEvaluator()
-        require(attempt.evaluatorVersion == evaluator.version) {
-            "submitted evaluator version is unsupported"
-        }
+        val evaluator = KeywordAnswerEvaluator(requireNotNull(attempt.evaluatorVersion) {
+            "submitted evaluator version is missing"
+        })
         require(attempt.submittedAt != null && attempt.completedAt != null) {
             "submitted timestamps are missing"
         }
@@ -106,7 +104,7 @@ object TestResultProjector {
                 "frozen evaluation is incomplete"
             }
 
-            require(answer.normalizedAnswer == KeywordNormalizer.normalize(answer.answerText)) {
+            require(answer.normalizedAnswer == evaluatedAnswer.normalizedAnswer) {
                 "normalized answer does not match the frozen answer"
             }
             require(

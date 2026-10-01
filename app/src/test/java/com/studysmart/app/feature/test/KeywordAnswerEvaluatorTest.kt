@@ -17,6 +17,24 @@ class KeywordAnswerEvaluatorTest {
     private val evaluator = KeywordAnswerEvaluator()
 
     @Test
+    fun foldsExpansionsAndSigmaButPreservesSnapshotKeywordEvidence() {
+        val result = evaluate(listOf("straße" to 1.0, "οσ" to 1.0), "STRASSE ΟΣ")
+        assertEquals(100.0, result.answers.single().keywordMatchPercent!!, 0.0)
+        assertEquals(listOf("straße", "οσ"), result.answers.single().matchedKeywords)
+        assertEquals("strasse οσ", result.answers.single().normalizedAnswer)
+        assertEquals(0.0, evaluate(listOf("i" to 1.0), "ı").answers.single().keywordMatchPercent!!, 0.0)
+    }
+
+    @Test
+    fun legacyEvaluatorRetainsItsOriginalSharpSScore() {
+        val legacy = evaluateMany(listOf(listOf("straße" to 1.0)), listOf("STRASSE"),
+            evaluatorOverride = KeywordAnswerEvaluator(KeywordAnswerEvaluator.LEGACY_VERSION))
+        assertEquals(0.0, legacy.totalScore, 0.0)
+        assertEquals("strasse", legacy.answers.single().normalizedAnswer)
+        assertEquals(listOf("straße"), legacy.answers.single().missingKeywords)
+    }
+
+    @Test
     fun normalizesUnicodeAndMatchesSingleWordsOnlyAtBoundaries() {
         val result = evaluate(
             listOf("ＣＡＴ" to 1.0),
@@ -113,6 +131,7 @@ class KeywordAnswerEvaluatorTest {
         questions: List<List<Pair<String, Double>>>,
         answers: List<String>,
         maxScore: Double = 2.0,
+        evaluatorOverride: KeywordAnswerEvaluator = evaluator,
     ): TestEvaluation {
         val questionEntities = questions.mapIndexed { index, keywords ->
             TestAttemptQuestionEntity(
@@ -150,6 +169,6 @@ class KeywordAnswerEvaluatorTest {
                 updatedAt = java.time.Instant.EPOCH,
             )
         }
-        return evaluator.evaluate(questionEntities, answerEntities)
+        return evaluatorOverride.evaluate(questionEntities, answerEntities)
     }
 }

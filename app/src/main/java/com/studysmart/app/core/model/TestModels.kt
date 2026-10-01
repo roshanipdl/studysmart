@@ -90,6 +90,29 @@ object KeywordNormalizer {
         .replace(Regex("\\s+"), " ")
 }
 
+/** Default (non-Turkic) Unicode folding, without contextual final-sigma lowercasing. */
+object CaseFoldKeywordNormalizer {
+    fun normalize(value: String): String {
+        val compatible = Normalizer.normalize(value, Normalizer.Form.NFKC)
+        val folded = buildString {
+            var offset = 0
+            while (offset < compatible.length) {
+                val point = compatible.codePointAt(offset)
+                val character = String(Character.toChars(point))
+                append(when {
+                    point == 0x0131 -> character // Dotless i is not folded to ASCII i.
+                    point == 0x1E9E -> "ss"
+                    point in 0x13A0..0x13F5 || point in 0x13F8..0x13FD || point in 0xAB70..0xABBF ->
+                        character.uppercase(Locale.ROOT) // Cherokee folds to uppercase.
+                    else -> character.uppercase(Locale.ROOT).lowercase(Locale.ROOT)
+                })
+                offset += Character.charCount(point)
+            }
+        }
+        return folded.trim().replace(Regex("\\s+"), " ")
+    }
+}
+
 /** Versioned JSON for immutable keyword evidence captured at attempt creation. */
 object KeywordSnapshotCodec {
     const val CURRENT_VERSION = 1
