@@ -55,6 +55,32 @@ class ReviewViewModelTest {
     )
 
     @Test
+    fun nextSessionUsesNewConfirmedCountWithoutChangingEarlierRequest() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        val preparation = FakePreparationRepository()
+        val viewModel = createViewModel(preferences, preparation, DueReviewSummary(40, 40))
+        viewModel.startDueReview()
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(15))
+        viewModel.startDueReview()
+        assertEquals(listOf(10, 15), preparation.dueRequests.map { it.questionCount })
+        assertEquals(40, viewModel.uiState.value.dueCount)
+    }
+
+    @Test
+    fun retryAfterContextChangeDoesNotReplayTheOldContextRequest() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        val preparation = FakePreparationRepository(failFirstDueCreation = true)
+        val viewModel = createViewModel(preferences, preparation, DueReviewSummary(40, 40))
+        viewModel.startDueReview()
+        preferences.setSelectedContext("course-1", "period-2")
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(15))
+        viewModel.retry()
+        assertEquals(listOf("period-1", "period-2"), preparation.dueRequests.map { it.academicPeriodId })
+        assertTrue(preparation.dueRequests[0].creationRequestId != preparation.dueRequests[1].creationRequestId)
+        assertEquals(15, preparation.dueRequests[1].questionCount)
+    }
+
+    @Test
     fun missingContextShowsContextRequired() = runTest {
         val viewModel = createViewModel()
 
@@ -137,6 +163,7 @@ class ReviewViewModelTest {
         assertEquals(1, preparation.dueRequests.size)
         assertEquals("course-1", preparation.dueRequests.single().courseId)
         assertEquals("period-1", preparation.dueRequests.single().academicPeriodId)
+        assertEquals(10, preparation.dueRequests.single().questionCount)
     }
 
     @Test
@@ -154,10 +181,14 @@ class ReviewViewModelTest {
         viewModel.startDueReview()
         assertTrue(viewModel.uiState.value.error != null)
 
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(1))
+
         viewModel.retry()
 
         assertNull(viewModel.uiState.value.error)
         assertEquals(2, preparation.dueRequests.size)
+        assertEquals(10, preparation.dueRequests[1].questionCount)
+        assertEquals(1, viewModel.uiState.value.sessionQuestionCount)
         assertEquals(
             preparation.dueRequests[0].creationRequestId,
             preparation.dueRequests[1].creationRequestId,
@@ -247,7 +278,7 @@ private class FakeCurriculumRepository(
     override suspend fun getEligibleQuestionsForTopic(topicId: String): List<EligibleQuestionModel> = emptyList()
 
     override suspend fun isValidPeriod(courseId: String, academicPeriodId: String): Boolean =
-        courseId == "course-1" && academicPeriodId == "period-1"
+        courseId == "course-1" && academicPeriodId in listOf("period-1", "period-2")
 }
 
 private class FixedIdGenerator : IdGenerator {

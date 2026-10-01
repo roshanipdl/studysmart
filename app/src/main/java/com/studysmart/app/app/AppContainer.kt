@@ -133,6 +133,7 @@ class AppContainer(
         ),
         repository = preparationRepository,
         dispatchers = dispatchers,
+        preferencesRepository = preferences,
     )
 
     fun preparationSessionViewModel(sessionId: String): PreparationSessionViewModel =
@@ -150,6 +151,9 @@ class AppContainer(
             readinessRepository = readinessRepository,
             dispatchers = dispatchers,
         )
+
+    fun settingsViewModel(): com.studysmart.app.feature.settings.SettingsViewModel =
+        com.studysmart.app.feature.settings.SettingsViewModel(preferences, dispatchers)
 
     fun reviewViewModel(): ReviewViewModel = ReviewViewModel(
         preferencesRepository = preferences,

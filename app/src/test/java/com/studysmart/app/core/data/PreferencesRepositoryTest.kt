@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.studysmart.app.core.model.TestDefaults
+import com.studysmart.app.core.model.PreparationDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,28 @@ import org.junit.rules.TemporaryFolder
 class PreferencesRepositoryTest {
     @get:Rule
     val temporaryFolder = TemporaryFolder()
+
+    @Test fun sharedPreparationDefaultsAreIndependentAndInvalidStorageFallsBack() = runTest {
+        val dataStore = PreferenceDataStoreFactory.create {
+            temporaryFolder.root.resolve("preparation_defaults.preferences_pb")
+        }
+        val repository = DataStorePreferencesRepository(dataStore)
+        assertEquals(PreparationDefaults(10), repository.preferences.first().preparationDefaults)
+        repository.setSelectedContext("course", "period")
+        val testDefaults = TestDefaults(questionCount = 23)
+        repository.updateTestDefaults(testDefaults)
+        repository.updatePreparationDefaults(PreparationDefaults(15))
+        assertEquals(testDefaults, repository.preferences.first().testDefaults)
+        assertEquals(SelectedAcademicContext("course", "period"), repository.preferences.first().selectedContext)
+        repository.updateTestDefaults(TestDefaults(questionCount = 7))
+        assertEquals(PreparationDefaults(15), repository.preferences.first().preparationDefaults)
+        for (count in listOf(0, 31, -2)) {
+            dataStore.edit { it[intPreferencesKey("preparation_review_question_count")] = count }
+            assertEquals(PreparationDefaults(), repository.preferences.first().preparationDefaults)
+        }
+        dataStore.edit { it[stringPreferencesKey("preparation_review_question_count")] = "bad" }
+        assertEquals(PreparationDefaults(), repository.preferences.first().preparationDefaults)
+    }
 
     @Test
     fun selectedContextIsWrittenAndClearedAsOnePreferencePair() = runTest {
@@ -133,6 +156,7 @@ class PreferencesRepositoryTest {
         try {
             repository.setSelectedContext("course-1", "period-1")
             repository.updateTestDefaults(defaults)
+            repository.updatePreparationDefaults(PreparationDefaults(15))
             job.cancelAndJoin()
             job = SupervisorJob()
             repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
@@ -141,6 +165,7 @@ class PreferencesRepositoryTest {
             val reopened = repository.preferences.first()
             assertEquals(SelectedAcademicContext("course-1", "period-1"), reopened.selectedContext)
             assertEquals(defaults, reopened.testDefaults)
+            assertEquals(PreparationDefaults(15), reopened.preparationDefaults)
 
             repository.selectCourse("course-2")
             job.cancelAndJoin()
@@ -153,6 +178,7 @@ class PreferencesRepositoryTest {
             assertNull(reselected.selectedAcademicPeriodId)
             assertNull(reselected.selectedContext)
             assertEquals(defaults, reselected.testDefaults)
+            assertEquals(PreparationDefaults(15), reselected.preparationDefaults)
         } finally {
             job.cancelAndJoin()
         }

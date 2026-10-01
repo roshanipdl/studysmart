@@ -129,6 +129,10 @@ private class FakePreferencesRepository(
     override suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?) = false
     override suspend fun clearSelectedPeriodIfUnchanged(courseId: String, academicPeriodId: String) = false
 
+    override suspend fun updatePreparationDefaults(defaults: com.studysmart.app.core.model.PreparationDefaults) {
+        state.value = state.value.copy(preparationDefaults = defaults)
+    }
+
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         writeAttempts++
         if (failFirstWrite && writeAttempts == 1) error("save failed")

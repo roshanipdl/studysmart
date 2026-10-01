@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.studysmart.app.core.model.TestDefaults
+import com.studysmart.app.core.model.PreparationDefaults
 import com.studysmart.app.core.model.TestQuestionSource
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,7 @@ data class StudyPreferences(
     val selectedCourseIdOverride: String? = null,
     val selectedAcademicPeriodIdOverride: String? = null,
     val testDefaults: TestDefaults = TestDefaults(),
+    val preparationDefaults: PreparationDefaults = PreparationDefaults(),
 ) {
     val selectedCourseId: String?
         get() = selectedCourseIdOverride ?: selectedContext?.courseId
@@ -52,6 +54,8 @@ interface PreferencesRepository {
     suspend fun clearSelectedContext()
 
     suspend fun updateTestDefaults(defaults: TestDefaults) = Unit
+
+    suspend fun updatePreparationDefaults(defaults: PreparationDefaults)
 }
 
 private val Context.studySmartPreferencesDataStore: DataStore<Preferences> by
@@ -84,6 +88,11 @@ class DataStorePreferencesRepository(
                 selectedCourseIdOverride = courseId,
                 selectedAcademicPeriodIdOverride = periodId,
                 testDefaults = readTestDefaults(values),
+                preparationDefaults = PreparationDefaults(
+                    questionCount = runCatching { values[PREPARATION_QUESTION_COUNT] }.getOrNull()
+                        ?.takeIf { it in PreparationDefaults.MIN_QUESTION_COUNT..PreparationDefaults.MAX_QUESTION_COUNT }
+                        ?: PreparationDefaults.DEFAULT_QUESTION_COUNT,
+                ),
             )
         }
 
@@ -161,6 +170,10 @@ class DataStorePreferencesRepository(
         }
     }
 
+    override suspend fun updatePreparationDefaults(defaults: PreparationDefaults) {
+        dataStore.edit { values -> values[PREPARATION_QUESTION_COUNT] = defaults.questionCount }
+    }
+
     private fun readTestDefaults(values: Preferences): TestDefaults {
         val count = runCatching { values[DEFAULT_QUESTION_COUNT] }
             .getOrNull()
@@ -184,6 +197,7 @@ class DataStorePreferencesRepository(
     }
 
     private companion object {
+        val PREPARATION_QUESTION_COUNT = intPreferencesKey("preparation_review_question_count")
         val SELECTED_COURSE_ID = stringPreferencesKey("selected_course_id")
         val SELECTED_ACADEMIC_PERIOD_ID = stringPreferencesKey("selected_academic_period_id")
         val DEFAULT_QUESTION_COUNT = intPreferencesKey("default_question_count")

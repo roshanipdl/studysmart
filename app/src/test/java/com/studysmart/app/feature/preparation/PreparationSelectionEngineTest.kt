@@ -10,6 +10,25 @@ class PreparationSelectionEngineTest {
     private val selectedAt = Instant.parse("2026-01-01T12:00:00Z")
     private val engine = PreparationSelectionEngine()
 
+    @Test fun configurableLimitsPreserveSelectionOrderingAndUniqueCap() {
+        val candidates = (1..40).map { candidate("q-$it", it, nextReviewAt = selectedAt.minusSeconds(it.toLong())) }
+        for (policy in PreparationSelectionPolicy.entries) {
+            val full = engine.createPlan(candidates, policy, selectedAt, 42L)!!
+            for (limit in listOf(1, 10, 30)) {
+                val plan = engine.createPlan(candidates + candidates.first(), policy, selectedAt, 42L, limit)!!
+                assertEquals(full.orderedQuestionIds.take(limit), plan.orderedQuestionIds)
+                assertEquals(limit, plan.uniqueQuestionCount)
+            }
+            assertEquals(2, engine.createPlan(candidates.take(2), policy, selectedAt, 42L, 10)!!.uniqueQuestionCount)
+            assertNull(engine.createPlan(emptyList(), policy, selectedAt, 42L, 10))
+        }
+        for (limit in listOf(0, 31)) {
+            org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+                engine.createPlan(candidates, PreparationSelectionPolicy.ADAPTIVE, selectedAt, 42L, limit)
+            }
+        }
+    }
+
     @Test
     fun adaptiveSelectionUsesWeakDueUnseenStrongPriority() {
         val candidates = listOf(

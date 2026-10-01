@@ -21,18 +21,48 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PreparationViewModelsTest {
+    @Test fun entryCancellationReleasesAdmissionAndRetryKeepsCapturedCount() = runTest {
+        val backing = FakePreparationRepository()
+        val preferences = com.studysmart.app.testing.TestPreferencesRepository(
+            com.studysmart.app.core.data.StudyPreferences(preparationDefaults = com.studysmart.app.core.model.PreparationDefaults(15)),
+        )
+        var cancel = true
+        val captured = mutableListOf<PreparationSessionRequest>()
+        val repository = object : PreparationRepository by backing {
+            override suspend fun createSession(request: PreparationSessionRequest): PreparationCreationResult {
+                captured += request
+                if (cancel) throw kotlinx.coroutines.CancellationException("cancelled")
+                return backing.createSession(request)
+            }
+        }
+        val viewModel = PreparationEntryViewModel(request("cancelled-entry"), repository, TestDispatcherProvider(), preferences)
+        assertFalse(viewModel.uiState.value.isCreating)
+        assertEquals(null, viewModel.uiState.value.error)
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(1))
+        cancel = false
+        viewModel.retry()
+        assertEquals(listOf(15, 15), captured.map { it.questionCount })
+        assertEquals("session-1", viewModel.uiState.value.sessionId)
+    }
+
     @Test
     fun entryRetryReusesTheSameCreationRequest() = runTest {
         val repository = FakePreparationRepository(failFirstCreation = true)
         val request = request("request-1")
-        val viewModel = PreparationEntryViewModel(request, repository, TestDispatcherProvider())
+        val preferences = com.studysmart.app.testing.TestPreferencesRepository(
+            com.studysmart.app.core.data.StudyPreferences(preparationDefaults = com.studysmart.app.core.model.PreparationDefaults(15)),
+        )
+        val viewModel = PreparationEntryViewModel(request, repository, TestDispatcherProvider(),
+            preferences)
 
         assertTrue(viewModel.uiState.value.error != null)
+
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(1))
 
         viewModel.retry()
 
         assertEquals("session-1", viewModel.uiState.value.sessionId)
-        assertEquals(listOf(request, request), repository.creationRequests)
+        assertEquals(listOf(request.copy(questionCount = 15), request.copy(questionCount = 15)), repository.creationRequests)
     }
 
     @Test

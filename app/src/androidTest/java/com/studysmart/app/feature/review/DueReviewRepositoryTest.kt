@@ -58,6 +58,56 @@ class DueReviewRepositoryTest {
     }
 
     @Test
+    fun preparationAndDueReviewHonorLimitsAndFreezeCreatedSelections() = runBlocking {
+        com.studysmart.app.core.database.applyVariantSeed(database.openHelper.writableDatabase)
+        val chapterId = "debug-sample-dbms-design"
+        val topicId = "debug-sample-dbms-design-relational"
+        database.curriculumDao().getEligibleQuestionsForChapter(chapterId).forEachIndexed { index, question ->
+            schedule(question.id, now.minusSeconds((index + 1).toLong()))
+        }
+        fun preparation(count: Int, scope: PreparationScopeType = PreparationScopeType.CHAPTER) =
+            com.studysmart.app.feature.preparation.PreparationSessionRequest(
+                scope, if (scope == PreparationScopeType.TOPIC) topicId else chapterId,
+                PreparationOriginType.CHAPTER, chapterId, "prepare-$scope-$count", count,
+            )
+        for (count in listOf(1, 10, 30)) {
+            val request = preparation(count)
+            val created = repository.createSession(request) as PreparationCreationResult.Created
+            val before = repository.observeSession(created.sessionId).first()!!
+            assertEquals(count, before.uniqueQuestionCount)
+            assertEquals(created, repository.createSession(request.copy(questionCount = 2)))
+            assertEquals(before, repository.observeSession(created.sessionId).first())
+
+            val dueRequest = DueReviewSessionRequest("course-bca", "period-bca-semester-1", "due-$count", count)
+            val due = repository.createDueReviewSession(dueRequest) as PreparationCreationResult.Created
+            val dueBefore = repository.observeSession(due.sessionId).first()!!
+            assertEquals(count, dueBefore.uniqueQuestionCount)
+            assertEquals(createdCountOrder(count, chapterId), dueBefore.items.map { it.questionId })
+            assertEquals(due, repository.createDueReviewSession(dueRequest.copy(questionCount = 2)))
+            assertEquals(dueBefore, repository.observeSession(due.sessionId).first())
+        }
+        val topic = repository.createSession(preparation(30, PreparationScopeType.TOPIC)) as PreparationCreationResult.Created
+        assertEquals(10, repository.observeSession(topic.sessionId).first()!!.uniqueQuestionCount)
+        val defaultPreparation = repository.createSession(com.studysmart.app.feature.preparation.PreparationSessionRequest(
+            PreparationScopeType.CHAPTER, chapterId, PreparationOriginType.CHAPTER, chapterId, "default-preparation",
+        )) as PreparationCreationResult.Created
+        assertEquals(10, repository.observeSession(defaultPreparation.sessionId).first()!!.uniqueQuestionCount)
+        val defaultReview = repository.createDueReviewSession(DueReviewSessionRequest(
+            "course-bca", "period-bca-semester-1", "default-review",
+        )) as PreparationCreationResult.Created
+        assertEquals(10, repository.observeSession(defaultReview.sessionId).first()!!.uniqueQuestionCount)
+        for (count in listOf(0, 31)) {
+            assertTrue(runCatching { repository.createSession(preparation(count)) }.exceptionOrNull() is IllegalArgumentException)
+            assertTrue(runCatching { repository.createDueReviewSession(DueReviewSessionRequest(
+                "course-bca", "period-bca-semester-1", "invalid-$count", count,
+            )) }.exceptionOrNull() is IllegalArgumentException)
+        }
+    }
+
+    private suspend fun createdCountOrder(count: Int, chapterId: String) =
+        database.curriculumDao().getEligibleQuestionsForChapter(chapterId).map { it.id }.reversed().take(count)
+
+    @Test
     fun dueCandidatesStayInSelectedContextAndUseMostOverdueOrder() = runBlocking {
         schedule("question-bca-s1-dbms-direct", now.minusSeconds(300))
         schedule("question-bca-s1-dbms-topic", now.minusSeconds(300))

@@ -73,7 +73,7 @@ fun StudySmartApp(
                         if (
                             currentRoute == AppRoutes.PREPARE_SESSION ||
                             currentRoute == AppRoutes.MOCK_TEST ||
-                            currentRoute == AppRoutes.TEST_DEFAULTS
+                            currentRoute == AppRoutes.TEST_DEFAULTS || currentRoute == AppRoutes.SETTINGS
                         ) {
                             pendingTopLevelDestination = destination
                         } else {

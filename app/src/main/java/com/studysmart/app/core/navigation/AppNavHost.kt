@@ -567,9 +567,31 @@ fun AppNavHost(
             PlaceholderScreen(title = "Search", onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
         }
         composable(AppRoutes.SETTINGS) {
+            val viewModel: com.studysmart.app.feature.settings.SettingsViewModel = viewModel(
+                factory = container.viewModelFactory { graph -> graph.settingsViewModel() },
+            )
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            LaunchedEffect(pendingTopLevelDestination, state.isSaving, state.isSaveError) {
+                val destination = pendingTopLevelDestination ?: return@LaunchedEffect
+                if (!state.isSaving && !state.isSaveError) {
+                    onPendingTopLevelDestinationConsumed()
+                    navController.navigateTopLevel(destination)
+                }
+            }
+            val navigateBack = {
+                if (!state.isSaving) {
+                    onPendingTopLevelDestinationConsumed()
+                    navController.navigateBackOrFallback(AppRoutes.HOME)
+                }
+            }
+            BackHandler(onBack = navigateBack)
             SettingsScreen(
-                onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
+                state = state,
+                onBack = navigateBack,
                 onOpenTestDefaults = { navController.navigate(AppRoutes.TEST_DEFAULTS) },
+                onRetry = viewModel::retry,
+                onDecrementCount = viewModel::decrementQuestionCount,
+                onIncrementCount = viewModel::incrementQuestionCount,
             )
         }
         composable(AppRoutes.TEST_DEFAULTS) {

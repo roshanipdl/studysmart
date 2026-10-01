@@ -48,7 +48,9 @@ class PreparationSelectionEngine {
         policy: PreparationSelectionPolicy,
         selectedAt: Instant,
         selectionSeed: Long,
+        uniqueQuestionLimit: Int = MAX_UNIQUE_QUESTIONS,
     ): PreparationPlan? {
+        require(uniqueQuestionLimit in 1..MAX_UNIQUE_QUESTIONS) { "invalid unique question limit" }
         val uniqueCandidates = candidates.uniqueByQuestionId()
         val orderedCandidates = when (policy) {
             PreparationSelectionPolicy.ADAPTIVE -> uniqueCandidates
@@ -66,7 +68,7 @@ class PreparationSelectionEngine {
         return PreparationPlan(
             selectionSeed = selectionSeed,
             orderedQuestionIds = orderedCandidates
-                .take(MAX_UNIQUE_QUESTIONS)
+                .take(uniqueQuestionLimit)
                 .map(PreparationCandidate::questionId),
         )
     }

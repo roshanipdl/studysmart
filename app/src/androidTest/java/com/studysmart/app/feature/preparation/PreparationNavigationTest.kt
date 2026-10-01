@@ -174,6 +174,9 @@ class PreparationNavigationTest {
 }
 
 private class InMemoryPreferencesRepository : PreferencesRepository {
+    override suspend fun updatePreparationDefaults(defaults: com.studysmart.app.core.model.PreparationDefaults) {
+        state.value = state.value.copy(preparationDefaults = defaults)
+    }
     private val state = MutableStateFlow(StudyPreferences())
 
     override val preferences: Flow<StudyPreferences> = state.asStateFlow()

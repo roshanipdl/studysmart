@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.studysmart.app.core.common.DispatcherProvider
 import com.studysmart.app.core.common.IdGenerator
+import com.studysmart.app.core.data.PreferencesRepository
 import com.studysmart.app.core.model.PreparationOriginType
 import com.studysmart.app.core.model.PreparationSessionStatus
 import com.studysmart.app.core.model.Rating
@@ -11,6 +12,7 @@ import com.studysmart.app.feature.readiness.ReadinessEstimate
 import com.studysmart.app.feature.readiness.ReadinessRepository
 import com.studysmart.app.feature.readiness.ReadinessScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 data class PreparationEntryUiState(
@@ -33,9 +36,11 @@ class PreparationEntryViewModel(
     private val request: PreparationSessionRequest,
     private val repository: PreparationRepository,
     private val dispatchers: DispatcherProvider,
+    private val preferencesRepository: PreferencesRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PreparationEntryUiState())
     val uiState: StateFlow<PreparationEntryUiState> = _uiState.asStateFlow()
+    private var pendingRequest: PreparationSessionRequest? = null
 
     init {
         create()
@@ -47,9 +52,14 @@ class PreparationEntryViewModel(
 
     private fun create() {
         if (_uiState.value.isCreating || _uiState.value.sessionId != null) return
+        _uiState.value = PreparationEntryUiState(isCreating = true)
         viewModelScope.launch(dispatchers.main) {
-            _uiState.value = PreparationEntryUiState(isCreating = true)
-            runCatching { repository.createSession(request) }
+            runCatching {
+                val captured = pendingRequest ?: request.copy(
+                    questionCount = preferencesRepository.preferences.first().preparationDefaults.questionCount,
+                ).also { pendingRequest = it }
+                repository.createSession(captured)
+            }
                 .onSuccess { result ->
                     _uiState.value = when (result) {
                         is PreparationCreationResult.Created -> PreparationEntryUiState(
@@ -67,6 +77,10 @@ class PreparationEntryViewModel(
                     }
                 }
                 .onFailure { error ->
+                    if (error is CancellationException) {
+                        _uiState.value = _uiState.value.copy(isCreating = false, isLoading = false)
+                        throw error
+                    }
                     _uiState.value = PreparationEntryUiState(
                         isLoading = false,
                         error = error.message ?: "Unable to start preparation.",

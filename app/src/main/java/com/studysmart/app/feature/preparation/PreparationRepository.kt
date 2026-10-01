@@ -104,12 +104,14 @@ data class PreparationSessionRequest(
     val originType: PreparationOriginType,
     val originReferenceId: String?,
     val creationRequestId: String,
+    val questionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
 )
 
 data class DueReviewSessionRequest(
     val courseId: String,
     val academicPeriodId: String,
     val creationRequestId: String,
+    val questionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
 )
 
 sealed interface PreparationCreationResult {
@@ -194,6 +196,7 @@ class RoomPreparationRepository(
         withContext(dispatchers.io) {
             require(request.scopeId.isNotBlank()) { "scopeId must not be blank" }
             require(request.creationRequestId.isNotBlank()) { "creationRequestId must not be blank" }
+            require(request.questionCount in 1..MAX_UNIQUE_QUESTIONS) { "invalid preparation question count" }
             database.withTransaction {
                 dao.getSessionByCreationRequestId(request.creationRequestId)?.let {
                     return@withTransaction PreparationCreationResult.Created(it.id)
@@ -216,6 +219,7 @@ class RoomPreparationRepository(
                     policy = PreparationSelectionPolicy.ADAPTIVE,
                     selectedAt = selectedAt,
                     selectionSeed = randomSource.nextLong(),
+                    uniqueQuestionLimit = request.questionCount,
                 ) ?: return@withTransaction PreparationCreationResult.NoQuestions
 
                 val questionById = candidateRows.associateBy { it.question.id }
@@ -240,6 +244,7 @@ class RoomPreparationRepository(
             require(request.courseId.isNotBlank()) { "courseId must not be blank" }
             require(request.academicPeriodId.isNotBlank()) { "academicPeriodId must not be blank" }
             require(request.creationRequestId.isNotBlank()) { "creationRequestId must not be blank" }
+            require(request.questionCount in 1..MAX_UNIQUE_QUESTIONS) { "invalid review question count" }
             database.withTransaction {
                 dao.getSessionByCreationRequestId(request.creationRequestId)?.let {
                     return@withTransaction PreparationCreationResult.Created(it.id)
@@ -261,6 +266,7 @@ class RoomPreparationRepository(
                     policy = PreparationSelectionPolicy.DUE_REVIEW,
                     selectedAt = selectedAt,
                     selectionSeed = randomSource.nextLong(),
+                    uniqueQuestionLimit = request.questionCount,
                 ) ?: return@withTransaction PreparationCreationResult.NoQuestions
 
                 PreparationCreationResult.Created(

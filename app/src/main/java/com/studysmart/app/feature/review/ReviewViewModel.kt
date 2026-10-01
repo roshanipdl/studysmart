@@ -39,6 +39,7 @@ data class ReviewUiState(
     val isReadinessLoading: Boolean = false,
     val readinessError: String? = null,
     val error: String? = null,
+    val sessionQuestionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
 )
 
 sealed interface ReviewEffect {
@@ -62,14 +63,15 @@ class ReviewViewModel(
     val effects: SharedFlow<ReviewEffect> = _effects.asSharedFlow()
 
     private var observeJob: Job? = null
-    private var pendingCreationRequestId: String? = null
+    private var pendingRequest: DueReviewSessionRequest? = null
+    private var creationInProgress = false
 
     init {
         observe()
     }
 
     fun retry() {
-        if (pendingCreationRequestId != null) {
+        if (pendingRequest != null) {
             startDueReview()
         } else {
             observe()
@@ -80,29 +82,25 @@ class ReviewViewModel(
         val state = _uiState.value
         val courseId = state.courseId ?: return
         val academicPeriodId = state.academicPeriodId ?: return
-        if (state.isLoading || state.isContextRequired || state.isNoDue || state.isStarting) return
+        if (state.isLoading || state.isContextRequired || state.isNoDue || creationInProgress) return
 
-        val requestId = pendingCreationRequestId ?: idGenerator.nextId("due-review-request").also {
-            pendingCreationRequestId = it
-        }
+        val request = pendingRequest?.takeIf {
+            it.courseId == courseId && it.academicPeriodId == academicPeriodId
+        } ?: DueReviewSessionRequest(courseId, academicPeriodId,
+            idGenerator.nextId("due-review-request"), state.sessionQuestionCount).also { pendingRequest = it }
+        creationInProgress = true
+        _uiState.value = state.copy(isStarting = true, error = null)
         viewModelScope.launch(dispatchers.main) {
-            _uiState.value = _uiState.value.copy(isStarting = true, error = null)
             try {
-                val result = preparationRepository.createDueReviewSession(
-                    DueReviewSessionRequest(
-                        courseId = courseId,
-                        academicPeriodId = academicPeriodId,
-                        creationRequestId = requestId,
-                    ),
-                )
+                val result = preparationRepository.createDueReviewSession(request)
                 when (result) {
                     is PreparationCreationResult.Created -> {
-                        pendingCreationRequestId = null
+                        pendingRequest = null
                         _uiState.value = _uiState.value.copy(isStarting = false, error = null)
                         _effects.tryEmit(ReviewEffect.OpenDueReview(result.sessionId))
                     }
                     PreparationCreationResult.NoQuestions -> {
-                        pendingCreationRequestId = null
+                        pendingRequest = null
                         _uiState.value = _uiState.value.copy(
                             isStarting = false,
                             dueCount = 0,
@@ -113,7 +111,7 @@ class ReviewViewModel(
                         observe()
                     }
                     PreparationCreationResult.MissingScope -> {
-                        pendingCreationRequestId = null
+                        pendingRequest = null
                         _uiState.value = _uiState.value.copy(
                             isStarting = false,
                             isContextRequired = true,
@@ -129,6 +127,9 @@ class ReviewViewModel(
                     isStarting = false,
                     error = error.message ?: "Unable to start due review.",
                 )
+            } finally {
+                creationInProgress = false
+                _uiState.value = _uiState.value.copy(isStarting = false)
             }
         }
     }
@@ -147,6 +148,9 @@ class ReviewViewModel(
                     )
                 }
                 .collectLatest { (preferences, courses) ->
+                    _uiState.value = _uiState.value.copy(
+                        sessionQuestionCount = preferences.preparationDefaults.questionCount,
+                    )
                     val courseId = preferences.selectedCourseId
                     val academicPeriodId = preferences.selectedAcademicPeriodId
                     if (courseId.isNullOrBlank() || academicPeriodId.isNullOrBlank()) {

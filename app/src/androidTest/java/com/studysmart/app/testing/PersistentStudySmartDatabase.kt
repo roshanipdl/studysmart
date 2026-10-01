@@ -74,6 +74,10 @@ private class CoreAlphaTestPreferences : PreferencesRepository {
             selectedContext = null, selectedCourseIdOverride = null, selectedAcademicPeriodIdOverride = null,
         )
     }
+    override suspend fun updatePreparationDefaults(defaults: com.studysmart.app.core.model.PreparationDefaults) {
+        state.value = state.value.copy(preparationDefaults = defaults)
+    }
+
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
     }

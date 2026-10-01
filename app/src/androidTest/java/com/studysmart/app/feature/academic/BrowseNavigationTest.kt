@@ -13,6 +13,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.studysmart.app.app.AppContainer
@@ -44,6 +47,94 @@ class BrowseNavigationTest {
     val composeRule = createComposeRule()
 
     private var database: com.studysmart.app.core.database.StudySmartDatabase? = null
+
+    @Test
+    fun sharedSettingsCountAppliesToPreparationAndDueReviewButNotTests() {
+        val backing = InMemoryPreferencesRepository()
+        val container = container(backing)
+        com.studysmart.app.core.database.applyVariantSeed(database!!.openHelper.writableDatabase)
+        runBlocking {
+            database!!.curriculumDao().getEligibleQuestionsForChapter("debug-sample-dbms-design").forEach { question ->
+                database!!.preparationDao().upsertReviewSchedule(com.studysmart.app.core.database.ReviewScheduleEntity(
+                    userId = "local-user", questionId = question.id,
+                    learningState = com.studysmart.app.core.model.LearningState.LEARNING,
+                    lastReviewedAt = java.time.Instant.EPOCH, nextReviewAt = java.time.Instant.EPOCH,
+                    intervalSeconds = 600, repetitionCount = 1, lapseCount = 0,
+                ))
+            }
+        }
+        composeRule.setStudySmartContent(container, startRoute = AppRoutes.SETTINGS)
+        composeRule.awaitNodeWithTag("review_question_count")
+        composeRule.onNodeWithTag("review_count_increment").performClick()
+        composeRule.awaitNodeWithText("11")
+        assertEquals(11, backing.current.preparationDefaults.questionCount)
+        assertEquals(10, backing.current.testDefaults.questionCount)
+        composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
+        composeRule.awaitNodeWithTag("course_course-bca")
+        composeRule.onNodeWithTag("course_course-bca").performClick()
+        composeRule.awaitNodeWithTag("period_period-bca-semester-1")
+        composeRule.onNodeWithTag("period_period-bca-semester-1").performClick()
+        composeRule.awaitNodeWithTag("subject_subject-bca-s1-dbms")
+        composeRule.onNodeWithTag("subject_subject-bca-s1-dbms").performClick()
+        composeRule.awaitNodeWithTag("chapter_debug-sample-dbms-design")
+        composeRule.onNode(hasText("Prepare") and hasAnyAncestor(hasTestTag("chapter_debug-sample-dbms-design")))
+            .performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("preparation_session_screen")
+        assertActiveUniqueCount(11)
+        composeRule.onNodeWithTag("bottom_navigation_review").performClick()
+        composeRule.awaitNodeWithTag("preparation_discard")
+        composeRule.onNodeWithTag("preparation_discard").performClick()
+        composeRule.awaitNodeWithTag("review_start_due")
+        composeRule.onNodeWithTag("review_start_due").performClick()
+        composeRule.awaitNodeWithTag("preparation_session_screen")
+        assertActiveUniqueCount(11)
+        assertEquals(10, backing.current.testDefaults.questionCount)
+    }
+
+    private fun assertActiveUniqueCount(expected: Int) {
+        database!!.openHelper.writableDatabase.query(
+            "SELECT uniqueQuestionCount FROM preparation_sessions WHERE status = 'active'",
+        ).use { cursor ->
+            assertEquals(1, cursor.count)
+            org.junit.Assert.assertTrue(cursor.moveToFirst())
+            assertEquals(expected, cursor.getInt(0))
+        }
+    }
+
+    @Test
+    fun settingsTabExitWaitsForSharedCountWriteAndFailureRetry() {
+        val backing = InMemoryPreferencesRepository()
+        val entered = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        var writes = 0
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updatePreparationDefaults(defaults: com.studysmart.app.core.model.PreparationDefaults) {
+                writes++
+                if (writes == 1) {
+                    entered.complete(Unit)
+                    release.await()
+                    error("injected session count save failure")
+                }
+                backing.updatePreparationDefaults(defaults)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.SETTINGS)
+        composeRule.awaitNodeWithTag("review_question_count")
+        composeRule.onNodeWithTag("review_count_increment").performClick()
+        composeRule.waitUntil(5_000) { entered.isCompleted }
+        composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
+        composeRule.onNodeWithTag("settings_screen").assertIsDisplayed()
+        composeRule.assertNoNodeWithTag("courses_screen")
+        assertEquals(10, backing.current.preparationDefaults.questionCount)
+        release.complete(Unit)
+        composeRule.awaitNodeWithTag("review_defaults_error")
+        composeRule.onNodeWithTag("settings_screen").assertIsDisplayed()
+        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("courses_screen")
+        assertEquals(11, backing.current.preparationDefaults.questionCount)
+        assertEquals(10, backing.current.testDefaults.questionCount)
+        assertEquals(2, writes)
+    }
 
     @Test
     fun defaultsTabExitWaitsForPendingPreferenceWrite() {
@@ -524,6 +615,10 @@ private class InMemoryPreferencesRepository(
 
     override suspend fun clearSelectedContext() {
         clearSelectedCourse()
+    }
+
+    override suspend fun updatePreparationDefaults(defaults: com.studysmart.app.core.model.PreparationDefaults) {
+        state.value = state.value.copy(preparationDefaults = defaults)
     }
 
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
