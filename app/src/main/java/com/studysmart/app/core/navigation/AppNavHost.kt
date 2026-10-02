@@ -259,7 +259,11 @@ fun AppNavHost(
                 LaunchedEffect(state.sessionId) {
                     state.sessionId?.let { sessionId ->
                         navController.navigate(AppRoutes.prepareSession(sessionId)) {
-                            popUpTo(entry.destination.id) { inclusive = true }
+                            val previous = navController.previousBackStackEntry
+                            val popDestination = if (previous?.destination?.route == AppRoutes.PREPARATION_SUMMARY) {
+                                previous.destination.id
+                            } else entry.destination.id
+                            popUpTo(popDestination) { inclusive = true }
                         }
                     }
                 }
@@ -330,9 +334,11 @@ fun AppNavHost(
                     state.isLoading,
                     state.session?.status,
                     state.isSaving,
+                    state.ratingFeedback,
+                    state.completionReady,
                 ) {
                     val destination = pendingTopLevelDestination ?: return@LaunchedEffect
-                    if (state.isLoading || state.isSaving) return@LaunchedEffect
+                    if (state.isLoading || state.isSaving || state.ratingFeedback != null || state.completionReady) return@LaunchedEffect
                     if (state.session?.status == com.studysmart.app.core.model.PreparationSessionStatus.ACTIVE) {
                         pendingTabDiscardRequested.value = true
                         viewModel.showDiscardConfirmation()
@@ -361,9 +367,24 @@ fun AppNavHost(
                         }
                     }
                 }
+                LaunchedEffect(state.completionReady) {
+                    if (state.completionReady) {
+                        val pendingDestination = latestPendingTopLevelDestination
+                        if (pendingDestination != null) {
+                            pendingTabDiscardRequested.value = false
+                            onPendingTopLevelDestinationConsumed()
+                            navController.navigateTopLevel(pendingDestination)
+                        } else {
+                            navController.navigate(AppRoutes.preparationSummary(sessionId)) {
+                                popUpTo(entry.destination.id) { inclusive = true }
+                            }
+                        }
+                    }
+                }
                 PreparationSessionScreen(
                     state = state,
                     onReveal = viewModel::revealAnswer,
+                    onRatingAnimationFinished = viewModel::finishRatingAnimation,
                     onRate = viewModel::rate,
                     onRetry = viewModel::retryMutation,
                     onClose = viewModel::showDiscardConfirmation,
@@ -407,6 +428,14 @@ fun AppNavHost(
                     state = state,
                     onRetry = viewModel::retry,
                     onRetryReadiness = viewModel::retryReadiness,
+                    onRetryCoverage = viewModel::retryCoverage,
+                    onContinue = {
+                        val chapterId = state.session?.chapterId
+                        if (chapterId != null && navController.currentBackStackEntry == entry &&
+                            !state.isCoverageLoading && !state.isChapterUnavailable && state.chapterCoverage?.eligibleCount != 0) {
+                            navController.navigate(AppRoutes.prepareChapter(chapterId)) { launchSingleTop = true }
+                        }
+                    },
                     onBack = {
                         navController.navigateBackOrFallback(
                             preparationBackRoute(

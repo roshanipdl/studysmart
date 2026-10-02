@@ -135,6 +135,7 @@ data class PreparationRatingResult(
 )
 
 interface PreparationRepository {
+    suspend fun getChapterCoverage(chapterId: String): PreparationChapterCoverage?
     fun observeSession(sessionId: String): Flow<PreparationSessionModel?>
 
     suspend fun createSession(request: PreparationSessionRequest): PreparationCreationResult
@@ -161,6 +162,15 @@ class RoomPreparationRepository(
     private val reviewStateReducer: ReviewStateReducer = ReviewStateReducer(),
     private val userId: String = LOCAL_USER_ID,
 ) : PreparationRepository {
+    override suspend fun getChapterCoverage(chapterId: String): PreparationChapterCoverage? =
+        withContext(dispatchers.io) {
+            require(chapterId.isNotBlank())
+            database.withTransaction {
+                if (dao.getChapterContext(chapterId) == null) null
+                else projectChapterCoverage(dao.getChapterCandidates(userId, chapterId).map { it.hasReview })
+            }
+        }
+
     override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = combine(
         dao.observeSession(sessionId),
         dao.observeSessionItems(sessionId),

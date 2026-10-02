@@ -22,9 +22,10 @@ fun ComposeContentTestRule.setStudySmartContent(
 fun ComposeContentTestRule.awaitNodeWithTag(
     tag: String,
     timeoutMillis: Long = 5_000,
+    useUnmergedTree: Boolean = false,
 ) {
     await(timeoutMillis) {
-        onAllNodesWithTag(tag)
+        onAllNodesWithTag(tag, useUnmergedTree = useUnmergedTree)
             .fetchSemanticsNodes(atLeastOneRootRequired = false)
             .isNotEmpty()
     }

@@ -100,6 +100,17 @@ data class PreparationSessionUiState(
     val discardError: String? = null,
     val error: String? = null,
     val showDiscardConfirmation: Boolean = false,
+    val ratingFeedback: PreparationRatingFeedback? = null,
+    val completionReady: Boolean = false,
+)
+
+data class PreparationRatingFeedback(
+    val item: PreparationItemModel,
+    val rating: Rating,
+    val reviewRecordId: String,
+    val committed: Boolean = false,
+    val exitFinished: Boolean = false,
+    val completed: Boolean = false,
 )
 
 sealed interface PreparationSessionEffect {
@@ -124,6 +135,7 @@ class PreparationSessionViewModel(
 
     private var observeJob: Job? = null
     private var pendingMutation: PendingMutation? = null
+    private var closeAfterFeedback = false
 
     init {
         observe()
@@ -135,6 +147,10 @@ class PreparationSessionViewModel(
     }
 
     fun showDiscardConfirmation() {
+        if (_uiState.value.ratingFeedback != null) {
+            closeAfterFeedback = true
+            return
+        }
         _uiState.value = _uiState.value.copy(showDiscardConfirmation = true, discardError = null)
     }
 
@@ -145,7 +161,7 @@ class PreparationSessionViewModel(
 
     fun revealAnswer() {
         val current = _uiState.value.session?.currentItem ?: return
-        if (_uiState.value.isSaving || current.isRevealed) return
+        if (_uiState.value.isSaving || current.isRevealed || _uiState.value.ratingFeedback != null) return
         viewModelScope.launch(dispatchers.main) {
             _uiState.value = _uiState.value.copy(isSaving = true, mutationError = null)
             runCatching { repository.revealCurrent(sessionId, current.questionId) }
@@ -170,18 +186,20 @@ class PreparationSessionViewModel(
 
     fun rate(rating: Rating) {
         val current = _uiState.value.session?.currentItem ?: return
-        if (_uiState.value.isSaving || !current.isRevealed || pendingMutation != null) return
+        if (_uiState.value.isSaving || !current.isRevealed || pendingMutation != null ||
+            _uiState.value.ratingFeedback != null || _uiState.value.showDiscardConfirmation) return
         pendingMutation = PendingMutation.Rating(
             questionId = current.questionId,
             expectedPresentationCount = current.presentationCount,
             rating = rating,
             reviewRecordId = idGenerator.nextId("review-record"),
+            item = current,
         )
         submitPendingMutation()
     }
 
     fun retryMutation() {
-        if (_uiState.value.isSaving) return
+        if (_uiState.value.isSaving || _uiState.value.ratingFeedback != null) return
         if (pendingMutation == null) {
             val current = _uiState.value.session?.currentItem ?: return
             if (current.isRevealed) return
@@ -192,7 +210,7 @@ class PreparationSessionViewModel(
     }
 
     fun discardSession() {
-        if (_uiState.value.isSaving) return
+        if (_uiState.value.isSaving || _uiState.value.ratingFeedback != null) return
         val session = _uiState.value.session
         viewModelScope.launch(dispatchers.main) {
             _uiState.value = _uiState.value.copy(isSaving = true, discardError = null)
@@ -241,18 +259,24 @@ class PreparationSessionViewModel(
                         isLoading = false,
                         session = session,
                         isMissingContent = session == null,
-                        isStaleSession = session?.let {
+                        isStaleSession = _uiState.value.ratingFeedback == null && session?.let {
                             it.status != PreparationSessionStatus.ACTIVE || it.currentItem == null
                         } == true,
                         error = null,
                         mutationError = _uiState.value.mutationError,
                     )
+                    settleRatingFeedback()
                 }
         }
     }
 
     private fun submitPendingMutation() {
         val mutation = pendingMutation ?: return
+        if (mutation is PendingMutation.Rating) {
+            _uiState.value = _uiState.value.copy(
+                ratingFeedback = PreparationRatingFeedback(mutation.item, mutation.rating, mutation.reviewRecordId),
+            )
+        }
         viewModelScope.launch(dispatchers.main) {
             _uiState.value = _uiState.value.copy(isSaving = true, mutationError = null)
             runCatching {
@@ -270,17 +294,54 @@ class PreparationSessionViewModel(
             }
                 .onSuccess { result ->
                     pendingMutation = null
-                    _uiState.value = _uiState.value.copy(isSaving = false, mutationError = null)
-                    if (result.completed) {
-                        _effects.tryEmit(PreparationSessionEffect.Completed(result.sessionId))
-                    }
+                    _uiState.value = _uiState.value.copy(
+                        isSaving = false,
+                        mutationError = null,
+                        isStaleSession = false,
+                        ratingFeedback = _uiState.value.ratingFeedback?.copy(committed = true, completed = result.completed),
+                    )
+                    settleRatingFeedback()
                 }
                 .onFailure { error ->
                     _uiState.value = _uiState.value.copy(
                         isSaving = false,
                         mutationError = error.message ?: "Unable to save this rating.",
+                        ratingFeedback = null,
                     )
+                    if (closeAfterFeedback) {
+                        closeAfterFeedback = false
+                        showDiscardConfirmation()
+                    }
                 }
+        }
+    }
+
+    fun finishRatingAnimation(reviewRecordId: String) {
+        val feedback = _uiState.value.ratingFeedback ?: return
+        if (!feedback.committed || feedback.reviewRecordId != reviewRecordId) return
+        _uiState.value = _uiState.value.copy(ratingFeedback = feedback.copy(exitFinished = true))
+        settleRatingFeedback()
+    }
+
+    private fun settleRatingFeedback() {
+        val state = _uiState.value
+        val feedback = state.ratingFeedback ?: return
+        if (!feedback.committed || !feedback.exitFinished) return
+        val session = state.session ?: return
+        if (session.reviewEvents.none { it.id == feedback.reviewRecordId }) return
+        if (feedback.completed) {
+            if (session.isComplete) {
+                closeAfterFeedback = false
+                _uiState.value = state.copy(completionReady = true, isStaleSession = false)
+            }
+        } else {
+            val next = session.currentItem ?: return
+            if (next.questionId == feedback.item.questionId && next.presentationCount == feedback.item.presentationCount) return
+            _uiState.value = state.copy(
+                ratingFeedback = null,
+                showDiscardConfirmation = state.showDiscardConfirmation || closeAfterFeedback,
+            )
+            closeAfterFeedback = false
         }
     }
 
@@ -290,6 +351,7 @@ class PreparationSessionViewModel(
             val expectedPresentationCount: Int,
             val rating: com.studysmart.app.core.model.Rating,
             val reviewRecordId: String,
+            val item: PreparationItemModel,
         ) : PendingMutation
     }
 }
@@ -304,6 +366,10 @@ data class PreparationSummaryUiState(
     val isReadinessLoading: Boolean = false,
     val readinessError: String? = null,
     val error: String? = null,
+    val chapterCoverage: PreparationChapterCoverage? = null,
+    val isCoverageLoading: Boolean = false,
+    val coverageError: String? = null,
+    val isChapterUnavailable: Boolean = false,
 )
 
 class PreparationSummaryViewModel(
@@ -317,6 +383,7 @@ class PreparationSummaryViewModel(
 
     private var observeJob: Job? = null
     private var readinessJob: Job? = null
+    private var coverageJob: Job? = null
 
     init {
         observe()
@@ -324,6 +391,7 @@ class PreparationSummaryViewModel(
 
     fun retry() {
         readinessJob?.cancel()
+        coverageJob?.cancel()
         _uiState.value = PreparationSummaryUiState()
         observe()
     }
@@ -332,12 +400,42 @@ class PreparationSummaryViewModel(
         observeReadiness(_uiState.value.session)
     }
 
+    fun retryCoverage() {
+        loadCoverage(_uiState.value.session)
+    }
+
+    private fun loadCoverage(session: PreparationSessionModel?) {
+        coverageJob?.cancel()
+        val chapterId = session?.takeIf { it.isComplete }?.chapterId
+        _uiState.value = _uiState.value.copy(
+            chapterCoverage = null, coverageError = null, isChapterUnavailable = false,
+            isCoverageLoading = chapterId != null,
+        )
+        if (chapterId == null) return
+        coverageJob = viewModelScope.launch(dispatchers.main) {
+            try {
+                val coverage = repository.getChapterCoverage(chapterId)
+                _uiState.value = _uiState.value.copy(
+                    chapterCoverage = coverage, isCoverageLoading = false,
+                    isChapterUnavailable = coverage == null,
+                )
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    isCoverageLoading = false, coverageError = error.message ?: "Unable to check chapter coverage.",
+                )
+            }
+        }
+    }
+
     private fun observe() {
         observeJob?.cancel()
         observeJob = viewModelScope.launch(dispatchers.main) {
             repository.observeSession(sessionId)
                 .catch { error ->
                     readinessJob?.cancel()
+                    coverageJob?.cancel()
                     _uiState.value = PreparationSummaryUiState(
                         isLoading = false,
                         error = error.message ?: "Unable to load the preparation summary.",
@@ -356,6 +454,7 @@ class PreparationSummaryViewModel(
                         error = null,
                     )
                     observeReadiness(session)
+                    loadCoverage(session)
                 }
         }
     }

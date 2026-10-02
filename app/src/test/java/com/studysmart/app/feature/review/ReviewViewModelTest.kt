@@ -239,6 +239,7 @@ private class FakeReviewRepository(
 private class FakePreparationRepository(
     private val failFirstDueCreation: Boolean = false,
 ) : PreparationRepository {
+    override suspend fun getChapterCoverage(chapterId: String): com.studysmart.app.feature.preparation.PreparationChapterCoverage? = null
     val dueRequests = mutableListOf<DueReviewSessionRequest>()
 
     override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = emptyFlow()

@@ -21,6 +21,87 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PreparationViewModelsTest {
+    @Test fun coverageFailureDoesNotReplaceSummaryAndRetryUpdatesCoverage() = runTest {
+        val session = sampleSession().copy(status = PreparationSessionStatus.COMPLETED)
+        val backing = FakePreparationRepository(initialSession = session)
+        var fail = true
+        val repository = object : PreparationRepository by backing {
+            override suspend fun getChapterCoverage(chapterId: String): PreparationChapterCoverage {
+                if (fail) error("coverage unavailable")
+                return PreparationChapterCoverage(2, 2)
+            }
+        }
+        val viewModel = PreparationSummaryViewModel("session-1", repository, FakeReadinessRepository(), TestDispatcherProvider())
+        assertTrue(viewModel.uiState.value.summary != null)
+        assertEquals(null, viewModel.uiState.value.error)
+        assertTrue(viewModel.uiState.value.coverageError != null)
+        fail = false
+        viewModel.retryCoverage()
+        assertTrue(viewModel.uiState.value.chapterCoverage!!.isCovered)
+        assertEquals(null, viewModel.uiState.value.coverageError)
+    }
+
+    @Test fun completionWaitsForAnimationAndAcknowledgmentIsIdempotent() = runTest {
+        val repository = FakePreparationRepository(completeOnRating = true)
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider())
+        viewModel.revealAnswer()
+        viewModel.rate(Rating.GOOD)
+        assertFalse(viewModel.uiState.value.completionReady)
+        assertFalse(viewModel.uiState.value.isStaleSession)
+        val feedback = viewModel.uiState.value.ratingFeedback!!
+        assertTrue(feedback.committed)
+        viewModel.finishRatingAnimation("wrong-id")
+        assertFalse(viewModel.uiState.value.completionReady)
+        viewModel.finishRatingAnimation(feedback.reviewRecordId)
+        viewModel.finishRatingAnimation(feedback.reviewRecordId)
+        assertTrue(viewModel.uiState.value.completionReady)
+        viewModel.rate(Rating.EASY)
+        assertEquals(1, repository.ratingRequests.size)
+    }
+
+    @Test fun animationWaitsForObservedCommitAndDefersClose() = runTest {
+        val original = sampleSession()
+        val backing = FakePreparationRepository(initialSession = original.copy(items = original.items +
+            original.items.single().copy(id = "item-2", questionId = "question-2", originalOrder = 1)))
+        var committed: PreparationSessionModel? = null
+        val repository = object : PreparationRepository by backing {
+            override suspend fun rateCurrent(request: PreparationRatingRequest): PreparationRatingResult {
+                val before = backing.sessionState.value
+                val result = backing.rateCurrent(request)
+                committed = backing.sessionState.value
+                backing.sessionState.value = before
+                return result
+            }
+        }
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider())
+        viewModel.revealAnswer()
+        viewModel.rate(Rating.GOOD)
+        val feedback = viewModel.uiState.value.ratingFeedback!!
+        viewModel.showDiscardConfirmation()
+        assertFalse(viewModel.uiState.value.showDiscardConfirmation)
+        viewModel.finishRatingAnimation(feedback.reviewRecordId)
+        assertTrue(viewModel.uiState.value.ratingFeedback != null)
+        backing.sessionState.value = committed
+        assertEquals(null, viewModel.uiState.value.ratingFeedback)
+        assertTrue(viewModel.uiState.value.showDiscardConfirmation)
+        assertEquals("question-2", viewModel.uiState.value.session!!.currentItem!!.questionId)
+    }
+
+    @Test
+    fun repeatedRevealDoesNotPersistAgainOnceTheAnswerHasBeenViewed() = runTest {
+        val repository = FakePreparationRepository()
+        val viewModel = PreparationSessionViewModel(
+            "session-1", repository, FixedIdGenerator(), TestDispatcherProvider(),
+        )
+        viewModel.revealAnswer()
+        viewModel.revealAnswer()
+        viewModel.revealAnswer()
+        assertEquals(1, repository.revealCalls)
+        assertTrue(viewModel.uiState.value.session!!.currentItem!!.isRevealed)
+        viewModel.rate(Rating.EASY)
+        assertEquals(Rating.EASY, repository.ratingRequests.single().rating)
+    }
+
     @Test fun entryCancellationReleasesAdmissionAndRetryKeepsCapturedCount() = runTest {
         val backing = FakePreparationRepository()
         val preferences = com.studysmart.app.testing.TestPreferencesRepository(
@@ -243,10 +324,14 @@ private class FakePreparationRepository(
     private val failFirstCreation: Boolean = false,
     private val failFirstRating: Boolean = false,
     private val failFirstDiscard: Boolean = false,
+    private val completeOnRating: Boolean = false,
 ) : PreparationRepository {
+    override suspend fun getChapterCoverage(chapterId: String) = PreparationChapterCoverage(2, 1)
     val sessionState = MutableStateFlow(initialSession)
     val creationRequests = mutableListOf<PreparationSessionRequest>()
     val ratingRequests = mutableListOf<PreparationRatingRequest>()
+    var revealCalls = 0
+        private set
     private var discardCalls = 0
 
     override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = sessionState.asStateFlow()
@@ -263,6 +348,7 @@ private class FakePreparationRepository(
         PreparationCreationResult.Created("session-1")
 
     override suspend fun revealCurrent(sessionId: String, questionId: String): Boolean {
+        revealCalls++
         val session = sessionState.value ?: return false
         sessionState.value = session.copy(
             items = session.items.map { item ->
@@ -280,6 +366,10 @@ private class FakePreparationRepository(
         val session = sessionState.value ?: return PreparationRatingResult(request.sessionId, completed = false)
         sessionState.value = session.copy(
             reviewCount = session.reviewCount + 1,
+            status = if (completeOnRating) PreparationSessionStatus.COMPLETED else session.status,
+            reviewEvents = session.reviewEvents + PreparationReviewEventModel(
+                request.reviewRecordId, request.questionId, request.rating, Instant.EPOCH,
+            ),
             items = session.items.map { item ->
                 if (item.questionId == request.questionId) {
                     item.copy(isCompleted = true, isRevealed = false, lastRating = request.rating)
@@ -288,7 +378,7 @@ private class FakePreparationRepository(
                 }
             },
         )
-        return PreparationRatingResult(request.sessionId, completed = false)
+        return PreparationRatingResult(request.sessionId, completed = completeOnRating)
     }
 
     override suspend fun discardSession(sessionId: String): Boolean {

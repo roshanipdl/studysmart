@@ -54,6 +54,25 @@ class PreparationRepositoryTest {
     }
 
     @Test
+    fun chapterCoverageUsesCommittedDistinctQuestionsAndActiveEligibility() = runBlocking {
+        val chapter = "chapter-bca-s1-dbms-01"
+        assertEquals(PreparationChapterCoverage(2, 0), repository.getChapterCoverage(chapter))
+        val sessionId = createSession("coverage")
+        var index = 0
+        while (true) {
+            val session = repository.observeSession(sessionId).first()!!
+            val item = session.currentItem ?: break
+            repository.revealCurrent(sessionId, item.questionId)
+            repository.rateCurrent(PreparationRatingRequest(sessionId, item.questionId, item.presentationCount,
+                Rating.GOOD, "coverage-${index++}"))
+        }
+        assertEquals(PreparationChapterCoverage(2, 2), repository.getChapterCoverage(chapter))
+        assertNull(repository.getChapterCoverage("missing"))
+        database.openHelper.writableDatabase.execSQL("UPDATE questions SET isActive = 0 WHERE chapterId = ?", arrayOf(chapter))
+        assertEquals(PreparationChapterCoverage(0, 0), repository.getChapterCoverage(chapter))
+    }
+
+    @Test
     fun sessionCreationPersistsSnapshotsAndIsIdempotent() = runBlocking {
         val request = chapterRequest("request-1")
         val first = repository.createSession(request)
