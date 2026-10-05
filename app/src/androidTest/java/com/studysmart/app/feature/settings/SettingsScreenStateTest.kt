@@ -8,6 +8,9 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import com.studysmart.app.core.model.PreparationDefaults
@@ -31,7 +34,8 @@ class SettingsScreenStateTest {
         composeRule.onNodeWithText("Test defaults").performScrollTo().assertIsEnabled()
         composeRule.runOnIdle { state.value = SettingsUiState(isLoading = false, error = "read failed") }
         composeRule.onNodeWithTag("review_defaults_error").performScrollTo().assertIsDisplayed()
-        composeRule.onNodeWithText("Retry").performClick()
+        composeRule.onNode(hasText("Retry") and hasAnyAncestor(hasTestTag("review_defaults_error")))
+            .performScrollTo().performClick()
         assertEquals(1, retries)
     }
 
@@ -54,7 +58,7 @@ class SettingsScreenStateTest {
         composeRule.setContent {
             StudySmartTheme {
                 SettingsScreen(
-                    SettingsUiState(isLoading = false, preparationDefaults = PreparationDefaults(10),
+                    SettingsUiState(isLoading = false, preparationDefaults = PreparationDefaults(10), dailyCardGoal = 10,
                         isSaveError = true, error = "write failed"),
                     {}, {}, { retries++ }, {}, {},
                 )
@@ -63,7 +67,8 @@ class SettingsScreenStateTest {
         composeRule.onNodeWithTag("review_question_count").assertTextEquals("10")
         composeRule.onNodeWithTag("review_count_increment").assertIsNotEnabled()
         composeRule.onNodeWithTag("review_count_decrement").assertIsNotEnabled()
-        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.onNode(hasText("Retry") and hasAnyAncestor(hasTestTag("review_defaults_error")))
+            .performScrollTo().performClick()
         assertEquals(1, retries)
     }
 }

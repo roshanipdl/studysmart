@@ -42,12 +42,12 @@ class StudySmartNavigationTest {
         composeRule.onNodeWithTag("bottom_navigation_courses").assertIsNotSelected()
 
         composeRule.onNodeWithTag("bottom_navigation_progress").performClick()
-        composeRule.awaitNodeWithText("Progress is a Stage One destination.")
+        composeRule.awaitNodeWithTag("progress_screen")
         composeRule.onNodeWithTag("bottom_navigation_progress").assertIsSelected()
         composeRule.onNodeWithTag("bottom_navigation_review").assertIsNotSelected()
 
         composeRule.onNodeWithTag("bottom_navigation_important").performClick()
-        composeRule.awaitNodeWithText("Bookmarks are a Stage One destination.")
+        composeRule.awaitNodeWithTag("important_screen")
         composeRule.onNodeWithTag("bottom_navigation_important").assertIsSelected()
         composeRule.onNodeWithTag("bottom_navigation_progress").assertIsNotSelected()
 

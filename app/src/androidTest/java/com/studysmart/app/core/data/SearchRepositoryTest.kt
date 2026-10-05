@@ -51,7 +51,7 @@ class SearchRepositoryTest {
             val curriculum = db.curriculumImportDao()
             db.withTransaction {
                 val subject = curriculum.subjects().single { it.id == "search-s" }
-                curriculum.insertSubject(subject.copy(code = "NÉÉDLE", name = "Needle café 😀"))
+                curriculum.updateSubject(subject.copy(code = "NÉÉDLE", name = "Needle café 😀"))
                 val base = curriculum.questions().first()
                 for (id in listOf("tie-😀", "tie-\uE000", "tie-:a")) {
                     curriculum.insertQuestion(base.copy(id = id, chapterId = "search-ch",
@@ -63,10 +63,12 @@ class SearchRepositoryTest {
                 val query = requireNotNull(SearchQuery.parse(text))
                 val full = db.searchDao().observeCandidates(query.expression).first()
                 val packed = db.searchDao().rankingCandidates(query.expression)
+                val legacyPacked = db.searchDao().packedRankingCandidates(query.expression).map { it.unpack() }
                 assertEquals(full.size, packed.size)
                 fun identities(rows: List<SearchCandidateRow>) =
                     SearchRanking.topPerType(rows, query).map { it.type to it.entityId }
                 assertEquals(identities(full), identities(packed))
+                assertEquals(identities(full), identities(legacyPacked))
             }
         } finally { db.close() }
     }

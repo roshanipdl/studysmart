@@ -12,11 +12,14 @@ interface SearchDao {
 
     // Rank every valid MATCH, but do not materialize repeated display labels for
     // thousands of candidates. Display data is fetched once for the winners.
-    @Query(SEARCH_RANKING_SQL)
+    @Query(SEARCH_PACKED_RANKING_SQL)
     suspend fun packedRankingCandidates(expression: String): List<PackedSearchCandidateRow>
 
+    @Query(SEARCH_RANKING_SQL)
+    suspend fun lightweightRankingCandidates(expression: String): List<SearchRankingCandidateRow>
+
     suspend fun rankingCandidates(expression: String): List<SearchCandidateRow> =
-        packedRankingCandidates(expression).map(PackedSearchCandidateRow::unpack)
+        lightweightRankingCandidates(expression).map(SearchRankingCandidateRow::toCandidate)
 
     @Query("""
         SELECT d.type, d.entityId, c.id AS courseId, p.id AS academicPeriodId,
@@ -73,7 +76,7 @@ interface SearchDao {
 }
 
 /** Shared verbatim with test-only cursor diagnostics; no alternate query or early cap. */
-internal const val SEARCH_RANKING_SQL = """
+internal const val SEARCH_PACKED_RANKING_SQL = """
     SELECT
         length(CAST(d.type AS BLOB)) || ':' || d.type ||
         length(CAST(d.entityId AS BLOB)) || ':' || d.entityId ||
@@ -105,6 +108,46 @@ internal const val SEARCH_RANKING_SQL = """
         AND (d.type != 'question' OR (q.isActive = 1 AND
             (q.topicId IS NULL OR (t.isActive = 1 AND t.chapterId = ch.id))))
 """
+
+/** Avoid SQL string packing and per-character UTF-8 unpacking for every match.
+ * Display labels are still hydrated only for the ranked winners. No early limit.
+ */
+internal const val SEARCH_RANKING_SQL = """
+    SELECT d.type, d.entityId, c.id AS courseId, p.id AS academicPeriodId,
+        s.id AS subjectId, ch.id AS chapterId, t.id AS topicId,
+        CASE WHEN d.type = 'subject' THEN s.code ELSE '' END AS subjectCode,
+        CASE WHEN d.type = 'subject' THEN s.name ELSE '' END AS subjectName,
+        d.text AS normalizedTitle,
+        c.sortOrder AS courseOrder, p.sortOrder AS periodOrder, s.sortOrder AS subjectOrder,
+        COALESCE(ch.sortOrder, 0) AS chapterOrder, COALESCE(t.sortOrder, 0) AS topicOrder,
+        COALESCE(q.sortOrder, 0) AS questionOrder, matchinfo(search_fts, 'pcx') AS matchInfo
+    FROM search_fts JOIN search_documents d ON d.rowid = search_fts.docid
+    LEFT JOIN questions q ON d.type = 'question' AND q.id = d.entityId
+    LEFT JOIN topics t ON t.id = CASE WHEN d.type = 'topic' THEN d.entityId ELSE q.topicId END
+    LEFT JOIN chapters ch ON ch.id = CASE WHEN d.type = 'chapter' THEN d.entityId
+        WHEN d.type = 'topic' THEN t.chapterId ELSE q.chapterId END
+    JOIN subjects s ON s.id = CASE WHEN d.type = 'subject' THEN d.entityId ELSE ch.subjectId END
+    JOIN academic_periods p ON p.id = s.academicPeriodId
+    JOIN courses c ON c.id = p.courseId
+    WHERE search_fts MATCH :expression AND c.isActive = 1 AND p.isActive = 1 AND s.isActive = 1
+        AND (d.type = 'subject' OR ch.isActive = 1)
+        AND (d.type != 'topic' OR t.isActive = 1)
+        AND (d.type != 'question' OR (q.isActive = 1 AND
+            (q.topicId IS NULL OR (t.isActive = 1 AND t.chapterId = ch.id))))
+"""
+
+data class SearchRankingCandidateRow(
+    val type: String, val entityId: String, val courseId: String, val academicPeriodId: String,
+    val subjectId: String, val chapterId: String?, val topicId: String?,
+    val subjectCode: String, val subjectName: String, val normalizedTitle: String,
+    val courseOrder: Int, val periodOrder: Int, val subjectOrder: Int,
+    val chapterOrder: Int, val topicOrder: Int, val questionOrder: Int, val matchInfo: ByteArray,
+) {
+    fun toCandidate() = SearchCandidateRow(type, entityId, courseId, academicPeriodId, subjectId,
+        chapterId, topicId, "", subjectCode, subjectName, "", "", null, null,
+        courseOrder, periodOrder, subjectOrder, chapterOrder, topicOrder, questionOrder,
+        matchInfo, normalizedTitle)
+}
 
 /** Two cursor reads per match, rather than 22. Lengths are UTF-8 byte counts,
  * not UTF-16 lengths; NULs, arbitrary delimiters and supplementary characters are safe.

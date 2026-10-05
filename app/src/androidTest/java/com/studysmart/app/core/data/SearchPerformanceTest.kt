@@ -143,9 +143,10 @@ class SearchPerformanceTest {
                         while (cursor.moveToNext()) {
                             walked++
                             if (readValues) {
-                                // Same two reads as the packed production DAO projection.
-                                checksum += cursor.getString(0).length
-                                checksum += cursor.getBlob(1).size
+                                // Same fields as the lightweight production DAO projection.
+                                for (column in 0..9) if (!cursor.isNull(column)) checksum += cursor.getString(column).length
+                                for (column in 10..15) checksum += cursor.getInt(column)
+                                checksum += cursor.getBlob(16).size
                             }
                         }
                         val finished = System.nanoTime()

@@ -464,7 +464,7 @@ class PreparationScreenStateTest {
         listOf("again", "good", "easy", "hard").forEach { rating ->
             val button = composeRule.onNodeWithTag("preparation_rating_$rating")
             button.performScrollTo().assertIsDisplayed().assertIsNotEnabled()
-            val bounds = button.fetchSemanticsNode().boundsInRoot
+            val bounds = button.unclippedControlBoundsInRoot()
             assertEquals(bounds.width, bounds.height, 1f)
         }
     }

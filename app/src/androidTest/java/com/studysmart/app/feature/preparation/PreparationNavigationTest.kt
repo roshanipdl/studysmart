@@ -3,6 +3,9 @@ package com.studysmart.app.feature.preparation
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.isEnabled
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.filter
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -49,6 +52,7 @@ class PreparationNavigationTest {
         composeRule.setStudySmartContent(container(), AppRoutes.prepareTopic("topic-bca-s1-dbms-01"))
         composeRule.awaitNodeWithTag("preparation_card_front", useUnmergedTree = true)
         composeRule.onNodeWithTag("preparation_card").performClick()
+        awaitRatingEnabled()
         composeRule.mainClock.autoAdvance = false
         composeRule.onNodeWithTag("preparation_rating_good").performClick()
         composeRule.onNodeWithTag("bottom_navigation_review").performClick()
@@ -65,6 +69,7 @@ class PreparationNavigationTest {
         composeRule.setStudySmartContent(graph, AppRoutes.prepareTopic("topic-bca-s1-dbms-01"))
         composeRule.awaitNodeWithTag("preparation_card_front", useUnmergedTree = true)
         composeRule.onNodeWithTag("preparation_card").performClick()
+        awaitRatingEnabled()
         composeRule.onNodeWithTag("preparation_rating_good").performClick()
         composeRule.awaitNodeWithTag("preparation_summary_screen")
         composeRule.onNodeWithText("Continue").performScrollTo().assertIsDisplayed()
@@ -73,12 +78,17 @@ class PreparationNavigationTest {
         composeRule.awaitNodeWithTag("preparation_card_front", useUnmergedTree = true)
         composeRule.onNodeWithText("What is a database?").assertIsDisplayed()
         composeRule.onNodeWithTag("preparation_card").performClick()
+        awaitRatingEnabled()
         composeRule.onNodeWithTag("preparation_rating_good").assertIsEnabled().performClick()
         composeRule.waitUntil(5_000) {
             database!!.openHelper.readableDatabase.query("SELECT COUNT(*) FROM review_records").use {
                 it.moveToFirst(); it.getInt(0) == 2
             }
         }
+        val reviewedIds = database!!.openHelper.readableDatabase.query(
+            "SELECT questionId FROM review_records ORDER BY questionId",
+        ).use { cursor -> buildList { while (cursor.moveToNext()) add(cursor.getString(0)) } }
+        assertEquals(listOf("question-bca-s1-dbms-direct", "question-bca-s1-dbms-topic"), reviewedIds)
         assertEquals(PreparationChapterCoverage(2, 2), runBlocking {
             graph.preparationRepository.getChapterCoverage("chapter-bca-s1-dbms-01")
         })
@@ -233,6 +243,13 @@ class PreparationNavigationTest {
         composeRule.onNodeWithContentDescription("Close").performClick()
         composeRule.onNodeWithTag("preparation_discard").performClick()
         composeRule.awaitNodeWithTag("chapters_screen")
+    }
+
+    private fun awaitRatingEnabled() {
+        composeRule.waitUntil(5_000) {
+            composeRule.onAllNodesWithTag("preparation_rating_good")
+                .filter(isEnabled()).fetchSemanticsNodes().size == 1
+        }
     }
 
     private fun container(): AppContainer {

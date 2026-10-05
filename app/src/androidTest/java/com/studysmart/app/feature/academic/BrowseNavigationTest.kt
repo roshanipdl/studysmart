@@ -439,7 +439,7 @@ class BrowseNavigationTest {
         composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.SETTINGS)
 
         composeRule.awaitNodeWithTag("settings_screen")
-        composeRule.onNodeWithText("Test defaults").performClick()
+        composeRule.onNodeWithText("Test defaults").performScrollTo().performClick()
         composeRule.awaitNodeWithTag("test_defaults_screen")
         composeRule.onNodeWithTag("bottom_navigation").assertIsDisplayed()
         composeRule.onNodeWithContentDescription("Increase Default duration in minutes").assertIsNotEnabled()

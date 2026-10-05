@@ -67,7 +67,7 @@ class PreparationSwipeInteractionTest {
         composeRule.waitForIdle()
         composeRule.onNodeWithTag("preparation_scroll_forward").assertIsEnabled()
         composeRule.onNodeWithTag("preparation_rating_easy").assertIsNotEnabled()
-        composeRule.onNodeWithTag("preparation_content_scrollbar").assertExists()
+        composeRule.onNodeWithTag("preparation_content_scrollbar", useUnmergedTree = true).assertExists()
         val header = composeRule.onNodeWithTag("preparation_card_back", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
         val card = composeRule.onNodeWithTag("preparation_card").fetchSemanticsNode().boundsInRoot
         val body = composeRule.onNodeWithTag("preparation_answer_body", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
