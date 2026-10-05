@@ -15,8 +15,10 @@ class TestPreferencesRepository(
     override val preferences: Flow<StudyPreferences> = state.asStateFlow()
 
     override suspend fun selectCourse(courseId: String) {
-        state.value = StudyPreferences(
+        state.value = state.value.copy(
+            selectedContext = null,
             selectedCourseIdOverride = courseId,
+            selectedAcademicPeriodIdOverride = null,
             testDefaults = state.value.testDefaults,
         )
     }
@@ -76,5 +78,10 @@ class TestPreferencesRepository(
 
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
+    }
+
+    override suspend fun updateDailyCardGoal(goal: Int) {
+        require(goal in 1..100)
+        state.value = state.value.copy(dailyCardGoal = goal)
     }
 }

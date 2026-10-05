@@ -114,6 +114,12 @@ data class DueReviewSessionRequest(
     val questionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
 )
 
+data class ImportantPreparationRequest(
+    val scope: com.studysmart.app.core.model.SavedQuestionScope,
+    val creationRequestId: String,
+    val questionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
+)
+
 sealed interface PreparationCreationResult {
     data class Created(val sessionId: String) : PreparationCreationResult
     data object NoQuestions : PreparationCreationResult
@@ -141,6 +147,8 @@ interface PreparationRepository {
     suspend fun createSession(request: PreparationSessionRequest): PreparationCreationResult
 
     suspend fun createDueReviewSession(request: DueReviewSessionRequest): PreparationCreationResult
+
+    suspend fun createImportantSession(request: ImportantPreparationRequest): PreparationCreationResult = PreparationCreationResult.MissingScope
 
     suspend fun revealCurrent(sessionId: String, questionId: String): Boolean
 
@@ -215,13 +223,13 @@ class RoomPreparationRepository(
                 val context = when (request.scopeType) {
                     PreparationScopeType.CHAPTER -> dao.getChapterContext(request.scopeId)
                     PreparationScopeType.TOPIC -> dao.getTopicContext(request.scopeId)
-                    PreparationScopeType.DUE_REVIEW -> return@withTransaction PreparationCreationResult.MissingScope
+                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT -> return@withTransaction PreparationCreationResult.MissingScope
                 } ?: return@withTransaction PreparationCreationResult.MissingScope
 
                 val candidateRows = when (request.scopeType) {
                     PreparationScopeType.CHAPTER -> dao.getChapterCandidates(userId, request.scopeId)
                     PreparationScopeType.TOPIC -> dao.getTopicCandidates(userId, request.scopeId)
-                    PreparationScopeType.DUE_REVIEW -> return@withTransaction PreparationCreationResult.MissingScope
+                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT -> return@withTransaction PreparationCreationResult.MissingScope
                 }
                 val selectedAt = clock.instant()
                 val plan = selectionEngine.createPlan(
@@ -294,6 +302,31 @@ class RoomPreparationRepository(
                 )
             }
         }
+
+    override suspend fun createImportantSession(request: ImportantPreparationRequest): PreparationCreationResult = withContext(dispatchers.io) {
+        require(request.creationRequestId.isNotBlank())
+        require(request.questionCount in 1..MAX_UNIQUE_QUESTIONS)
+        val scope = request.scope
+        database.withTransaction {
+            dao.getSessionByCreationRequestId(request.creationRequestId)?.let { existing ->
+                return@withTransaction if (existing.userId == userId && existing.scopeType == PreparationScopeType.IMPORTANT &&
+                    existing.courseId == scope.courseId && existing.academicPeriodId == scope.academicPeriodId &&
+                    existing.subjectId == scope.subjectId && existing.chapterId == scope.chapterId)
+                    PreparationCreationResult.Created(existing.id) else PreparationCreationResult.MissingScope
+            }
+            val context = dao.getImportantContext(scope.courseId, scope.academicPeriodId, scope.subjectId, scope.chapterId)
+                ?: return@withTransaction PreparationCreationResult.MissingScope
+            val candidates = database.testAttemptDao().getImportantCandidates(userId, scope.courseId, scope.academicPeriodId, scope.subjectId, scope.chapterId)
+            val now = clock.instant()
+            val plan = selectionEngine.createPlan(candidates.mapIndexed { index, row ->
+                PreparationCandidate(row.question.id, row.question.topicId, index.toLong(), false, !row.hasReview, null, row.bookmarkCreatedAt)
+            }, PreparationSelectionPolicy.IMPORTANT, now, randomSource.nextLong(), request.questionCount)
+                ?: return@withTransaction PreparationCreationResult.NoQuestions
+            PreparationCreationResult.Created(insertSession(context, PreparationScopeType.IMPORTANT, scope.academicPeriodId,
+                PreparationOriginType.IMPORTANT, null, request.creationRequestId, plan,
+                candidates.associate { it.question.id to PreparationCandidateRow(it.question, it.latestRating, it.hasReview, null) }, now))
+        }
+    }
 
     private suspend fun insertSession(
         context: PreparationContextRow,

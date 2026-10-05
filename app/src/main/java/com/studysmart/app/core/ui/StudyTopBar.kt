@@ -41,6 +41,7 @@ fun StudyTopBar(
     onSettings: (() -> Unit)? = null,
     navigationContentDescription: String = "Back",
     backEnabled: Boolean = true,
+    trailingContent: @Composable () -> Unit = {},
 ) {
     TopAppBar(
         title = {
@@ -108,6 +109,7 @@ fun StudyTopBar(
             if (variant == StudyTopBarVariant.TEST_TIMER && timerText == null) {
                 Icon(Icons.Outlined.Timer, contentDescription = "Timer")
             }
+            trailingContent()
         },
     )
 }

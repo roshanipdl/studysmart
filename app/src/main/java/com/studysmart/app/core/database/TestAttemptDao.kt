@@ -152,6 +152,8 @@ interface TestAttemptDao {
           AND p.isActive = 1
           AND c.isActive = 1
           AND flag.questionId IS NOT NULL
+          AND (:subjectId IS NULL OR s.id = :subjectId)
+          AND (:chapterId IS NULL OR ch.id = :chapterId)
           AND (q.topicId IS NULL OR (t.id IS NOT NULL AND t.chapterId = ch.id AND t.isActive = 1))
         ORDER BY flag.createdAt, q.id
         """,
@@ -160,6 +162,8 @@ interface TestAttemptDao {
         userId: String,
         courseId: String,
         academicPeriodId: String,
+        subjectId: String? = null,
+        chapterId: String? = null,
     ): List<TestCandidateRow>
 
     @Query(
@@ -183,6 +187,7 @@ interface TestAttemptDao {
           AND c.id = :courseId AND p.id = :academicPeriodId
           AND (:chapterId IS NULL OR ch.id = :chapterId)
           AND q.isActive = 1 AND ch.isActive = 1 AND s.isActive = 1
+          AND (:subjectId IS NULL OR s.id = :subjectId)
           AND p.isActive = 1 AND c.isActive = 1
           AND (q.topicId IS NULL OR (t.id IS NOT NULL AND t.chapterId = ch.id AND t.isActive = 1))
         ORDER BY q.sortOrder, q.id
@@ -194,6 +199,7 @@ interface TestAttemptDao {
         academicPeriodId: String,
         chapterId: String?,
         questionIds: List<String>,
+        subjectId: String? = null,
     ): List<TestCandidateRow>
 
     @Query(

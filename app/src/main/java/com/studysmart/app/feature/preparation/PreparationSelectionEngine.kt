@@ -11,6 +11,7 @@ data class PreparationCandidate(
     val isWeak: Boolean,
     val isUnseen: Boolean,
     val nextReviewAt: Instant?,
+    val bookmarkedAt: Instant? = null,
 ) {
     init {
         require(questionId.isNotBlank()) { "questionId must not be blank" }
@@ -23,6 +24,7 @@ data class PreparationCandidate(
 enum class PreparationSelectionPolicy {
     ADAPTIVE,
     DUE_REVIEW,
+    IMPORTANT,
 }
 
 data class PreparationPlan(
@@ -61,6 +63,9 @@ class PreparationSelectionEngine {
                 .filter { it.nextReviewAt?.let { nextReviewAt -> nextReviewAt <= selectedAt } == true }
                 .sortedWith(dueReviewComparator())
                 .toList()
+            PreparationSelectionPolicy.IMPORTANT -> uniqueCandidates
+                .filter { it.bookmarkedAt != null }
+                .sortedWith(compareBy<PreparationCandidate> { it.bookmarkedAt }.thenBy { it.questionId })
         }
 
         if (orderedCandidates.isEmpty()) return null

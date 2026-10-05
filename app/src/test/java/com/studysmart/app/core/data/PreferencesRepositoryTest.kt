@@ -22,6 +22,26 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 class PreferencesRepositoryTest {
+    @Test fun dailyGoalDefaultsValidationAndCorruptFallbackAreIndependent() = runTest {
+        val dataStore = PreferenceDataStoreFactory.create { temporaryFolder.root.resolve("daily_goal.preferences_pb") }
+        val repository = DataStorePreferencesRepository(dataStore)
+        assertEquals(10, repository.preferences.first().dailyCardGoal)
+        repository.updatePreparationDefaults(PreparationDefaults(17))
+        repository.updateDailyCardGoal(100)
+        assertEquals(100, repository.preferences.first().dailyCardGoal)
+        assertEquals(17, repository.preferences.first().preparationDefaults.questionCount)
+        repository.selectCourse("course")
+        assertEquals(100, repository.preferences.first().dailyCardGoal)
+        for (value in listOf(0, 101, -1)) {
+            try { repository.updateDailyCardGoal(value); org.junit.Assert.fail("Expected invalid goal") }
+            catch (_: IllegalArgumentException) { }
+            dataStore.edit { it[intPreferencesKey("daily_card_goal")] = value }
+            assertEquals(10, repository.preferences.first().dailyCardGoal)
+        }
+        dataStore.edit { it[stringPreferencesKey("daily_card_goal")] = "invalid" }
+        assertEquals(10, repository.preferences.first().dailyCardGoal)
+        assertEquals(17, repository.preferences.first().preparationDefaults.questionCount)
+    }
     @get:Rule
     val temporaryFolder = TemporaryFolder()
 
@@ -157,6 +177,7 @@ class PreferencesRepositoryTest {
             repository.setSelectedContext("course-1", "period-1")
             repository.updateTestDefaults(defaults)
             repository.updatePreparationDefaults(PreparationDefaults(15))
+            repository.updateDailyCardGoal(24)
             job.cancelAndJoin()
             job = SupervisorJob()
             repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
@@ -166,6 +187,7 @@ class PreferencesRepositoryTest {
             assertEquals(SelectedAcademicContext("course-1", "period-1"), reopened.selectedContext)
             assertEquals(defaults, reopened.testDefaults)
             assertEquals(PreparationDefaults(15), reopened.preparationDefaults)
+            assertEquals(24, reopened.dailyCardGoal)
 
             repository.selectCourse("course-2")
             job.cancelAndJoin()

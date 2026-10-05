@@ -28,6 +28,7 @@ class RoomReviewRepository(
     private val clock: Clock,
     private val userId: String = LOCAL_USER_ID,
     private val clockRefreshMillis: Long = 60_000L,
+    private val timeUpdates: Flow<java.time.Instant>? = null,
 ) : ReviewRepository {
     init {
         require(clockRefreshMillis > 0L) { "clockRefreshMillis must be positive" }
@@ -36,12 +37,12 @@ class RoomReviewRepository(
     override fun observeDueReview(
         courseId: String,
         academicPeriodId: String,
-    ): Flow<DueReviewSummary> = flow {
+    ): Flow<DueReviewSummary> = (timeUpdates ?: flow {
         while (true) {
             emit(clock.instant())
             delay(clockRefreshMillis)
         }
-    }.flatMapLatest { now -> dao.observeDueCandidates(
+    }).flatMapLatest { now -> dao.observeDueCandidates(
         userId = userId,
         courseId = courseId,
         academicPeriodId = academicPeriodId,

@@ -19,6 +19,9 @@ data class SettingsUiState(
     val isSaving: Boolean = false,
     val error: String? = null,
     val isSaveError: Boolean = false,
+    val dailyCardGoal: Int? = null,
+    val goalError: String? = null,
+    val isGoalSaveError: Boolean = false,
 )
 
 class SettingsViewModel(
@@ -29,21 +32,28 @@ class SettingsViewModel(
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
     private var observeJob: Job? = null
     private var pendingDefaults: PreparationDefaults? = null
+    private var pendingGoal: Int? = null
 
     init { observe() }
 
     fun decrementQuestionCount() = changeCount(-1)
     fun incrementQuestionCount() = changeCount(1)
+    fun decrementDailyGoal() = changeGoal(-1)
+    fun incrementDailyGoal() = changeGoal(1)
 
     fun retry() {
         if (_uiState.value.isSaving) return
-        pendingDefaults?.let { persist(it) } ?: observe()
+        when {
+            pendingGoal != null -> persistGoal(requireNotNull(pendingGoal))
+            pendingDefaults != null -> persist(requireNotNull(pendingDefaults))
+            else -> observe()
+        }
     }
 
     private fun changeCount(delta: Int) {
         val state = _uiState.value
         val current = state.preparationDefaults ?: return
-        if (state.isLoading || state.isSaving || state.isSaveError) return
+        if (state.isLoading || state.isSaving || state.isSaveError || state.isGoalSaveError) return
         val count = (current.questionCount + delta).coerceIn(
             PreparationDefaults.MIN_QUESTION_COUNT, PreparationDefaults.MAX_QUESTION_COUNT,
         )
@@ -51,6 +61,33 @@ class SettingsViewModel(
         val updated = PreparationDefaults(count)
         pendingDefaults = updated
         persist(updated)
+    }
+
+    private fun changeGoal(delta: Int) {
+        val state = _uiState.value
+        val current = state.dailyCardGoal ?: return
+        if (state.isLoading || state.isSaving || state.isSaveError || state.isGoalSaveError) return
+        val goal = (current + delta).coerceIn(com.studysmart.app.core.model.DailyCardGoal.MIN, com.studysmart.app.core.model.DailyCardGoal.MAX)
+        if (goal == current) return
+        pendingGoal = goal
+        persistGoal(goal)
+    }
+
+    private fun persistGoal(goal: Int) {
+        if (_uiState.value.isSaving) return
+        _uiState.value = _uiState.value.copy(isSaving = true, goalError = null, isGoalSaveError = false)
+        viewModelScope.launch(dispatchers.main) {
+            try {
+                preferencesRepository.updateDailyCardGoal(goal)
+                pendingGoal = null
+                _uiState.value = _uiState.value.copy(dailyCardGoal = goal, goalError = null, isGoalSaveError = false)
+            } catch (error: CancellationException) {
+                _uiState.value = _uiState.value.copy(isGoalSaveError = true, goalError = "Daily goal was not saved. Retry to save it.")
+                throw error
+            } catch (error: Exception) {
+                _uiState.value = _uiState.value.copy(isGoalSaveError = true, goalError = error.message ?: "Unable to save daily goal.")
+            } finally { _uiState.value = _uiState.value.copy(isSaving = false) }
+        }
     }
 
     private fun persist(defaults: PreparationDefaults) {
@@ -91,6 +128,10 @@ class SettingsViewModel(
                     isLoading = false, error = error.message ?: "Unable to load preparation and review count.",
                 )
             }.collect { preferences ->
+                if (pendingGoal == null) _uiState.value = _uiState.value.copy(
+                    dailyCardGoal = com.studysmart.app.core.model.DailyCardGoal.normalize(preferences.dailyCardGoal),
+                    goalError = null, isGoalSaveError = false,
+                )
                 if (pendingDefaults == null) {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false, preparationDefaults = preferences.preparationDefaults,

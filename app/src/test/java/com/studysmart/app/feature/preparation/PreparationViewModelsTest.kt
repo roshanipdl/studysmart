@@ -21,6 +21,65 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PreparationViewModelsTest {
+    @Test fun bookmarkRoutesCurrentQuestionAndSurvivesLoadRetryAndError() = runTest {
+        val backing = FakePreparationRepository()
+        var failLoad = false
+        val repository = object : PreparationRepository by backing {
+            override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = kotlinx.coroutines.flow.flow {
+                if (failLoad) error("injected load failure")
+                emit(backing.sessionState.value)
+            }
+        }
+        val bookmarks = com.studysmart.app.testing.TestBookmarkRepository()
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider(), bookmarks)
+        viewModel.toggleBookmark()
+        assertEquals(listOf("question-1" to true), bookmarks.writes)
+        failLoad = true
+        viewModel.retryLoad()
+        assertTrue(viewModel.uiState.value.error != null)
+        assertEquals(setOf("question-1"), viewModel.uiState.value.bookmarks!!.savedIds)
+        failLoad = false
+        viewModel.retryLoad()
+        assertEquals(setOf("question-1"), viewModel.uiState.value.bookmarks!!.savedIds)
+        viewModel.toggleBookmark()
+        assertEquals("question-1" to false, bookmarks.writes.last())
+    }
+
+    @Test fun bookmarkIsBlockedDuringDiscardConfirmationAndRatingFeedback() = runTest {
+        val repository = FakePreparationRepository()
+        val bookmarks = com.studysmart.app.testing.TestBookmarkRepository()
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider(), bookmarks)
+        viewModel.showDiscardConfirmation()
+        viewModel.toggleBookmark()
+        assertTrue(bookmarks.writes.isEmpty())
+        viewModel.hideDiscardConfirmation()
+        viewModel.revealAnswer()
+        viewModel.rate(Rating.GOOD)
+        assertTrue(viewModel.uiState.value.ratingFeedback != null)
+        viewModel.toggleBookmark()
+        assertTrue(bookmarks.writes.isEmpty())
+    }
+
+    @Test fun bookmarkIsBlockedWhileRevealWriteIsPending() = runTest {
+        val backing = FakePreparationRepository()
+        val release = kotlinx.coroutines.CompletableDeferred<Unit>()
+        val repository = object : PreparationRepository by backing {
+            override suspend fun revealCurrent(sessionId: String, questionId: String): Boolean {
+                release.await()
+                return backing.revealCurrent(sessionId, questionId)
+            }
+        }
+        val bookmarks = com.studysmart.app.testing.TestBookmarkRepository()
+        val viewModel = PreparationSessionViewModel("session-1", repository, FixedIdGenerator(), TestDispatcherProvider(), bookmarks)
+        viewModel.revealAnswer()
+        assertTrue(viewModel.uiState.value.isSaving)
+        viewModel.toggleBookmark()
+        assertTrue(bookmarks.writes.isEmpty())
+        release.complete(Unit)
+        viewModel.toggleBookmark()
+        assertEquals(listOf("question-1" to true), bookmarks.writes)
+    }
+
     @Test fun coverageFailureDoesNotReplaceSummaryAndRetryUpdatesCoverage() = runTest {
         val session = sampleSession().copy(status = PreparationSessionStatus.COMPLETED)
         val backing = FakePreparationRepository(initialSession = session)

@@ -3,10 +3,30 @@ package com.studysmart.app.testing
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import com.studysmart.app.app.AppContainer
 import com.studysmart.app.app.StudySmartApp
 import com.studysmart.app.core.ui.StudySmartTheme
 import org.junit.Assert.assertEquals
+
+/** Transformed coordinates, without ancestor clipping used by boundsInRoot. */
+fun SemanticsNodeInteraction.unclippedOriginInRoot(): Offset =
+    fetchSemanticsNode().layoutInfo.coordinates.localToRoot(Offset.Zero)
+
+fun SemanticsNodeInteraction.unclippedCenterInRoot(): Offset {
+    val coordinates = fetchSemanticsNode().layoutInfo.coordinates
+    return coordinates.localToRoot(Offset(coordinates.size.width / 2f, coordinates.size.height / 2f))
+}
+
+/** For unrotated lower controls, including those outside a fallback scroll viewport. */
+fun SemanticsNodeInteraction.unclippedControlBoundsInRoot(): Rect {
+    val coordinates = fetchSemanticsNode().layoutInfo.coordinates
+    return Rect(coordinates.localToRoot(Offset.Zero),
+        Size(coordinates.size.width.toFloat(), coordinates.size.height.toFloat()))
+}
 
 fun ComposeContentTestRule.setStudySmartContent(
     container: AppContainer? = null,

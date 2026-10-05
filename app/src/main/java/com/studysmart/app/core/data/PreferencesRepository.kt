@@ -27,6 +27,7 @@ data class StudyPreferences(
     val selectedAcademicPeriodIdOverride: String? = null,
     val testDefaults: TestDefaults = TestDefaults(),
     val preparationDefaults: PreparationDefaults = PreparationDefaults(),
+    val dailyCardGoal: Int = com.studysmart.app.core.model.DailyCardGoal.DEFAULT,
 ) {
     val selectedCourseId: String?
         get() = selectedCourseIdOverride ?: selectedContext?.courseId
@@ -56,6 +57,8 @@ interface PreferencesRepository {
     suspend fun updateTestDefaults(defaults: TestDefaults) = Unit
 
     suspend fun updatePreparationDefaults(defaults: PreparationDefaults)
+
+    suspend fun updateDailyCardGoal(goal: Int) { throw UnsupportedOperationException("Daily goal updates unavailable") }
 }
 
 private val Context.studySmartPreferencesDataStore: DataStore<Preferences> by
@@ -93,6 +96,7 @@ class DataStorePreferencesRepository(
                         ?.takeIf { it in PreparationDefaults.MIN_QUESTION_COUNT..PreparationDefaults.MAX_QUESTION_COUNT }
                         ?: PreparationDefaults.DEFAULT_QUESTION_COUNT,
                 ),
+                dailyCardGoal = com.studysmart.app.core.model.DailyCardGoal.normalize(runCatching { values[DAILY_CARD_GOAL] }.getOrNull()),
             )
         }
 
@@ -174,6 +178,11 @@ class DataStorePreferencesRepository(
         dataStore.edit { values -> values[PREPARATION_QUESTION_COUNT] = defaults.questionCount }
     }
 
+    override suspend fun updateDailyCardGoal(goal: Int) {
+        require(goal in com.studysmart.app.core.model.DailyCardGoal.MIN..com.studysmart.app.core.model.DailyCardGoal.MAX)
+        dataStore.edit { it[DAILY_CARD_GOAL] = goal }
+    }
+
     private fun readTestDefaults(values: Preferences): TestDefaults {
         val count = runCatching { values[DEFAULT_QUESTION_COUNT] }
             .getOrNull()
@@ -198,6 +207,7 @@ class DataStorePreferencesRepository(
 
     private companion object {
         val PREPARATION_QUESTION_COUNT = intPreferencesKey("preparation_review_question_count")
+        val DAILY_CARD_GOAL = intPreferencesKey("daily_card_goal")
         val SELECTED_COURSE_ID = stringPreferencesKey("selected_course_id")
         val SELECTED_ACADEMIC_PERIOD_ID = stringPreferencesKey("selected_academic_period_id")
         val DEFAULT_QUESTION_COUNT = intPreferencesKey("default_question_count")

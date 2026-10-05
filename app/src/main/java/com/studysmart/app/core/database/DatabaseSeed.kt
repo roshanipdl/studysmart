@@ -9,14 +9,31 @@ object DatabaseSeed {
         override fun onCreate(db: SupportSQLiteDatabase) {
             seedReleaseCurriculum(db)
             seedReleaseTestContent(db)
+            SearchIndexSynchronizer.synchronize(db)
         }
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             // Additive debug content must also reach already-installed databases.
             // The release implementation is a no-op; tests can retain baseline fixtures.
-            if (includeVariantSeed) applyVariantSeed(db)
+            if (includeVariantSeed) {
+                db.beginTransaction()
+                try {
+                    val changesBefore = totalChanges(db)
+                    applyVariantSeed(db)
+                    if (totalChanges(db) != changesBefore) SearchIndexSynchronizer.synchronize(db)
+                    db.setTransactionSuccessful()
+                } finally {
+                    db.endTransaction()
+                }
+            }
         }
     }
+
+    private fun totalChanges(db: SupportSQLiteDatabase): Long =
+        db.query("SELECT total_changes()").use { cursor ->
+            check(cursor.moveToFirst())
+            cursor.getLong(0)
+        }
 
     internal fun seedReleaseCurriculum(db: SupportSQLiteDatabase) {
         val timestamp = 0L

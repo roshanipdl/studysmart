@@ -102,6 +102,7 @@ data class PreparationSessionUiState(
     val showDiscardConfirmation: Boolean = false,
     val ratingFeedback: PreparationRatingFeedback? = null,
     val completionReady: Boolean = false,
+    val bookmarks: com.studysmart.app.core.ui.BookmarkUiState? = null,
 )
 
 data class PreparationRatingFeedback(
@@ -126,6 +127,7 @@ class PreparationSessionViewModel(
     private val repository: PreparationRepository,
     private val idGenerator: IdGenerator,
     private val dispatchers: DispatcherProvider,
+    bookmarkRepository: com.studysmart.app.core.data.BookmarkRepository? = null,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PreparationSessionUiState())
     val uiState: StateFlow<PreparationSessionUiState> = _uiState.asStateFlow()
@@ -136,13 +138,26 @@ class PreparationSessionViewModel(
     private var observeJob: Job? = null
     private var pendingMutation: PendingMutation? = null
     private var closeAfterFeedback = false
+    private val bookmarkController = bookmarkRepository?.let { repository ->
+        com.studysmart.app.core.ui.BookmarkController(repository, viewModelScope, onState = { bookmarks ->
+            _uiState.value = _uiState.value.copy(bookmarks = bookmarks)
+        }, dispatcher = dispatchers.main)
+    }
+
+    fun toggleBookmark() {
+        val state = _uiState.value
+        if (state.isSaving || state.ratingFeedback != null || state.showDiscardConfirmation || state.isStaleSession) return
+        state.session?.currentItem?.questionId?.let { bookmarkController?.toggle(it) }
+    }
+
+    fun retryBookmark() { bookmarkController?.retry() }
 
     init {
         observe()
     }
 
     fun retryLoad() {
-        _uiState.value = PreparationSessionUiState()
+        _uiState.value = PreparationSessionUiState(bookmarks = bookmarkController?.state)
         observe()
     }
 
@@ -251,6 +266,7 @@ class PreparationSessionViewModel(
                 .catch { error ->
                     _uiState.value = PreparationSessionUiState(
                         isLoading = false,
+                        bookmarks = bookmarkController?.state,
                         error = error.message ?: "Unable to load preparation.",
                     )
                 }
@@ -406,7 +422,7 @@ class PreparationSummaryViewModel(
 
     private fun loadCoverage(session: PreparationSessionModel?) {
         coverageJob?.cancel()
-        val chapterId = session?.takeIf { it.isComplete }?.chapterId
+        val chapterId = session?.takeIf { it.isComplete && it.scopeType != com.studysmart.app.core.model.PreparationScopeType.IMPORTANT }?.chapterId
         _uiState.value = _uiState.value.copy(
             chapterCoverage = null, coverageError = null, isChapterUnavailable = false,
             isCoverageLoading = chapterId != null,

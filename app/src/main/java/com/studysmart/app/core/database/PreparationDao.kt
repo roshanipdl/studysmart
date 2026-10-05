@@ -280,6 +280,22 @@ interface PreparationDao {
     )
     suspend fun getCoursePeriodContext(courseId: String, academicPeriodId: String): PreparationContextRow?
 
+    @Query("""
+        SELECT c.id AS course_id, c.code AS course_code, c.name AS course_name,
+               p.id AS academic_period_id, p.name AS academic_period_name,
+               s.id AS subject_id, s.code AS subject_code, s.name AS subject_name,
+               ch.id AS chapter_id, ch.title AS chapter_title,
+               CAST(NULL AS TEXT) AS topic_id, CAST(NULL AS TEXT) AS topic_title
+        FROM academic_periods p JOIN courses c ON c.id = p.courseId
+        LEFT JOIN subjects s ON s.id = :subjectId AND s.academicPeriodId = p.id AND s.isActive = 1
+        LEFT JOIN chapters ch ON ch.id = :chapterId AND ch.subjectId = s.id AND ch.isActive = 1
+        WHERE c.id = :courseId AND p.id = :academicPeriodId AND c.isActive = 1 AND p.isActive = 1
+          AND (:subjectId IS NULL OR s.id IS NOT NULL)
+          AND (:chapterId IS NULL OR ch.id IS NOT NULL)
+        LIMIT 1
+    """)
+    suspend fun getImportantContext(courseId: String, academicPeriodId: String, subjectId: String?, chapterId: String?): PreparationContextRow?
+
     @Query("SELECT * FROM preparation_sessions WHERE creationRequestId = :requestId LIMIT 1")
     suspend fun getSessionByCreationRequestId(requestId: String): PreparationSessionEntity?
 

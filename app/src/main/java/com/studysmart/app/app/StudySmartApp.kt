@@ -2,6 +2,7 @@ package com.studysmart.app.app
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,7 @@ fun StudySmartApp(
     val startupViewModel: StartupViewModel = viewModel(
         factory = appContainer.viewModelFactory { graph ->
             StartupViewModel(
-                cleanupCoordinator = graph.startupCleanupCoordinator,
+                initializationCoordinator = graph.startupInitializationCoordinator,
                 dispatcher = graph.dispatchers.main,
             )
         },
@@ -96,6 +97,7 @@ fun StudySmartApp(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(contentPadding)
+                .consumeWindowInsets(contentPadding)
                 .testTag("app_nav_host"),
         )
     }

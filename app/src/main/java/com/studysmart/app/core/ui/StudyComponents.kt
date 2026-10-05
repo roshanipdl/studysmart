@@ -121,6 +121,9 @@ fun RatingButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     directionHint: String? = null,
+    shape: androidx.compose.ui.graphics.Shape = RoundedCornerShape(12.dp),
+    preserveDisabledColor: Boolean = false,
+    interactionSource: androidx.compose.foundation.interaction.MutableInteractionSource? = null,
 ) {
     val semanticColors = LocalStudySmartSemanticColors.current
     val (container, content) = when (rating) {
@@ -133,17 +136,19 @@ fun RatingButton(
     FilledTonalButton(
         onClick = onClick,
         enabled = enabled,
+        interactionSource = interactionSource,
         modifier = modifier
             .heightIn(min = 48.dp)
             .semantics { role = Role.Button },
-        contentPadding = if (directionHint != null) androidx.compose.foundation.layout.PaddingValues(8.dp)
+        contentPadding = if (directionHint != null || shape == androidx.compose.foundation.shape.CircleShape)
+            androidx.compose.foundation.layout.PaddingValues(8.dp)
             else ButtonDefaults.ContentPadding,
-        shape = RoundedCornerShape(12.dp),
+        shape = shape,
         colors = ButtonDefaults.filledTonalButtonColors(
             containerColor = container,
             contentColor = content,
-            disabledContainerColor = Color(0xFFE6E6EC),
-            disabledContentColor = Color(0xFF85869A),
+            disabledContainerColor = if (preserveDisabledColor) container else Color(0xFFE6E6EC),
+            disabledContentColor = if (preserveDisabledColor) content.copy(alpha = 0.65f) else Color(0xFF85869A),
         ),
     ) {
         androidx.compose.foundation.layout.Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {

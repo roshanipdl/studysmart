@@ -1,5 +1,8 @@
 package com.studysmart.app.core.navigation
 
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.initializer
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -88,7 +91,7 @@ fun AppNavHost(
                 },
             )
         }
-        composable(AppRoutes.COURSES) {
+        composable(AppRoutes.COURSES) { entry ->
             val coursesViewModel: CoursesViewModel = viewModel(
                 factory = container.viewModelFactory { graph -> graph.coursesViewModel() },
             )
@@ -99,7 +102,8 @@ fun AppNavHost(
                 onRetrySelection = coursesViewModel::retrySelection,
                 onCourseSelected = { courseId ->
                     coursesViewModel.selectCourse(courseId) {
-                        navController.navigateAcademicPeriod(courseId, AppRoutes.COURSES)
+                        navController.navigateAcademicPeriod(courseId, AppRoutes.COURSES,
+                            entry.savedStateHandle.get<String>(CONTEXT_RETURN_KEY))
                     }
                 },
             )
@@ -125,10 +129,53 @@ fun AppNavHost(
             )
         }
         composable(AppRoutes.PROGRESS) {
-            PlaceholderScreen(title = "Progress", supportingText = "Progress is a Stage One destination.")
+            val progressViewModel: com.studysmart.app.feature.progress.ProgressViewModel = viewModel(factory = container.viewModelFactory { it.progressViewModel() })
+            val state by progressViewModel.uiState.collectAsStateWithLifecycle()
+            androidx.lifecycle.compose.LifecycleEventEffect(androidx.lifecycle.Lifecycle.Event.ON_RESUME) { progressViewModel.onForeground() }
+            LaunchedEffect(progressViewModel) {
+                progressViewModel.sessions.collect {
+                    navController.navigate(AppRoutes.prepareSession(it))
+                    progressViewModel.acknowledgeSession(it)
+                }
+            }
+            com.studysmart.app.feature.progress.ProgressScreen(state,
+                onChooseContext = { navController.navigateContextSelection(AppRoutes.PROGRESS) },
+                onBrowse = { navController.navigateTopLevel(AppRoutes.COURSES) },
+                onRetry = progressViewModel::retry, onStartDue = progressViewModel::startDue, onRetryDue = progressViewModel::retryDue,
+                onSettings = { navController.navigate(AppRoutes.SETTINGS) })
         }
         composable(AppRoutes.IMPORTANT) {
-            PlaceholderScreen(title = "Important", supportingText = "Bookmarks are a Stage One destination.")
+            val importantViewModel: com.studysmart.app.feature.important.ImportantViewModel = viewModel(
+                factory = androidx.lifecycle.viewmodel.viewModelFactory {
+                    initializer { container.importantViewModel(createSavedStateHandle()) }
+                },
+            )
+            val state by importantViewModel.uiState.collectAsStateWithLifecycle()
+            androidx.compose.runtime.DisposableEffect(importantViewModel) {
+                importantViewModel.refresh()
+                onDispose { importantViewModel.leaveScreen() }
+            }
+            LaunchedEffect(importantViewModel) {
+                importantViewModel.effects.collect { effect ->
+                    when (effect) {
+                        is com.studysmart.app.feature.important.ImportantEffect.OpenPreparation -> navController.navigate(AppRoutes.prepareSession(effect.sessionId))
+                        is com.studysmart.app.feature.important.ImportantEffect.OpenTest -> navController.navigate(AppRoutes.mockTest(effect.attemptId))
+                    }
+                }
+            }
+            com.studysmart.app.feature.important.ImportantScreen(state,
+                onChooseContext = { navController.navigateContextSelection(AppRoutes.IMPORTANT) },
+                onSubject = importantViewModel::selectSubject,
+                onChapter = importantViewModel::selectChapter,
+                onRefresh = importantViewModel::refresh,
+                onRemove = importantViewModel::remove,
+                onRetryRemove = importantViewModel::retryRemoval,
+                onOpenQuestion = { row -> navController.navigateChapterDetail(row.chapterId, row.topicId, row.questionId) },
+                onPrepare = importantViewModel::prepareSaved,
+                onTest = importantViewModel::testSaved,
+                onRetryLaunch = importantViewModel::retryLaunch,
+                onOpenDefaults = { navController.navigate(AppRoutes.TEST_DEFAULTS) },
+            )
         }
         composable(
             route = AppRoutes.ACADEMIC_PERIOD,
@@ -154,7 +201,9 @@ fun AppNavHost(
                     onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
                     onPeriodSelected = { periodId ->
                         academicPeriodViewModel.selectPeriod(periodId) {
-                            navController.navigate(AppRoutes.subjects(periodId))
+                            val returnRoute = contextReturnDestination(entry.savedStateHandle.get<String>(CONTEXT_RETURN_KEY))
+                            if (returnRoute != null) navController.navigateTopLevel(returnRoute)
+                            else navController.navigate(destinationAfterPeriodSelection(periodId, null))
                         }
                     },
                 )
@@ -386,6 +435,8 @@ fun AppNavHost(
                     onReveal = viewModel::revealAnswer,
                     onRatingAnimationFinished = viewModel::finishRatingAnimation,
                     onRate = viewModel::rate,
+                    onBookmark = viewModel::toggleBookmark,
+                    onRetryBookmark = viewModel::retryBookmark,
                     onRetry = viewModel::retryMutation,
                     onClose = viewModel::showDiscardConfirmation,
                     onDiscard = viewModel::discardSession,
@@ -431,7 +482,7 @@ fun AppNavHost(
                     onRetryCoverage = viewModel::retryCoverage,
                     onContinue = {
                         val chapterId = state.session?.chapterId
-                        if (chapterId != null && navController.currentBackStackEntry == entry &&
+                        if (chapterId != null && state.session?.scopeType != PreparationScopeType.IMPORTANT && navController.currentBackStackEntry == entry &&
                             !state.isCoverageLoading && !state.isChapterUnavailable && state.chapterCoverage?.eligibleCount != 0) {
                             navController.navigate(AppRoutes.prepareChapter(chapterId)) { launchSingleTop = true }
                         }
@@ -586,6 +637,8 @@ fun AppNavHost(
                     onRetryFollowUp = viewModel::retryFollowUp,
                     onRetryActionContext = viewModel::retryActionContext,
                     onToggleQuestion = viewModel::toggleQuestion,
+                    onBookmark = viewModel::toggleBookmark,
+                    onRetryBookmark = viewModel::retryBookmark,
                     onRetestWeak = viewModel::startRetestWeak,
                     onNewTest = viewModel::startNewTest,
                     onBack = navigateBackToResultOrigin,
@@ -593,7 +646,21 @@ fun AppNavHost(
             }
         }
         composable(AppRoutes.SEARCH) {
-            PlaceholderScreen(title = "Search", onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
+            val searchViewModel: com.studysmart.app.feature.search.SearchViewModel = viewModel(
+                factory = androidx.lifecycle.viewmodel.viewModelFactory {
+                    initializer { container.searchViewModel(createSavedStateHandle()) }
+                },
+            )
+            val state by searchViewModel.uiState.collectAsStateWithLifecycle()
+            com.studysmart.app.feature.search.SearchScreen(state, searchViewModel::setQuery, searchViewModel::retry,
+                onResult = { result ->
+                    when (result) {
+                        is com.studysmart.app.core.data.SearchResult.Subject -> navController.navigate(AppRoutes.subject(result.id))
+                        is com.studysmart.app.core.data.SearchResult.Chapter -> navController.navigateChapterDetail(result.id, highlightChapter = true)
+                        is com.studysmart.app.core.data.SearchResult.Topic -> navController.navigateChapterDetail(result.chapterId, topicId = result.id)
+                        is com.studysmart.app.core.data.SearchResult.Question -> navController.navigateChapterDetail(result.chapterId, result.topicId, result.id)
+                    }
+                }, onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) })
         }
         composable(AppRoutes.SETTINGS) {
             val viewModel: com.studysmart.app.feature.settings.SettingsViewModel = viewModel(
@@ -620,7 +687,9 @@ fun AppNavHost(
                 onOpenTestDefaults = { navController.navigate(AppRoutes.TEST_DEFAULTS) },
                 onRetry = viewModel::retry,
                 onDecrementCount = viewModel::decrementQuestionCount,
-                onIncrementCount = viewModel::incrementQuestionCount,
+                    onIncrementCount = viewModel::incrementQuestionCount,
+                    onDecrementGoal = viewModel::decrementDailyGoal,
+                    onIncrementGoal = viewModel::incrementDailyGoal,
             )
         }
         composable(AppRoutes.TEST_DEFAULTS) {
@@ -660,13 +729,53 @@ fun AppNavHost(
             route = AppRoutes.CHAPTER,
             arguments = listOf(navArgument("chapterId") { type = NavType.StringType }),
         ) { entry ->
-            ContextualPlaceholder(
-                entry = entry,
-                argumentName = "chapterId",
-                title = "Chapter",
-                supportingText = "Chapter detail is available in Stage One.",
-                onBack = { navController.navigateBackOrFallback(AppRoutes.HOME) },
-            )
+            val chapterId = entry.arguments?.getString("chapterId")
+            if (chapterId.isNullOrBlank()) {
+                MissingContentScreen(title = "Chapter", onBack = { navController.navigateBackOrFallback(AppRoutes.COURSES) })
+            } else {
+                val highlight = com.studysmart.app.feature.chapters.ChapterHighlight(
+                    topicId = entry.savedStateHandle.get<String>(CHAPTER_HIGHLIGHT_TOPIC_KEY),
+                    questionId = entry.savedStateHandle.get<String>(CHAPTER_HIGHLIGHT_QUESTION_KEY),
+                    chapter = entry.savedStateHandle.get<Boolean>(CHAPTER_HIGHLIGHT_HEADER_KEY) == true,
+                )
+                val detailViewModel: com.studysmart.app.feature.chapters.ChapterDetailViewModel = viewModel(
+                    factory = container.viewModelFactory { it.chapterDetailViewModel(chapterId, highlight) },
+                )
+                val state by detailViewModel.uiState.collectAsStateWithLifecycle()
+                val launcher: TestAttemptLauncherViewModel = viewModel(
+                    factory = container.viewModelFactory { it.testAttemptLauncherViewModel() },
+                )
+                val testState by launcher.uiState.collectAsStateWithLifecycle()
+                LaunchedEffect(launcher) {
+                    launcher.effects.collect { effect ->
+                        when (effect) {
+                            is TestAttemptLauncherEffect.Created -> {
+                                navController.navigate(AppRoutes.mockTest(effect.attemptId))
+                                launcher.onCreatedNavigationHandled()
+                            }
+                        }
+                    }
+                }
+                val navigateBack: () -> Unit = {
+                    if (navController.previousBackStackEntry?.destination?.route == AppRoutes.SEARCH) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigateToAcademicParent(state.parent)
+                    }
+                }
+                BackHandler(onBack = navigateBack)
+                com.studysmart.app.feature.chapters.ChapterDetailScreen(
+                    state, navigateBack, detailViewModel::retry,
+                    onPrepare = { navController.navigate(AppRoutes.prepareChapter(chapterId)) },
+                    onTest = { launcher.start(chapterId) }, testState = testState,
+                    onRetryTest = launcher::retry,
+                    onOpenTestDefaults = {
+                        launcher.dismissNoQuestions()
+                        navController.navigate(AppRoutes.TEST_DEFAULTS)
+                    },
+                    onDismissNoQuestions = launcher::dismissNoQuestions,
+                )
+            }
         }
         composable(
             route = AppRoutes.REVIEW_QUESTIONS,

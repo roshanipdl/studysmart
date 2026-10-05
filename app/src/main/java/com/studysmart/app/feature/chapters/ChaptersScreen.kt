@@ -116,6 +116,16 @@ fun ChaptersScreen(
             }
         }
     }
+    NoTestQuestionsSheet(testState, onOpenTestDefaults, onDismissNoQuestions)
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun NoTestQuestionsSheet(
+    testState: TestAttemptLauncherUiState,
+    onOpenTestDefaults: () -> Unit,
+    onDismissNoQuestions: () -> Unit,
+) {
     if (testState.isNoQuestions) {
         ModalBottomSheet(
             onDismissRequest = onDismissNoQuestions,

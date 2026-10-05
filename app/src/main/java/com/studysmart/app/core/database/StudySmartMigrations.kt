@@ -3,6 +3,26 @@ package com.studysmart.app.core.database
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+val MIGRATION_6_7 = object : Migration(6, 7) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS `search_documents` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `entityId` TEXT NOT NULL, `courseId` TEXT NOT NULL, `academicPeriodId` TEXT NOT NULL, `subjectId` TEXT NOT NULL, `chapterId` TEXT, `topicId` TEXT, `text` TEXT NOT NULL)")
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_search_documents_type_entityId` ON `search_documents` (`type`, `entityId`)")
+        db.execSQL("CREATE VIRTUAL TABLE IF NOT EXISTS `search_fts` USING FTS4(`text` TEXT NOT NULL, tokenize=unicode61, content=`search_documents`)")
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_search_fts_BEFORE_UPDATE BEFORE UPDATE ON `search_documents` BEGIN DELETE FROM `search_fts` WHERE `docid`=OLD.`rowid`; END")
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_search_fts_BEFORE_DELETE BEFORE DELETE ON `search_documents` BEGIN DELETE FROM `search_fts` WHERE `docid`=OLD.`rowid`; END")
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_search_fts_AFTER_UPDATE AFTER UPDATE ON `search_documents` BEGIN INSERT INTO `search_fts`(`docid`, `text`) VALUES (NEW.`rowid`, NEW.`text`); END")
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_search_fts_AFTER_INSERT AFTER INSERT ON `search_documents` BEGIN INSERT INTO `search_fts`(`docid`, `text`) VALUES (NEW.`rowid`, NEW.`text`); END")
+        SearchIndexSynchronizer.synchronize(db)
+        // Triggers match Room's generated schema and index the backfill exactly once.
+    }
+}
+
+val MIGRATION_5_6 = object : Migration(5, 6) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS curriculum_import_state (datasetId TEXT NOT NULL, contentVersion INTEGER NOT NULL, bundleDigest TEXT NOT NULL, importedAt INTEGER NOT NULL, PRIMARY KEY(datasetId))")
+    }
+}
+
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL(

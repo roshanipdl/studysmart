@@ -20,6 +20,65 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
+    @Test fun dailyGoalBoundsAndSessionCountsAreIndependent() = runTest {
+        val backing = TestPreferencesRepository()
+        val vm = SettingsViewModel(backing, TestDispatcherProvider())
+        assertEquals(10, vm.uiState.value.dailyCardGoal)
+        repeat(110) { vm.incrementDailyGoal() }
+        assertEquals(100, backing.preferencesValue().dailyCardGoal)
+        repeat(110) { vm.decrementDailyGoal() }
+        assertEquals(1, backing.preferencesValue().dailyCardGoal)
+        assertEquals(10, backing.preferencesValue().preparationDefaults.questionCount)
+        assertEquals(10, backing.preferencesValue().testDefaults.questionCount)
+    }
+
+    @Test fun failedDailyGoalRetryRetainsOriginalIntentAndBlocksOtherMutations() = runTest {
+        val backing = TestPreferencesRepository()
+        var fail = true
+        val writes = mutableListOf<Int>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateDailyCardGoal(goal: Int) {
+                writes += goal
+                check(!fail)
+                backing.updateDailyCardGoal(goal)
+            }
+        }
+        val vm = SettingsViewModel(preferences, TestDispatcherProvider())
+        vm.incrementDailyGoal()
+        assertTrue(vm.uiState.value.isGoalSaveError)
+        assertEquals(10, vm.uiState.value.dailyCardGoal)
+        vm.incrementQuestionCount()
+        vm.incrementDailyGoal()
+        assertEquals(1, writes.size)
+        assertEquals(10, backing.preferencesValue().preparationDefaults.questionCount)
+        backing.updateDailyCardGoal(30)
+        assertEquals(10, vm.uiState.value.dailyCardGoal)
+        fail = false
+        vm.retry()
+        assertEquals(listOf(11, 11), writes)
+        assertEquals(11, vm.uiState.value.dailyCardGoal)
+    }
+
+    @Test fun pendingDailyGoalWritePreventsDuplicateTaps() = runTest {
+        val backing = TestPreferencesRepository()
+        val release = CompletableDeferred<Unit>()
+        val writes = mutableListOf<Int>()
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateDailyCardGoal(goal: Int) { writes += goal; release.await(); backing.updateDailyCardGoal(goal) }
+        }
+        val vm = SettingsViewModel(preferences, TestDispatcherProvider(StandardTestDispatcher(testScheduler)))
+        runCurrent()
+        vm.incrementDailyGoal()
+        vm.incrementDailyGoal()
+        vm.incrementQuestionCount()
+        runCurrent()
+        assertEquals(listOf(11), writes)
+        assertTrue(vm.uiState.value.isSaving)
+        release.complete(Unit)
+        runCurrent()
+        assertEquals(11, vm.uiState.value.dailyCardGoal)
+        assertFalse(vm.uiState.value.isSaving)
+    }
     @Test fun defaultsBoundsAndIndependentPersistence() = runTest {
         val backing = TestPreferencesRepository()
         val viewModel = SettingsViewModel(backing, TestDispatcherProvider())

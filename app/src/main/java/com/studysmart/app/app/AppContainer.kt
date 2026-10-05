@@ -44,6 +44,9 @@ import com.studysmart.app.feature.test.TestResultViewModel
 import com.studysmart.app.feature.test.AnswerEvaluator
 import com.studysmart.app.feature.test.KeywordAnswerEvaluator
 import java.time.Clock
+import kotlinx.coroutines.flow.map
+import com.studysmart.app.core.data.importer.CurriculumImporter
+import com.studysmart.app.core.data.importer.NoOpCurriculumImporter
 
 /** The manual dependency graph for the local application. */
 class AppContainer(
@@ -59,6 +62,16 @@ class AppContainer(
     val curriculumRepository: CurriculumRepository =
         com.studysmart.app.core.data.RoomCurriculumRepository(database.curriculumDao()),
     val homeRepository: HomeRepository = CurriculumHomeRepository(curriculumRepository),
+    val searchRepository: com.studysmart.app.core.data.SearchRepository =
+        com.studysmart.app.core.data.RoomSearchRepository(database.searchDao(), dispatchers, database),
+    val chapterDetailRepository: com.studysmart.app.feature.chapters.ChapterDetailRepository =
+        com.studysmart.app.feature.chapters.RoomChapterDetailRepository(database.chapterDetailDao()),
+    val bookmarkRepository: com.studysmart.app.core.data.BookmarkRepository =
+        com.studysmart.app.core.data.RoomBookmarkRepository(database.bookmarkDao(), clock, dispatchers),
+    val studyTime: com.studysmart.app.core.common.StudyTimeSource =
+        com.studysmart.app.core.common.DeviceStudyTimeSource(context, clock),
+    val progressRepository: com.studysmart.app.feature.progress.ProgressRepository =
+        com.studysmart.app.feature.progress.RoomProgressRepository(database.progressDao(), database.readinessDao(), database.testAttemptDao(), studyTime),
     val preparationRepository: PreparationRepository = RoomPreparationRepository(
         database = database,
         clock = clock,
@@ -66,10 +79,11 @@ class AppContainer(
         idGenerator = idGenerator,
         dispatchers = dispatchers,
     ),
-    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao(), clock),
+    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao(), clock, timeUpdates = studyTime.observeTime().map { it.now }),
     val readinessRepository: ReadinessRepository = RoomReadinessRepository(
         dao = database.readinessDao(),
         clock = clock,
+        timeUpdates = studyTime.observeTime().map { it.now },
     ),
     val testAttemptRepository: TestAttemptRepository = RoomTestAttemptRepository(
         database = database,
@@ -84,6 +98,10 @@ class AppContainer(
     val startupCleanupCoordinator: StartupCleanupCoordinator = RoomStartupCleanupCoordinator(
         database = database,
         dispatchers = dispatchers,
+    ),
+    val curriculumImporter: CurriculumImporter = NoOpCurriculumImporter,
+    val startupInitializationCoordinator: StartupInitializationCoordinator = DefaultStartupInitializationCoordinator(
+        curriculumImporter, startupCleanupCoordinator,
     ),
 ) {
     fun homeViewModel(): HomeViewModel = HomeViewModel(
@@ -118,6 +136,9 @@ class AppContainer(
         dispatchers = dispatchers,
     )
 
+    fun chapterDetailViewModel(chapterId: String, highlight: com.studysmart.app.feature.chapters.ChapterHighlight) =
+        com.studysmart.app.feature.chapters.ChapterDetailViewModel(chapterId, highlight, chapterDetailRepository, dispatchers)
+
     fun preparationEntryViewModel(
         scopeType: PreparationScopeType,
         scopeId: String,
@@ -142,6 +163,7 @@ class AppContainer(
             repository = preparationRepository,
             idGenerator = idGenerator,
             dispatchers = dispatchers,
+            bookmarkRepository = bookmarkRepository,
         )
 
     fun preparationSummaryViewModel(sessionId: String): PreparationSummaryViewModel =
@@ -154,6 +176,16 @@ class AppContainer(
 
     fun settingsViewModel(): com.studysmart.app.feature.settings.SettingsViewModel =
         com.studysmart.app.feature.settings.SettingsViewModel(preferences, dispatchers)
+
+    fun searchViewModel(savedState: androidx.lifecycle.SavedStateHandle) =
+        com.studysmart.app.feature.search.SearchViewModel(searchRepository, dispatchers, savedState)
+
+    fun importantViewModel(savedState: androidx.lifecycle.SavedStateHandle): com.studysmart.app.feature.important.ImportantViewModel =
+        com.studysmart.app.feature.important.ImportantViewModel(preferences, curriculumRepository, bookmarkRepository, dispatchers, savedState,
+            preparationRepository, testAttemptRepository, idGenerator)
+
+    fun progressViewModel() = com.studysmart.app.feature.progress.ProgressViewModel(preferences, curriculumRepository, progressRepository,
+        readinessRepository, reviewRepository, preparationRepository, studyTime, idGenerator, dispatchers)
 
     fun reviewViewModel(): ReviewViewModel = ReviewViewModel(
         preferencesRepository = preferences,
@@ -185,6 +217,7 @@ class AppContainer(
         repository = testAttemptRepository,
         idGenerator = idGenerator,
         dispatchers = dispatchers,
+        bookmarkRepository = bookmarkRepository,
     )
 
     fun testDefaultsViewModel(): TestDefaultsViewModel = TestDefaultsViewModel(

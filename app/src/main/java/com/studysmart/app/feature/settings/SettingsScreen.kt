@@ -15,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
+import com.studysmart.app.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.semantics.contentDescription
@@ -36,6 +38,8 @@ fun SettingsScreen(
     onDecrementCount: () -> Unit,
     onIncrementCount: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(20.dp),
+    onDecrementGoal: () -> Unit = {},
+    onIncrementGoal: () -> Unit = {},
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -74,7 +78,7 @@ fun SettingsScreen(
                                 modifier = Modifier.testTag("review_defaults_error"),
                             )
                             val count = state.preparationDefaults.questionCount
-                            val enabled = !state.isSaving && !state.isSaveError
+                            val enabled = !state.isSaving && !state.isSaveError && !state.isGoalSaveError
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 IconButton(
                                     onClick = onDecrementCount,
@@ -99,6 +103,31 @@ fun SettingsScreen(
                                 if (state.isSaving) "Saving changes…" else "1–30 unique questions. Valid changes are saved automatically.",
                                 style = MaterialTheme.typography.bodySmall,
                             )
+                        }
+                    }
+                }
+            }
+            Card(Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.progress_daily_goal), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.settings_goal_description))
+                    when {
+                        state.isLoading -> LoadingState()
+                        state.dailyCardGoal == null -> ErrorState(state.error ?: stringResource(R.string.settings_goal_error), onRetry = onRetry)
+                        else -> {
+                            state.goalError?.let { ErrorState(it, onRetry = if (state.isSaving) null else onRetry) }
+                            val goal = state.dailyCardGoal
+                            val enabled = !state.isSaving && !state.isSaveError && !state.isGoalSaveError
+                            val decrease = stringResource(R.string.settings_goal_decrease)
+                            val increase = stringResource(R.string.settings_goal_increase)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                IconButton(onDecrementGoal, enabled = enabled && goal > com.studysmart.app.core.model.DailyCardGoal.MIN,
+                                    modifier = Modifier.testTag("daily_goal_decrement").semantics { contentDescription = decrease }) { Text("−") }
+                                Text("$goal", style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("daily_card_goal"))
+                                IconButton(onIncrementGoal, enabled = enabled && goal < com.studysmart.app.core.model.DailyCardGoal.MAX,
+                                    modifier = Modifier.testTag("daily_goal_increment").semantics { contentDescription = increase }) { Text("+") }
+                            }
+                            Text(stringResource(R.string.settings_goal_range), style = MaterialTheme.typography.bodySmall)
                         }
                     }
                 }

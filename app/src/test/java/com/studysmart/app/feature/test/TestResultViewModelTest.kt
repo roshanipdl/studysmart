@@ -29,6 +29,43 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TestResultViewModelTest {
+    @Test fun bookmarkUsesCurriculumIdAndDoesNotAlterFrozenEvidence() = runTest {
+        val bookmarks = com.studysmart.app.testing.TestBookmarkRepository()
+        val viewModel = TestResultViewModel("source-attempt", FakeResultRepository(), ResultTestIdGenerator(),
+            TestDispatcherProvider(), bookmarks)
+        val report = viewModel.uiState.value.report
+        viewModel.toggleBookmark("attempt-question-1")
+        viewModel.toggleBookmark("unknown")
+        assertTrue(bookmarks.writes.isEmpty())
+        viewModel.toggleBookmark("question-1")
+        assertEquals(listOf("question-1" to true), bookmarks.writes)
+        assertEquals(report, viewModel.uiState.value.report)
+        viewModel.retry()
+        assertEquals(setOf("question-1"), viewModel.uiState.value.bookmarks!!.savedIds)
+        assertEquals(report, viewModel.uiState.value.report)
+    }
+
+    @Test fun resultLoadFailureAndRetryKeepBookmarkState() = runTest {
+        val backing = FakeResultRepository()
+        var failLoad = false
+        val repository = object : TestAttemptRepository by backing {
+            override fun observeAttempt(attemptId: String): Flow<TestAttemptModel?> = kotlinx.coroutines.flow.flow {
+                if (failLoad) error("injected load failure") else emit(resultModel())
+            }
+        }
+        val bookmarks = com.studysmart.app.testing.TestBookmarkRepository()
+        val viewModel = TestResultViewModel("source-attempt", repository, ResultTestIdGenerator(), TestDispatcherProvider(), bookmarks)
+        viewModel.toggleBookmark("question-1")
+        failLoad = true
+        viewModel.retry()
+        assertTrue(viewModel.uiState.value.error != null)
+        assertEquals(setOf("question-1"), viewModel.uiState.value.bookmarks!!.savedIds)
+        failLoad = false
+        viewModel.retry()
+        assertEquals(setOf("question-1"), viewModel.uiState.value.bookmarks!!.savedIds)
+        assertEquals("Historical question", viewModel.uiState.value.report!!.questions.single().snapshot.questionTextSnapshot)
+    }
+
     @Test
     fun loadsFrozenReportAndExpandsOnlyKnownQuestions() = runTest {
         val viewModel = viewModel(FakeResultRepository())

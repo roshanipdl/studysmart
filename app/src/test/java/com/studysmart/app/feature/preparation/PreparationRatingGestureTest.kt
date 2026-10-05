@@ -5,19 +5,37 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class PreparationRatingGestureTest {
-    @Test fun gestureStartRegionsRespectVisibleCardAndHeader() {
-        val card = PreparationGestureBounds(0f, 20f, 200f, 400f)
-        val header = PreparationGestureBounds(20f, 40f, 180f, 100f)
-        val pad = PreparationGestureBounds(208f, 80f, 320f, 300f)
-        assertEquals(PreparationGestureRegion.HEADER, preparationGestureRegion(50f, 60f, card, header, pad))
-        assertEquals(PreparationGestureRegion.CARD_BODY, preparationGestureRegion(50f, 150f, card, header, pad))
-        assertEquals(PreparationGestureRegion.RATING_PAD, preparationGestureRegion(250f, 150f, card, header, pad))
-        assertEquals(PreparationGestureRegion.OUTSIDE, preparationGestureRegion(204f, 150f, card, header, pad))
-        val scrolledHeader = PreparationGestureBounds(20f, -100f, 180f, -40f)
-        assertEquals(PreparationGestureRegion.CARD_BODY, preparationGestureRegion(50f, 60f, card, scrolledHeader, pad))
-        assertEquals(PreparationGestureRegion.OUTSIDE, preparationGestureRegion(Float.NaN, 60f, card, header, pad))
-        assertFalse(PreparationGestureRegion.CARD_BODY.allowsVertical)
-        assertTrue(PreparationGestureRegion.RATING_PAD.allowsVertical)
+    @Test fun scrollingVelocityIsVerticalSlowBoundedAndDensityAware() {
+        assertEquals(0f, preparationJoystickScrollVelocity(0f, 8f, 8f, 1f), 0f)
+        assertEquals(0f, preparationJoystickScrollVelocity(80f, 0f, 8f, 1f), 0f)
+        assertEquals(0f, preparationJoystickScrollVelocity(80f, 80f, 8f, 1f), 0f)
+        val slow = preparationJoystickScrollVelocity(0f, -9f, 8f, 1f)
+        val faster = preparationJoystickScrollVelocity(0f, -36f, 8f, 1f)
+        assertTrue(slow >= 20f && slow < faster)
+        assertEquals(100f, preparationJoystickScrollVelocity(0f, -1000f, 8f, 1f), 0f)
+        assertEquals(-200f, preparationJoystickScrollVelocity(0f, 1000f, 16f, 2f), 0f)
+        assertEquals(0f, preparationJoystickScrollVelocity(Float.NaN, 80f, 8f, 1f), 0f)
+        assertEquals(0f, preparationJoystickScrollVelocity(0f, -80f, 8f, Float.NaN), 0f)
+    }
+    @Test fun joystickReclassifiesDirectionsAndClearsCenterAndDiagonals() {
+        assertEquals(RatingSwipeDirection.UP, ratingJoystickDirection(0f, -80f, 8f))
+        assertEquals(RatingSwipeDirection.RIGHT, ratingJoystickDirection(80f, 0f, 8f))
+        assertEquals(RatingSwipeDirection.DOWN, ratingJoystickDirection(0f, 80f, 8f))
+        assertEquals(RatingSwipeDirection.LEFT, ratingJoystickDirection(-80f, 0f, 8f))
+        assertNull(ratingJoystickDirection(0f, 0f, 8f))
+        assertNull(ratingJoystickDirection(8f, 0f, 8f))
+        assertNull(ratingJoystickDirection(80f, 80f, 8f))
+        assertNull(ratingJoystickDirection(Float.NaN, 0f, 8f))
+        assertFalse(ratingDragCommits(55f, 56f))
+        assertTrue(ratingDragCommits(56f, 56f))
+    }
+    @Test fun previewIsSignedBoundedAndIndependentOfCommit() {
+        assertEquals(16f, ratingPreviewDistance(1000f, 56f, 1f), 0f)
+        assertEquals(-32f, ratingPreviewDistance(-1000f, 56f, 2f), 0f)
+        assertEquals(8f, ratingPreviewDistance(28f, 56f, 1f), 0f)
+        assertFalse(ratingDragCommits(28f, 56f))
+        assertEquals(0f, ratingPreviewDistance(Float.NaN, 56f, 1f), 0f)
+        assertEquals(0f, ratingPreviewDistance(28f, 56f, Float.NaN), 0f)
     }
     @Test fun directionsMatchThePhysicalRatingContract() {
         assertEquals(RatingSwipeDirection.LEFT, ratingDragDirection(-100f, 0f, 8f, false))

@@ -11,16 +11,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -38,20 +39,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.SubcomposeLayout
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.Constraints
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
+import kotlin.math.abs
 import com.studysmart.app.core.model.Rating
 import com.studysmart.app.core.ui.EmptyState
 import com.studysmart.app.core.ui.ErrorState
@@ -134,6 +143,8 @@ fun PreparationSessionScreen(
     onBackFallback: () -> Unit,
     onOpenSummary: () -> Unit,
     onRatingAnimationFinished: (String) -> Unit = {},
+    onBookmark: () -> Unit = {},
+    onRetryBookmark: () -> Unit = {},
 ) {
     if (!state.isLoading && state.isMissingContent) {
         MissingContentScreen(title = "Preparation", onBack = onBackFallback)
@@ -214,6 +225,13 @@ fun PreparationSessionScreen(
     val item = state.ratingFeedback?.item ?: session?.currentItem
     var entranceDirection by remember { mutableStateOf<RatingSwipeDirection?>(null) }
     val currentCardKey = item?.cardKey()
+    var showQuestion by rememberSaveable(session?.id, item?.questionId, item?.presentationCount) {
+        mutableStateOf(false)
+    }
+    val showAnswer = item?.isRevealed == true && !showQuestion
+    val flipCard: () -> Unit = {
+        if (item?.isRevealed == true) showQuestion = !showQuestion else onReveal()
+    }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -223,6 +241,13 @@ fun PreparationSessionScreen(
                 variant = StudyTopBarVariant.BACK_SUBTITLE,
                 onBack = onClose,
                 navigationContentDescription = "Close",
+                trailingContent = {
+                    if (item != null && state.bookmarks != null) {
+                        com.studysmart.app.core.ui.BookmarkControl(state.bookmarks, item.questionId, onBookmark,
+                            enabled = !state.isSaving && state.ratingFeedback == null && !state.showDiscardConfirmation,
+                            iconOnly = true, modifier = Modifier.testTag("preparation_bookmark"))
+                    }
+                },
             )
         },
     ) { padding ->
@@ -234,6 +259,7 @@ fun PreparationSessionScreen(
                 .testTag("preparation_session_screen"),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            state.bookmarks?.let { com.studysmart.app.core.ui.BookmarkStatus(it, onRetryBookmark) }
             if (state.isLoading || session == null || item == null) {
                 LoadingState(
                     message = "Loading card",
@@ -243,76 +269,156 @@ fun PreparationSessionScreen(
                 val interactionEnabled = !state.isSaving && state.mutationError == null &&
                     state.ratingFeedback == null && !state.showDiscardConfirmation && !state.completionReady
                 BoxWithConstraints(
-                    modifier = Modifier.weight(1f).fillMaxWidth().testTag("preparation_study_viewport"),
+                    modifier = Modifier.weight(1f).fillMaxWidth().clipToBounds().testTag("preparation_study_viewport"),
                 ) {
                     val viewportHeight = constraints.maxHeight
-                    val scrollState = androidx.compose.runtime.key(session.id, currentCardKey) {
+                    val questionScroll = androidx.compose.runtime.key(session.id, currentCardKey, "question") {
                         rememberScrollState()
                     }
-                    val outerScrollState = androidx.compose.runtime.key(session.id, currentCardKey) { rememberScrollState() }
-                    val padWidth = preparationRatingPadWidth()
-                            androidx.compose.runtime.key(session.id, currentCardKey) {
-                                PreparationSwipeCard(
-                                    enabled = interactionEnabled && item.isRevealed,
-                                    feedback = state.ratingFeedback,
-                                    viewportHeight = viewportHeight,
-                                    entranceDirection = entranceDirection,
-                                    onRate = onRate,
-                                    onExitFinished = { id ->
-                                        entranceDirection = state.ratingFeedback?.rating?.swipeDirection()
-                                        onRatingAnimationFinished(id)
-                                    },
-                                    onBusyChanged = {},
-                                    ratingPad = { modifier, ready ->
-                                        PreparationRatingPad(
-                                            enabled = interactionEnabled && item.isRevealed && ready,
-                                            onRate = onRate,
-                                            modifier = modifier.testTag("preparation_rating_pad"),
-                                        )
-                                    },
-                                    layout = { modifier, card, pad ->
-                                        PreparationStudyLayout(
-                                            viewportHeight = viewportHeight,
-                                            padWidth = padWidth,
-                                            cardScroll = scrollState,
-                                            outerScroll = outerScrollState,
-                                            modifier = modifier.fillMaxWidth(),
-                                            card = card,
-                                            pad = pad,
-                                            controls = {
-                                                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                                    PreparationProgress(projectPreparationProgress(session))
-                                                    Text(
-                                                        if (item.isRevealed) "Rate after viewing the answer; swipe the header or rating pad."
-                                                        else "Think first, then tap the card to view the answer.",
-                                                        style = MaterialTheme.typography.bodySmall,
-                                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                    )
-                                                    state.mutationError?.let { message ->
-                                                        ErrorState(message = message, onRetry = onRetry,
-                                                            modifier = Modifier.testTag("preparation_save_error"))
-                                                    }
-                                                    if (state.isSaving) LoadingState(message = "Saving",
-                                                        modifier = Modifier.testTag("preparation_saving"))
-                                                }
-                                            },
-                                        )
-                                    },
-                                ) { swipeModifier, tint, onHeaderBounds, onFlipRunning, cardReady ->
-                                    PreparationFlashcard(
-                                        item = item,
-                                        sessionId = session.id,
-                                        topicLabel = item.topicLabel(session),
-                                        onReveal = onReveal,
-                                        enabled = interactionEnabled && cardReady,
-                                        onFaceChanged = { scrollState.scrollTo(0); outerScrollState.scrollTo(0) },
-                                        onHeaderBounds = onHeaderBounds,
-                                        onFlipRunning = onFlipRunning,
-                                        containerColor = tint,
-                                        modifier = swipeModifier.testTag("preparation_card"),
-                                    )
+                    val answerScroll = androidx.compose.runtime.key(session.id, currentCardKey, "answer") { rememberScrollState() }
+                    val scrollState = if (showAnswer) answerScroll else questionScroll
+                    var answerEndReached by rememberSaveable(session.id, currentCardKey) { mutableStateOf(false) }
+                    var scrollUnlockNotified by rememberSaveable(session.id, currentCardKey) { mutableStateOf(false) }
+                    var showUnlockNotice by remember(session.id, currentCardKey) { mutableStateOf(false) }
+                    var questionMeasurement by remember(session.id, currentCardKey) { mutableStateOf(PreparationBodyMeasurement()) }
+                    var answerMeasurement by remember(session.id, currentCardKey) { mutableStateOf(PreparationBodyMeasurement()) }
+                    var scrollGestureActive by remember(session.id, currentCardKey) { mutableStateOf(false) }
+                    var pageScrolling by remember(session.id, currentCardKey) { mutableStateOf(false) }
+                    var pageJob by remember(session.id, currentCardKey) { mutableStateOf<kotlinx.coroutines.Job?>(null) }
+                    val scrollingAction = scrollGestureActive || pageScrolling
+                    val bodyMeasurement = if (showAnswer) answerMeasurement else questionMeasurement
+                    val controlMode = preparationControlMode(answerEndReached, bodyMeasurement, scrollingAction)
+                    val ratingEligible = interactionEnabled && item.isRevealed && answerEndReached && !scrollingAction
+                    val rateIfEligible: (Rating) -> Unit = { if (ratingEligible) onRate(it) }
+                    val density = androidx.compose.ui.platform.LocalDensity.current.density
+                    LaunchedEffect(answerScroll, showAnswer, item.isRevealed, density) {
+                        snapshotFlow {
+                            preparationAnswerEndReached(answerEndReached, item.isRevealed,
+                                showAnswer, answerMeasurement.ready, answerMeasurement, answerScroll.value,
+                                density.toInt().coerceAtLeast(1))
+                        }.collect { reached ->
+                            if (reached && !answerEndReached) {
+                                if (answerMeasurement.overflows && !scrollUnlockNotified) {
+                                    scrollUnlockNotified = true
+                                    showUnlockNotice = true
                                 }
+                                answerEndReached = true
                             }
+                        }
+                    }
+                    LaunchedEffect(session.id, currentCardKey, showUnlockNotice) {
+                        if (showUnlockNotice) {
+                            delay(5_000)
+                            showUnlockNotice = false
+                        }
+                    }
+                    val scrollScope = androidx.compose.runtime.key(session.id, currentCardKey) { rememberCoroutineScope() }
+                    LaunchedEffect(interactionEnabled, showAnswer) {
+                        if (!interactionEnabled || pageScrolling) pageJob?.cancel()
+                    }
+                    val scrollPage: (Boolean) -> Unit = { forward ->
+                        if (interactionEnabled && controlMode == PreparationControlMode.CONTENT_SCROLL && !scrollingAction) {
+                            pageScrolling = true
+                            pageJob = scrollScope.launch {
+                                try {
+                                    val distance = (bodyMeasurement.viewportHeight * 0.6f).toInt()
+                                    val target = (scrollState.value + if (forward) distance else -distance)
+                                        .coerceIn(0, scrollState.maxValue)
+                                    scrollState.animateScrollTo(target, tween(250))
+                                } finally { pageScrolling = false }
+                            }
+                        }
+                    }
+                    val outerScrollState = androidx.compose.runtime.key(session.id, currentCardKey) { rememberScrollState() }
+                    val showDirectionHints = preparationRatingPadWidth(flipExtra = 0.dp) <= maxWidth
+                    val flipExtra = (maxWidth - preparationRatingPadWidth(showDirectionHints, 0.dp)).coerceIn(0.dp, 8.dp)
+                    val padWidth = preparationRatingPadWidth(showDirectionHints, flipExtra)
+                    val progressProjection = projectPreparationProgress(session)
+                    val remaining = projectPreparationRemaining(session)
+                    androidx.compose.runtime.key(session.id, currentCardKey) {
+                        PreparationSwipeCard(
+                            enabled = ratingEligible,
+                            inputEnabled = interactionEnabled,
+                            feedback = state.ratingFeedback,
+                            viewportHeight = viewportHeight,
+                             entranceDirection = entranceDirection,
+                             resetPreview = state.mutationError != null || state.showDiscardConfirmation,
+                            onRate = rateIfEligible,
+                            onExitFinished = { id ->
+                                entranceDirection = state.ratingFeedback?.rating?.swipeDirection()
+                                onRatingAnimationFinished(id)
+                            },
+                            onBusyChanged = {},
+                            scrollingAllowed = interactionEnabled && controlMode == PreparationControlMode.CONTENT_SCROLL,
+                            readingScrollState = scrollState,
+                            onScrollGestureActive = { scrollGestureActive = it },
+                            ratingPad = { modifier, ready, previewDirection, scrollDirection, onFlipBounds ->
+                                PreparationRatingPad(
+                                    enabled = ratingEligible && ready,
+                                    onRate = rateIfEligible,
+                                    modifier = modifier.testTag("preparation_rating_pad"),
+                                    flipEnabled = interactionEnabled && ready,
+                                    onFlip = flipCard,
+                                    showAnswer = showAnswer,
+                                    showDirectionHints = showDirectionHints,
+                                    flipExtra = flipExtra,
+                                    previewDirection = previewDirection,
+                                    onFlipBounds = onFlipBounds,
+                                    scrollMode = controlMode == PreparationControlMode.CONTENT_SCROLL,
+                                    scrollForwardEnabled = interactionEnabled && ready && !scrollingAction && scrollState.canScrollForward,
+                                    scrollBackwardEnabled = interactionEnabled && ready && !scrollingAction && scrollState.canScrollBackward,
+                                    onScroll = scrollPage,
+                                    scrollDirection = scrollDirection,
+                                )
+                            },
+                             layout = { modifier, card, pad, preview ->
+                               Box(modifier.fillMaxSize()) {
+                                 PreparationStudyLayout(
+                                     viewportHeight = viewportHeight,
+                                      padWidth = padWidth,
+                                     outerScroll = outerScrollState,
+                                     modifier = modifier.fillMaxWidth(),
+                                     card = card,
+                                     pad = pad,
+                                      progress = { PreparationProgress(progressProjection, remaining) },
+                                       instructions = { PreparationSupportingStatus(state.isSaving,
+                                           showAnswer, controlMode, answerEndReached, showUnlockNotice) },
+                                      recovery = {
+                                          state.mutationError?.let { message ->
+                                              ErrorState(
+                                                  message = message,
+                                                  onRetry = onRetry,
+                                                  modifier = Modifier.testTag("preparation_save_error"),
+                                              )
+                                          }
+                                     },
+                                 )
+                                Box(Modifier.align(Alignment.Center)) { preview() }
+                              }
+                            },
+                        ) { swipeModifier, tint, onFlipRunning, cardReady, scrollEnabled ->
+                            PreparationFlashcard(
+                                item = item,
+                                showAnswer = showAnswer,
+                                topicLabel = session.context.topicTitle,
+                                remainingLabel = remaining.label,
+                                onFlip = flipCard,
+                                enabled = interactionEnabled && cardReady,
+                                onFaceChanged = {
+                                    scrollState.scrollTo(0)
+                                    outerScrollState.scrollTo(0)
+                                },
+                                scrollState = scrollState,
+                                 scrollEnabled = scrollEnabled,
+                                 onBodyMeasured = { answer, measurement ->
+                                     if (answer) answerMeasurement = measurement else questionMeasurement = measurement
+                                 },
+                                onFlipRunning = onFlipRunning,
+                                containerColor = tint,
+                                modifier = swipeModifier.testTag("preparation_card"),
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -358,168 +464,209 @@ private fun PreparationItemModel.cardKey(): PreparationCardKey = PreparationCard
     presentationCount = presentationCount,
 )
 
-/** Anchor the card's lower edge; overflow scrolls without hiding study content or controls. */
+/** Both copy variants and the inline status reserve space even while idle. */
+@Composable
+private fun PreparationSupportingStatus(isSaving: Boolean,
+    showAnswer: Boolean, mode: PreparationControlMode, unlocked: Boolean, showUnlockNotice: Boolean) {
+    val messages = listOf(
+        "Think first, then tap the card or Flip to view the answer.",
+        "Tap a rating, swipe the controls, or drag Flip.",
+        "Scroll the question, then tap the card or Flip to view the answer.",
+        "Scroll to the end of the answer to unlock ratings. Drag Flip up to read further.",
+    )
+    val messageIndex = when {
+        unlocked && mode == PreparationControlMode.RATING -> 1
+        showAnswer -> 3
+        mode == PreparationControlMode.CONTENT_SCROLL -> 2
+        else -> 0
+    }
+    val measurer = rememberTextMeasurer()
+    val style = MaterialTheme.typography.bodySmall.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+    val color = MaterialTheme.colorScheme.onSurfaceVariant
+    SubcomposeLayout(Modifier.fillMaxWidth().testTag("preparation_supporting_status")) { constraints ->
+        val statusSize = measurer.measure(AnnotatedString("Saving"), style = style).size
+        val gap = 4.dp.roundToPx()
+        val textWidth = constraints.maxWidth
+        val copyHeight = messages.maxOf { message ->
+            measurer.measure(AnnotatedString(message), style = style,
+                constraints = Constraints.fixedWidth(textWidth)).size.height
+        }
+        val height = copyHeight + gap + statusSize.height
+        val copy = subcompose("copy") {
+            Text(messages[messageIndex],
+                Modifier.testTag("preparation_supporting_text"), style = style, color = color)
+        }.single().measure(Constraints.fixed(textWidth, copyHeight))
+        val status = subcompose("status") {
+            Box(Modifier.semantics {
+                liveRegion = LiveRegionMode.Polite
+                stateDescription = if (showUnlockNotice) "Ratings unlocked" else ""
+            }, contentAlignment = Alignment.Center) {
+                if (isSaving) Text("Saving", Modifier.testTag("preparation_saving").semantics {
+                    liveRegion = LiveRegionMode.Polite
+                }, style = style, color = color)
+                else if (showUnlockNotice) Text("Ratings unlocked", Modifier.testTag("preparation_ratings_unlocked"), style = style, color = color)
+            }
+        }.single().measure(Constraints.fixed(textWidth, statusSize.height))
+        layout(constraints.maxWidth, height) {
+            copy.placeRelative(0, 0)
+            status.placeRelative(0, copyHeight + gap)
+        }
+    }
+}
+
+/** Keep progress above the reserved card slot and the instruction immediately above the pad. */
 @Composable
 private fun PreparationStudyLayout(
     viewportHeight: Int,
     padWidth: androidx.compose.ui.unit.Dp,
-    cardScroll: androidx.compose.foundation.ScrollState,
     outerScroll: androidx.compose.foundation.ScrollState,
     modifier: Modifier = Modifier,
-    card: @Composable () -> Unit,
+    card: @Composable (Boolean) -> Unit,
     pad: @Composable () -> Unit,
-    controls: @Composable () -> Unit,
+    progress: @Composable () -> Unit,
+    instructions: @Composable () -> Unit,
+    recovery: @Composable () -> Unit,
 ) {
     var overflow by remember { mutableStateOf(false) }
+    val minimumReadingSlot = 200.dp * maxOf(1f, androidx.compose.ui.platform.LocalDensity.current.fontScale)
     SubcomposeLayout(modifier.verticalScroll(outerScroll, enabled = overflow)
         .then(if (overflow) Modifier.testTag("preparation_study_scroll") else Modifier)) { constraints ->
-        val gap = 8.dp.roundToPx()
-        val controlsPlaceable = subcompose("controls", controls).single().measure(Constraints.fixedWidth(constraints.maxWidth))
-        val padPixels = padWidth.roundToPx().coerceAtMost((constraints.maxWidth - gap - 1).coerceAtLeast(1))
+        val gap = 12.dp.roundToPx()
+        val width = constraints.maxWidth
+        val progressPlaceable = subcompose("progress", progress).single()
+            .measure(Constraints.fixedWidth(width))
+        val padPixels = padWidth.roundToPx().coerceAtMost(constraints.maxWidth)
+        val instructionsPlaceable = subcompose("instructions", instructions).single()
+            .measure(Constraints.fixedWidth(padPixels))
         val padPlaceable = subcompose("pad", pad).single().measure(Constraints.fixedWidth(padPixels))
-        val available = (viewportHeight - controlsPlaceable.height - gap).coerceAtLeast(0)
-        val fallback = available < maxOf(padPlaceable.height, 120.dp.roundToPx())
+        val recoveryPlaceable = subcompose("recovery") {
+            Box(Modifier.fillMaxWidth()) { recovery() }
+        }.single().measure(Constraints.fixedWidth(width))
+        val hasRecovery = recoveryPlaceable.height > 0
+        val fixedHeight = progressPlaceable.height + gap + instructionsPlaceable.height +
+            gap + padPlaceable.height + (if (hasRecovery) gap + recoveryPlaceable.height else 0)
+        val available = (viewportHeight - fixedHeight - gap).coerceAtLeast(0)
+        val fallback = available < minimumReadingSlot.roundToPx()
         overflow = fallback
-        val cardWidth = (constraints.maxWidth - padPixels - gap).coerceAtLeast(1)
+        val cardHeight = if (fallback) maxOf((viewportHeight * 0.58f).toInt(), minimumReadingSlot.roundToPx())
+            else minOf((viewportHeight * 0.58f).toInt(), available)
         val cardPlaceable = subcompose("card") {
-            Box(Modifier.clipToBounds().testTag("preparation_left_viewport")) {
-                Layout(
-                    modifier = if (fallback) Modifier else Modifier.verticalScroll(cardScroll)
-                        .testTag("preparation_study_scroll"),
-                    content = card,
-                ) { measurables, innerConstraints ->
-                    val measured = measurables.single().measure(Constraints.fixedWidth(innerConstraints.maxWidth))
-                    val top = if (fallback) 0 else ((available * 0.75f).toInt() - measured.height).coerceAtLeast(0)
-                    layout(innerConstraints.maxWidth, maxOf(measured.height + top, if (fallback) 0 else available)) {
-                        measured.place(0, top)
-                    }
-                }
+            Box(Modifier.testTag("preparation_card_viewport")) {
+                card(true)
             }
-        }.single().measure(if (fallback) Constraints.fixedWidth(cardWidth) else Constraints.fixed(cardWidth, available))
-        val rowHeight = maxOf(cardPlaceable.height, padPlaceable.height)
-        val height = maxOf(viewportHeight, controlsPlaceable.height + gap + rowHeight)
+        }.single().measure(Constraints(minWidth = constraints.maxWidth, maxWidth = constraints.maxWidth, maxHeight = cardHeight))
+        val reservedHeight = cardHeight
+        val height = maxOf(
+            viewportHeight,
+            progressPlaceable.height + gap + reservedHeight + gap + instructionsPlaceable.height +
+                gap + padPlaceable.height + (if (hasRecovery) gap + recoveryPlaceable.height else 0),
+        )
+        val cardTop = progressPlaceable.height + gap
+        val lowerGroupHeight = instructionsPlaceable.height + gap + padPlaceable.height +
+            (if (hasRecovery) gap + recoveryPlaceable.height else 0)
+        val instructionsTop = maxOf(cardTop + reservedHeight + gap, height - lowerGroupHeight)
+        val padTop = instructionsTop + instructionsPlaceable.height + gap
+        val recoveryTop = padTop + padPlaceable.height + gap
+        val centeredPadLeft = (width - padPixels) / 2
+        val desiredOffset = 12.dp.roundToPx()
+        val rightClearance = 12.dp.roundToPx()
+        val maxSafeLeft = (width - padPixels - rightClearance).coerceAtLeast(0)
+        val padLeft = minOf(centeredPadLeft + desiredOffset, maxSafeLeft)
         layout(constraints.maxWidth, height) {
-            controlsPlaceable.place(0, 0)
-            cardPlaceable.place(0, controlsPlaceable.height + gap)
-            padPlaceable.place(cardWidth + gap, controlsPlaceable.height + gap +
-                if (fallback) 0 else ((available - padPlaceable.height) / 2).coerceAtLeast(0))
+            progressPlaceable.place(0, 0)
+            cardPlaceable.place(0, cardTop)
+            instructionsPlaceable.place(padLeft, instructionsTop)
+            padPlaceable.place(padLeft, padTop)
+            if (hasRecovery) recoveryPlaceable.place(0, recoveryTop)
         }
     }
 }
 
 @Composable
-private fun PreparationProgress(progress: PreparationProgressProjection) {
-    Text(
-        "${progress.uniqueReviewed} / ${progress.uniqueTotal} unique reviewed · ${progress.totalRatings} ratings",
-        style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.testTag("preparation_card_position"),
-    )
-    val completion by animateFloatAsState(progress.completion, label = "session_completion")
-    LinearProgressIndicator(
-        progress = { completion },
-        modifier = Modifier.fillMaxWidth().height(8.dp).testTag("preparation_progress"),
-    )
+private fun PreparationProgress(
+    progress: PreparationProgressProjection,
+    remaining: PreparationRemainingProjection,
+) {
     val colors = Rating.entries.map { preparationRatingColor(it) }
     val fractions = Rating.entries.map { rating ->
         animateFloatAsState(
-            if (progress.totalRatings == 0) 0f else progress.ratingCounts.getValue(rating).toFloat() / progress.totalRatings,
-            label = "rating_distribution_${rating.name}",
+            progress.ratingSegmentFractions.getValue(rating),
+            label = "unique_progress_${rating.name}",
         ).value
     }
     val track = MaterialTheme.colorScheme.surfaceVariant
+    val completion = progress.completion.coerceIn(0f, 1f)
     androidx.compose.foundation.Canvas(
-        Modifier.fillMaxWidth().height(10.dp).clip(RoundedCornerShape(5.dp))
-            .testTag("preparation_rating_distribution").semantics {
-                contentDescription = Rating.entries.joinToString(", ") {
-                    "${it.name.lowercase()}: ${progress.ratingCounts.getValue(it)}"
-                }
+        Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp))
+            .testTag("preparation_progress").semantics {
+                progressBarRangeInfo = androidx.compose.ui.semantics.ProgressBarRangeInfo(completion, 0f..1f)
+                contentDescription = "${progress.uniqueReviewed} of ${progress.uniqueTotal} unique questions reviewed; ${remaining.label}"
             },
     ) {
         drawRect(track)
-        val sum = fractions.sum()
-        var left = 0f
-        if (sum > 0f) fractions.forEachIndexed { index, value ->
-            val width = size.width * value / sum
-            drawRect(colors[index], topLeft = androidx.compose.ui.geometry.Offset(left, 0f),
-                size = androidx.compose.ui.geometry.Size(width, size.height))
-            left += width
-        }
-    }
-    Row(Modifier.fillMaxWidth()) {
-        Rating.entries.forEachIndexed { index, rating ->
-            val count = progress.ratingCounts.getValue(rating)
-            var previous by remember { mutableStateOf(count) }
-            var highlighted by remember { mutableStateOf(false) }
-            LaunchedEffect(count) {
-                if (count > previous) { highlighted = true; delay(300); highlighted = false }
-                previous = count
-            }
-            Surface(
-                modifier = Modifier.weight(1f),
-                color = if (highlighted) colors[index] else androidx.compose.ui.graphics.Color.Transparent,
-                shape = RoundedCornerShape(6.dp),
-            ) {
-                Text("$count", Modifier.testTag("preparation_count_${rating.name.lowercase()}")
-                    .semantics { contentDescription = "${rating.name.lowercase()}, $count committed ratings" },
-                    style = MaterialTheme.typography.labelSmall, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        preparationHorizontalSegments(size.width, fractions).forEachIndexed { index, segment ->
+            if (segment.right > segment.left) {
+                drawRect(
+                    colors[index],
+                    topLeft = Offset(segment.left, 0f),
+                    size = androidx.compose.ui.geometry.Size(segment.right - segment.left, size.height),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun PreparationCardHeader(label: String, modifier: Modifier = Modifier, onBounds: (PreparationGestureBounds) -> Unit) {
-    Column(Modifier.onGloballyPositioned {
-        val bounds = it.boundsInRoot()
-        onBounds(PreparationGestureBounds(bounds.left, bounds.top, bounds.right, bounds.bottom))
-    }.testTag("preparation_swipe_grip")) {
+private fun PreparationCardHeader(
+    label: String,
+    remainingLabel: String,
+    topicContext: String?,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.Top,
         ) {
+            Text(label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             Text(
-                text = label,
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Text(
-                text = "Tap to flip",
-                modifier = Modifier.weight(1f).testTag("preparation_flip_hint"),
+                remainingLabel,
+                modifier = Modifier.weight(1f).testTag("preparation_remaining_count")
+                    .semantics { contentDescription = remainingLabel },
                 textAlign = androidx.compose.ui.text.style.TextAlign.End,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        Text(
-            "↕ Swipe here to rate",
-            Modifier.fillMaxWidth().heightIn(min = 48.dp).padding(top = 12.dp),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        topicContext?.takeIf(String::isNotBlank)?.let {
+            Text(
+                it,
+                Modifier.testTag("preparation_topic_context"),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
     }
 }
 
 @Composable
 private fun PreparationFlashcard(
     item: PreparationItemModel,
-    sessionId: String,
-    topicLabel: String,
-    onReveal: () -> Unit,
+    showAnswer: Boolean,
+    topicLabel: String?,
+    remainingLabel: String,
+    onFlip: () -> Unit,
     enabled: Boolean,
     onFaceChanged: suspend () -> Unit,
-    onHeaderBounds: (PreparationGestureBounds) -> Unit,
+    scrollState: androidx.compose.foundation.ScrollState,
+    scrollEnabled: Boolean,
     onFlipRunning: (Boolean) -> Unit,
     containerColor: androidx.compose.ui.graphics.Color,
     modifier: Modifier = Modifier,
+    onBodyMeasured: (Boolean, PreparationBodyMeasurement) -> Unit = { _, _ -> },
 ) {
     val density = androidx.compose.ui.platform.LocalDensity.current
-    var showQuestion by rememberSaveable(sessionId, item.questionId, item.presentationCount) {
-        mutableStateOf(false)
-    }
-    val showAnswer = item.isRevealed && !showQuestion
     LaunchedEffect(showAnswer) { onFaceChanged() }
     val targetRotation = if (showAnswer) 180f else 0f
     val rotation by animateFloatAsState(
@@ -531,13 +678,39 @@ private fun PreparationFlashcard(
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .pointerInput(enabled) {
+                if (!enabled) return@pointerInput
+                awaitEachGesture {
+                    val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+                    var movement = Offset.Zero
+                    var horizontalDrag = false
+                    var dragged = false
+                    do {
+                        val event = awaitPointerEvent(PointerEventPass.Initial)
+                        val change = event.changes.firstOrNull { it.id == down.id } ?: break
+                        if (event.changes.count { it.pressed } > 1) {
+                            event.changes.forEach { it.consume() }
+                            break
+                        }
+                        movement += change.position - change.previousPosition
+                        if (movement.getDistance() > viewConfiguration.touchSlop) dragged = true
+                        if (abs(movement.x) > viewConfiguration.touchSlop && abs(movement.x) > abs(movement.y)) {
+                            horizontalDrag = true
+                        }
+                        // Horizontal movement has no card action; consume it only to
+                        // cancel click-through. Vertical movement remains owned by scrolling.
+                        if (horizontalDrag || (!change.pressed && dragged)) change.consume()
+                        if (!change.pressed) break
+                    } while (true)
+                }
+            }
             .semantics { stateDescription = if (rotation <= 90f) "Question" else "Answer" }
             .clickable(
                 enabled = enabled && rotation == targetRotation,
                 role = Role.Button,
                 onClickLabel = if (showAnswer) "Show question" else "Show answer",
             ) {
-                if (item.isRevealed) showQuestion = !showQuestion else onReveal()
+                onFlip()
             }
             .graphicsLayer {
                 rotationY = rotation
@@ -548,16 +721,22 @@ private fun PreparationFlashcard(
     ) {
         if (rotation <= 90f) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(12.dp).testTag("preparation_card_front"),
+                modifier = Modifier.fillMaxWidth()
+                    .testTag("preparation_card_front")
+                    .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                PreparationCardHeader(topicLabel, onBounds = onHeaderBounds)
-                Text(
+                 PreparationCardHeader("Question", remainingLabel, topicLabel)
+                 PreparationScrollableContent(scrollState, scrollEnabled,
+                     rotation == targetRotation && !showAnswer, false,
+                     { onBodyMeasured(false, it) }, Modifier.weight(1f, fill = false)) {
+                   Text(
                     text = item.questionSnapshot,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
-                )
-            }
+                 )
+                 }
+          }
         } else {
             Column(
                 modifier = Modifier
@@ -566,19 +745,24 @@ private fun PreparationFlashcard(
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                PreparationCardHeader("Answer", Modifier.testTag("preparation_card_back"), onBounds = onHeaderBounds)
-                Surface(
+                 PreparationCardHeader("Answer", remainingLabel, null, Modifier.testTag("preparation_card_back"))
+                 Surface(
                     color = MaterialTheme.colorScheme.primaryContainer,
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
+                         .fillMaxWidth()
+                         .weight(1f, fill = false)
                         .testTag("preparation_answer"),
                 ) {
-                    Text(
+                    PreparationScrollableContent(scrollState, scrollEnabled,
+                        rotation == targetRotation && showAnswer, true,
+                        { onBodyMeasured(true, it) }) {
+                      Text(
                         text = item.answerSnapshot,
                         modifier = Modifier.padding(8.dp),
                         style = MaterialTheme.typography.bodyLarge,
                     )
+                    }
                 }
             }
         }
@@ -739,7 +923,7 @@ private fun SummaryContent(
             }
         }
     Spacer(Modifier.height(4.dp))
-    if (state.session?.chapterId != null) {
+    if (state.session?.chapterId != null && state.session.scopeType != com.studysmart.app.core.model.PreparationScopeType.IMPORTANT) {
         state.coverageError?.let {
             ErrorState(message = it, onRetry = onRetryCoverage, modifier = Modifier.testTag("preparation_coverage_error"))
         }
@@ -767,9 +951,6 @@ private fun SummaryContent(
 private fun SummaryMetric(label: String, value: Int, modifier: Modifier = Modifier) {
     ResultMetric(value = value.toString(), label = label, modifier = modifier)
 }
-
-private fun PreparationItemModel.topicLabel(session: PreparationSessionModel): String =
-    session.context.topicTitle ?: "Question"
 
 private fun PreparationSessionModel.headerTitle(): String =
     if (scopeType == com.studysmart.app.core.model.PreparationScopeType.DUE_REVIEW) {

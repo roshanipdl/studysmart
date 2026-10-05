@@ -34,6 +34,7 @@ data class TestResultUiState(
     val isCreatingFollowUp: Boolean = false,
     val canRetryFollowUp: Boolean = false,
     val mutationError: String? = null,
+    val bookmarks: com.studysmart.app.core.ui.BookmarkUiState? = null,
 ) {
     val canNavigateBack: Boolean
         get() = !isLoadingOrigin && !canRetryOrigin
@@ -56,6 +57,7 @@ class TestResultViewModel(
     private val repository: TestAttemptRepository,
     private val idGenerator: IdGenerator,
     private val dispatchers: DispatcherProvider,
+    bookmarkRepository: com.studysmart.app.core.data.BookmarkRepository? = null,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TestResultUiState())
     val uiState: StateFlow<TestResultUiState> = _uiState.asStateFlow()
@@ -67,6 +69,18 @@ class TestResultViewModel(
     private var originJob: Job? = null
     private var pendingFollowUp: ResultFollowUpAttemptRequest? = null
     private var pendingRetestWeak: Boolean = false
+    private val bookmarkController = bookmarkRepository?.let { repository ->
+        com.studysmart.app.core.ui.BookmarkController(repository, viewModelScope, onState = { bookmarks ->
+            _uiState.value = _uiState.value.copy(bookmarks = bookmarks)
+        }, dispatcher = dispatchers.main)
+    }
+
+    fun toggleBookmark(questionId: String) {
+        if (_uiState.value.report?.questions?.none { it.snapshot.questionId == questionId } != false) return
+        bookmarkController?.toggle(questionId)
+    }
+
+    fun retryBookmark() { bookmarkController?.retry() }
 
     init {
         resolveOrigin()
@@ -75,7 +89,7 @@ class TestResultViewModel(
 
     fun retry() {
         if (_uiState.value.isCreatingFollowUp) return
-        _uiState.value = TestResultUiState()
+        _uiState.value = TestResultUiState(bookmarks = bookmarkController?.state)
         resolveOrigin()
         observe()
     }

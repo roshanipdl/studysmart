@@ -52,6 +52,8 @@ data class ImportantTestAttemptRequest(
     val academicPeriodId: String,
     val originReferenceId: String? = null,
     val creationRequestId: String,
+    val subjectId: String? = null,
+    val chapterId: String? = null,
 )
 
 data class ResultFollowUpAttemptRequest(
@@ -433,9 +435,10 @@ class RoomTestAttemptRepository(
         require(request.creationRequestId.isNotBlank()) { "creationRequestId must not be blank" }
         createAttempt(
             creationRequestId = request.creationRequestId,
-            contextLoader = { dao.getCoursePeriodContext(request.courseId, request.academicPeriodId) },
+            contextLoader = { importantContext(com.studysmart.app.core.model.SavedQuestionScope(request.courseId,
+                request.academicPeriodId, request.subjectId, request.chapterId)) },
             candidatesLoader = {
-                dao.getImportantCandidates(userId, request.courseId, request.academicPeriodId)
+                dao.getImportantCandidates(userId, request.courseId, request.academicPeriodId, request.subjectId, request.chapterId)
             },
             scopeType = TestAttemptScopeType.IMPORTANT,
             scopeReferenceId = request.academicPeriodId,
@@ -486,9 +489,8 @@ class RoomTestAttemptRepository(
                         userId = userId,
                         courseId = context.courseId,
                         academicPeriodId = context.academicPeriodId,
-                        chapterId = baseAttempt.chapterId.takeIf {
-                            baseAttempt.scopeType == TestAttemptScopeType.CHAPTER
-                        },
+                        chapterId = baseAttempt.chapterId,
+                        subjectId = baseAttempt.subjectId,
                         questionIds = reviewQuestionIds,
                     ).size
                 }
@@ -522,6 +524,11 @@ class RoomTestAttemptRepository(
         val defaults = preferencesRepository.preferences.first().testDefaults
         return database.withTransaction {
             dao.getAttemptByCreationRequestId(creationRequestId)?.let {
+                val requestedContext = contextLoader() ?: return@withTransaction TestAttemptCreationResult.MissingScope
+                if (it.userId != userId || it.scopeType != scopeType || it.scopeReferenceId != scopeReferenceId ||
+                    it.courseId != requestedContext.courseId || it.academicPeriodId != requestedContext.academicPeriodId ||
+                    it.subjectId != requestedContext.subjectId || it.chapterId != requestedContext.chapterId ||
+                    it.topicId != requestedContext.topicId) return@withTransaction TestAttemptCreationResult.MissingScope
                 return@withTransaction TestAttemptCreationResult.Created(it.id)
             }
             val context = contextLoader() ?: return@withTransaction TestAttemptCreationResult.MissingScope
@@ -592,9 +599,8 @@ class RoomTestAttemptRepository(
                     userId = userId,
                     courseId = context.courseId,
                     academicPeriodId = context.academicPeriodId,
-                    chapterId = baseAttempt.chapterId.takeIf {
-                        baseAttempt.scopeType == TestAttemptScopeType.CHAPTER
-                    },
+                    chapterId = baseAttempt.chapterId,
+                    subjectId = baseAttempt.subjectId,
                     questionIds = reviewQuestionIds,
                 ).associateBy { it.question.id }
                 val orderedCandidates = reviewQuestionIds.mapNotNull(candidates::get)
@@ -693,7 +699,8 @@ class RoomTestAttemptRepository(
             TestAttemptScopeType.IMPORTANT -> {
                 val periodId = base.academicPeriodId
                     .takeIf { base.scopeReferenceId == it } ?: return null
-                dao.getCoursePeriodContext(base.courseId, periodId)
+                if (base.chapterId != null && base.subjectId == null) return null
+                importantContext(com.studysmart.app.core.model.SavedQuestionScope(base.courseId, periodId, base.subjectId, base.chapterId))
             }
             TestAttemptScopeType.TOPIC,
             TestAttemptScopeType.RETEST_WEAK,
@@ -729,12 +736,18 @@ class RoomTestAttemptRepository(
                 userId,
                 base.courseId,
                 base.academicPeriodId,
+                base.subjectId,
+                base.chapterId,
             )
             TestAttemptScopeType.TOPIC,
             TestAttemptScopeType.RETEST_WEAK,
             TestAttemptScopeType.STATUS_FILTER,
             -> emptyList()
         }
+
+    private suspend fun importantContext(scope: com.studysmart.app.core.model.SavedQuestionScope): TestAttemptContextRow? =
+        database.preparationDao().getImportantContext(scope.courseId, scope.academicPeriodId, scope.subjectId, scope.chapterId)
+            ?.let { TestAttemptContextRow(it.courseId, it.academicPeriodId, it.subjectId, it.chapterId, null) }
 
     private suspend fun persistAttempt(
         creationRequestId: String,

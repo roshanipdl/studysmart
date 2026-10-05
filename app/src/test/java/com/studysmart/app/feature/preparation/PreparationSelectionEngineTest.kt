@@ -11,7 +11,8 @@ class PreparationSelectionEngineTest {
     private val engine = PreparationSelectionEngine()
 
     @Test fun configurableLimitsPreserveSelectionOrderingAndUniqueCap() {
-        val candidates = (1..40).map { candidate("q-$it", it, nextReviewAt = selectedAt.minusSeconds(it.toLong())) }
+        val candidates = (1..40).map { candidate("q-$it", it, nextReviewAt = selectedAt.minusSeconds(it.toLong()))
+            .copy(bookmarkedAt = selectedAt.minusSeconds(it.toLong())) }
         for (policy in PreparationSelectionPolicy.entries) {
             val full = engine.createPlan(candidates, policy, selectedAt, 42L)!!
             for (limit in listOf(1, 10, 30)) {

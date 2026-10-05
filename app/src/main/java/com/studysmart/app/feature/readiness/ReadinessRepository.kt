@@ -39,13 +39,14 @@ class RoomReadinessRepository(
     private val userId: String = LOCAL_USER_ID,
     private val clockRefreshMillis: Long = DEFAULT_CLOCK_REFRESH_MILLIS,
     private val calculationDispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val timeUpdates: Flow<java.time.Instant>? = null,
 ) : ReadinessRepository {
     init {
         require(clockRefreshMillis > 0L) { "clockRefreshMillis must be positive" }
     }
 
     override fun observeReadiness(scope: ReadinessScope): Flow<ReadinessEstimate?> {
-        val clockTicks = flow {
+        val clockTicks = timeUpdates ?: flow {
             while (true) {
                 emit(clock.instant())
                 delay(clockRefreshMillis)

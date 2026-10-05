@@ -5,33 +5,28 @@ import kotlin.math.abs
 
 enum class RatingSwipeDirection(val rating: Rating, val arrow: String, val instruction: String) {
     LEFT(Rating.AGAIN, "←", "Swipe left"),
-    DOWN(Rating.HARD, "↓", "Swipe down from the card header or rating pad"),
-    UP(Rating.GOOD, "↑", "Swipe up from the card header or rating pad"),
+    DOWN(Rating.HARD, "↓", "Swipe down on the controls"),
+    UP(Rating.GOOD, "↑", "Swipe up on the controls"),
     RIGHT(Rating.EASY, "→", "Swipe right"),
 }
 
-internal enum class PreparationGestureRegion(val allowsVertical: Boolean) {
-    OUTSIDE(false), CARD_BODY(false), HEADER(true), RATING_PAD(true),
-}
-
-internal data class PreparationGestureBounds(val left: Float, val top: Float, val right: Float, val bottom: Float) {
-    fun contains(x: Float, y: Float): Boolean = x >= left && x < right && y >= top && y < bottom
-}
-
-internal fun preparationGestureRegion(
-    x: Float,
-    y: Float,
-    card: PreparationGestureBounds?,
-    header: PreparationGestureBounds?,
-    pad: PreparationGestureBounds?,
-): PreparationGestureRegion = when {
-    pad?.contains(x, y) == true -> PreparationGestureRegion.RATING_PAD
-    card?.contains(x, y) != true -> PreparationGestureRegion.OUTSIDE
-    header?.contains(x, y) == true -> PreparationGestureRegion.HEADER
-    else -> PreparationGestureRegion.CARD_BODY
-}
-
 fun Rating.swipeDirection(): RatingSwipeDirection = RatingSwipeDirection.entries.first { it.rating == this }
+
+internal enum class PreparationGestureOrigin { PAD_SWIPE, FLIP_JOYSTICK }
+
+/** Joystick selection is recalculated, never axis-locked: center and diagonals cancel. */
+internal fun ratingJoystickDirection(x: Float, y: Float, slop: Float): RatingSwipeDirection? =
+    ratingDragDirection(x, y, slop, allowVertical = true)
+
+/** Positive velocity advances the reading position: an upward joystick moves text up. */
+internal fun preparationJoystickScrollVelocity(x: Float, y: Float, slop: Float, density: Float): Float {
+    if (!density.isFinite() || density <= 0f) return 0f
+    val direction = ratingJoystickDirection(x, y, slop)
+    if (direction != RatingSwipeDirection.UP && direction != RatingSwipeDirection.DOWN) return 0f
+    val fraction = ((abs(y) - slop) / (56f * density)).coerceIn(0f, 1f)
+    val speed = (20f + 80f * fraction * fraction) * density
+    return if (direction == RatingSwipeDirection.UP) speed else -speed
+}
 
 /** Returns null until displacement has a clear axis. A caller locks that axis for the drag. */
 fun ratingDragDirection(x: Float, y: Float, slop: Float, allowVertical: Boolean): RatingSwipeDirection? {
@@ -57,3 +52,8 @@ fun ratingDragIntensity(distance: Float, threshold: Float): Float =
 
 fun ratingDragCommits(distance: Float, threshold: Float): Boolean =
     distance.isFinite() && threshold.isFinite() && threshold > 0f && abs(distance) >= threshold
+
+/** Preview is visual only; it never changes the commit threshold. */
+internal fun ratingPreviewDistance(distance: Float, threshold: Float, density: Float): Float =
+    if (!density.isFinite() || density <= 0f) 0f
+    else ratingDragIntensity(distance, threshold) * 16f * density * if (distance < 0f) -1f else 1f

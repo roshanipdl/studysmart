@@ -1,6 +1,7 @@
 package com.studysmart.app.feature.readiness
 
 import com.studysmart.app.core.model.LearningState
+import com.studysmart.app.feature.review.effectiveLearningState
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.Duration
@@ -50,7 +51,10 @@ class ReadinessCalculator {
         val questionsById = activeQuestions.associateBy(ReadinessQuestionInput::questionId)
 
         val mastery = activeQuestions.sumOf { question ->
-            val state = question.effectiveLearningState()
+            val state = effectiveLearningState(
+                question.learningState, question.lastReviewedAt,
+                question.latestTestSubmittedAt, question.latestTestRequiresReview,
+            )
             when (state) {
                 LearningState.NOT_STUDIED -> 0.0
                 LearningState.NEEDS_IMPROVEMENT -> 25.0
@@ -117,17 +121,6 @@ class ReadinessCalculator {
             ratedQuestionCount = ratedCount,
             recentAttemptCount = recentAttempts.size,
         )
-    }
-
-    private fun ReadinessQuestionInput.effectiveLearningState(): LearningState {
-        val testIsLaterThanRating = latestTestSubmittedAt?.let { testAt ->
-            lastReviewedAt == null || testAt.isAfter(lastReviewedAt)
-        } == true
-        return if (testIsLaterThanRating && latestTestRequiresReview == true) {
-            LearningState.NEEDS_IMPROVEMENT
-        } else {
-            learningState ?: LearningState.NOT_STUDIED
-        }
     }
 
     private fun ReadinessQuestionInput.freshnessScore(now: Instant): Double {

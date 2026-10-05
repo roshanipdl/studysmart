@@ -25,13 +25,21 @@ import androidx.room.TypeConverters
         TestAttemptEntity::class,
         TestAttemptQuestionEntity::class,
         TestAnswerEntity::class,
+        CurriculumImportStateEntity::class,
+        SearchDocumentEntity::class,
+        SearchFtsEntity::class,
     ],
-    version = 5,
+    version = 7,
     exportSchema = true,
 )
 @TypeConverters(StudySmartConverters::class)
 abstract class StudySmartDatabase : RoomDatabase() {
     abstract fun curriculumDao(): CurriculumDao
+    abstract fun chapterDetailDao(): ChapterDetailDao
+    abstract fun bookmarkDao(): BookmarkDao
+    abstract fun progressDao(): ProgressDao
+    abstract fun curriculumImportDao(): CurriculumImportDao
+    abstract fun searchDao(): SearchDao
 
     abstract fun preparationDao(): PreparationDao
 
@@ -46,7 +54,7 @@ abstract class StudySmartDatabase : RoomDatabase() {
                 StudySmartDatabase::class.java,
                 DATABASE_NAME,
             )
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                 .addCallback(DatabaseSeed.callback())
                 .build()
 

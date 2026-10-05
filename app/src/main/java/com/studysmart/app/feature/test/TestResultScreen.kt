@@ -51,6 +51,8 @@ fun TestResultScreen(
     onRetestWeak: () -> Unit,
     onNewTest: () -> Unit,
     onBack: () -> Unit,
+    onBookmark: (String) -> Unit = {},
+    onRetryBookmark: () -> Unit = {},
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -121,6 +123,8 @@ fun TestResultScreen(
                     onRetestWeak = onRetestWeak,
                     onNewTest = onNewTest,
                     onBack = onBack,
+                    onBookmark = onBookmark,
+                    onRetryBookmark = onRetryBookmark,
                 )
             }
             if (state.isLoadingOrigin) {
@@ -158,8 +162,11 @@ private fun TestResultContent(
     onRetestWeak: () -> Unit,
     onNewTest: () -> Unit,
     onBack: () -> Unit,
+    onBookmark: (String) -> Unit,
+    onRetryBookmark: () -> Unit,
 ) {
     val report = state.report ?: return
+    state.bookmarks?.let { com.studysmart.app.core.ui.BookmarkStatus(it, onRetryBookmark) }
     Text("Test complete", style = MaterialTheme.typography.headlineMedium)
     Surface(
         modifier = Modifier.fillMaxWidth().testTag("test_result_score"),
@@ -210,6 +217,11 @@ private fun TestResultContent(
             expanded = expanded,
             onClick = { onToggleQuestion(question.snapshot.id) },
         )
+        if (expanded && state.bookmarks != null) {
+            com.studysmart.app.core.ui.BookmarkControl(state.bookmarks, question.snapshot.questionId,
+                onToggle = { onBookmark(question.snapshot.questionId) },
+                modifier = Modifier.testTag("test_result_bookmark_${question.snapshot.questionId}"))
+        }
     }
     Text(
         "Select a question to view your answer, reference answer, and frozen keyword evidence.",

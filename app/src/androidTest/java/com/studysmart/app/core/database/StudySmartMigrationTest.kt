@@ -32,10 +32,12 @@ import org.junit.Test
 
 /** Builds historical fixtures from version-controlled schemas without extra test dependencies. */
 class StudySmartMigrationTest {
-    @Test fun populatedVersionOneUpgradesToFive() = verifyUpgrade(1)
-    @Test fun populatedVersionTwoUpgradesToFive() = verifyUpgrade(2)
-    @Test fun populatedVersionThreeUpgradesToFive() = verifyUpgrade(3)
-    @Test fun populatedVersionFourUpgradesToFive() = verifyUpgrade(4)
+    @Test fun populatedVersionOneUpgradesToSeven() = verifyUpgrade(1)
+    @Test fun populatedVersionTwoUpgradesToSeven() = verifyUpgrade(2)
+    @Test fun populatedVersionThreeUpgradesToSeven() = verifyUpgrade(3)
+    @Test fun populatedVersionFourUpgradesToSeven() = verifyUpgrade(4)
+    @Test fun populatedVersionFiveUpgradesToSeven() = verifyUpgrade(5)
+    @Test fun populatedVersionSixUpgradesToSeven() = verifyUpgrade(6)
 
     private fun verifyUpgrade(version: Int) = runBlocking {
         withTimeout(30_000) {
@@ -88,9 +90,9 @@ class StudySmartMigrationTest {
 
                 val migrated = createPersistentStudySmartDatabase(context, targetName)
                 try {
-                    // Opening through Room validates the complete v5 schema after migration.
+                    // Opening through Room validates the complete v7 schema after migration.
                     val sql = migrated.openHelper.writableDatabase
-                    assertEquals(5, sql.version)
+                    assertEquals(7, sql.version)
                     for (index in 0 until entities.length()) {
                         val entity = entities.getJSONObject(index)
                         assertEquals("Retained rows for ${entity.getString("tableName")} from v$version",
@@ -98,6 +100,7 @@ class StudySmartMigrationTest {
                     }
                     sql.query("PRAGMA foreign_key_check").use { assertFalse(it.moveToFirst()) }
                     assertEquals(2, migrated.curriculumDao().observeActiveCourses().first().size)
+                    assertSearchBackfill(sql)
                     if (version >= 3) {
                         assertEquals(2, migrated.preparationDao().getSessionReviewRecords(sessionId).size)
                     }
@@ -114,11 +117,31 @@ class StudySmartMigrationTest {
                 } finally {
                     migrated.close()
                 }
+                val reopened = createPersistentStudySmartDatabase(context, targetName)
+                try {
+                    assertSearchBackfill(reopened.openHelper.writableDatabase)
+                    reopened.openHelper.writableDatabase.query("PRAGMA foreign_key_check").use { assertFalse(it.moveToFirst()) }
+                } finally {
+                    reopened.close()
+                }
             } finally {
                 source.close()
                 context.deleteDatabase(sourceName)
                 context.deleteDatabase(targetName)
             }
+        }
+    }
+
+    private fun assertSearchBackfill(sql: SupportSQLiteDatabase) {
+        sql.query("SELECT COUNT(*) FROM search_documents").use {
+            assertTrue(it.moveToFirst())
+            // Migration 1→2 seeds release curriculum, so every supported path has content.
+            assertTrue(it.getLong(0) > 0)
+        }
+        sql.query("SELECT d.entityId FROM search_fts f JOIN search_documents d ON d.rowid = f.docid WHERE search_fts MATCH 'database' AND d.type = 'question'").use {
+            assertTrue(it.moveToFirst())
+            assertEquals("question-bca-s1-dbms-direct", it.getString(0))
+            assertFalse(it.moveToNext())
         }
     }
 
