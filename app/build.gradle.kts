@@ -9,7 +9,8 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-val curriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1")
+val curriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1-reviewed")
+val legacyCurriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1")
 val curriculumAssets = layout.buildDirectory.dir("generated/curriculumAssets/debug")
 val prepareDebugCurriculumAssets by tasks.registering(Sync::class) {
     group = "verification"
@@ -24,7 +25,7 @@ val prepareDebugCurriculumAssets by tasks.registering(Sync::class) {
         fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes)
             .joinToString("") { "%02x".format(it.toInt() and 255) }
         val manifest = JsonSlurper().parse(root.resolve("bundle-manifest.json")) as Map<*, *>
-        require(manifest["schemaVersion"] == 1 && manifest["contentVersion"] == 1 && manifest["datasetId"] == "bca-local-curriculum") { "Unexpected Stage 1 manifest" }
+        require(manifest["schemaVersion"] == 1 && manifest["contentVersion"] == 1 && manifest["datasetId"] == "bca-stage1-reviewed") { "Unexpected reviewed Stage 1 manifest" }
         val rows = manifest["files"] as List<*>
         val entries = rows.map { it as Map<*, *> }.map { it["path"] as String to it["sha256"] as String }
         require(entries.map { it.first }.distinct().size == entries.size) { "Duplicate manifest file" }
@@ -111,7 +112,9 @@ tasks.matching {
 
 tasks.withType<Test>().configureEach {
     maxHeapSize = "256m"
-    systemProperty("curriculum.snapshot", curriculumSnapshot.asFile.absolutePath)
+    // Existing adversarial Stage 1 fixtures stay immutable across content upgrades.
+    systemProperty("curriculum.snapshot", legacyCurriculumSnapshot.asFile.absolutePath)
+    systemProperty("curriculum.reviewed", curriculumSnapshot.asFile.absolutePath)
 }
 
 ksp {

@@ -1,0 +1,45 @@
+A matrix is a rectangular arrangement of numbers in rows and columns, and its dimensions specify the number of rows and columns.
+Matrix multiplication requires the number of columns of the first matrix to equal the number of rows of the second matrix.
+The determinant of a two by two matrix with rows a b and c d is the value ad minus bc.
+A vector has magnitude and direction, while a scalar describes a quantity with magnitude but without a direction.
+Two vectors are orthogonal when their dot product is zero, provided the dot product is defined in the relevant vector space.
+A sequence is an ordered list of terms, while a series represents the sum of the terms of a sequence.
+An arithmetic sequence has a constant difference between consecutive terms, whereas a geometric sequence has a constant ratio between consecutive nonzero terms.
+A permutation counts arrangements where order matters, while a combination counts selections where changing the order does not create a new selection.
+A derivative measures the instantaneous rate of change of a function and gives the slope of its tangent where differentiability holds.
+The derivative of a constant function is zero because its output does not change as the input changes.
+Integration can calculate accumulated quantities, and a definite integral gives signed area relative to the horizontal axis.
+A differential equation relates an unknown function to its derivatives, and initial conditions can identify a particular solution.
+A limit describes the value approached by a function as its input approaches a specified point, even if the function is undefined there.
+A continuous function has a value equal to its limit at the point under consideration, assuming the relevant limit exists.
+Numerical methods approximate mathematical solutions, so an answer should account for truncation error and rounding error rather than assume exact arithmetic.
+Analytical geometry represents geometric objects using coordinates and equations, allowing distances and intersections to be calculated algebraically.
+A set contains distinct elements, and the union of two sets contains elements belonging to either set or to both sets.
+A relation connects elements of sets, while a function assigns exactly one output to each input in its domain.
+Mathematical induction proves a statement by establishing a base case and showing that validity for one step implies validity for the next step.
+A graph contains vertices and edges, and a tree is a connected graph without cycles when considered as an undirected graph.
+A microprocessor executes instructions using registers, arithmetic operations and control logic, while memory stores instructions and data for those operations.
+The 8085 microprocessor is an eight bit processor with a sixteen bit address bus, allowing it to address sixty four kilobytes of memory.
+The 8086 microprocessor uses segment registers and offsets to form addresses, rather than treating each offset as a complete physical address.
+Microprogrammed control generates processor control signals from stored microinstructions, while hardwired control uses fixed logic circuits for this purpose.
+A flip flop stores one bit of state, and a register combines several storage elements to hold a multi bit value.
+A combinational circuit produces output determined by its present inputs, while a sequential circuit also depends on stored state.
+Boolean algebra represents logical operations, and De Morgan's laws relate negation of conjunctions to disjunctions of negated operands.
+A counter advances through a sequence of states in response to clock events, and its modulus describes the number of distinct states used.
+An array stores indexed elements, while a linked list connects nodes through references rather than requiring contiguous storage for all elements.
+Hardware maintenance should disconnect power before opening equipment, prevent electrostatic discharge and follow manufacturer instructions rather than exposing hazardous power supply internals.
+Public speaking requires a clear purpose, suitable organization and adaptation to the audience, with rehearsal helping improve timing and delivery.
+Professional communication should distinguish evidence from opinion, respect confidentiality and choose a message format appropriate to its audience and purpose.
+An internship report should describe actual work, learning outcomes and supporting evidence, without inventing activities or exposing confidential employer information.
+Image processing represents images as pixel values, and filtering changes those values according to a defined neighborhood operation.
+An algebraic group has an associative operation, an identity element and an inverse for every element, with closure under the operation.
+Foreign trade involves transactions across national borders, and documentation and payment arrangements help clarify obligations between exporters and importers.
+Taxation in Nepal depends on applicable legislation and fiscal year rules, so current tax rates should be verified rather than assumed from an older example.
+Grammar governs sentence structure, and subject verb agreement requires the verb form to match the grammatical subject rather than a nearby unrelated noun.
+Discourse analysis considers how language creates meaning in context, including the audience, purpose and relationship between statements in a text.
+Accounting for royalties records payments for using intellectual property or resources, with the agreement defining the payment basis and relevant obligations.
+An advertisement communicates a promotional message to an intended audience, and its claims should be truthful and supported by evidence rather than misleading promises.
+Advertising effectiveness can be assessed using stated objectives, audience reach and relevant outcomes, rather than assuming every increase in sales was caused by an advertisement.
+Insurance transfers specified financial risks under a contract, while exclusions and coverage limits determine which losses the insurer agrees to compensate.
+Customer relationship management uses information about customer interactions to improve service and retention, while respecting consent and appropriate access to personal data.
+"""

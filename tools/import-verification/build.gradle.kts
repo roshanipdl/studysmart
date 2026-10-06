@@ -38,4 +38,7 @@ sourceSets {
         kotlin.include("com/studysmart/app/core/data/SearchRankingTest.kt")
     }
 }
-tasks.test { systemProperty("curriculum.snapshot", file("../../../Android data/database-stage-1").absolutePath) }
+tasks.test {
+    systemProperty("curriculum.snapshot", file("../../../Android data/database-stage-1").absolutePath)
+    systemProperty("curriculum.reviewed", file("../../../Android data/database-stage-1-reviewed").absolutePath)
+}

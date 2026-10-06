@@ -48,7 +48,7 @@ class CurriculumImportTest {
             } catch (_: CancellationException) { cancelled = true }
             assertTrue(cancelled)
             assertEquals(before, dao.questions())
-            assertNull(dao.state("bca-local-curriculum"))
+            assertNull(dao.state("bca-stage1-reviewed"))
         } finally { db.close() }
     }
 
@@ -64,7 +64,7 @@ class CurriculumImportTest {
             assertEquals(initialQuestions.size + 434, dao.questions().size)
             assertTrue(dao.questions().containsAll(initialQuestions))
             assertEquals(CurriculumImportResult.ALREADY_CURRENT, importer.importIfNeeded())
-            assertNotNull(dao.state("bca-local-curriculum"))
+            assertNotNull(dao.state("bca-stage1-reviewed"))
             sql.query("SELECT COUNT(*) FROM user_question_flags").use { assertTrue(it.moveToFirst()); assertEquals(1, it.getInt(0)) }
         } finally { db.close() }
     }
@@ -85,14 +85,15 @@ class CurriculumImportTest {
             assertEquals(beforeCourses, dao.courses())
             assertEquals(beforePeriods, dao.periods())
             assertEquals(beforeSubjects, dao.subjects())
-            assertNull(dao.state("bca-local-curriculum"))
+            assertNull(dao.state("bca-stage1-reviewed"))
         } finally { db.close() }
     }
 
     @Test fun platformParserReadsExpectedDraftInventory() {
         val payload = CurriculumJsonParser().read(AssetCurriculumBundleSource(context.assets))
         assertEquals(434, payload.questions.size)
-        assertEquals(972, payload.keywords.size)
-        assertEquals(433, payload.questions.count { it.isActive })
+        assertEquals(427, payload.questions.count { it.isActive })
+        assertEquals(1L, payload.manifest.contentVersion)
+        assertEquals("bca-stage1-reviewed", payload.manifest.datasetId)
     }
 }
