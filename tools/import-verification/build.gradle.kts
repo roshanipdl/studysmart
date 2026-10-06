@@ -41,7 +41,10 @@ sourceSets {
     }
 }
 tasks.test {
-    systemProperty("curriculum.snapshot", file("../../../Android data/database-stage-1").absolutePath)
-    systemProperty("curriculum.reviewed", file("../../../Android data/database-stage-1-reviewed").absolutePath)
-    systemProperty("curriculum.formatted", file("../../../Android data/database-stage-1-formatted").absolutePath)
+    inputs.dir(file("../../curriculum/database-stage-1")).withPropertyName("curriculumSnapshot")
+    inputs.dir(file("../../curriculum/database-stage-1-reviewed")).withPropertyName("curriculumReviewed")
+    inputs.dir(file("../../curriculum/database-stage-1-formatted")).withPropertyName("curriculumFormatted")
+    systemProperty("curriculum.snapshot", file("../../curriculum/database-stage-1").absolutePath)
+    systemProperty("curriculum.reviewed", file("../../curriculum/database-stage-1-reviewed").absolutePath)
+    systemProperty("curriculum.formatted", file("../../curriculum/database-stage-1-formatted").absolutePath)
 }

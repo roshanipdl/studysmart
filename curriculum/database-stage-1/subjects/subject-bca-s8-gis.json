@@ -1,0 +1,1337 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s8-gis",
+    "academicPeriodId": "period-bca-semester-8",
+    "code": "CACS 454",
+    "name": "Geographical Information System",
+    "description": "",
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s8-gis-01",
+      "subjectId": "subject-bca-s8-gis",
+      "chapterNumber": 1,
+      "title": "Introduction and GIS Fundamentals",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-gis-02",
+      "subjectId": "subject-bca-s8-gis",
+      "chapterNumber": 2,
+      "title": "Maps and Map Projections",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-gis-03",
+      "subjectId": "subject-bca-s8-gis",
+      "chapterNumber": 3,
+      "title": "GIS Data Sources, Structures and Capture",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-gis-04",
+      "subjectId": "subject-bca-s8-gis",
+      "chapterNumber": 4,
+      "title": "Databases, Data Modeling and Spatial Analysis",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-gis-05",
+      "subjectId": "subject-bca-s8-gis",
+      "chapterNumber": 5,
+      "title": "Surface, Hydrology and Applications",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s8-gis-001",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Define GIS. Explain its components, functions and major applications.",
+      "answer": "Expected: 10 marks • Also asked as several 5-mark variants in 2017, 2018, 2024 and 2025\n\nAnswer\n\nA Geographic Information System (GIS) is a computer-based system for capturing, storing, managing, retrieving, manipulating, analyzing, modeling and presenting data referenced to locations on Earth. GIS integrates spatial data (where?) with attribute data (what?) to answer location-based questions and support decisions.\n\nThis definition follows the course note, which describes GIS as a computer-based mapping tool that supports geographic or spatial data capture, storage, retrieval, manipulation, analysis, modeling and presentation of the real-world scenario.\n\nComponents\n\nComponent: Hardware; Contribution: input, processing, storage and output; Examples: GPS receiver, server, scanner, plotter Component: Software; Contribution: data management, analysis and visualization; Examples: QGIS, ArcGIS, GRASS GIS Component: Data; Contribution: spatial geometry and descriptive attributes; Examples: roads, wards, elevation, population Component: People; Contribution: design, operate, interpret and decide; Examples: surveyor, analyst, planner, decision maker Component: Methods; Contribution: standards, workflows and quality control; Examples: topology rules, metadata, validation Component: Network; Contribution: sharing and distributed GIS services; Examples: web maps, cloud GIS, spatial APIs\n\nFunctions\n\n1. Input: digitizing, scanning, GPS survey, remote sensing and file import.\n2. Storage and management: geodatabase, indexing, topology and metadata.\n3. Manipulation: projection, editing, transformation and generalization.\n4. Query: attribute query and spatial query.\n5. Analysis: buffer, overlay, network, terrain, interpolation and suitability analysis.\n6. Output: maps, reports, charts, dashboards and web services.\n\nApplications\n\n- natural resources, forestry, agriculture and watershed management;\n- urban planning, utilities, cadastral and land information systems;\n- transportation routing and logistics;\n- disaster risk mapping, evacuation and emergency response;\n- public health, education, census and governance;\n- business site selection, tourism and defense.\n\nConclusion: GIS combines a spatial database, analytical operations, cartographic communication, people and procedures. Its distinctive power is integrating layers by location to reveal relationships, patterns and trends.\n\nFor the 2025 short variant: give the definition and develop any two applications, such as urban planning and disaster management.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-002",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Explain GIS as an information system and discuss its role as a decision-support system.",
+      "answer": "Expected: 5 marks\n\nAnswer\n\nAn information system collects, stores, processes and communicates information. GIS is a special information system because its database contains observations about spatially distributed features, activities and events represented as points, lines, areas or continuous fields.\n\nGIS may be viewed as:\n\n- a toolbox for spatial data operations;\n- an information system with a spatially enabled database;\n- a science concerned with representation, uncertainty, scale and spatial reasoning;\n- a decision-support platform that converts data into actionable geographic information.\n\nIts decision-support role follows a clear sequence: define a problem, collect relevant layers, standardize and analyze them, compare alternatives, visualize consequences and select an action. For example, a municipality can combine population, road, slope and land-availability layers to choose the best site for a health post.\n\nGIS improves decisions because it answers questions such as: What is at a location? What is nearby? What overlaps? What has changed? Which route or site is best?",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-003",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Explain the human, hardware, software, data and method components of GIS.",
+      "answer": "Expected: 5 marks • 2024 components question and 2017 functional-components question\n\nAnswer\n\nThe five principal GIS components function as an integrated system:\n\n1. Hardware: computers, servers, GPS receivers, digitizers, scanners, printers and communication devices used for input, processing, storage and output.\n2. Software: programs that provide editing, database management, spatial analysis, cartography and data sharing.\n3. Data: spatial geometry and attributes. Data is the most valuable and often the most costly component because all results depend on its quality.\n4. People: surveyors, database designers, GIS analysts, administrators, cartographers and decision makers. People determine objectives and interpret results.\n5. Methods: standards and documented procedures for collection, projection, database design, analysis, quality control, metadata and backup.\n\nThe components are interdependent. Powerful software is not useful without reliable data, trained people and suitable methods. Modern GIS also depends on networks for web services and organizational data sharing.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-004",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Explain the statement “Data is fuel to GIS.” Describe the types and sources of geographic data.",
+      "answer": "Expected: 10 marks • 2018 Group C\n\nAnswer\n\nThe geographic data is information about the Earth’s surface and the objects found on it. Data is fuel to GIS because every GIS operation, from a simple map to a complex model, requires suitable input data. Data capture is the process of putting information into the system, and database creation is commonly the most time-consuming stage of a GIS project.\n\nTypes of Geographic Data\n\n1. Spatial data: describe geometry and location, such as coordinates of schools or boundaries of wards.\n2. Attribute data: describe characteristics, such as school name, student number or ward population.\n3. Analogue data: physical products displaying information visually on paper, for example maps and field sheets.\n4. Digital data: computer-readable information, for example satellite imagery and vector files.\n5. Primary data: collected directly for the current project through GPS, survey, drone or field observation.\n6. Secondary data: existing maps, imagery, tables or databases collected for another purpose.\n\nSources\n\n- topographic, thematic and cadastral maps;\n- aerial photographs and photogrammetry;\n- satellite imagery such as Landsat and Sentinel;\n- GPS/GNSS and electronic field survey;\n- census, administrative and tabular records;\n- sensors, weather stations and existing digital datasets;\n- government portals, commercial suppliers and volunteered data.\n\nData Quality Questions\n\nBefore using a source, check its age, origin, coverage, scale, projection, coordinate system, datum, observation density, positional accuracy, attribute accuracy, logical consistency, completeness, relevance, format and metadata.\n\nConclusion: data is not useful merely because it exists. It must be fit for purpose, correctly georeferenced and sufficiently accurate for the intended analysis.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-005",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Discuss the benefits, future challenges and recent trends of GIS, including smart-city applications.",
+      "answer": "Expected: 5 marks; expand to 10 marks for the 2025 smart-city question\n\nAnswer\n\nKey benefits are cost saving, better decisions, improved communication, authoritative recordkeeping, data sharing and geographic management.\n\nTrends: cloud GIS, web GIS, mobile mapping, UAV/drone data, IoT sensors, AI/ML, 3D city models, real-time dashboards, open data and volunteered geographic information.\n\nChallenges: data quality, interoperability, privacy, cybersecurity, skilled manpower, licensing cost, unequal connectivity, outdated datasets and institutional coordination.\n\nSmart-City Opportunities\n\n- real-time traffic monitoring and route optimization;\n- smart utility and asset management;\n- emergency response and hazard dashboards;\n- public transport accessibility and service areas;\n- land-use monitoring and building control;\n- waste collection and environmental sensors;\n- citizen reporting and open municipal maps.\n\nSmart-City Challenges\n\nSmart-city GIS must integrate data from many agencies and sensors. Major concerns are incompatible formats, data ownership, surveillance and privacy, cybersecurity, maintenance cost, unreliable connectivity and exclusion of communities with poor digital access. A successful system therefore needs standards, governance, trained staff and transparent use of data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-006",
+      "chapterId": "chapter-bca-s8-gis-01",
+      "topicId": null,
+      "question": "Describe the role of GIS in a developing country such as Nepal, with a suitable application.",
+      "answer": "Expected: 10 marks • 2017 Group C\n\nAnswer\n\nGIS is important to developing countries because scarce resources must be allocated across rapidly changing settlements and difficult environments. Nepal’s mountainous terrain, scattered settlements, monsoon hazards, rapid urbanization and limited resources create a strong need for integrated spatial planning.\n\nMajor Roles\n\n1. Land administration: cadastral modernization, parcel records and land-use planning.\n2. Infrastructure: road alignment, utilities, telecommunications and site selection.\n3. Agriculture: crop suitability, irrigation, soil assessment and market access.\n4. Natural resources: forest, watershed, biodiversity and protected-area monitoring.\n5. Disaster management: earthquake exposure, landslide susceptibility and flood-risk mapping.\n6. Social services: accessibility to health posts, schools and emergency facilities.\n7. Urban governance: municipal base maps, property information, zoning and solid-waste planning.\n\nExample: Landslide Susceptibility in Nepal\n\nAn analyst collects slope from a DEM, geology, land cover, rainfall, drainage and road-distance layers. Each layer is standardized and weighted. Weighted overlay produces susceptibility classes. Settlements and roads are overlaid with the result to identify exposure and prioritize slope stabilization, monitoring and evacuation planning.\n\nLimitations\n\nOutdated data, limited skilled staff, institutional duplication, licensing cost, weak connectivity and inadequate metadata can reduce effectiveness.\n\nConclusion: GIS does not replace planning judgment; it organizes evidence so that Nepal can make more transparent, efficient and location-sensitive decisions.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-007",
+      "chapterId": "chapter-bca-s8-gis-02",
+      "topicId": null,
+      "question": "Define a map and explain its essential elements and characteristics.",
+      "answer": "Expected: 5 marks • 2017 elements question and 2025 alternate paper\n\nAnswer\n\nA map is a scaled, generalized and symbolized representation of selected geographic phenomena on a plane. It communicates spatial location, distribution, relationship and pattern.\n\nEssential Characteristics\n\n- it is selective and purpose-oriented;\n- it represents reality at a stated scale;\n- it uses a projection to represent the curved Earth on a plane;\n- it generalizes detail according to scale;\n- it uses symbols and visual variables;\n- it should be accurate, legible, balanced and current.\n\nElements\n\nEssential elements are title, map body, legend, scale, north arrow, coordinate grid, projection/datum, source, author/date, inset or locator map and neatline.\n\nMaps differ from photographs because maps are intentionally selected, classified, generalized and symbolized. They differ from tables because they preserve spatial location and relationship.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-008",
+      "chapterId": "chapter-bca-s8-gis-02",
+      "topicId": null,
+      "question": "Define map projection. Explain the techniques used for map projection.",
+      "answer": "Expected: 5 marks • 2018\n\nAnswer\n\nA map projection is a systematic mathematical transformation of latitude and longitude on the curved Earth to planar coordinates. Flattening a curved surface inevitably distorts one or more of shape, area, distance and direction.\n\nMap projections are commonly classified by the developable surface used:\n\n1. Cylindrical projection: the globe is projected onto a cylinder. Meridians and parallels usually become straight lines. It is useful for equatorial regions, world maps and north–south zones in transverse form.\n2. Conical projection: the globe is projected onto a cone. It is suitable for mid-latitude regions with large east–west extent.\n3. Azimuthal or planar projection: the globe is projected onto a plane. It is suitable for polar regions or maps requiring direction from a central point.\n\nA surface may be tangent, touching the globe, or secant, cutting it along standard lines. Distortion is lowest along the line or lines of contact.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-009",
+      "chapterId": "chapter-bca-s8-gis-02",
+      "topicId": null,
+      "question": "Compare cylindrical, conical and azimuthal projections with advantages, disadvantages and applications.",
+      "answer": "Expected: 5 marks; may be expanded to 10 marks • 2024 and 2025\n\nAnswer\n\nClass: Cylindrical; Advantages: simple rectangular grid; useful for navigation and global display; transverse form suits north–south zones; Disadvantages: severe high-latitude area distortion in normal aspect; Applications: Mercator navigation, world maps, UTM/Transverse Mercator Class: Conical; Advantages: low distortion near standard parallels; good shape for mid-latitude east–west regions; Disadvantages: unsuitable for the whole globe; distortion increases away from standard parallels; Applications: national/regional maps, Lambert Conformal Conic, Albers Equal Area Class: Azimuthal; Advantages: can preserve direction or selected distance from center; represents polar areas well; Disadvantages: distortion increases outward from center; limited coverage; Applications: polar maps, radio range, air routes, hemispheric maps\n\nNo projection is universally best. For general global presentation, a compromise cylindrical projection may be convenient; for preserving area globally, an equal-area projection should be chosen. The best choice depends on the property and purpose, not only the surface class.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-010",
+      "chapterId": "chapter-bca-s8-gis-02",
+      "topicId": null,
+      "question": "Explain how map projections affect spatial data analysis.",
+      "answer": "Expected: 10 marks • 2025 Group C\n\nAnswer\n\nA projection converts geographic coordinates on an ellipsoid to planar coordinates. This transformation changes spatial properties, so projection choice directly affects analytical results.\n\nMain Effects\n\n- Area calculations require an appropriate equal-area projection.\n- Buffer and distance operations require a suitable projected CRS with linear units.\n- Directional/navigation tasks may need conformal or azimuthal properties.\n- Combining layers in different CRS without transformation causes displacement.\n- Projection choice should match location, extent and analytical purpose.\n\nExamples\n\n1. Measuring Greenland and Nepal on a Mercator world map exaggerates high-latitude area, so Mercator is unsuitable for global area comparison.\n2. A municipal road buffer should be calculated in a local projected CRS using meters, not directly in latitude/longitude degrees.\n3. A conformal projection preserves local angles and shape, which supports navigation and cadastral display, but it does not preserve area.\n4. A conical projection can minimize distortion across an east–west mid-latitude country.\n\nGood Practice\n\nVerify layer CRS metadata, transform rather than merely relabel coordinates, choose a CRS appropriate to the study area and preserved property, and document projection and datum in the map.\n\nConclusion: projection is not only a cartographic choice. It is part of analytical accuracy because it controls how area, distance, shape and direction are represented.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-011",
+      "chapterId": "chapter-bca-s8-gis-02",
+      "topicId": null,
+      "question": "Explain map features, map layers, map legends and map scale.",
+      "answer": "Expected: 5 marks • Short-note variants in 2017 and 2018\n\nAnswer\n\nMap features are representations of real-world phenomena. Points represent discrete locations, lines represent linear objects and polygons represent areas. Raster cells represent continuous or classified surfaces.\n\nMap layers organize related features by theme, such as roads, rivers, wards, elevation and land use. Layers can be displayed and analyzed together because they share a spatial reference.\n\nA legend explains the symbols and colors used on the map. It should contain only relevant items, follow the visual order of the map and use clear class labels.\n\nScale is the relationship between a distance portrayed on a map and the same distance on the Earth. It may be expressed as a representative fraction, verbal statement or graphic scale. Large-scale maps show a small area with more detail; small-scale maps show a large area with less detail.\n\nGood design follows visual hierarchy, balance, contrast, legibility, simplicity and purpose.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-012",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "Define raster and vector data. Compare their properties, advantages, disadvantages and applications.",
+      "answer": "Expected: 10 marks • 2017 Group C; extended with TIN in 2024\n\nAnswer\n\nRaster data divide geographic space into a regular grid of cells or pixels. Each cell stores a value representing a phenomenon such as elevation, rainfall, land cover or image brightness.\n\nVector data represent discrete geographic features by coordinates: points for locations, lines for linear objects and polygons for areas.\n\nCriterion: Structure; Raster: regular cells; Vector: coordinates and topology Criterion: Best for; Raster: elevation, rainfall, imagery; Vector: roads, parcels, buildings Criterion: Location; Raster: row/column plus origin and cell size; Vector: explicit x,y coordinates Criterion: Boundaries; Raster: stair-step and resolution-dependent; Vector: precise and smooth Criterion: Analysis; Raster: simple overlay and neighborhood analysis; Vector: topology, network and precise geometry Criterion: Storage; Raster: may be large at fine resolution; Vector: compact for sparse features\n\nRaster Advantages\n\n- simple and uniform structure;\n- efficient map algebra and overlay;\n- suitable for continuous fields and remotely sensed images;\n- straightforward neighborhood and surface analysis.\n\nRaster Disadvantages\n\n- large storage at fine resolution;\n- stair-step boundaries;\n- accuracy depends on cell size;\n- weak representation of connectivity and precise lines.\n\nVector Advantages\n\n- accurate boundaries and coordinates;\n- compact for sparse discrete features;\n- high-quality cartographic output;\n- strong topology and network analysis.\n\nVector Disadvantages\n\n- complex overlay and topology maintenance;\n- less suitable for continuous phenomena;\n- conversion and cleaning can be time-consuming.\n\nApplications: use raster for DEM, satellite images, suitability and hydrology; use vector for parcels, roads, utilities, administration and routing.\n\nFor the 2024 TIN variant: add that TIN uses irregular connected triangles, preserves breaklines and varies detail with terrain complexity, but is more complex to construct and process.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-013",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "Explain grid-like and coordinate formats for structuring GIS graphics.",
+      "answer": "Expected: 5 marks • 2018\n\nAnswer\n\nGIS graphics are mainly structured in grid-like raster format and coordinate-based vector format.\n\nGrid-Like Format\n\nThe study area is divided into equal cells arranged in rows and columns. Each cell has a value. Cell location is determined by row, column, origin and resolution. It is suitable for imagery and continuous data such as elevation and rainfall. Its accuracy depends on cell size.\n\nCoordinate Format\n\nFeatures are stored by coordinate pairs. A point uses one coordinate pair; a line uses an ordered sequence; a polygon uses a closed sequence. Attributes are linked through an identifier. It is suitable for discrete features such as roads, parcels and buildings.\n\nThe grid model is simpler for cell-based analysis, whereas the coordinate model provides precise boundaries, topology and efficient storage for sparse features.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-014",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "Describe different GIS data-capturing methods, including surveying, GPS, remote sensing, aerial photography and satellite imagery.",
+      "answer": "Expected: 10 marks • 2018 Group C; remote sensing variant in 2024\n\nAnswer\n\nData capture is the process of entering geographic information into GIS. Major methods are:\n\n1. Photogrammetric compilation: overlapping aerial photographs are viewed stereoscopically to derive three-dimensional terrain and feature information.\n2. Manual digitizing: an operator traces map features into point, line and polygon layers and enters attributes.\n3. Map scanning: paper maps are converted to raster cells. The scan is georeferenced and may be vectorized.\n4. Satellite remote sensing: sensors collect digital imagery over large areas. Data can be imported after geometric and radiometric correction.\n5. Field survey: total stations and electronic distance measurement provide accurate coordinates and measurements.\n6. GPS/GNSS: receivers rapidly capture coordinates and attributes of field features.\n7. Tabular entry: census and administrative records are entered or imported and linked to spatial units.\n8. Document scanning: plans, permits and photographs are stored and indexed for retrieval.\n9. Translation of existing digital data: formats such as Shapefile, DXF, GeoTIFF and CSV are converted into the project database.\n\nAdvantages and Limitations of Main Sources\n\nSource: Survey; Advantage: high local accuracy; Limitation: costly and slow over large areas Source: GPS; Advantage: rapid direct coordinates; Limitation: obstruction, multipath and atmospheric errors Source: Remote sensing; Advantage: repeated large-area coverage; Limitation: classification and atmospheric effects Source: Aerial photography; Advantage: detailed 3D information; Limitation: specialist equipment and processing\n\nAll captured data must be checked for projection, datum, scale, completeness, accuracy, logical consistency and metadata.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-015",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "Explain GPS and its components. Discuss common sources of GPS errors.",
+      "answer": "Expected: 5 marks • Components in 2018; errors in 2024\n\nAnswer\n\nThe course note defines GPS as a worldwide radio-navigation system formed from a constellation of satellites and ground stations. It uses satellites and computers to compute positions anywhere on Earth and is widely used for navigation, surveying and mapping.\n\nComponents\n\n1. Space segment: satellites transmit time and orbital information.\n2. Control segment: ground stations monitor satellites and update orbit and clock data.\n3. User segment: receivers and software calculate position. At least four satellites are normally required to solve three-dimensional position and receiver clock bias.\n\nErrors\n\n- satellite clock and ephemeris error;\n- ionospheric and tropospheric delay;\n- multipath from reflected signals;\n- receiver noise;\n- poor satellite geometry or high DOP;\n- obstruction by buildings, terrain or vegetation;\n- incorrect antenna setup;\n- datum or coordinate-system mismatch.\n\nErrors are reduced through differential correction, multi-frequency receivers, clear sky visibility, good geometry, longer observation, calibrated equipment and correct CRS transformation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-016",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "What is a Digital Terrain Model (DTM/DEM)? Explain its applications in terrain analysis.",
+      "answer": "Expected: 5 marks • 2017 and 2025 alternate paper\n\nAnswer\n\nA Digital Elevation Model (DEM) is a digital representation of elevation, commonly stored as a raster in which every cell contains a height value. A Digital Terrain Model (DTM) is a representation of bare-earth terrain that may also include breaklines and significant terrain features. A DSM differs by including buildings and vegetation.\n\nApplications include:\n\n- deriving slope and aspect;\n- generating contours and hillshade;\n- viewshed and line-of-sight analysis;\n- watershed and drainage delineation;\n- flood and landslide modeling;\n- road alignment and route selection;\n- cut-and-fill and engineering design;\n- 3D visualization and environmental analysis.\n\nDEM accuracy depends on source, spatial resolution, vertical accuracy and proper correction of sinks or artifacts.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-017",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "What is a TIN data structure? Explain why TIN is used in GIS.",
+      "answer": "Expected: 5 marks • 2025\n\nAnswer\n\nA Triangulated Irregular Network (TIN) is a vector-based surface model composed of non-overlapping triangles formed by connecting irregularly spaced points with known elevation. Each triangle defines a planar surface.\n\nTIN is used because:\n\n- it places more points in complex terrain and fewer in uniform terrain;\n- it preserves breaklines such as ridges, streams and cliffs;\n- it represents terrain continuously between sampled points;\n- it supports slope, aspect, profile, contour and visibility analysis;\n- it can provide detailed terrain representation without a uniformly fine raster.\n\nIts limitations are more complex storage, construction and processing than a regular raster DEM.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-018",
+      "chapterId": "chapter-bca-s8-gis-03",
+      "topicId": null,
+      "question": "Explain the benefits of a geodetic datum based on ITRF.",
+      "answer": "Expected: 5 marks • 2018 board-only question\n\nAnswer\n\nThe International Terrestrial Reference Frame (ITRF) is a precise Earth-centered realization of the International Terrestrial Reference System. Its origin is near the center of mass of the Earth; its axes have internationally defined orientation.\n\nBenefits include:\n\n1. a globally consistent coordinate reference for combining data from different countries;\n2. compatibility with satellite positioning and modern GNSS observations;\n3. high positional accuracy for surveying and scientific applications;\n4. support for monitoring crustal motion, plate movement and deformation over time;\n5. reliable transformation between national and global reference systems;\n6. improved interoperability of cross-border and global GIS datasets.\n\nBecause the Earth’s crust moves, an ITRF coordinate should be associated with a realization and epoch when high precision is required.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-019",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Define a geodatabase and explain the steps involved in geodatabase design.",
+      "answer": "Expected: 10 marks • 2018 Group C; short variants in 2017, 2024 and 2025\n\nAnswer\n\nThe course note states that a collection of geographic datasets held in a common database management system or file system is called a geodatabase. A geodatabase is a collection of feature classes and tables. It can store vector features, rasters, attributes, spatial references, relationships, domains, subtypes, topology and networks.\n\nDesign Steps\n\n1. Identify purpose, users, questions and required outputs.\n2. Inventory source data and quality requirements.\n3. Identify themes, feature classes, raster datasets and tables.\n4. Choose geometry and representation scale/resolution.\n5. Define attributes, data types, keys, domains and subtypes.\n6. Define spatial reference and transformations.\n7. Define relationships, topology, networks and validation rules.\n8. Plan metadata, security, versioning, backup and update workflows.\n9. Build a prototype and test editing, queries, maps and performance.\n10. Refine, document and populate the production database.\n\nImportance\n\nA good geodatabase reduces duplication, maintains integrity, supports efficient query, enforces valid values and spatial relationships, enables multi-user sharing and provides a stable foundation for analysis and mapping.\n\nConclusion: design should be completed and tested before large-scale data loading because later structural changes are costly.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-020",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Explain the principles and characteristics of a good GIS database design.",
+      "answer": "Expected: 5 marks • 2017 and 2024\n\nAnswer\n\nA good GIS database design translates organizational work and geographic reality into an efficient, consistent and maintainable schema.\n\nImportant characteristics are:\n\n- minimum redundancy: avoid unnecessary duplication through normalization;\n- integrity: use keys, domains, subtypes and validation rules;\n- spatial consistency: use a common CRS and suitable topology;\n- completeness and accuracy: include required features, attributes and metadata;\n- efficient retrieval: use clear structure and spatial/attribute indexes;\n- scalability: support growth in records, users and applications;\n- interoperability: use recognized formats, standards and documented units;\n- security: control access and protect sensitive information;\n- maintainability: define update, backup, versioning and stewardship procedures;\n- fitness for purpose: representation and detail must support required analysis.\n\nPrototype testing with maps, queries and editing is essential before production deployment.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-021",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Explain spatial database design with a suitable example.",
+      "answer": "Expected: 10 marks • 2017 Group C\n\nAnswer\n\nA spatial database stores geometry, attributes, spatial reference, relationships and spatial indexes. Spatial database design is the process of identifying required geographic entities and implementing them as consistent feature classes, tables and rules.\n\nLevels of Design\n\n1. Conceptual: identify real-world entities and relationships without software detail.\n2. Logical: define tables, fields, keys, geometry, domains and relationships.\n3. Physical: implement storage, indexes, topology, access control and performance settings.\n\nExample: Municipal Road Database\n\nFeature classes are roads (line), intersections (point), wards (polygon), bridges (point) and DEM (raster). Tables store road condition and maintenance history. Road ID links each road to inspections. Domains restrict surface type to approved values. Topology requires road lines to connect at intersections and prevents duplicate segments. A projected CRS supports length and route analysis. Spatial indexes improve search.\n\nThe design supports questions such as: Which damaged roads lie in Ward 5? What is the shortest route to a hospital? Which bridges require maintenance this year?\n\nConclusion: a spatial database must represent both objects and relationships required by actual GIS tasks.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-022",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Explain GIS data modeling and its importance in spatial analysis.",
+      "answer": "Expected: 10 marks • 2025 alternate Group C\n\nAnswer\n\nA data model is a simplified abstraction of reality designed for storage and analysis. Modeling is necessary because reality is too complex to represent completely in a computer.\n\nGeographic phenomena are modeled as:\n\n- objects: discrete, identifiable and bounded, such as buildings, roads and parcels;\n- fields: a value exists at every location, such as elevation, temperature and rainfall.\n\nObjects are represented by points, lines and polygons. Fields are commonly represented by raster, TIN, contours or interpolated surfaces.\n\nModeling Process\n\n1. define the application objective and study area;\n2. identify relevant phenomena and required time reference;\n3. select object or field representation;\n4. choose spatial scale, resolution and coordinate system;\n5. define geometry, attributes, identifiers and relationships;\n6. implement conceptual, logical and physical models;\n7. validate data and topology;\n8. test required queries and analysis.\n\nImportance\n\nData modeling simplifies reality consistently, reduces ambiguity, determines valid analysis, supports data integrity and improves communication between users and developers. For example, roads modeled as connected lines can support routing, whereas roads stored only as an image cannot.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-023",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Compare raster-based and vector-based spatial analysis with examples.",
+      "answer": "Expected: 10 marks • 2025 alternate Group C\n\nAnswer\n\nRaster analysis processes values cell by cell and is especially suitable for continuous surfaces. Vector analysis processes coordinate geometry and topology and is suitable for discrete objects.\n\nVector analysis: precise discrete boundaries; Raster analysis: efficient continuous-surface analysis Vector analysis: topology and network operations; Raster analysis: map algebra and neighborhood operations Vector analysis: coordinate geometry; Raster analysis: cell-by-cell processing Vector analysis: suited to roads and parcels; Raster analysis: suited to elevation, rainfall and suitability\n\nVector Operations\n\nBuffer, clip, intersect, union, spatial join, nearest-feature and network analysis. Example: buffer a river by 30 m and intersect with parcels to identify affected land.\n\nRaster Operations\n\nLocal map algebra, focal neighborhood, zonal statistics, global distance, reclassification and surface analysis. Example: reclassify slope, land cover and road-distance rasters and combine them through weighted overlay for site suitability.\n\nSelection\n\nUse vector when boundary precision, connectivity and attributes of individual objects are important. Use raster when values vary continuously or many layers must be combined cell by cell. Many GIS projects use both and convert carefully when needed.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-024",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Explain common vector analysis operations such as buffering, overlay and network analysis.",
+      "answer": "Expected: 10 marks • 2024 Group C and 2025 network-analysis question\n\nAnswer\n\nVector analysis uses points, lines and polygons together with their attributes and topological relationships.\n\nBuffering\n\nA buffer creates a zone at a specified distance around a point, line or polygon. Applications include river setbacks, road-impact zones and health-post service areas.\n\nOverlay\n\n- Clip: extracts input features within a boundary.\n- Intersect: retains common geometry and combines attributes.\n- Union: retains all areas from polygon inputs.\n- Identity: preserves input geometry and adds overlay attributes.\n\nSpatial Join and Proximity\n\nSpatial join transfers attributes according to containment, intersection or nearest relationship. Proximity tools find nearest features and distance matrices.\n\nNetwork Analysis\n\nA network contains edges, junctions, costs and restrictions. The process is:\n\n1. create connected road edges and junctions;\n2. define impedance such as time or distance;\n3. add one-way, turn and vehicle restrictions;\n4. locate origins, destinations and facilities;\n5. solve shortest path, closest facility, service area or location-allocation;\n6. inspect and communicate the route.\n\nTransportation example: a logistics company calculates travel time from warehouses to customers, includes one-way roads and traffic costs, and chooses the route with minimum total time rather than minimum geometric distance.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-025",
+      "chapterId": "chapter-bca-s8-gis-04",
+      "topicId": null,
+      "question": "Explain raster analysis, reclassification, surface analysis and flow-direction modeling.",
+      "answer": "Expected: 10 marks\n\nAnswer\n\nRaster analysis processes regular cells and is effective for continuous and classified geographic phenomena.\n\nTypes of Raster Operations\n\n- Local/map algebra: output cell depends on corresponding input cells.\n- Focal/neighborhood: output depends on nearby cells, for example smoothing.\n- Zonal: summarizes cells inside zones, for example mean elevation by ward.\n- Global: output may depend on all cells, for example Euclidean distance.\n\nReclassification changes original cell values into new categories or suitability scores. For example, slopes 0–5% may receive score 3, 5–15% score 2 and above 15% score 1.\n\nSurface analysis derives slope, aspect, contour, hillshade, viewshed and profile from elevation data.\n\nFlow-direction modeling identifies the downslope neighbor to which each DEM cell drains. In the D8 method, a cell flows toward one of eight neighbors. Flow accumulation counts upstream contributing cells; high accumulation values help identify streams.\n\nThese operations support suitability analysis, erosion assessment, watershed delineation and flood-risk modeling.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-026",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "Explain surface modeling in GIS and its role in representing terrain and creating 3D models.",
+      "answer": "Expected: 5 marks; expand to 10 marks for 2025 Group C\n\nAnswer\n\nA surface represents a phenomenon having a value at every horizontal location, such as elevation, rainfall or pollution. GIS surfaces may be represented by raster DEM, TIN, contours or interpolated functions.\n\nWorkflow: collect sample/elevation data → quality control → select raster/TIN → interpolate or construct surface → derive slope/aspect/contours → validate → visualize/analyze.\n\nSurface models define terrain form and allow three-dimensional visualization. Common operations are slope, aspect, contour, hillshade, viewshed, profile and cut-and-fill.\n\nApplications include terrain visualization, road alignment, erosion risk, visibility, floodplain mapping, watershed delineation, cut-and-fill and environmental impact assessment.\n\nAdvantages are effective representation of complex surfaces, improved visualization and support for terrain measurement. Limitations include greater processing/storage, dependence on sampling and interpolation, and the need for technical expertise.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-027",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "What is hydrology modeling? Explain the role of GIS in water-resource management and solving hydrological challenges.",
+      "answer": "Expected: 10 marks • 2018 and 2024 Group C\n\nAnswer\n\nA hydrologic model is a simplified representation of surface water, soil water, wetlands or groundwater used to understand flow, storage and water quality. The course note identifies three major challenges: pollution mitigation and quantification, sustainable water use, and improved flood management.\n\nGIS Hydrology Workflow\n\nFill sinks → calculate flow direction → calculate flow accumulation → define stream threshold → assign outlet/pour point → delineate watershed → combine rainfall, soil and land cover → estimate runoff/flood risk.\n\nRole of GIS\n\n- integrates DEM, rainfall, river, soil, land cover, groundwater, sensor and satellite data;\n- maps drainage, watershed boundaries and surface-water bodies;\n- simulates runoff, discharge, erosion and flood depth;\n- identifies pollution sources and vulnerable water supplies;\n- supports reservoir, irrigation and sustainable allocation planning;\n- communicates flood hazard and evacuation information;\n- monitors change using Landsat, Sentinel, LiDAR, gauges and weather stations.\n\nWater-Resource Management\n\nGIS helps identify suitable recharge areas, estimate catchment behavior, prioritize conservation, design drainage and compare management scenarios. Calibration against observed runoff and validation are necessary because models simplify reality.\n\nConclusion: GIS strengthens hydrology by combining many datasets, modeling spatial processes and presenting results for planning, but output quality depends on DEM, rainfall and parameter accuracy.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-028",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "Explain the importance of surface and hydrology modeling in environmental analysis.",
+      "answer": "Expected: 10 marks • 2025 Group C\n\nAnswer\n\nSurface modeling represents terrain and other continuous environmental fields. Hydrology modeling explains the movement, storage and quality of water. Together they provide the physical basis for environmental assessment.\n\nImportance\n\n1. Erosion and landslide: slope, aspect, curvature, rainfall and land cover identify unstable or erosion-prone areas.\n2. Flood analysis: DEM and drainage models delineate watersheds, flow paths, accumulation and floodplains.\n3. Water quality: land use and drainage connectivity help trace pollution sources.\n4. Infrastructure planning: road and settlement plans can avoid steep slopes, flood zones and critical watersheds.\n5. Habitat assessment: terrain, moisture and water proximity explain ecosystem distribution.\n6. Climate adaptation: repeated rainfall, snow, vegetation and surface-water observations reveal changing risk.\n\nThe workflow is data collection, surface construction, hydrologic processing, model calibration, scenario analysis, validation and map communication. Uncertainty should be stated because cell resolution, interpolation and rainfall assumptions affect results.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-029",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "Describe the role of GIS in agriculture in Nepal.",
+      "answer": "Expected: 5 marks • 2018\n\nAnswer\n\nGIS supports agricultural planning by integrating crop, soil, terrain, climate, water and accessibility data.\n\nApplications include:\n\n- crop-suitability mapping using elevation, slope, temperature, rainfall and soil;\n- soil fertility and land-capability assessment;\n- irrigation command-area and water-source planning;\n- drought and crop-condition monitoring from satellite imagery;\n- precision use of seed, fertilizer and pesticide;\n- pest and disease surveillance;\n- yield estimation and agricultural insurance;\n- market and road-access analysis.\n\nIn Nepal, agro-ecological conditions change rapidly with altitude and terrain. GIS helps match crops to local conditions, identify erosion risk, plan irrigation and connect production areas to markets. Field validation and current local data remain essential.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-030",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "Explain the role of GIS in urban planning and disaster management.",
+      "answer": "Expected: 10 marks • 2025 Group C\n\nAnswer\n\nUrban Planning\n\nGIS supports land-use zoning, growth monitoring, cadastral and property systems, utility inventory, transport planning, solid-waste routing, building-code assessment and accessibility to schools, health posts and open spaces. Overlay and suitability analysis compare development alternatives; network analysis measures travel time and service areas.\n\nDisaster Management\n\nBefore disaster: hazard, exposure, vulnerability and risk mapping; mitigation; shelter and evacuation planning.\n\nDuring disaster: real-time incident maps, early warning, resource tracking, evacuation routing and public information.\n\nAfter disaster: satellite/drone damage assessment, recovery prioritization and reconstruction monitoring.\n\nNepal Examples\n\n- earthquake exposure by overlaying hazard, buildings, population and critical facilities;\n- landslide susceptibility from slope, geology, rainfall, drainage, roads and land cover;\n- monsoon flood mapping from DEM, river, rainfall and settlement data;\n- identification of safe shelters and evacuation routes.\n\nGIS improves coordination and communication, but reliable results require current data, common standards, trained institutions and field verification.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-gis-031",
+      "chapterId": "chapter-bca-s8-gis-05",
+      "topicId": null,
+      "question": "Explain the steps involved in creating, evaluating, designing and printing a map.",
+      "answer": "Expected: 5 marks • Includes the 2025 map-components short question\n\nAnswer\n\nThe map-production process is:\n\n1. define purpose, audience, medium and required message;\n2. collect data and verify accuracy, currency and metadata;\n3. choose the coordinate reference system and final scale;\n4. select and generalize features appropriate to scale;\n5. classify data and choose symbols, colors and labels;\n6. compose title, map body, legend, scale, north arrow, grid, source, author/date, inset and neatline;\n7. evaluate visual hierarchy, balance, contrast, legibility, completeness and positional consistency;\n8. proof coordinates, spelling, legend classes, source and projection;\n9. export to PDF at suitable resolution and check fonts, color and line weight;\n10. make a proof print, correct errors and archive the map with metadata.\n\nAt minimum, the two indispensable design components asked in a short answer may be stated as map body and legend, though a complete academic answer should also include title, scale, orientation and source.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s8-gis-001",
+      "normalizedKeyword": "geographic information system (gis)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-001",
+      "normalizedKeyword": "spatial data",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-001",
+      "normalizedKeyword": "attribute data",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-007",
+      "normalizedKeyword": "map",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-012",
+      "normalizedKeyword": "raster data",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-012",
+      "normalizedKeyword": "vector data",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-019",
+      "normalizedKeyword": "geodatabase",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-026",
+      "normalizedKeyword": "surface",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-002",
+      "normalizedKeyword": "toolbox",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-002",
+      "normalizedKeyword": "information system",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-002",
+      "normalizedKeyword": "science",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-008",
+      "normalizedKeyword": "map projection",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-008",
+      "normalizedKeyword": "shape, area, distance and direction",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-008",
+      "normalizedKeyword": "cylindrical projection",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-020",
+      "normalizedKeyword": "minimum redundancy",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-020",
+      "normalizedKeyword": "integrity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-020",
+      "normalizedKeyword": "spatial consistency",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-027",
+      "normalizedKeyword": "hydrologic model",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-003",
+      "normalizedKeyword": "hardware",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-003",
+      "normalizedKeyword": "software",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-003",
+      "normalizedKeyword": "data",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-014",
+      "normalizedKeyword": "photogrammetric compilation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-014",
+      "normalizedKeyword": "manual digitizing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-014",
+      "normalizedKeyword": "map scanning",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-021",
+      "normalizedKeyword": "spatial database",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-021",
+      "normalizedKeyword": "conceptual",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-021",
+      "normalizedKeyword": "logical",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-028",
+      "normalizedKeyword": "erosion and landslide",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-028",
+      "normalizedKeyword": "flood analysis",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-028",
+      "normalizedKeyword": "water quality",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-004",
+      "normalizedKeyword": "data is fuel to gis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-004",
+      "normalizedKeyword": "spatial data",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-004",
+      "normalizedKeyword": "attribute data",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-010",
+      "normalizedKeyword": "equal-area",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-015",
+      "normalizedKeyword": "space segment",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-015",
+      "normalizedKeyword": "control segment",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-015",
+      "normalizedKeyword": "user segment",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-022",
+      "normalizedKeyword": "data model",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-022",
+      "normalizedKeyword": "objects",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-022",
+      "normalizedKeyword": "fields",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-005",
+      "normalizedKeyword": "trends",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-005",
+      "normalizedKeyword": "challenges",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-011",
+      "normalizedKeyword": "map features",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-011",
+      "normalizedKeyword": "map layers",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-011",
+      "normalizedKeyword": "legend",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-016",
+      "normalizedKeyword": "digital elevation model (dem)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-016",
+      "normalizedKeyword": "digital terrain model (dtm)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-030",
+      "normalizedKeyword": "before disaster",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-030",
+      "normalizedKeyword": "during disaster",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-030",
+      "normalizedKeyword": "after disaster",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-006",
+      "normalizedKeyword": "land administration",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-006",
+      "normalizedKeyword": "infrastructure",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-006",
+      "normalizedKeyword": "agriculture",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-017",
+      "normalizedKeyword": "triangulated irregular network (tin)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-024",
+      "normalizedKeyword": "clip",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-024",
+      "normalizedKeyword": "intersect",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-024",
+      "normalizedKeyword": "union",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-gis-031",
+      "normalizedKeyword": "map body and legend",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-018",
+      "normalizedKeyword": "international terrestrial reference frame (itrf)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-025",
+      "normalizedKeyword": "local/map algebra",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-gis-025",
+      "normalizedKeyword": "focal/neighborhood",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-gis-025",
+      "normalizedKeyword": "zonal",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s8-gis",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "title: How to Write These Answers"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-gis-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals"
+        },
+        {
+          "path": "BCA/Semester-8/GIS/imp.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-gis-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections"
+        },
+        {
+          "path": "BCA/Semester-8/GIS/imp.md",
+          "locator": "Unit 2: Maps and Map Projections"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-gis-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture"
+        },
+        {
+          "path": "BCA/Semester-8/GIS/imp.md",
+          "locator": "Unit 3: Data Sources, Structures and Capture"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-gis-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis"
+        },
+        {
+          "path": "BCA/Semester-8/GIS/imp.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-gis-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications"
+        },
+        {
+          "path": "BCA/Semester-8/GIS/imp.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q1. Define GIS. Explain its components, functions and major applications."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q2. Explain GIS as an information system and discuss its role as a decision-support system."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q3. Explain the human, hardware, software, data and method components of GIS."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q4. Explain the statement “Data is fuel to GIS.” Describe the types and sources of geographic data."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q5. Discuss the benefits, future challenges and recent trends of GIS, including smart-city applications."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 1: Introduction and GIS Fundamentals / Q6. Describe the role of GIS in a developing country such as Nepal, with a suitable application."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections / Q7. Define a map and explain its essential elements and characteristics."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections / Q8. Define map projection. Explain the techniques used for map projection."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections / Q9. Compare cylindrical, conical and azimuthal projections with advantages, disadvantages and applications."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections / Q10. Explain how map projections affect spatial data analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 2: Maps and Map Projections / Q11. Explain map features, map layers, map legends and map scale."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q12. Define raster and vector data. Compare their properties, advantages, disadvantages and applications."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q13. Explain grid-like and coordinate formats for structuring GIS graphics."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q14. Describe different GIS data-capturing methods, including surveying, GPS, remote sensing, aerial photography and satellite imagery."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q15. Explain GPS and its components. Discuss common sources of GPS errors."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q16. What is a Digital Terrain Model (DTM/DEM)? Explain its applications in terrain analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q17. What is a TIN data structure? Explain why TIN is used in GIS."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 3: GIS Data Sources, Structures and Capture / Q18. Explain the benefits of a geodetic datum based on ITRF."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q19. Define a geodatabase and explain the steps involved in geodatabase design."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q20. Explain the principles and characteristics of a good GIS database design."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q21. Explain spatial database design with a suitable example."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q22. Explain GIS data modeling and its importance in spatial analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q23. Compare raster-based and vector-based spatial analysis with examples."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q24. Explain common vector analysis operations such as buffering, overlay and network analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 4: Databases, Data Modeling and Spatial Analysis / Q25. Explain raster analysis, reclassification, surface analysis and flow-direction modeling."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q26. Explain surface modeling in GIS and its role in representing terrain and creating 3D models."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q27. What is hydrology modeling? Explain the role of GIS in water-resource management and solving hydrological challenges."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q28. Explain the importance of surface and hydrology modeling in environmental analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q29. Describe the role of GIS in agriculture in Nepal."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q30. Explain the role of GIS in urban planning and disaster management."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-gis-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/GIS/gis-board-qa.md",
+          "locator": "Unit 5: Surface, Hydrology and Applications / Q31. Explain the steps involved in creating, evaluating, designing and printing a map."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

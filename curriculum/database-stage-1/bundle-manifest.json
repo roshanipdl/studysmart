@@ -1,0 +1,52 @@
+{
+  "datasetId": "bca-local-curriculum",
+  "contentVersion": 1,
+  "schemaVersion": 1,
+  "bundleDigest": "056964174c20d7831b12c8aedf4049bcfe6fd3daf2f43689836977f7fec36c26",
+  "files": [
+    {
+      "path": "curriculum.json",
+      "sha256": "bd228dc8a2a0e133545497071c853b13e416896b404961be450d3fb4737ce443"
+    },
+    {
+      "path": "subjects/subject-bca-s4-dbms.json",
+      "sha256": "5f1729c74df169a371e739313dc68e2d0f019fdc86eb7e229895ae127a102193"
+    },
+    {
+      "path": "subjects/subject-bca-s5-dnt.json",
+      "sha256": "d15ce40c6c4572cffb8c2894128ab6ae7f1b4905f94e0018a2944c96af05ea8b"
+    },
+    {
+      "path": "subjects/subject-bca-s5-mise.json",
+      "sha256": "6e0e97c0a13d1324d7f7b2bdff2ecf1ee3decdaf3e9bba5360d890038c18f622"
+    },
+    {
+      "path": "subjects/subject-bca-s6-dcc.json",
+      "sha256": "8bb493fd665fb53f55ced73a4ea29d1d48a24d2c176ab2d373cfdbb54ec2a697"
+    },
+    {
+      "path": "subjects/subject-bca-s6-mp.json",
+      "sha256": "228ba6c50c4cdb765dd6619844d8698c37e1d477fcfe62e72606f9e00d4215aa"
+    },
+    {
+      "path": "subjects/subject-bca-s7-database-administration.json",
+      "sha256": "c544edc94c58688a82f48cd36db5618af492653d06e5c0fd98a37b0d0a68ca1f"
+    },
+    {
+      "path": "subjects/subject-bca-s7-na.json",
+      "sha256": "41c5b5d54972c17aec1cad959eedf55d5d1bb3630d5f7a2d7789c7df29bc2b11"
+    },
+    {
+      "path": "subjects/subject-bca-s7-spm.json",
+      "sha256": "34efdfafe628f5af5dc030930ad05a00c58ec6a4b2d456e4a760221b89cb4cc3"
+    },
+    {
+      "path": "subjects/subject-bca-s8-gis.json",
+      "sha256": "51de643886314d67adc51ed705541dc9f7e94cc2984e355e695ffc45fe393851"
+    },
+    {
+      "path": "subjects/subject-bca-s8-ms.json",
+      "sha256": "7d7e059daff4ec6f2808d67d0e1f197f4e87f6f78ac03a630869f0c6c30d3042"
+    }
+  ]
+}

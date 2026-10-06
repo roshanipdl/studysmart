@@ -1,0 +1,1640 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s5-dnt",
+    "academicPeriodId": "period-bca-semester-5",
+    "code": "CACS 302",
+    "name": "Dot Net Technology",
+    "description": "",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s5-dnt-01",
+      "subjectId": "subject-bca-s5-dnt",
+      "chapterNumber": 1,
+      "title": "Introducing C# and the .NET Framework",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-dnt-02",
+      "subjectId": "subject-bca-s5-dnt",
+      "chapterNumber": 2,
+      "title": "C# Language Basics",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-dnt-03",
+      "subjectId": "subject-bca-s5-dnt",
+      "chapterNumber": 3,
+      "title": "Creating Types in C#",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-dnt-04",
+      "subjectId": "subject-bca-s5-dnt",
+      "chapterNumber": 4,
+      "title": "Advanced C#",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s5-dnt-001",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Explain the architecture of the .NET Framework with a suitable diagram. Also discuss the importance of Garbage Collection.",
+      "answer": ".NET Framework architecture. Applications written in C#, VB.NET, F#, C++/CLI or other .NET languages are compiled by their language compiler into CIL (Common Intermediate Language) instead of machine code. The CIL plus metadata is stored in an assembly. At run time the CLR (Common Language Runtime) loads the assembly, verifies it, compiles the CIL to native machine code with the JIT compiler, and executes it. The Framework Class Library (FCL) supplies ready-made classes (System, System.IO, System.Collections, System.Data, System.Web, etc.) that all .NET languages share.\n\n C# / VB / F# / C++ source\n        |  (language compiler)\n        v\n CIL + metadata  ->  assembly (.dll / .exe)\n        |\n        v\n +------------------------ CLR -------------------------+\n |  Class Loader -> IL Verifier -> JIT Compiler         |\n |  Garbage Collector | Security | Exception Manager    |\n +------------------------------------------------------+\n        |\n        v\n Base Class Library (FCL): ADO.NET, ASP.NET, WinForms, LINQ, XML ...\n        |\n        v\n Operating System\n\nLanguage interoperability works because every language compiles to the same CIL and uses the CTS (Common Type System) and CLS (Common Language Specification). Platform independence (in the classic .NET Framework sense) means the compiled CIL is not tied to one CPU; it is compiled to native code on the target machine by the JIT. (Modern .NET adds cross-platform runtimes: .NET Core / .NET 5+ run on Windows, Linux and macOS; the .NET Framework itself is Windows-only.)\n\nImportance of Garbage Collection (GC). The GC automatically reclaims memory occupied by objects that are no longer reachable, so programmers do not free memory manually. It prevents memory leaks, dangling references and many use-after-free bugs, gives a safer managed environment, and compacts the heap to reduce fragmentation. Whole-program pauses are possible, which is why .NET also provides IDisposable/using for deterministic cleanup of unmanaged resources and GC.Collect() for rare forced collection (normally not needed).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-002",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Define managed code. Explain how CIL supports execution on compatible runtimes and how CTS/CLS enable language interoperability in .NET.",
+      "answer": "Managed code is code that runs under the control of the CLR. The C# compiler emits CIL; the CLR loads it, verifies type safety, compiles it with the JIT and manages memory, exceptions and security for it. Code is called \"managed\" because the runtime — not the programmer — controls execution. Unmanaged code (e.g., raw C++ or COM) runs outside that control and must be invoked with DllImport/interop.\n\nPlatform independence. The compiler targets CIL, a CPU-independent instruction set. On each machine the JIT compiles CIL to that machine's native code, so the same assembly runs on any platform that has a compatible runtime. In modern .NET the same assembly runs on Windows, Linux and macOS.\n\nLanguage interoperability. All .NET languages compile to the same CIL and describe their types with the same metadata. Because all languages follow the CTS/CLS rules, a class written in C# can inherit from one written in VB.NET or be called from F# without special glue. Attributes such as [CLSCompliant] and the CLS mark which public members every language can use.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-003",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "What is the Common Language Runtime (CLR)? List and explain its main features. [B 2021/2018]",
+      "answer": "The CLR is the execution engine of .NET. It sits between the compiled program and the operating system and provides the services every .NET program needs.\n\nMain features:\n\n1. Assembly loading and metadata handling — loads the assembly, reads its\nmetadata and resolves types.\n2. IL verification and type safety — verifies CIL before execution so it\ncannot perform invalid memory access.\n3. JIT compilation — compiles CIL methods to native code the first time\nthey run; subsequent calls use the cached native code.\n4. Automatic memory management / Garbage Collection — allocates objects on\nthe managed heap and reclaims unreachable ones.\n5. Exception handling — uniform try/catch/finally semantics across\nlanguages.\n6. Security — code access/role-based security checks.\n7. Interoperability — COM interop, P/Invoke and cross-language calls.\n8. Thread management — thread pools and synchronization primitives.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-004",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Why is C# considered a type-safe programming language? Explain with examples.",
+      "answer": "C# is type safe because the compiler and CLR reject operations that would access memory as the wrong type:\n\n- Only type-compatible assignments are allowed; an int cannot be stored in\na string variable without an explicit, checked conversion.\n- Arrays are bounds-checked: reading arr[arr.Length] throws\nIndexOutOfRangeException instead of corrupting memory.\n- Objects are initialized to zero/null before use.\n- Casting is checked at run time: an invalid reference cast throws\nInvalidCastException.\n- Arithmetic overflow can be checked with checked blocks or the project\nsetting; otherwise unchecked overflow wraps predictably.\n- The CLR verifier refuses to run unsafe CIL, and unsafe code must be\nexplicitly marked.\n\nint[] marks = { 10, 20, 30 };\n// marks[3] = 40;   // IndexOutOfRangeException - the CLR protects memory\nobject o = \"hello\";\n// int n = (int)o;  // InvalidCastException - checked at run time\n\nThe trade-off is a little run-time checking overhead; the benefit is that buffer overflows and wild pointers are essentially impossible in normal C#.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-005",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Describe the Microsoft .NET Framework and its components in detail.",
+      "answer": "The .NET Framework is Microsoft's managed application platform. It consists of:\n\n1. Common Language Runtime (CLR) — execution engine: loading, JIT,\ngarbage collection, verification, security, exceptions.\n2. Framework Class Library (FCL) — thousands of reusable classes:\nSystem, System.IO, System.Collections.Generic, System.Linq, System.Data (ADO.NET), System.Web (ASP.NET), System.Windows.Forms, System.Xml, System.Threading.\n3. Common Type System (CTS) — the type model: value types, reference\ntypes, interfaces, delegates, enums; every .NET type derives from System.Object.\n4. Common Language Specification (CLS) — the subset of CTS rules that all\n.NET languages must support so libraries interoperate.\n5. Assemblies and metadata — deployment unit containing CIL, metadata and\na manifest; enables side-by-side versions and no-registry deployment.\n6. Applied technologies — WinForms, WPF, ASP.NET (Web Forms, MVC), ADO.NET,\nWCF, WF and (modern) .NET Core/5+ stacks: MAUI, Blazor, Xamarin/MAUI mobile.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-006",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Differentiate between Object-Oriented Programming and Object-Based Programming. Also explain the key features of the C# language. [M model-01]",
+      "answer": "Basis: Definition; Object-Oriented Programming (OOP): Programs are built from interacting objects that combine data and behaviour; Object-Based Programming (OBP): Uses objects and encapsulation but not the full OOP model Basis: Inheritance; Object-Oriented Programming (OOP): Supported; Object-Based Programming (OBP): Not supported Basis: Polymorphism; Object-Oriented Programming (OOP): Supported (overloading/overriding); Object-Based Programming (OBP): Not supported Basis: Encapsulation; Object-Oriented Programming (OOP): Supported; Object-Based Programming (OBP): Supported Basis: Examples; Object-Oriented Programming (OOP): C#, C++, Java; Object-Based Programming (OBP): VB 6 (without class inheritance), JavaScript objects, Fortran 90 modules\n\n*From the solved book (model-01 page 1):* OOP is based on objects that contain data (fields/properties) and code (methods); OBP uses objects but lacks inheritance/polymorphism; the comparison table above matches its printed outline.\n\nKey features of C# (also from model-02 page 1 printed answer):\n\n1. Simple — no pointers/::/-> needed, automatic memory management.\n2. Modern — generics, LINQ, lambdas, async/await, nullable types.\n3. Object oriented — classes, structs, inheritance, interfaces,\nencapsulation, polymorphism.\n4. Type safe — checked conversions, bounds checking, no wild pointers.\n5. Interoperable — COM interop, P/Invoke, mixed-language .NET libraries.\n6. Scalable and updatable — assemblies with version metadata, side-by-side\nexecution; no COM registry fragility.\n7. Platform support — modern .NET is cross-platform (Windows, Linux,\nmacOS).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-007",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "What's new in the .NET Standard 2.0? Explain different types of JIT compiler.",
+      "answer": ".NET Standard is a formal specification of the APIs that a .NET platform must expose. Libraries that target a .NET Standard version run on every platform that implements it. .NET Standard 2.0 (2017) was the first version with a broad API surface (about 32,000 APIs):\n\n- Far more APIs than 1.x — existing .NET Framework libraries could be reused\nwith little or no change.\n- A compatibility shim that lets .NET Standard 2.0 libraries reference .NET\nFramework libraries in many cases.\n- A single target for libraries shared by .NET Framework 4.6.1+, .NET Core 2.0+\nand (later) .NET 5+/Xamarin.\n- Simplified netstandard2.0 targeting in project files.\n\nModern guidance: for new work target net8.0 (or newer) directly; netstandard2.0 is still used for libraries that must also run on the old .NET Framework.\n\nTypes of JIT compilation:\n\n1. Normal (classic) JIT — compiles each method to native code on first\ncall and caches it.\n2. Econo-JIT — compiles only when needed and discards compiled code to\nsave memory (used on memory-constrained devices).\n3. Pre-JIT (NGen) — compiles assemblies to native images at installation\ntime; faster startup, no JIT cost, but the image must match the machine and is invalidated by updates.\n4. ReadyToRun (R2R) — modern ahead-of-time format shipped with .NET\nCore/5+ assemblies; similar goal to NGen.\n5. Tiered JIT — .NET Core/5+ feature: methods start with quick Tier-0\ncode and hot methods are recompiled by Tier-1 with full optimization.\n6. Dynamic (profile-guided) optimization — the runtime observes hot paths\nand recompiles them with better optimizations (OSR, PGO in .NET 8+).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-008",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "What is the importance of Garbage Collection in .NET Framework?",
+      "answer": "Garbage collection automatically frees the memory of managed objects that are no longer referenced. It removes the need for manual free/delete, eliminates dangling pointers and use-after-free, prevents most memory leaks, compacts the managed heap against fragmentation, and allows objects to be allocated very cheaply. .NET uses a generational, mark-and-compact collector (Gen 0/1/2, plus the Large Object Heap). For unmanaged resources the IDisposable pattern and using/finalizers provide deterministic cleanup, because the GC cannot know when to release handles it does not own.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-009",
+      "chapterId": "chapter-bca-s5-dnt-01",
+      "topicId": null,
+      "question": "Explain applied technologies / CTS / FCL in brief.",
+      "answer": "- CTS (Common Type System): the rules that define how types are declared,\nused and managed in the runtime. It divides types into value types and reference types and defines that all types ultimately derive from System.Object; this is what allows cross-language interoperation.\n- FCL (Framework Class Library): the reusable, language-neutral class\nlibrary supplied with .NET; namespaces such as System, System.IO, System.Data, System.Web.\n- Applied technologies of .NET: WinForms, WPF (desktop); ASP.NET Web Forms,\nMVC, Blazor (web); ADO.NET, Entity Framework (data); WCF (services); Xamarin/.NET MAUI (mobile); Unity (games); ML.NET, Azure SDKs (cloud/AI).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-010",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Differentiate between value types and reference types in C#. Also explain boxing and unboxing with a suitable program.",
+      "answer": "Basis: Memory; Value type: Stored inline (stack or inside its containing object); Reference type: Object on the managed heap; variable holds a reference Basis: Examples; Value type: `int`, `double`, `char`, `bool`, `enum`, `struct`; Reference type: `class`, `interface`, `delegate`, `array`, `string`, `object` Basis: Assignment; Value type: Copies the value; Reference type: Copies the reference; both variables point to the same object Basis: Default; Value type: Zeroed value; Reference type: `null` Basis: Inheritance; Value type: Cannot inherit (but can implement interfaces); Reference type: Supports inheritance Basis: Nullability; Value type: Non-nullable (unless `int?` etc.); Reference type: Nullable\n\nBoxing converts a value type into an object (or interface) by allocating a wrapper on the heap. Unboxing extracts the value back with an explicit cast, and it must be the same type.\n\nusing System;\nclass BoxingDemo\n{\n    static void Main()\n    {\n        int number = 123;          // value type\n        object boxed = number;     // boxing: copies value into heap object\n        int unboxed = (int)boxed;  // unboxing: explicit cast required\n        Console.WriteLine($\"{number} {boxed} {unboxed}\");\n    }\n}\n\nBoxing costs an allocation and a copy; repeated boxing in loops is a common performance problem (generics avoid it).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-011",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "What is a variable-size array? Write a C# program to create a multidimensional array to store student marks.",
+      "answer": "A variable-size array is an array whose rows can have different lengths — in C# this is the jagged array (int[][]), an array of arrays. Each row is allocated separately, so row lengths need not match. A rectangular array (int[,]) always has the same number of columns per row.\n\nusing System;\nclass StudentMarks\n{\n    static void Main()\n    {\n        // Jagged array: three students with 3, 4 and 2 subjects\n        int[][] marks = new int[][]\n        {\n            new int[] { 75, 80, 68 },\n            new int[] { 90, 85, 88, 70 },\n            new int[] { 60, 72 }\n        };\n\n        for (int s = 0; s < marks.Length; s++)\n        {\n            int sum = 0;\n            for (int m = 0; m < marks[s].Length; m++)\n            {\n                sum += marks[s][m];\n                Console.Write(marks[s][m] + \" \");\n            }\n            Console.WriteLine($\"-> total {sum}, average {(double)sum / marks[s].Length:F2}\");\n        }\n\n        // Rectangular multidimensional array: 3 students x 2 subjects\n        int[,] rectangular = { { 70, 80 }, { 65, 75 }, { 88, 92 } };\n        Console.WriteLine($\"Rectangle [1,1] = {rectangular[1, 1]}\");\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-012",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Why are namespaces used in C#? How do you create and use a custom namespace? Also show how to create an alias.",
+      "answer": "Namespaces organise types into logical, hierarchical groups and prevent name collisions (System.Data.SqlClient vs System.Data.OleDb). A fully-qualified name is namespace.class; using imports a namespace, and an alias shortens a long or ambiguous name.\n\nusing System;\nusing IO = System.IO;          // namespace alias\n\nnamespace College.Bca\n{\n    class Student\n    {\n        public string Name = \"Sita\";\n    }\n}\n\nnamespace App\n{\n    using College.Bca;         // use the custom namespace\n\n    class Program\n    {\n        static void Main()\n        {\n            var s = new Student();\n            Console.WriteLine(s.Name);\n            Console.WriteLine(IO.Path.GetFileName(@\"c:\\temp\\file.txt\")); // alias use\n        }\n    }\n}\n\n*Alias syntax:* using Alias = Namespace.SubNamespace; and for a type, using IntList = System.Collections.Generic.List<int>;.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-013",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "What is string interpolation in C#? Explain how passing arguments by value differs from passing by reference with a program.",
+      "answer": "String interpolation builds a string with expressions inside { } in an interpolated string literal prefixed with $: $\"Total = {price * qty:F2} on {DateTime.Today:d}\". It is a readable replacement for string.Format and compile-time checked.\n\nBy value vs by reference.\n\n- *By value* (default): the method receives a copy. Changing the parameter\ndoes not affect the caller's variable.\n- *By reference* (ref, out, in): the method receives the caller's\nvariable itself; changes are visible to the caller. ref requires prior initialization, out must be assigned inside the method, in is read-only.\n\nusing System;\nclass ArgumentsDemo\n{\n    static void ChangeByValue(int x) { x = 100; }\n\n    static void ChangeByReference(ref int x) { x = 100; }\n\n    static void Main()\n    {\n        int a = 10, b = 10;\n        ChangeByValue(a);\n        ChangeByReference(ref b);\n        Console.WriteLine($\"by value a={a}, by reference b={b}\"); // a=10, b=100\n    }\n}\n\nFor reference-type objects, the *reference* is passed by value: the method can mutate the object's contents but cannot make the caller's variable point to a different object unless ref is used.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-014",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "List any five contextual keywords in C# and explain their purpose briefly.",
+      "answer": "Contextual keywords have a special meaning only in certain positions, so programs using them as identifiers still compile.\n\nKeyword: `var`; Purpose: Implicitly typed local variable; the compiler infers the type from the initializer Keyword: `value`; Purpose: The implicit parameter of a property/indexer `set` accessor Keyword: `get` / `set`; Purpose: Define property/indexer accessors Keyword: `add` / `remove`; Purpose: Define event accessors Keyword: `partial`; Purpose: Splits a class/struct/interface/method across files Keyword: `where`; Purpose: Constraint clause on generic declarations / filter in LINQ Keyword: `yield`; Purpose: Produces a value from an iterator method Keyword: `async` / `await`; Purpose: Asynchronous method and await point Keyword: `nameof`; Purpose: Returns the name of a symbol as a string Keyword: `dynamic`; Purpose: Type resolved at run time",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-015",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "What is optional parameter and named argument? Explain with a program. [B 2020/2021]",
+      "answer": "Optional parameter: a parameter with a default value that the caller may omit; optional parameters must come after required ones. Named argument: pass the argument as parameterName: value, so order does not matter and the code is clearer.\n\nusing System;\nclass OptionalDemo\n{\n    static double Interest(double principal, double rate = 10.5, int years = 1)\n        => principal * rate * years / 100;\n\n    static void Main()\n    {\n        Console.WriteLine(Interest(10000));                       // defaults\n        Console.WriteLine(Interest(10000, years: 3));             // named\n        Console.WriteLine(Interest(principal: 5000, rate: 12));   // named + default\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-016",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Define a jagged array. Write C# code displaying its row count and each row’s length, then demonstrate multiplication of compatible 2×2 and 2×3 matrices.",
+      "answer": "A jagged array is an array of arrays; arr.Length is the number of rows, and arr[i].Length is the length of row i.\n\nusing System;\nclass JaggedDemo\n{\n    static void Main()\n    {\n        int[][] jag = new int[3][];\n        jag[0] = new int[] { 1, 2, 3 };\n        jag[1] = new int[] { 4, 5 };\n        jag[2] = new int[] { 6, 7, 8, 9 };\n\n        Console.WriteLine(\"Rows: \" + jag.Length);\n        for (int i = 0; i < jag.Length; i++)\n            Console.WriteLine($\"Row {i}: length = {jag[i].Length}\");\n    }\n}\n\nMatrix multiplication (2×2 with 2×3) uses three nested loops: C[i,j] += A[i,k] * B[k,j] with k from 0 to A.GetLength(1)-1, guarded by A.GetLength(1) == B.GetLength(0).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-017",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "What is type conversion? Explain with examples.",
+      "answer": "Type conversion changes a value from one type to another.\n\n- Implicit conversion is safe and automatic: int -> long -> float ->\ndouble -> decimal, derived -> base.\n- Explicit conversion (cast) may lose data or fail: double -> int\ntruncates; base -> derived is checked at run time.\n- Boxing/unboxing converts value types to/from object.\n- Convert class performs culture-aware conversions and throws on invalid\ninput: Convert.ToInt32(\"42\").\n- Parse/TryParse convert strings; TryParse returns false instead\nof throwing.\n- User-defined conversions use implicit operator / explicit operator.\n\nint i = 100;\nlong l = i;                 // implicit\ndouble d = 123.9;\nint truncated = (int)d;     // explicit, becomes 123\nstring s = i.ToString();\nint parsed = int.Parse(s);\nbool ok = int.TryParse(\"abc\", out int bad); // ok == false, bad == 0",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-018",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "What are control statements? Explain different types with examples. [M model-02]",
+      "answer": "Control statements decide the order in which statements execute:\n\n1. Selection: if, if/else, switch.\n2. Iteration: for, while, do/while, foreach.\n3. Jump: break, continue, return, goto, throw.\n\nint n = 3;\nif (n % 2 == 0) Console.WriteLine(\"even\"); else Console.WriteLine(\"odd\");\n\nswitch (n)\n{\n    case 1: Console.WriteLine(\"one\"); break;\n    case 3: Console.WriteLine(\"three\"); break;\n    default: Console.WriteLine(\"other\"); break;\n}\n\nfor (int i = 1; i <= 5; i++) Console.Write(i + \" \");\nforeach (var ch in \"C#\") Console.Write(ch + \" \");\n\nbreak leaves the loop/switch; continue skips to the next iteration.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-019",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Explain struct vs enum with a program using Department and College enums.",
+      "answer": "Basis: Kind; `struct`: Value type that can hold data and methods; `enum`: Value type that is a named set of integer constants Basis: Members; `struct`: Fields, methods, properties, constructors; `enum`: Named constants only Basis: Inheritance; `struct`: Cannot inherit, can implement interfaces; `enum`: Cannot have methods; underlying type is integral Basis: Instantiation; `struct`: `new` or direct assignment; `enum`: One of the declared names Basis: Typical use; `struct`: Small lightweight records (`Point`, `Money`); `enum`: Fixed choices (status, department, gender)\n\nusing System;\nenum Department { BCA, BBA, BScCSIT }\nenum College { Patan, Mahendra, Mechi }\n\nclass EnumDemo\n{\n    static void Main()\n    {\n        Department d = Department.BCA;\n        College c = College.Patan;\n        Console.WriteLine($\"{d} at {c} ({(int)d}, {(int)c})\");\n        foreach (Department dep in Enum.GetValues(typeof(Department)))\n            Console.WriteLine(dep);\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-020",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Explain the structure of a basic C# console application.",
+      "answer": "using System;                  // 1. namespace import\n\nnamespace FirstApp            // 2. namespace declaration\n{\n    class Program              // 3. class declaration\n    {\n        static void Main(string[] args)   // 4. entry point\n        {\n            Console.WriteLine(\"Hello C#\"); // 5. statements\n            Console.ReadKey();\n        }\n    }\n}\n\nMain is the entry point; it must be static and returns void or int. args holds command-line arguments. using directives avoid fully-qualified names. In modern C# a top-level-statements program can omit the class and Main boilerplate.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 11,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-021",
+      "chapterId": "chapter-bca-s5-dnt-02",
+      "topicId": null,
+      "question": "Explain properties and automatic properties in C#. Explain how the this keyword declares an indexer, with an example.",
+      "answer": "A property exposes a field through get/set accessors and supports validation and computed values. An automatic property lets the compiler create the hidden backing field: public int Age { get; set; } (with { get; } or { get; init; } for read-only/init-only). A full property has an explicit backing field.\n\nAn indexer lets an object be indexed like an array with this[...]:\n\nclass Semester\n{\n    private string[] subjects = { \"DNT\", \"MIS\", \"CG\", \"Networking\", \"OR\" };\n    public string this[int i]\n    {\n        get => subjects[i];\n        set => subjects[i] = value;\n    }\n    public int Count => subjects.Length;\n}\n\n// usage: sem[0] returns \"DNT\"; sem[0] = \"Dot Net Technology\";\n\nthis in the indexer is the current instance and the parameter list after this defines the index. Also compare const (compile-time constant, static) with readonly (set only in the declaration or constructor, per instance).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 12,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-022",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is a static class and a static constructor? Explain with a program.",
+      "answer": "A static class cannot be instantiated and cannot be inherited; all its members must be static. It is used for pure utility methods (Math, Console). A static constructor initializes static fields; it runs once, automatically, before the first use of the type, takes no parameters and has no access modifier.\n\nusing System;\nstatic class CollegeInfo\n{\n    public static string Name;\n    static CollegeInfo()\n    {\n        Name = \"Patan Multiple Campus\";\n        Console.WriteLine(\"Static constructor ran once\");\n    }\n    public static void Show() => Console.WriteLine(Name);\n}\n\nclass Program\n{\n    static void Main()\n    {\n        CollegeInfo.Show();\n        CollegeInfo.Show();   // constructor does not run again\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-023",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "Define a constructor. Explain the different types of constructors with examples. [B 2020/2017] [M model-01/model-02]",
+      "answer": "A constructor is a special member with the class name and no return type; it runs automatically when an object is created and initializes the object.\n\nTypes:\n\n1. Default constructor — no parameters, supplied by the compiler if no\nconstructor is written.\n2. Parameterized constructor — receives values to initialize fields.\n3. Copy constructor — takes an object of the same class and copies fields\n(C# does not create it automatically).\n4. Static constructor — initializes static data; runs once.\n5. Private constructor — prevents instantiation from outside; used for\nsingleton patterns and static-only classes.\n\nclass Employee\n{\n    public int Id; public string Name;\n    public Employee() { Id = 0; Name = \"unknown\"; }                 // default\n    public Employee(int id, string name) { Id = id; Name = name; }  // parameterized\n    public Employee(Employee other) { Id = other.Id; Name = other.Name; } // copy\n    static Employee() { Console.WriteLine(\"static init\"); }          // static\n    private Employee(string secret) { Name = secret; }               // private\n}\n\nIf a class declares any constructor, the compiler no longer supplies the default one.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-024",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "Define inheritance. Write C# code demonstrating multilevel class inheritance and multiple interface implementation; explain why multiple class inheritance is unsupported.",
+      "answer": "Inheritance lets a derived class reuse and extend a base class: class B :\nA. The derived class gets the base members (except constructors and private\nones) and can add or override behaviour.\n\n- Multilevel: A → B → C.\n- Multiple: a class having more than one base class. C# does not support\nmultiple class inheritance (to avoid the diamond ambiguity); it is achieved with interfaces, because a class can implement many interfaces.\n\nusing System;\nclass A { public void ShowA() => Console.WriteLine(\"A\"); }\nclass B : A { public void ShowB() => Console.WriteLine(\"B\"); }  // multilevel\nclass C : B { public void ShowC() => Console.WriteLine(\"C\"); }\n\ninterface IArea { double Area(); }\ninterface IPerimeter { double Perimeter(); }\n\nclass Rectangle : IArea, IPerimeter   // multiple via interfaces\n{\n    double w, h;\n    public Rectangle(double w, double h) { this.w = w; this.h = h; }\n    public double Area() => w * h;\n    public double Perimeter() => 2 * (w + h);\n}\n\nclass Demo\n{\n    static void Main()\n    {\n        C c = new C(); c.ShowA(); c.ShowB(); c.ShowC();\n        var r = new Rectangle(4, 3);\n        Console.WriteLine($\"area={r.Area()} perimeter={r.Perimeter()}\");\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-025",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is a virtual method? How is it used for dynamic binding in C#? Explain with an example. [B 2020/2017] [M model-01]",
+      "answer": "A virtual method is declared with the virtual keyword in a base class and may be replaced by an override in a derived class. When the method is called through a base-class reference, the runtime chooses the most derived override — this is dynamic binding (late binding, run-time polymorphism). Method overloading (same name, different parameter lists inside one class) is compile-time polymorphism instead.\n\nusing System;\nclass Shape\n{\n    public virtual double Area() => 0;\n}\nclass Circle : Shape\n{\n    double r;\n    public Circle(double r) { this.r = r; }\n    public override double Area() => Math.PI * r * r;\n}\nclass Square : Shape\n{\n    double s;\n    public Square(double s) { this.s = s; }\n    public override double Area() => s * s;\n}\nclass Demo\n{\n    static void Main()\n    {\n        Shape[] shapes = { new Circle(2), new Square(3) };\n        foreach (Shape sh in shapes)\n            Console.WriteLine(sh.Area());  // resolved at run time\n    }\n}\n\nUse new to *hide* a base member instead of overriding; sealed override stops further overriding.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-026",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "Define operator overloading. Write a C# program to overload binary and relational operators; also demonstrate unary (++) and relational (==). [M model-01]",
+      "answer": "Operator overloading gives a user-defined meaning to a built-in operator for a class or struct. The method must be public static, use the operator keyword and have at least one operand of the containing type. Comparison operators must be declared in pairs (== with !=, < with >, <= with >=), and it is good practice to override Equals/GetHashCode with ==.\n\nusing System;\nclass Distance\n{\n    public int Feet, Inch;\n    public Distance(int f, int i) { Feet = f; Inch = i; }\n\n    // binary +\n    public static Distance operator +(Distance a, Distance b)\n        => new Distance(a.Feet + b.Feet, a.Inch + b.Inch);\n\n    // unary -\n    public static Distance operator -(Distance a)\n        => new Distance(-a.Feet, -a.Inch);\n\n    // relational < and > (pair)\n    public static bool operator <(Distance a, Distance b) => (a.Feet * 12 + a.Inch) < (b.Feet * 12 + b.Inch);\n    public static bool operator >(Distance a, Distance b) => (a.Feet * 12 + a.Inch) > (b.Feet * 12 + b.Inch);\n\n    // equality pair (null-safe)\n    public static bool operator ==(Distance a, Distance b)\n    {\n        if (ReferenceEquals(a, b)) return true;\n        if (a is null || b is null) return false;\n        return a.Feet == b.Feet && a.Inch == b.Inch;\n    }\n    public static bool operator !=(Distance a, Distance b) => !(a == b);\n    public override bool Equals(object o) => o is Distance d && this == d;\n    public override int GetHashCode() => (Feet * 397) ^ Inch;\n\n    public override string ToString() => $\"{Feet}' {Inch}\\\"\";\n}\n\nclass Demo\n{\n    static void Main()\n    {\n        var a = new Distance(5, 6);\n        var b = new Distance(2, 8);\n        Console.WriteLine(a + b);      // binary +\n        Console.WriteLine(-a);         // unary -\n        Console.WriteLine(a > b);      // relational\n        Console.WriteLine(a == b);     // equality\n    }\n}\n\nTwo more operator forms asked in board papers:\n\n// Unary ++ (Board 2020): returns the containing type\npublic static Distance operator ++(Distance d) => new Distance(d.Feet + 1, d.Inch);\n\n// Bitwise & (Board 2022 Box question): combine the integer areas\nclass Box\n{\n    public int Length, Width, Height;\n    public int Area => 2 * (Length * Width + Width * Height + Length * Height);\n    public static int operator &(Box a, Box b) => a.Area & b.Area;\n}\n\nThe ++ operator must return the containing type (or something convertible to it); & may return a different type such as int, but at least one operand must be of the containing type. Relational operators (<, >, <=, >=) also dereference their operands — add null guards there too if the type is a class.\n\nOperators that cannot be overloaded: =, &&, ||, ?:, checked, unchecked, new, typeof, is, as, ., [] (use indexers) and casts to/from object.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-027",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is an interface in C#? Explain how interfaces implement multiple inheritance with a program.",
+      "answer": "An interface is a contract: a set of method, property, event or indexer signatures without implementation (default implementations are possible in modern C#, and interfaces may contain static members). A class or struct can implement any number of interfaces, which is how C# gets multiple-inheritance behaviour. Interface names conventionally start with I.\n\ninterface IShape { double Area(); }\ninterface IPrintable { void Print(); }\n\nclass Circle : IShape, IPrintable\n{\n    double r;\n    public Circle(double r) { this.r = r; }\n    public double Area() => Math.PI * r * r;\n    public void Print() => Console.WriteLine($\"Circle r={r} area={Area():F2}\");\n}\n\nDifference from an abstract class: an abstract class may hold state and implemented members and allows single inheritance; an interface defines a contract and allows multiple implementation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-028",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "Define generics in C#. Demonstrate a generic class with a program and list common generic collection classes.",
+      "answer": "Generics let you define classes, methods, interfaces and delegates with a type parameter (<T>), so the same code works for many types with compile-time type safety and no boxing.\n\nusing System;\nclass Box<T>\n{\n    private T value;\n    public Box(T value) { this.value = value; }\n    public T Value { get => value; set { this.value = value; } }\n    public override string ToString() => $\"Box<{typeof(T).Name}>: {value}\";\n}\n\nclass MethodDemo\n{\n    static void Swap<T>(ref T a, ref T b) { T t = a; a = b; b = t; }\n    static void Main()\n    {\n        var i = new Box<int>(10);\n        var s = new Box<string>(\"DNT\");\n        Console.WriteLine(i); Console.WriteLine(s);\n        int x = 1, y = 2; Swap(ref x, ref y);\n    }\n}\n\nGeneric collections in System.Collections.Generic: List<T>, Dictionary<TKey,TValue>, Queue<T>, Stack<T>, HashSet<T>, LinkedList<T>, Collection<T>. Constraints use where T : class, struct, new(), BaseClass or an interface.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-029",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is a finalizer in C#? Also explain the use of the base keyword with an example.",
+      "answer": "A finalizer (~ClassName()) is called by the garbage collector before an object's memory is reclaimed. It is used to release *unmanaged* resources if Dispose was not called. Finalizers are non-deterministic (you cannot know when they run), add GC overhead and should normally be replaced by the IDisposable + using pattern. A class with a finalizer should call GC.SuppressFinalize(this) inside Dispose().\n\nThe base keyword accesses the base class from a derived class: base.Member calls a base method, property or field, and base(...) invokes a base constructor.\n\nclass Person\n{\n    protected string Name;\n    public Person(string name) { Name = name; }\n    public virtual void Show() => Console.WriteLine($\"Person: {Name}\");\n}\nclass Student : Person\n{\n    public Student(string name) : base(name) { }\n    public override void Show()\n    {\n        base.Show();                       // call the base version\n        Console.WriteLine(\"Student\");\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-030",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "Differentiate between properties and indexers. Compare automatic properties with other types.",
+      "answer": "Basis: Access; Property: By name (`obj.Age`); Indexer: By index (`obj[0]`) Basis: Name; Property: Has its own name; Indexer: Named `this` Basis: Parameters; Property: None; Indexer: One or more index parameters Basis: Purpose; Property: Exposes a single value; Indexer: Exposes a collection-like sequence Basis: Overloading; Property: Cannot overload by parameters; Indexer: Can be overloaded by index type\n\nTypes of properties: read-write (get+set), read-only (get only), write-only (set only), auto-implemented (public int X { get; set; }), computed (get => w*h;), and init-only ({ get; init; }, C# 9+). Auto-properties are concise and ideal when no validation is needed; expanded properties are used when getters/setters need logic, validation or lazy values.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-dnt-031",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is polymorphism? How many ways can you overload methods? Explain method overloading and overriding.",
+      "answer": "Polymorphism = one name, many forms. In C#:\n\n- Compile-time (static) polymorphism — method overloading: several methods\nwith the same name in the same class but different parameter lists. You can overload by number of parameters, type of parameters, order of parameters and ref/in vs value (but not ref vs out alone — those two share a signature). You cannot overload by return type alone.\n- Run-time (dynamic) polymorphism — method overriding: a derived class\nreplaces a virtual/abstract base method with override; the runtime picks the version from the actual object type.\n\nclass Calculator\n{\n    public int Add(int a, int b) => a + b;                 // 2 params\n    public double Add(double a, double b) => a + b;        // different type\n    public int Add(int a, int b, int c) => a + b + c;      // 3 params\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-032",
+      "chapterId": "chapter-bca-s5-dnt-03",
+      "topicId": null,
+      "question": "What is object orientation? Describe the features of C# from an object-oriented perspective.",
+      "answer": "The pillars of object-oriented programming:\n\n1. Encapsulation — bundle data and methods; hide internals with access\nmodifiers (private, protected, internal, public).\n2. Inheritance — derive new types from existing ones.\n3. Polymorphism — same interface, different implementations\n(overloading/overriding).\n4. Abstraction — expose what an object does, not how\n(abstract classes/interfaces).\n\nC# supports all four: classes/structs with access modifiers, single class inheritance, interfaces for multiple inheritance, virtual/override methods, abstract classes and methods, properties with validation, events and delegates for loose coupling.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 11,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-033",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "Why is exception handling important in C#? Write a program using a custom exception. Also demonstrate divide-by-zero and index-out-of-range handling.",
+      "answer": "Exception handling separates error handling from normal logic and stops one error from crashing the whole program. Unhandled exceptions terminate the program; try/catch/finally let you recover, log and clean up. The finally block runs whether or not an exception occurred.\n\nCommon exceptions: DivideByZeroException, IndexOutOfRangeException, NullReferenceException, FormatException, OverflowException, InvalidCastException, FileNotFoundException.\n\nusing System;\n\nclass InvalidAgeException : Exception\n{\n    public InvalidAgeException(string message) : base(message) { }\n}\n\nclass ExceptionDemo\n{\n    static void CheckAge(int age)\n    {\n        if (age < 0 || age > 120)\n            throw new InvalidAgeException($\"Invalid age: {age}\");\n    }\n\n    static void Main()\n    {\n        try\n        {\n            int a = 10, b = 0;\n            Console.WriteLine(a / b);                  // DivideByZeroException\n        }\n        catch (DivideByZeroException ex)\n        {\n            Console.WriteLine(\"Division error: \" + ex.Message);\n        }\n\n        try\n        {\n            int[] nums = { 1, 2, 3 };\n            Console.WriteLine(nums[5]);                // IndexOutOfRangeException\n        }\n        catch (IndexOutOfRangeException ex)\n        {\n            Console.WriteLine(\"Index error: \" + ex.Message);\n        }\n\n        try { CheckAge(-5); }\n        catch (InvalidAgeException ex) { Console.WriteLine(\"Custom: \" + ex.Message); }\n        finally { Console.WriteLine(\"Done\"); }\n    }\n}\n\nA custom exception derives from Exception (or ApplicationException) and, by convention, ends with Exception.\n\nTwo more programs asked in board papers:\n\n// FormatException + OverflowException (Board 2022)\nstatic void SumNumbers()\n{\n    Console.Write(\"Enter numbers (comma separated): \");\n    string[] parts = Console.ReadLine().Split(',');\n    int total = 0;\n    foreach (string part in parts)\n    {\n        try\n        {\n            int n = checked(int.Parse(part.Trim())); // FormatException on bad text\n            total += n;                              // OverflowException if sum overflows\n        }\n        catch (FormatException) { Console.WriteLine($\"'{part}' is not a valid number\"); }\n        catch (OverflowException) { Console.WriteLine($\"'{part}' is too large\"); }\n    }\n    Console.WriteLine(\"Total: \" + total);\n}\n\n// InvalidCastException (Board 2020)\nobject obj = \"hello\";\ntry { int n = (int)obj; }\ncatch (InvalidCastException ex) { Console.WriteLine(\"Cast failed: \" + ex.Message); }\n\nchecked switches on overflow checking for the enclosed expressions; int.TryParse is the non-throwing alternative when a bad value is expected often.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-034",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What are delegates in C#? List different types and explain with examples. [M model-01]",
+      "answer": "A delegate is a type-safe pointer to a method: it describes the method's signature (return type and parameters) and can hold references to one or more matching methods. Delegates enable callbacks, events and loose coupling.\n\nDeclare, instantiate and invoke:\n\ndelegate int MathOp(int a, int b);\n\nclass DelegateDemo\n{\n    static int Add(int a, int b) => a + b;\n    static int Mul(int a, int b) => a * b;\n\n    static void Main()\n    {\n        MathOp op = Add;                 // method group conversion\n        Console.WriteLine(op(3, 4));     // 7\n        op += Mul;                       // multicast - both methods are invoked in order,\n                                         // but the expression returns only the last\n                                         // method's value\n        Console.WriteLine(op(3, 4));     // prints 12 once (Add runs first, its 7 is discarded)\n        op -= Add;\n    }\n}\n\nBuilt-in generic delegates: Action (0–16 args, void return), Func<...> (last type parameter is the return type), Predicate<T> (returns bool). A multicast delegate holds an invocation list and returns the last method's value. *(The solved books cover delegate basics in model-01 page 7.)*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-035",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What is an event in C#? Write a program to demonstrate event handling.",
+      "answer": "An event is a delegate-based notification mechanism: a publisher exposes an event; subscribers attach handlers with +=; when something happens the publisher raises the event and every handler runs. Events are safer than raw delegates because outside code can only add/remove handlers, not raise or replace them.\n\nusing System;\n\nclass Button\n{\n    public event Action Click;              // declare the event\n    public void Press()                      // raise it\n    {\n        Console.WriteLine(\"Button pressed\");\n        Click?.Invoke();                     // null-conditional raise\n    }\n}\n\nclass Demo\n{\n    static void Main()\n    {\n        Button b = new Button();\n        b.Click += () => Console.WriteLine(\"Handler 1\");\n        b.Click += () => Console.WriteLine(\"Handler 2\");\n        b.Press();\n    }\n}\n\nThe standard .NET pattern uses EventHandler and EventArgs so handlers get sender and event data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-036",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What is LINQ? Explain query syntax and standard query operators (select, contains, orderBy, where). Write LINQ queries to filter records. [M model-01]",
+      "answer": "LINQ (Language Integrated Query) adds query capabilities to C# over any IEnumerable<T> source (in-memory collections, XML, databases via EF/LINQ to SQL, etc.). Query syntax looks like SQL inverted; method syntax chains extension methods. LINQ queries are type-checked and lazily evaluated.\n\nusing System;\nusing System.Linq;\nusing System.Collections.Generic;\n\nclass Employee { public string Name; public int Salary; public string Address; }\nclass Student  { public string Name; public string City; public string College; }\nclass LinqDemo\n{\n    static void Main()\n    {\n        var employees = new List<Employee>\n        {\n            new Employee { Name = \"Rita\", Salary = 30000, Address = \"Kirtipur\" },\n            new Employee { Name = \"Ram\",  Salary = 18000, Address = \"Kathmandu\" },\n            new Employee { Name = \"Sita\", Salary = 25000, Address = \"Patan\" },\n        };\n        var students = new List<Student>\n        {\n            new Student { Name = \"Bina\", City = \"Kirtipur\", College = \"Patan Multiple Campus\" },\n            new Student { Name = \"Hari\", City = \"Kirtipur\", College = \"Bhaktapur Multiple Campus\" },\n            new Student { Name = \"Gita\", City = \"Patan\",   College = \"Patan Multiple Campus\" },\n        };\n\n        // Query syntax\n        var rich = from e in employees\n                   where e.Salary > 20000\n                   orderby e.Salary descending\n                   select e.Name;\n\n        // Method syntax\n        var ktm = employees.Where(e => e.Address == \"Kathmandu\")\n                           .OrderByDescending(e => e.Salary)\n                           .Select(e => new { e.Name, e.Salary });\n\n        // odd and divisible-by-3 numbers in 1..30\n        var nums = from n in Enumerable.Range(1, 30)\n                   where n % 2 == 1 && n % 3 == 0\n                   select n;                       // 3, 9, 15, 21, 27\n\n        // students in Kirtipur studying at Patan Multiple Campus (HTML item 26)\n        var patan = from s in students\n                    where s.City == \"Kirtipur\" && s.College == \"Patan Multiple Campus\"\n                    select new { s.Name, s.City };\n\n        Console.WriteLine(string.Join(\", \", nums));\n        Console.WriteLine(employees.Any(e => e.Salary > 50000));   // contains-like check\n    }\n}\n\nCommon operators: Where, Select, OrderBy/OrderByDescending, ThenBy, GroupBy, Join, Contains, Any, All, Count, Sum, Min, Max, Average, First/FirstOrDefault, Take/Skip, Distinct. In query syntax contains is not a direct keyword — the equivalent is where collection.Contains(value) or Any(...).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-dnt-037",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What is the difference between a DataAdapter and a DataReader in ADO.NET? Write a program to insert customer records and display records where balance > 5000.",
+      "answer": "ADO.NET provides two data-access models:\n\nBasis: Architecture; `DataReader`: Connected; `DataAdapter`: Disconnected Basis: Direction; `DataReader`: Forward-only, read-only cursor; `DataAdapter`: Fills a `DataSet`/`DataTable` Basis: Data size; `DataReader`: One row at a time; very fast, low memory; `DataAdapter`: Whole result set in memory Basis: Updates; `DataReader`: No built-in update; `DataAdapter`: `InsertCommand`/`UpdateCommand`/`DeleteCommand` support Basis: Use case; `DataReader`: Fast reporting of large data; `DataAdapter`: Caching, binding to UI, batch updates\n\nusing System;\nusing System.Data;\nusing System.Data.SqlClient;\n\nclass CustomerDemo\n{\n    static void Main()\n    {\n        string cs = @\"Data Source=.\\SQLEXPRESS;Initial Catalog=Bank;Integrated Security=True\";\n        using (var con = new SqlConnection(cs))\n        {\n            con.Open();\n\n            // Insert five records with parameterized SQL (SQL-injection safe)\n            for (int i = 1; i <= 5; i++)\n            {\n                var cmd = new SqlCommand(\n                    \"INSERT INTO Customer(Name, Balance) VALUES(@n, @b)\", con);\n                cmd.Parameters.AddWithValue(\"@n\", \"Customer\" + i);\n                cmd.Parameters.AddWithValue(\"@b\", 1000 * i);\n                cmd.ExecuteNonQuery();\n            }\n\n            // DataReader: records with balance > 5000\n            var readCmd = new SqlCommand(\"SELECT Name, Balance FROM Customer WHERE Balance > 5000\", con);\n            using (var reader = readCmd.ExecuteReader())\n            {\n                while (reader.Read())\n                    Console.WriteLine($\"{reader[\"Name\"]}: {reader[\"Balance\"]}\");\n            }\n        }\n    }\n}\n\nExecuteNonQuery returns affected rows for INSERT/UPDATE/DELETE; ExecuteScalar returns a single value; ExecuteReader returns the reader. Always use parameters instead of string concatenation. (Sources use MySqlConnection/MySqlCommand in some college papers; the pattern is the same with the MySQL provider.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-038",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What are the components of ASP.NET? Explain validation server controls with a suitable program.",
+      "answer": "ASP.NET is the web application framework of .NET. In classic ASP.NET:\n\n- Page framework — .aspx pages compile to classes; the page lifecycle\n(Init, Load, PostBack events, Render).\n- Server controls — run on the server and emit HTML: web controls\n(TextBox, Button, Label, GridView, DropDownList), HTML server controls (runat=\"server\"), validation controls, data controls, navigation and login controls.\n- State management — view state, session, application, cookies.\n- Data access — ADO.NET, data source controls, data binding.\n- Configuration and services — web.config, caching, security,\nmembership, Web Forms/MVC/Web API.\n\nValidation server controls check input on the server (and with client-side script in the browser):\n\nControl: `RequiredFieldValidator`; Checks: Field is not empty Control: `RangeValidator`; Checks: Value within minimum/maximum Control: `CompareValidator`; Checks: Compares with another control/constant or data type Control: `RegularExpressionValidator`; Checks: Matches a regular expression (email, phone) Control: `CustomValidator`; Checks: User-written validation logic Control: `ValidationSummary`; Checks: Collects all error messages in one place\n\n<form id=\"form1\" runat=\"server\">\n  Name: <asp:TextBox ID=\"txtName\" runat=\"server\" />\n  <asp:RequiredFieldValidator ID=\"rfvName\" runat=\"server\"\n      ControlToValidate=\"txtName\" ErrorMessage=\"Name is required\" />\n  Age: <asp:TextBox ID=\"txtAge\" runat=\"server\" />\n  <asp:RangeValidator ID=\"rvAge\" runat=\"server\" ControlToValidate=\"txtAge\"\n      MinimumValue=\"16\" MaximumValue=\"60\" Type=\"Integer\"\n      ErrorMessage=\"Age must be 16-60\" />\n  <asp:Button ID=\"btnSave\" runat=\"server\" Text=\"Save\" OnClick=\"btnSave_Click\" />\n  <asp:ValidationSummary ID=\"vs\" runat=\"server\" />\n</form>\n\nModern ASP.NET Core replaces Web Forms with MVC, Razor Pages, Blazor and minimal APIs; validation uses data annotations plus model validation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-039",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "Design an ASP.NET form for an Employee Management System that saves records to a database.",
+      "answer": "<!-- Employee.aspx -->\n<form id=\"form1\" runat=\"server\">\n  Emp No:   <asp:TextBox ID=\"txtEmpNo\" runat=\"server\" /><br />\n  Name:     <asp:TextBox ID=\"txtName\" runat=\"server\" /><br />\n  Email:    <asp:TextBox ID=\"txtEmail\" runat=\"server\" /><br />\n  Dept:     <asp:DropDownList ID=\"ddlDept\" runat=\"server\">\n              <asp:ListItem>BCA</asp:ListItem>\n              <asp:ListItem>BBA</asp:ListItem>\n            </asp:DropDownList><br />\n  Salary:   <asp:TextBox ID=\"txtSalary\" runat=\"server\" /><br />\n  <asp:Button ID=\"btnSave\" runat=\"server\" Text=\"Save\" OnClick=\"btnSave_Click\" />\n  <asp:Label ID=\"lblMsg\" runat=\"server\" />\n</form>\n\n// Employee.aspx.cs\nprotected void btnSave_Click(object sender, EventArgs e)\n{\n    using (SqlConnection con = new SqlConnection(\n        @\"Data Source=.;Initial Catalog=EMS;Integrated Security=True\"))\n    {\n        string sql = \"INSERT INTO Employee(EmpNo, Name, Email, Department, Salary) \" +\n                     \"VALUES(@no, @name, @email, @dept, @salary)\";\n        using (SqlCommand cmd = new SqlCommand(sql, con))\n        {\n            cmd.Parameters.AddWithValue(\"@no\", txtEmpNo.Text);\n            cmd.Parameters.AddWithValue(\"@name\", txtName.Text);\n            cmd.Parameters.AddWithValue(\"@email\", txtEmail.Text);\n            cmd.Parameters.AddWithValue(\"@dept\", ddlDept.SelectedValue);\n            cmd.Parameters.AddWithValue(\"@salary\", Convert.ToDecimal(txtSalary.Text));\n            con.Open();\n            int rows = cmd.ExecuteNonQuery();\n            lblMsg.Text = rows > 0 ? \"Employee saved.\" : \"Save failed.\";\n        }\n    }\n}\n\nAdd RequiredFieldValidators for the fields and a RegularExpressionValidator for email. (college-14 Group C question 3 asks a console variant with average of three subject marks; the validation pattern is the same.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-040",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "Write a program to create a student registration form in one ASP.NET page and display the filled data in another page. [M model-01]",
+      "answer": "<!-- Register.aspx -->\n<form id=\"form1\" runat=\"server\">\n  Name:  <asp:TextBox ID=\"txtName\" runat=\"server\" />\n  <asp:RequiredFieldValidator runat=\"server\" ControlToValidate=\"txtName\"\n      ErrorMessage=\"Name required\" />\n  <br />Email: <asp:TextBox ID=\"txtEmail\" runat=\"server\" />\n  <br /><asp:Button ID=\"btnNext\" runat=\"server\" Text=\"Register\"\n      PostBackUrl=\"~/Display.aspx\" />\n</form>\n\n<!-- Display.aspx -->\n<asp:Label ID=\"lblName\" runat=\"server\" />\n\n<script runat=\"server\">\nprotected void Page_Load(object sender, EventArgs e)\n{\n    if (PreviousPage != null)\n    {\n        lblName.Text = \"Welcome, \" + ((TextBox)PreviousPage\n            .FindControl(\"txtName\")).Text;\n    }\n}\n</script>\n\nInstead of PreviousPage, the values can be passed with Response.Redirect and a query string, or stored in Session[\"name\"] — session storage is the safer choice for personal data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s5-dnt-041",
+      "chapterId": "chapter-bca-s5-dnt-04",
+      "topicId": null,
+      "question": "What are lambda expressions? Explain expression lambdas and statement lambdas with examples. [B 2021 short note] [M model-01]",
+      "answer": "A lambda expression is an anonymous function — a compact way to write a method without a name. It is used wherever a delegate or an expression tree is expected: LINQ queries, event handlers, Func/Action values and tasks.\n\nSyntax: parameters => expression (expression lambda) or parameters => { statements } (statement lambda).\n\nusing System;\nusing System.Collections.Generic;\nusing System.Linq;\n\nclass LambdaDemo\n{\n    static void Main()\n    {\n        // expression lambda assigned to a delegate\n        Func<int, int> square = x => x * x;\n        Console.WriteLine(square(5));            // 25\n\n        // statement lambda with a block body\n        Func<int, int, int> add = (a, b) =>\n        {\n            int sum = a + b;\n            return sum;\n        };\n        Console.WriteLine(add(2, 3));            // 5\n\n        // lambdas in LINQ (deferred execution)\n        var nums = new List<int> { 1, 2, 3, 4, 5, 6 };\n        var evens = nums.Where(n => n % 2 == 0).Select(n => n * 10);\n        Console.WriteLine(string.Join(\", \", evens));   // 20, 40, 60\n\n        // Action (void) lambda\n        Action<string> log = msg => Console.WriteLine(\"LOG: \" + msg);\n        log(\"done\");\n    }\n}\n\n- Expression lambda — single expression, no braces; the result is the\nreturn value.\n- Statement lambda — braced block; must use return for a value.\n- Lambdas may capture local variables (closures); the captured variable lives\nas long as the delegate.\n- A lambda with one inferred parameter may omit parentheses: x => x + 1;\nmultiple parameters need them: (a, b) => a + b.\n- Lambda expressions replaced most uses of anonymous methods\n(delegate(int x) { return x + 1; }), which still exist for compatibility.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s5-dnt-001",
+      "normalizedKeyword": "net framework architecture",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-001",
+      "normalizedKeyword": "cil (common intermediate language)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-001",
+      "normalizedKeyword": "assembly",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-010",
+      "normalizedKeyword": "boxing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-010",
+      "normalizedKeyword": "unboxing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-022",
+      "normalizedKeyword": "static class",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-022",
+      "normalizedKeyword": "static constructor",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-033",
+      "normalizedKeyword": "exception handling",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-002",
+      "normalizedKeyword": "managed code",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-002",
+      "normalizedKeyword": "platform independence",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-002",
+      "normalizedKeyword": "language interoperability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-011",
+      "normalizedKeyword": "variable-size array",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-011",
+      "normalizedKeyword": "jagged array",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-023",
+      "normalizedKeyword": "constructor",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-023",
+      "normalizedKeyword": "default constructor",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-023",
+      "normalizedKeyword": "parameterized constructor",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-034",
+      "normalizedKeyword": "delegate",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-003",
+      "normalizedKeyword": "clr",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-003",
+      "normalizedKeyword": "assembly loading and metadata handling",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-003",
+      "normalizedKeyword": "il verification and type safety",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-012",
+      "normalizedKeyword": "namespaces",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-024",
+      "normalizedKeyword": "inheritance",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-024",
+      "normalizedKeyword": "multilevel",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-024",
+      "normalizedKeyword": "multiple",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-035",
+      "normalizedKeyword": "event",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-013",
+      "normalizedKeyword": "string interpolation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-013",
+      "normalizedKeyword": "by value vs by reference",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-025",
+      "normalizedKeyword": "virtual method",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-025",
+      "normalizedKeyword": "dynamic binding",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-025",
+      "normalizedKeyword": "overloading",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-036",
+      "normalizedKeyword": "linq (language integrated query)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-005",
+      "normalizedKeyword": "common language runtime (clr)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-005",
+      "normalizedKeyword": "framework class library (fcl)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-005",
+      "normalizedKeyword": "common type system (cts)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-026",
+      "normalizedKeyword": "operator overloading",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-026",
+      "normalizedKeyword": "cannot",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-037",
+      "normalizedKeyword": "ado.net",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-006",
+      "normalizedKeyword": "key features of c#",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-006",
+      "normalizedKeyword": "simple",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-006",
+      "normalizedKeyword": "modern",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-015",
+      "normalizedKeyword": "optional parameter",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-015",
+      "normalizedKeyword": "named argument",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-027",
+      "normalizedKeyword": "interface",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-038",
+      "normalizedKeyword": "asp.net",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-038",
+      "normalizedKeyword": "page framework",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-038",
+      "normalizedKeyword": "server controls",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-007",
+      "normalizedKeyword": "net standard",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-007",
+      "normalizedKeyword": "net standard 2.0",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-007",
+      "normalizedKeyword": "types of jit compilation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-028",
+      "normalizedKeyword": "generics",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-017",
+      "normalizedKeyword": "type conversion",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-017",
+      "normalizedKeyword": "implicit conversion",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-017",
+      "normalizedKeyword": "explicit conversion (cast)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-029",
+      "normalizedKeyword": "finalizer",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-029",
+      "normalizedKeyword": "base keyword",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-009",
+      "normalizedKeyword": "cts (common type system)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-009",
+      "normalizedKeyword": "fcl (framework class library)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-009",
+      "normalizedKeyword": "applied technologies of .net",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-018",
+      "normalizedKeyword": "selection",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-018",
+      "normalizedKeyword": "iteration",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-018",
+      "normalizedKeyword": "jump",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-030",
+      "normalizedKeyword": "read-write",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-030",
+      "normalizedKeyword": "read-only",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-030",
+      "normalizedKeyword": "write-only",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-041",
+      "normalizedKeyword": "lambda expression",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-041",
+      "normalizedKeyword": "expression lambda",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-041",
+      "normalizedKeyword": "statement lambda",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-031",
+      "normalizedKeyword": "polymorphism",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-031",
+      "normalizedKeyword": "compile-time (static) polymorphism — method overloading",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-031",
+      "normalizedKeyword": "number of parameters",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-032",
+      "normalizedKeyword": "encapsulation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-032",
+      "normalizedKeyword": "inheritance",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-032",
+      "normalizedKeyword": "polymorphism",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-dnt-021",
+      "normalizedKeyword": "property",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-dnt-021",
+      "normalizedKeyword": "automatic property",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-dnt-021",
+      "normalizedKeyword": "indexer",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s5-dnt",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "title: Dot Net Technology (CACS 302) — Board Questions with Answers"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-dnt-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Unit I — Introducing C# and the .NET Framework"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-dnt-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Unit II — C# Language Basics"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-dnt-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Unit III — Creating Types in C#"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-dnt-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Unit IV — Advanced C#"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 1. Explain the architecture of the .NET Framework with a suitable diagram. Also discuss the importance of Garbage Collection. `[H] [B 2021] [C college-08/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 2. What is managed code? Justify how the .NET framework provides platform independence and language interoperability. `[H] [B 2020] [C college-13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 3. What is the Common Language Runtime (CLR)? List and explain its main features. `[H] [B 2021/2018] [C college-02/03/07]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 4. Why is C# considered a type-safe programming language? Explain with examples. `[H] [B 2019] [C college-02/03/09/14]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 5. Describe the Microsoft .NET Framework and its components in detail. `[H] [B 2017] [C college-13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 6. Differentiate between Object-Oriented Programming and Object-Based Programming. Also explain the key features of the C# language. `[H] [B 2017] [M model-01]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 7. What's new in the .NET Standard 2.0? Explain different types of JIT compiler. `[C college-08/10/12]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 8. What is the importance of Garbage Collection in .NET Framework? `[B 2021]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit I — Introducing C# and the .NET Framework / 9. Explain applied technologies / CTS / FCL in brief. `[C college-03/07/10/11/12]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 10. Differentiate between value types and reference types in C#. Also explain boxing and unboxing with a suitable program. `[H] [B 2020] [C college-02/06/09/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 11. What is a variable-size array? Write a C# program to create a multidimensional array to store student marks. `[H] [B 2021] [C college-06]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 12. Why are namespaces used in C#? How do you create and use a custom namespace? Also show how to create an alias. `[H] [B 2018] [C college-08/10/12]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 13. What is string interpolation in C#? Explain how passing arguments by value differs from passing by reference with a program. `[H] [B 2019] [C college-09]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 14. List any five contextual keywords in C# and explain their purpose briefly. `[H] [B 2019] [C college-03]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 15. What is optional parameter and named argument? Explain with a program. `[B 2020/2021]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 16. What is a jagged array? Write a program to find the length of a jagged array / perform matrix operations. `[C college-01/02/09]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 17. What is type conversion? Explain with examples. `[C college-11/12]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 18. What are control statements? Explain different types with examples. `[M model-02] [C college-11]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 19. Explain struct vs enum with a program using Department and College enums. `[H] [B 2020] [C college-09/11]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 20. Explain the structure of a basic C# console application. `[C college-05]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit II — C# Language Basics / 21. Explain properties and automatic properties; how is `this` used in an indexer? `[H] [B 2019] [C college-11]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 22. What is a static class and a static constructor? Explain with a program. `[H] [B 2021] [C college-05/08]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 23. Define a constructor. Explain the different types of constructors with examples. `[H] [B 2020/2017] [M model-01/model-02] [C college-03/07/09]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 24. Define inheritance. Write a C# program to demonstrate multilevel and multiple inheritance. `[H] [B 2017] [M model-01]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 25. What is a virtual method? How is it used for dynamic binding in C#? Explain with an example. `[H] [B 2020/2017] [M model-01] [C college-13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 26. Define operator overloading. Write a C# program to overload binary and relational operators; also demonstrate unary (++) and relational (==). `[H] [B 2022] [M model-01] [C college-01/02/06/07/08/10/12/13/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 27. What is an interface in C#? Explain how interfaces implement multiple inheritance with a program. `[H] [B 2018] [C college-03/09/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 28. What are generics in C#? Explain generic classes with a program. List different types of generic classes. `[H] [B 2017] [M model-01/model-02] [C college-01/09/10/12/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 29. What is a finalizer in C#? Also explain the use of the base keyword with an example. `[H] [B 2020]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 30. Differentiate between properties and indexers. Compare automatic properties with other types. `[B 2019]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 31. What is polymorphism? How many ways can you overload methods? Explain method overloading and overriding. `[B 2022] [C college-01/04/08/12/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit III — Creating Types in C# / 32. What is object orientation? Describe the features of C# from an object-oriented perspective. `[C college-04/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 33. Why is exception handling important in C#? Write a program using a custom exception. Also demonstrate divide-by-zero and index-out-of-range handling. `[H] [B 2020] [C college-01/02/05/06/09/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 34. What are delegates in C#? List different types and explain with examples. `[H] [B 2021] [M model-01] [C college-02/06/07/08/09/13/14/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 35. What is an event in C#? Write a program to demonstrate event handling. `[H] [B 2020] [C college-06/14/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 36. What is LINQ? Explain query syntax and standard query operators (select, contains, orderBy, where). Write LINQ queries to filter records. `[H] [B 2021] [M model-01] [C college-02/06/13/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-037",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 37. What is the difference between a DataAdapter and a DataReader in ADO.NET? Write a program to insert customer records and display records where balance > 5000. `[H] [B 2019] [C college-01/02/08/10/12/13]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 38. What are the components of ASP.NET? Explain validation server controls with a suitable program. `[H] [B 2020] [C college-02]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 39. Design an ASP.NET form for an Employee Management System that saves records to a database. `[H] [B 2021]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 40. Write a program to create a student registration form in one ASP.NET page and display the filled data in another page. `[H] [B 2018] [M model-01]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-dnt-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/dnt/dnt-board-qa.md",
+          "locator": "Dot Net Technology (CACS 302) — Board Questions with Answers / Unit IV — Advanced C# / 41. What are lambda expressions? Explain expression lambdas and statement lambdas with examples. `[B 2021 short note] [M model-01] [C college-02/06/09/10/12/15]`"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

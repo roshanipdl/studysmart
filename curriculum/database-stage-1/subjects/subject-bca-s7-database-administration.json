@@ -1,0 +1,1837 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s7-database-administration",
+    "academicPeriodId": "period-bca-semester-7",
+    "code": "CACS 405",
+    "name": "Database Administration",
+    "description": "",
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s7-database-administration-01",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 1,
+      "title": "Introduction to Oracle Database",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-02",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 2,
+      "title": "Managing Database Instances",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-03",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 3,
+      "title": "Tablespace and Storage Management",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-04",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 4,
+      "title": "Managing Users, Roles and Privileges",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-05",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 5,
+      "title": "Multitenant Database Architecture",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-06",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 6,
+      "title": "Configure the Oracle Network Environment",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-07",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 7,
+      "title": "Backup and Recovery",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-database-administration-08",
+      "subjectId": "subject-bca-s7-database-administration",
+      "chapterNumber": 8,
+      "title": "Automate Tasks with the Scheduler",
+      "description": "",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s7-database-administration-029",
+      "chapterId": "chapter-bca-s7-database-administration-02",
+      "topicId": null,
+      "question": "Describe the memory structure of oracle database. Explain how PGA differs from SGA. Also explain about oracle instance and different components of SGA.",
+      "answer": "Memory structure. Oracle memory = SGA (shared) + PGA (per process). The SGA is allocated when the instance starts and released at shutdown; PGA is allocated when a server process starts.\n\nInstance. An Oracle instance = memory structures (SGA + PGAs) + background processes (DBWn, LGWR, CKPT, SMON, PMON, ARCn, LREG, ...) that manage database activities. Mounting/opening the instance gives access to the database files. (Instance ≠ database: instance = memory + processes; database = files.)\n\nPGA vs SGA:\n\nAspect: Sharing; SGA: Shared by all processes; PGA: Private to one server process Aspect: Content; SGA: Data buffers, shared SQL, redo; PGA: Session data, cursors, sort areas Aspect: Lifetime; SGA: Instance up; PGA: Per session/process Aspect: Configuration; SGA: SGA_TARGET / components; PGA: PGA_AGGREGATE_TARGET\n\nSGA components:\n\n1. Database buffer cache — caches datafile blocks for repeated reads;\nwrite lists mark dirty buffers; LRU keeps frequently used blocks.\n2. Shared pool — library cache (parsed SQL, execution plans, PL/SQL\nobjects) + data dictionary cache; avoids reparsing; sized by SHARED_POOL_SIZE.\n3. Redo log buffer — circular buffer of redo entries flushed by LGWR on\ncommit/log switch/thirds-full/3-seconds.\n4. Large pool — optional; shared-server UGAs, parallel execution\nbuffers, RMAN I/O buffers.\n5. Java pool — JVM session memory.\n6. Streams pool — replication/Advanced Queuing buffering.\n7. Fixed SGA — housekeeping structures; result cache (optional) for\nquery/function results.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-031",
+      "chapterId": "chapter-bca-s7-database-administration-02",
+      "topicId": null,
+      "question": "What do you mean by oracle Instance? Explain about the different data structures used in SGA.",
+      "answer": "Oracle instance = the set of memory structures (System Global Area + background-process PGAs) plus the Oracle background processes that manage database activities (transaction processing, recovery, etc.). An instance mounts and opens one database; instance ≠ database — the database is the files on disk.\n\nData structures of the SGA:\n\n1. Database buffer cache — caches copies of datafile blocks for reading\nand updating; dirty buffers are written by DBWn; organized as keep / recycle / default pools and DB_nK_CACHE_SIZE pools.\n2. Shared pool — *library cache* (shared SQL areas: parse trees,\nexecution plans; PL/SQL program units) and *dictionary cache* (row cache of data-dictionary data); sized by SHARED_POOL_SIZE.\n3. Redo log buffer — circular buffer in which DML changes are recorded\n(redo entries) before LGWR writes them to the online redo logs; continuous, sequential writes.\n4. Large pool — optional area for shared-server UGA, parallel query\nmessage buffers, RMAN backup I/O buffers, to relieve the shared pool.\n5. Java pool — memory for the JVM within the database.\n6. Streams pool — for Streams/AQ message buffering.\n7. Fixed SGA — internal housekeeping area; result cache (11g+) for\ncaching query/function results.\n\nThese structures are shared and protected by latches; SGA size is controlled by SGA_TARGET (automatic) or individual parameters.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-038",
+      "chapterId": "chapter-bca-s7-database-administration-02",
+      "topicId": null,
+      "question": "What do you mean by database management system? Mention the clear architecture of oracle database management system including different files, process and memory structure.",
+      "answer": "A DBMS is software that stores, retrieves and manages data in databases, providing data definition, manipulation, security, integrity, concurrency and recovery services. Oracle's RDBMS implements it as a client/server system: the *Oracle server* = instance + database.\n\nArchitecture (three structures):\n\n1. Memory structures:\n   - SGA — shared pool (library + dictionary caches), database buffer\n     cache, redo log buffer, large/java/streams pools, fixed portion.\n   - PGA — private memory per server process (sort areas, session\n     data, cursors).\n2. Process structures: user processes; server processes (dedicated or\nshared-server dispatchers); background processes — DBWn (buffers → datafiles), LGWR (redo buffer → online redo logs), CKPT (checkpoint signaling), SMON (instance recovery), PMON (cleaning dead processes), ARCn (archiving), plus LREG/RECO etc.\n3. Physical files / storage:\n   - Datafiles — store the tablespaces' data.\n   - Control files — physical-structure metadata, SCN, backup info.\n   - Online redo log files (+ archived redo logs) — change vectors\n     for recovery.\n   - Parameter files (spfile/pfile), password file, and\n     alert log/trace files for diagnostics.\n\nClient connects via Oracle Net; the listener hands connections to server processes; data flows between disk files and the buffer cache; every committed change is protected first in redo.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-011",
+      "chapterId": "chapter-bca-s7-database-administration-03",
+      "topicId": null,
+      "question": "What are data files? How it is related with tablespace? Write a command to add a datafile in existing tablespace.",
+      "answer": "Datafiles are the physical operating-system files on disk in which the data of an Oracle database is actually stored.\n\nRelationship with tablespaces. Oracle stores data *logically* in tablespaces and *physically* in datafiles. Each tablespace consists of one or more datafiles; each datafile is associated with exactly one tablespace (and only one). A database's data is collectively stored in the datafiles that constitute its tablespaces — e.g. the simplest database has one tablespace with one datafile; a larger one may have three tablespaces × two datafiles. When a schema object is created, its segment allocates space in one or more datafiles of its designated tablespace.\n\nCommand to add a datafile:\n\nALTER TABLESPACE system ADD DATAFILE '/u01/oradata/data2.ora' SIZE 100M;\n\nAdding a datafile enlarges the database — the other two options for enlargement are adding a new tablespace or increasing the size of an existing datafile.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-017",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "Explain the use of sequence in oracle database with example.",
+      "answer": "A sequence is a database object that generates unique integers according to rules set at creation — used mainly to generate surrogate primary-key values automatically, avoiding application-generated duplicate keys.\n\nCreation:\n\nCREATE SEQUENCE dept_seq\n  INCREMENT BY 1\n  START WITH 10\n  MAXVALUE 999999\n  NOCYCLE\n  CACHE 20;\n\nUse. NEXTVAL generates the next value (first reference initializes the sequence); CURRVAL returns the current value of the sequence for the session (valid only after NEXTVAL was used in the session):\n\nINSERT INTO departments (dept_id, dept_name)\nVALUES (dept_seq.NEXTVAL, 'Research');\nSELECT dept_seq.CURRVAL FROM dual;\n\nKey options: INCREMENT BY (step; negative values make descending sequences), START WITH, MINVALUE/MAXVALUE, CYCLE/NOCYCLE (wrap around at the limit), CACHE n/NOCACHE (pre-allocated numbers for speed), ORDER for RAC environments. Numbers are independent of transactions — a rolled-back transaction leaves a gap, which is acceptable for key generation. Sequences are altered with ALTER SEQUENCE and removed with DROP SEQUENCE.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-019",
+      "chapterId": "chapter-bca-s7-database-administration-02",
+      "topicId": null,
+      "question": "Explain oracle database architecture in detail including memory, process, and storage structure of oracle database.",
+      "answer": "Overview. An Oracle server = instance + database. The instance is a set of memory structures (SGA + PGA) and background processes; the database is the physical files on disk.\n\nMemory structure.\n\n- System Global Area (SGA) — shared memory for all processes, allocated\nat instance startup; components:\n  - Shared pool — library cache (SQL statements, parsed/execution\n    plans, PL/SQL) and data dictionary cache; enables reuse of parsed SQL.\n  - Database buffer cache — caches data blocks read from datafiles;\n    write lists and LRU lists manage dirty/clean buffers; multiple buffer\n    pools (keep, recycle, default; nK pools).\n  - Redo log buffer — circular buffer caching redo entries before LGWR\n    writes them to disk.\n  - Large pool — for shared server sessions, RMAN I/O, parallel query\n    buffers.\n  - Java pool / Streams pool as configured.\n- Program Global Area (PGA) — private memory per server process\n(session variables, sort areas, cursor state); not shared, unlike the SGA.\n\nProcess structure.\n\n- User process + server process (dedicated or shared server via\ndispatchers) executing SQL on behalf of clients.\n- Background processes: DBWn (writes dirty buffers to datafiles), LGWR\n(writes redo buffer to online redo logs), CKPT (signals checkpoints, updates datafile headers/control file), SMON (instance recovery, cleanup), PMON (cleans failed user processes), ARCn (archives full redo logs when in ARCHIVELOG mode), RECO, LREG and others.\n\nStorage structure.\n\n- Physical: datafiles (store tablespace data), control files (physical\nstructure metadata, SCN, backup info), online redo log files (change vectors for recovery), archived redo logs, parameter files (spfile/pfile), password file, alert/trace files.\n- Logical hierarchy: database → tablespaces → segments → extents →\nOracle blocks; schemas hold tables, indexes and other objects. Tablespaces group data logically and map to one-or-more datafiles.\n\nInstance and database are connected at mount (control file read) and open (datafiles opened) stages.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-023",
+      "chapterId": "chapter-bca-s7-database-administration-03",
+      "topicId": null,
+      "question": "What is multiplexing? Why is it needed? Write the steps of multiplexing the online redo log files.",
+      "answer": "Definition. Keeping copies of the same redo log content — every redo log group contains two or more identical members, ideally on separate disks.\n\nNeed. Redo logs are essential for recovery. If LGWR writes a group with a single member and that disk fails, committed transactions' redo is lost — the database may need media recovery or can be forced to lose data. With multiplexing, the instance continues while at least one member is writable and writes an alert when one member fails.\n\nSteps to multiplex (add members):\n\n1. Check current groups: SELECT group#, member FROM v$logfile ORDER BY group#;\n2. Add a member to an existing group:\n\nALTER DATABASE ADD LOGFILE MEMBER\n  '/ora04/oradata/MYDB01/redo0203.log' TO GROUP 2;\n\nor add a whole multiplexed group:\n\nALTER DATABASE ADD LOGFILE GROUP 3\n  ('/ora02/oradata/MYDB01/redo0301.log',\n   '/ora03/oradata/MYDB01/redo0302.log') SIZE 10M;\n\n3. For a new database, create multiplexed groups directly in CREATE\nDATABASE ... LOGFILE GROUP 1 ('...redo0101.log','...redo0102.log') SIZE 10M, GROUP 2 (...).\n4. Verify with V$LOGFILE/V$LOG, keep group members' sizes equal, place\nmembers on different disks, and ensure at least two groups exist.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-024",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "What is indexing? Why it is important in database? Explain the different guidelines to create index in database.",
+      "answer": "Index — a schema object storing an ordered structure (by default a B-tree) built on one or more columns of a table; it contains the indexed column values (the key) and ROWIDs pointing to the table rows.\n\nImportance. Without an index Oracle full-scans the whole table; with an index it can find rows with a few block reads. Indexes enforce PRIMARY KEY/ UNIQUE constraints, speed joins, sorts (index-ordered read) and point-lookups in OLTP systems. Cost: extra storage and slower DML (indexes must be maintained on every DML).\n\nGuidelines for creating indexes:\n\n1. Index columns used frequently in WHERE clauses, joins, ORDER BY\n(high filter/selectivity).\n2. Index primary keys and foreign keys (FKs avoid full locks in child\ntables during parent DML).\n3. More indexes is not better — each index slows INSERT/UPDATE/DELETE and\nconsumes space; keep the number minimal.\n4. Prefer the smallest column set that gives selectivity; consider\ncomposite indexes with the most selective column first when queries use the leading column.\n5. Build indexes on small tables only if they really speed access; very\nsmall tables may be faster full-scanned.\n6. Use unique indexes where business rules demand uniqueness; use bitmaps\nfor low-cardinality data-warehouse columns, reverse-key to reduce hot-spot contention in RAC.\n7. Create indexes on large tables before bulk loads are finished (or mark\nunusable during bulk load and rebuild afterwards).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-032",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "What is synonym? Why it is important? Explain it with example.",
+      "answer": "A synonym is an alias (alternative name) for a schema object — a table, view, sequence, procedure, or another synonym.\n\nImportance:\n\n1. Location transparency — applications reference EMP_DATA, while the\nobject may move to another schema or even a remote database (via database link) without changing any SQL.\n2. Simplifies SQL — hides the owner prefix: SELECT * FROM emp_data\ninstead of SELECT * FROM james.employee_data.\n3. Security/masking — grant access through a synonym without exposing\nthe real object name/structure; access control stays central.\n\nTypes. *Private* synonym — owned by a user, usable by that user and those granted access. *Public* synonym — owned by PUBLIC, visible to all users.\n\nExample:\n\nCREATE PUBLIC SYNONYM emp_data FOR james.employee_data;\nCREATE SYNONYM dept FOR scott.departments;      -- private\nSELECT * FROM emp_data;   -- resolves to james.employee_data\nDROP PUBLIC SYNONYM emp_data;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-003",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "Describe the steps to manage user passwords in Oracle Database, including password expiration, complexity, and locking/unlocking accounts.",
+      "answer": "Password management in Oracle is done through profiles assigned to users:\n\n1. Create a profile with password parameters:\n\nCREATE PROFILE secure_user LIMIT\n  FAILED_LOGIN_ATTEMPTS 5        -- account locks after 5 bad logins\n  PASSWORD_LIFE_TIME 90          -- password valid for 90 days\n  PASSWORD_REUSE_MAX 3           -- cannot reuse until 3 changes\n  PASSWORD_REUSE_TIME 60\n  PASSWORD_LOCK_TIME 1           -- locked for 1 day after failure\n  PASSWORD_GRACE_TIME 7          -- grace period after expiry\n  PASSWORD_VERIFY_FUNCTION verify_function;  -- complexity check\n\n2. Complexity: PASSWORD_VERIFY_FUNCTION points to a PL/SQL function\n(e.g. Oracle's default utlpwdmg.sql script creates verify_function) that enforces minimum length, mixed case, digits/special characters and rejection of trivially guessable passwords.\n3. Expiration: PASSWORD_LIFE_TIME expires the password after the set\ndays; PASSWORD_GRACE_TIME warns the user during the grace period. Force immediate expiry manually with ALTER USER scott PASSWORD EXPIRE; — the user must set a new password at next login.\n4. Locking/unlocking: consecutive failures beyond\nFAILED_LOGIN_ATTEMPTS lock the account for PASSWORD_LOCK_TIME days. Manual control: ALTER USER scott ACCOUNT LOCK; / ALTER USER scott ACCOUNT UNLOCK;\n5. Assign and verify: ALTER USER scott PROFILE secure_user; — check\nDBA_PROFILES (resource type PASSWORD) and DBA_USERS (account_status, expiry_date).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-009",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "Explain how to monitor and manage user accounts in Oracle Database, including account locking, unlocking, and password expiration.",
+      "answer": "Monitoring. The DBA monitors accounts through data dictionary views: DBA_USERS (username, account_status — OPEN, LOCKED, EXPIRED, EXPIRED & LOCKED, created, profile, default_tablespace), DBA_PROFILES/USER_PASSWORD_LIMITS (password parameters in force), DBA_TS_QUOTAS (space usage vs quota), V$SESSION (who is connected) and auditing (AUD$/unified audit) for failed logins. Typical checks: accounts that should be open but are locked, expired passwords of service accounts, profiles with weak limits, and users with stale created dates.\n\nManaging accounts.\n\n1. Creation with sensible defaults:\n\nCREATE USER app_user IDENTIFIED BY \"Str0ng!pwd\"\n  DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp\n  QUOTA 10M ON users PROFILE secure_user;\nGRANT CREATE SESSION TO app_user;\n\n2. Password expiration. Controlled by the profile\n(PASSWORD_LIFE_TIME, PASSWORD_GRACE_TIME). After expiry the user is prompted for a new password at login. A DBA forces expiry with ALTER USER app_user PASSWORD EXPIRE;. Complexity is enforced via PASSWORD_VERIFY_FUNCTION (e.g. Oracle's default verify function from utlpwdmg.sql), and reuse rules via PASSWORD_REUSE_MAX/TIME.\n3. Automatic locking. After FAILED_LOGIN_ATTEMPTS consecutive bad\nlogins, Oracle locks the account for PASSWORD_LOCK_TIME (or forever if UNLIMITED). DBA_USERS.account_status shows LOCKED with lock_date.\n4. Manual locking and unlocking:\n\nALTER USER app_user ACCOUNT LOCK;    -- prevent logins (sessions persist)\nALTER USER app_user ACCOUNT UNLOCK;  -- re-enable logins\n\n5. Password maintenance: ALTER USER app_user IDENTIFIED BY newpwd;\nchanges a password; expired accounts combine states — first change the password, then unlock.\n6. Hygiene: drop or lock unused accounts (DROP USER app_user CASCADE;\nremoves the schema — lock first when unsure), assign non-DEFAULT profiles, and review locked/expired accounts regularly with SELECT username, account_status, lock_date, expiry_date FROM dba_users;\n\nLeast privilege completes the picture: accounts get CREATE SESSION plus only the privileges they need, so locked/expired accounts and monitoring views together provide account-level access control.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-013",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "Explain the different privileges in an oracle database and explain how you can grant and revoke the privilege to the user with examples.",
+      "answer": "Privileges control access to data and restrict the actions users can perform. Two types:\n\n1. System privileges — the right to perform a specific action at database\nlevel on any schema, e.g. CREATE SESSION, CREATE TABLE, CREATE USER, ALTER SYSTEM, UNLIMITED TABLESPACE. Powerful ones go only to trusted users.\n\nGRANT CREATE SESSION, CREATE TABLE TO john;\nGRANT CREATE ANY TABLE TO john WITH ADMIN OPTION;  -- john can re-grant\nREVOKE CREATE TABLE FROM john;\n\n2. Object privileges — granted on a specific schema object owned by a\nuser: SELECT, INSERT, UPDATE, DELETE, EXECUTE, REFERENCES, ALTER, INDEX, READ, etc.\n\nGRANT SELECT, UPDATE ON customer TO james;\nGRANT SELECT ON customer TO james WITH GRANT OPTION; -- james can re-grant\nGRANT INSERT (customer_id) ON customer TO james;     -- column privilege\nREVOKE UPDATE ON customer FROM james;\n\nPrivileges can be granted directly to a user, or to a role which is then granted to users; PUBLIC grants to every user. With WITH GRANT OPTION the grantee may pass an object privilege on; when a grantor loses (the revoke cascades) the privileges granted by that grantee are also removed. System privileges use WITH ADMIN OPTION (not cascading on revoke).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-014",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "What is profile? Why is it important? Explain with an example.",
+      "answer": "A profile is a named set of limits on database resources and password behaviour that can be assigned to users.\n\nImportance. Profiles let the DBA (1) limit resource consumption — SESSIONS_PER_USER, CPU_PER_SESSION, IDLE_TIME, CONNECT_TIME, PRIVATE_SGA, COMPOSITE_LIMIT; (2) enforce password management — FAILED_LOGIN_ATTEMPTS, PASSWORD_LIFE_TIME, PASSWORD_REUSE_TIME/MAX, PASSWORD_LOCK_TIME, PASSWORD_GRACE_TIME, PASSWORD_VERIFY_FUNCTION; (3) group users by community (e.g. clerks vs DBAs) instead of setting limits individually. Every user has exactly one profile; users without one get DEFAULT. Profiles enforce limits when RESOURCE_LIMIT = TRUE (kernel resources) — password parameters always apply.\n\nExample:\n\nCREATE PROFILE accounting_user LIMIT\n  SESSIONS_PER_USER 6\n  IDLE_TIME 120\n  FAILED_LOGIN_ATTEMPTS 6\n  PASSWORD_LIFE_TIME 60;\nALTER USER scott PROFILE accounting_user;\n\nNow SCOTT may hold at most 6 concurrent sessions, is disconnected after 120 idle minutes, the account locks after 6 failed logins and the password expires after 60 days. Information is verified from DBA_PROFILES.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-026",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "What is database administration? Explain the roles and responsibilities of DBA.",
+      "answer": "Database administration is the task of installing, configuring, maintaining, securing and tuning database systems so that applications get reliable, consistent, performant and secure access to data.\n\nRoles and responsibilities of a DBA:\n\n1. Installation and upgrades — install Oracle software, create and\nupgrade databases; apply patches.\n2. Design and storage management — plan tablespaces/datafiles, manage\ngrowth (add datafiles), manage redo/control files, ASM storage.\n3. User and security management — create users, assign profiles,\nquotas, privileges and roles; protect the data (least privilege, auditing, encryption).\n4. Backup and recovery — define the backup policy, take physical/logical\nbackups (RMAN/Data Pump), test restores, recover from failures.\n5. Performance tuning — instance/memory tuning, SQL tuning, indexing,\ncapacity planning with AWR/ADDM.\n6. Availability — plan standby/RAC/high-availability, maintenance\nwindows, patching.\n7. Monitoring and troubleshooting — alert log, trace files, dynamic\nviews; resolve incidents.\n8. Integrity/consistency — enforce constraints, keep the database in a\nconsistent state using recovery; manage concurrency.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-030",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "What is privilege and why is it required? Explain the different system and object privileges used in ORACLE database with their importance. Write command to do following:",
+      "answer": "Privilege = a right to execute a particular SQL statement or to access another user's object. It is required because tables/schemas are private and security demands least privilege: without explicit privileges no user can log in (CREATE SESSION), create objects or read other schemas' data.\n\nSystem privileges (database-level right to perform an action anywhere): CREATE SESSION (log in), CREATE TABLE / CREATE ANY TABLE (own/any schema), CREATE USER, CREATE VIEW, CREATE SEQUENCE, CREATE TABLESPACE, ALTER SYSTEM, UNLIMITED TABLESPACE (very powerful), DROP ANY TABLE, EXECUTE ANY PROCEDURE. They are granted with optional WITH ADMIN OPTION so the grantee can re-grant.\n\nObject privileges (on a specific object of another user): SELECT, INSERT, UPDATE, DELETE (data), EXECUTE (programs), REFERENCES (foreign keys), ALTER, INDEX, READ (directories) — granted with optional WITH GRANT OPTION.\n\nCommands:\n\n-- a) Create common user and local user (multitenant)\nCREATE USER C##admin IDENTIFIED BY pwd123;      -- common (CDB root)\nCREATE USER local_user IDENTIFIED BY L0cal!pwd; -- local (inside a PDB)\n\n-- b) Create a role, assign two system privileges, assign to user\nCREATE ROLE reporting;\nGRANT CREATE SESSION, CREATE VIEW TO reporting;\nGRANT reporting TO alice;\n\n-- c) Unlimited space on 'users' tablespace\nALTER USER alice QUOTA UNLIMITED ON users;\n\n-- d) Create profile with the given parameters\nCREATE PROFILE dev_profile LIMIT\n  FAILED_LOGIN_ATTEMPTS 2\n  IDLE_TIME 5\n  SESSIONS_PER_USER 3;\n\n-- e) Assign profile to the user\nALTER USER alice PROFILE dev_profile;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-034",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "Explain the term database administrator (DBA) and describe the different roles of DBA.",
+      "answer": "A database administrator (DBA) is the person responsible for the operation, security, performance and availability of database systems.\n\nRoles of the DBA:\n\n1. Installation & configuration: install Oracle software and create\ndatabases; plan capacity, memory and storage.\n2. Schema & storage management: create/manage tablespaces, datafiles,\nusers; enlarge the database when required.\n3. Security administration: create users, assign privileges/roles and\nprofiles, enforce least privilege, audit activity.\n4. Backup & recovery: define/execute backup policy, keep the database\nrecoverable, perform media/crash recovery.\n5. Performance tuning: tune memory (SGA/PGA), SQL and indexes; monitor\nwith dynamic views/AWR.\n6. Availability & maintenance: patching, upgrading, managing\nmaintenance windows, standby configurations.\n7. Monitoring & troubleshooting: watch alert logs, trace files, space\nusage; resolve incidents.\n8. Integrity: keep data consistent — constraints, recovery discipline.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-036",
+      "chapterId": "chapter-bca-s7-database-administration-04",
+      "topicId": null,
+      "question": "What is user profile? Write the commands to create the user profile and assign it to user.",
+      "answer": "A profile is a named set of resource limits and password-management rules; every user is assigned exactly one profile (DEFAULT if not specified).\n\n-- create the profile\nCREATE PROFILE dev_profile LIMIT\n  SESSIONS_PER_USER   3        -- concurrent sessions\n  IDLE_TIME           5        -- minutes idle before disconnect\n  FAILED_LOGIN_ATTEMPTS 2      -- lock account after 2 bad logins\n  PASSWORD_LIFE_TIME  60\n  PASSWORD_LOCK_TIME  1/24;\n\n-- assign to an existing user\nALTER USER alice PROFILE dev_profile;\n\n-- or assign at creation\nCREATE USER bob IDENTIFIED BY pwd123 PROFILE dev_profile;\n\nVerify with SELECT * FROM dba_profiles WHERE profile='DEV_PROFILE'; and SELECT username, profile FROM dba_users;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-004",
+      "chapterId": "chapter-bca-s7-database-administration-05",
+      "topicId": null,
+      "question": "Create a Container Database named CDB_TEST. Provide the SQL commands you would use to create it and verify its creation.",
+      "answer": "Creation (run from SQL*Plus with STARTUP NOMOUNT completed, environment configured):\n\nCREATE DATABASE CDB_TEST\n  ENABLE PLUGGABLE DATABASE\n  SEED FILE_NAME_CONVERT = ('/u01/oradata/pdbseed/', '/u01/oradata/pdbseed/')\n  SYSADMIN IDENTIFIED BY sys_admin_pwd\n  SYSTEM IDENTIFIED BY system_pwd\n  LOGFILE GROUP 1 ('/u01/oradata/CDB_TEST/redo01.log') SIZE 50M,\n          GROUP 2 ('/u01/oradata/CDB_TEST/redo02.log') SIZE 50M\n  DATAFILE '/u01/oradata/CDB_TEST/system01.dbf' SIZE 500M\n  SYSAUX DATAFILE '/u01/oradata/CDB_TEST/sysaux01.dbf' SIZE 400M\n  DEFAULT TEMPORARY TABLESPACE TEMP\n  UNDO TABLESPACE UNDOTBS1\n  CHARACTER SET AL32UTF8;\n\nThe ENABLE PLUGGABLE DATABASE clause is the mandatory parameter that makes the database a multitenant container database; it creates the seed PDB (PDB$SEED) in addition to the CDB root (CDB$ROOT).\n\nVerification:\n\nSELECT name, cdb, con_id FROM v$database;      -- CDB column shows YES\nSELECT con_id, name, open_mode FROM v$containers;  -- CDB$ROOT, PDB$SEED\nSELECT parameter FROM v$option ...             -- or:\nSELECT value FROM v$parameter WHERE name = 'enable_pluggable_database';\n\nV$DATABASE.CDB = YES and the rows of V$CONTAINERS (CDB$ROOT, PDB$SEED) confirm the container database was created successfully.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-008",
+      "chapterId": "chapter-bca-s7-database-administration-05",
+      "topicId": null,
+      "question": "Explain how privileges and roles are managed in Multitenant architecture. Distinguish between common and local privileges.",
+      "answer": "Privilege/role management in multitenant architecture (5 marks). In a container database, users, roles and privileges exist at two scopes: the CDB root (CDB$ROOT) and the individual PDBs. A common user is created in the CDB root with a name starting C## (e.g. C##DBADMIN) and exists in every container of the CDB, present and future; a local user is created inside one PDB and exists only there. Similarly, common roles (created in the root, C## prefix) and local roles (created in a PDB). Privileges granted commonly apply to all containers (CONTAINER = ALL); privileges granted locally apply only to that PDB. Administrative accounts (SYS, SYSTEM) are common users that can connect to any PDB. Management practices: create C## users for DBAs needing access everywhere; grant SET CONTAINER to common users so they can switch containers; keep application-specific users local to their PDB; note that the same C## user has separate per-container privileges, and default roles can be granted container-wide.\n\nCommon vs local privileges (5 marks).\n\nAspect: Granted in; Common privilege: CDB root with `CONTAINER = ALL`; Local privilege: A single PDB Aspect: Applies to; Common privilege: All current and future PDBs and the root; Local privilege: Only the PDB where granted Aspect: Grantee; Common privilege: Common user or common role; Local privilege: Local user/role or common user Aspect: Typical use; Common privilege: Database administration (e.g. `C##DBADMIN` with `CREATE SESSION`, `CREATE TABLE` across the CDB); Local privilege: Application rights within one PDB (e.g. `GRANT SELECT ON app.orders TO local_user;`) Aspect: Revocation; Common privilege: `REVOKE ... CONTAINER = ALL` revokes everywhere; Local privilege: Affects only that PDB\n\nA common privilege granted to a common user takes effect in every container, including PDBs created later; a local privilege never crosses its PDB boundary. The same privilege name can therefore exist in both scopes — e.g. a common user may have CREATE SESSION commonly, while a local user gets CREATE SESSION locally in one PDB only.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-015",
+      "chapterId": "chapter-bca-s7-database-administration-05",
+      "topicId": null,
+      "question": "Explain how PDBs are related to CDB in multitenant architecture. Also mention the common things that they share with each other.",
+      "answer": "Relationship. A multitenant container database (CDB) is an Oracle database that includes zero, one or many pluggable databases (PDBs). A PDB is a portable set of schemas, schema objects and non-schema objects that appears to a client as a separate, traditional non-CDB database. Every PDB is plugged into the CDB root through the seed and is managed through the CDB: the instance and background processes belong to the CDB, and each PDB is identified by a CON_ID (V$CONTAINERS). Creating or unplug/plug operations of PDBs are performed from the CDB root (ALTER PLUGGABLE DATABASE ... OPEN/UNPLUG/PLUG).\n\nThings PDBs share with the CDB (and with each other):\n\n1. One instance — memory (SGA) and background processes of the single\nOracle instance serve all PDBs.\n2. The control files, online redo logs and archived redo logs\nbelong to the CDB and protect all PDBs together.\n3. Common users/roles (e.g. SYS, C##...) created in the CDB root are\nvisible in all PDBs; common privileges granted with CONTAINER = ALL apply everywhere.\n4. The seed database (PDB$SEED) provides the read-only template used to\ncreate new PDBs.\n5. Shared infrastructure such as AWR data for the whole CDB; a single\nlistener serves connections to all PDBs (service name per PDB).\n\nWhat each PDB keeps private: its own datafiles, system/supplied metadata for its objects, local users, and its own tablespaces — so PDBs are consolidated without mixing application data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-025",
+      "chapterId": "chapter-bca-s7-database-administration-05",
+      "topicId": null,
+      "question": "Explain the oracle multitenant architecture with CDB and PDB concept.",
+      "answer": "The multitenant architecture lets one Oracle database contain many separate pluggable databases:\n\n- CDB (Container Database) — the physical database holding one Oracle\ninstance (SGA + background processes) and the root containers. Created with the mandatory ENABLE PLUGGABLE DATABASE clause.\n- CDB$ROOT (root) — holds common objects/metadata: the data dictionary\nbase tables, common users (C##...), shared control files/redo logs.\n- PDB$SEED — read-only template with Oracle-supplied metadata used to\ncreate new PDBs quickly.\n- PDB (pluggable database) — a portable collection of an application's\nschemas and objects with its own local users, tablespaces and dictionary metadata. Appears to clients as a normal database (its own service name). PDBs are created from seed, cloned, plugged/unplugged (transportable XML + datafiles) — enabling fast provisioning and patch-once consolidation.\n\nRelationship. Each PDB has a CON_ID in V$CONTAINERS; the instance serves all PDBs; each PDB has private datafiles but shares the CDB's redo and control files. Administered from the root (ALTER SESSION SET CONTAINER = ...), each PDB can be opened/closed independently (ALTER PLUGGABLE DATABASE pdb1 OPEN;). Benefits: consolidation of many databases in one instance, cheap patching/upgrade (patch CDB once), fast clone/unplug-move between servers, and isolation of data and security per PDB.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-035",
+      "chapterId": "chapter-bca-s7-database-administration-05",
+      "topicId": null,
+      "question": "What is CDB and PDB in oracle multitenant architecture? Explain how they are related.",
+      "answer": "CDB (Container Database) — a single physical Oracle database created with ENABLE PLUGGABLE DATABASE, consisting of one instance and container structures: the root (CDB$ROOT), a seed (PDB$SEED) and any number of PDBs.\n\nPDB (Pluggable Database) — a portable collection of schemas, objects and related dictionary metadata that appears to clients as a traditional non-CDB database.\n\nRelationship. PDBs are *plugged into* the CDB: each PDB is a self- contained unit with its own datafiles and local metadata, but it runs under the single instance of the CDB and stores everything inside the CDB. The CDB provides shared services (one SGA, one set of background processes, one control file/redo log) while each PDB keeps private data and users. A PDB can be opened, closed, unplugged from one CDB and plugged into another — the CDB is the \"carrier\", PDBs are the containers it hosts. Administrative operations on PDBs are done from the CDB root (ALTER PLUGGABLE DATABASE ... OPEN/UNPLUG/PLUG).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-005",
+      "chapterId": "chapter-bca-s7-database-administration-06",
+      "topicId": null,
+      "question": "How can you start and stop an Oracle Listener? Explain the commands with examples.",
+      "answer": "The Oracle Listener (run by the lsnrctl utility from the operating system prompt) accepts client connection requests and hands them to the database.\n\nStarting the listener:\n\n$ lsnrctl start LISTENER\nStarting /u01/app/oracle/product/12.2.0/dbhome_1/bin/tnslsnr ...\nSTATUS of the LISTENER: Alias LISTENER ... started\n\nlsnrctl start reads listener.ora, starts the TNSLSNR process and reports the endpoints it is listening on (e.g. 1521).\n\nStopping the listener:\n\n$ lsnrctl stop LISTENER\nConnecting to (DESCRIPTION=...)\nThe command completed successfully\n\nOther useful commands:\n\n- lsnrctl status — shows start time, endpoints, services and instances\nregistered with the listener.\n- lsnrctl reload — re-reads listener.ora without stopping connections.\n- lsnrctl help — lists all commands.\n\nWhen a listener is stopped, new client connections fail (existing server processes continue); after start, instances register automatically with the listener (dynamic registration via the LREG background process).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-012",
+      "chapterId": "chapter-bca-s7-database-administration-06",
+      "topicId": null,
+      "question": "Explain the different methods of network configuration to connect to the oracle database.",
+      "answer": "To connect a client to an Oracle database over Oracle Net, one of the following configuration methods is used:\n\n1. Host naming method — the client connects using only a host name (e.g.\nsqlplus scott/tiger@orcl-server); the listener must run on port 1521. Suitable for simple TCP/IP environments without tnsnames.ora.\n2. Local naming (tnsnames.ora) — the most common method. A net service\nname maps to connect data: protocol, host, port and service name:\n\nORCL =\n  (DESCRIPTION =\n    (ADDRESS = (PROTOCOL = TCP)(HOST = dbserver)(PORT = 1521))\n    (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = orcl)))\n\nThe client and server each need the file in $ORACLE_HOME/network/admin.\n3. Easy Connect naming — no configuration file; the full description is\ntyped in the connect string: sqlplus scott/tiger@dbserver:1521/orcl\n4. Directory naming (LDAP) — connect descriptors are stored centrally in\nan LDAP-compliant directory (Oracle Internet Directory/Active Directory), giving central administration for many clients.\n5. External naming — net service names are resolved by a non-Oracle\nnaming service such as NIS or CDS.\n\nOracle Net's basic configuration files are listener.ora (server side, defines listening endpoints) and tnsnames.ora (client side, defines service names). After configuring, connectivity is tested with TNSPING.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-027",
+      "chapterId": "chapter-bca-s7-database-administration-06",
+      "topicId": null,
+      "question": "Explain the different oracle net service components.",
+      "answer": "Oracle Net Services lets clients connect to Oracle databases over a network:\n\n1. Oracle Net (foundation layer) — the software on both client and\nserver that establishes and maintains connections (TNS protocol stack over TCP/IP etc.).\n2. Oracle Net listener (listener.ora + TNSLSNR process) — server-side\nprocess that listens on configured endpoints (host:port) and hands each incoming connection to a server process; instances register dynamically (LREG).\n3. Connection pooling / shared server — dispatcher processes and shared\nserver processes multiplex many clients over few server processes for scalability.\n4. Naming methods — local naming (tnsnames.ora), easy connect, host\nnaming, directory (LDAP) and external naming, resolving net service names into connect descriptors.\n5. Oracle Net Manager / Net Configuration Assistant — GUI tools to\nconfigure listener, naming and profiles.\n6. sqlnet.ora — profile file controlling client behaviour (naming\nmethod order, authentication, tracing).\n7. Administration/monitoring utilities — lsnrctl (start/stop/status),\ntnsping (tests connectivity to a service).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-006",
+      "chapterId": "chapter-bca-s7-database-administration-07",
+      "topicId": null,
+      "question": "Describe the steps involved in configuring RMAN for performing database backups. Include commands or procedures used to set up RMAN.",
+      "answer": "RMAN (Recovery Manager) needs a target database and, at minimum, uses the control file as its repository:\n\n1. Set the environment — ORACLE_HOME, ORACLE_SID and connect as a\nuser with SYSDBA privilege.\n2. Configure the fast recovery area (recommended disk location for\nbackups):\n\nALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE = 10G;\nALTER SYSTEM SET DB_RECOVERY_FILE_DEST = '/u01/fast_recovery_area';\n\n3. Put the database in ARCHIVELOG mode so online (hot) backups are\nrecoverable: SHUTDOWN IMMEDIATE; STARTUP MOUNT; ALTER DATABASE ARCHIVELOG; ALTER DATABASE OPEN; and set archivelog destination with LOG_ARCHIVE_DEST_1.\n4. Start RMAN and connect to the target:\n\n$ rman\nRMAN> CONNECT TARGET /\nconnected to target database: PROD (DBID=39525561)\n\n5. Configure persistent RMAN settings (stored in the control-file\nrepository):\n\nCONFIGURE RETENTION POLICY TO RECOVERY WINDOW OF 7 DAYS;\nCONFIGURE DEFAULT DEVICE TYPE TO DISK;\nCONFIGURE CONTROLFILE AUTOBACKUP ON;\nCONFIGURE BACKUP OPTIMIZATION ON;\n\n6. Run backups — BACKUP DATABASE;,\nBACKUP DATABASE PLUS ARCHIVELOG;, BACKUP INCREMENTAL LEVEL 0 DATABASE; and verify with LIST BACKUP; / RESTORE DATABASE VALIDATE;\n\nOptionally configure a media manager for tape (SBT) and a recovery catalog schema for long-term metadata.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s7-database-administration-018",
+      "chapterId": "chapter-bca-s7-database-administration-07",
+      "topicId": null,
+      "question": "Discuss backup, restore and recovery in oracle database. As a DBA in an organization, explain your backup and recovery strategy. Explain how you can recover the database in case of different types of failure. Also explain the process of media recovery.",
+      "answer": "Concepts.\n\n- Backup — a copy of data (datafiles, control files, archived logs,\nspfile) kept to restore the database after a disaster. Physical backups copy actual files (with RMAN or OS commands); logical backups export database contents using Data Pump.\n- Restore — copying the backup files back to their original (or new)\nlocation when data is lost or corrupted.\n- Recovery — applying redo/undo after restoring so the database is\nbrought to a consistent state at a point in time: roll forward through redo, then roll back uncommitted transactions using undo.\n\nA DBA's backup strategy. Assess business requirements — tolerable data loss (RPO), downtime (RTO), 24×7 needs; classify data by importance; protect the database infrastructure; then:\n\n1. Put the database in ARCHIVELOG mode.\n2. Take RMAN full database backup weekly, incremental level 0\n(baseline) and cumulative/differential incrementals daily, plus archive-log backups after each log switch interval.\n3. Multiplex control files and redo logs; keep a ALTER DATABASE BACKUP\nCONTROLFILE TO TRACE script and RESETLOGS backup off-disk.\n4. Enable control file autobackup in RMAN; use the fast recovery area\nwith a retention policy (e.g. RECOVERY WINDOW OF 7 DAYS).\n5. Test restores periodically, keep some backups off-site, use\nmultiple backup copies on disk + tape, and document a written backup policy reviewed with management.\n\nRecovery by failure type.\n\n- Instance failure (crash, power cut): restart; Oracle performs crash\nrecovery automatically — roll forward with online redo, roll back uncommitted changes.\n- Statement/process failure: Oracle itself rolls back with undo; the\nalert log and trace files identify the cause.\n- User error: logical backups/import, flashback query/flashback table,\nor point-in-time recovery.\n- Media failure (disk loss, corruption): restore from backup and perform\nmedia recovery (complete or point-in-time with RMAN RESTORE/RECOVER), or with user-managed backup use ALTER DATABASE RECOVER.\n\nMedia recovery process. (1) Mount the database with the current or restored control file; (2) restore the damaged datafiles from backup; (3) apply archived and online redo logs with RECOVER DATABASE (or RECOVER DATAFILE), performing roll forward; (4) Oracle rolls back uncommitted transactions (roll back); (5) open the database — with RESETLOGS if it was a point-in-time recovery. In ARCHIVELOG mode recovery is possible to the last commit; in NOARCHIVELOG mode you can only restore the whole database from a consistent backup (losing work since the backup).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-022",
+      "chapterId": "chapter-bca-s7-database-administration-07",
+      "topicId": null,
+      "question": "As a DBA, explain how you can define a backup policy in your organization.",
+      "answer": "A written backup policy turns technology into an enforceable plan:\n\n1. Assess requirements — which databases exist, sizes, change rates,\ngrowth, business importance; interview stakeholders on tolerable data loss (RPO) and downtime (RTO) per system.\n2. Classify data — mission-critical (frequent backups + standby),\nimportant (daily backup), test/dev (weekly, may be expunged).\n3. Choose backup types and levels: ARCHIVELOG mode for 24×7 systems;\nRMAN level 0 base backups weekly, level 1 incrementals daily, archive-log backups frequently; cold (consistent) backups only for databases that can be shut down.\n4. Storage rules: at least two copies on separate media/locations (disk\nfast recovery area + tape/offsite); retention periods; control-file autobackup ON; backup of spfile/password file.\n5. Schedule and ownership — time windows (Scheduler/em backup\nscheduler), responsibilities of named staff, escalation for failed jobs; document the procedure (RMAN scripts kept under version control).\n6. Test and audit: regularly verify restore/recovery in a test\nenvironment, review job logs, track backup duration and space; the policy is signed by management and updated after infrastructure changes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-028",
+      "chapterId": "chapter-bca-s7-database-administration-07",
+      "topicId": null,
+      "question": "What do you mean by database recovery? Explain in which situation database needs to be recovered. Explain the difference between crash recovery and media recovery. Also explain the steps involved in media recovery.",
+      "answer": "Database recovery is the process of restoring a database after a failure and bringing it back to a consistent state — typically to the latest possible point in time, or to a chosen past point (point-in-time recovery), using backups, redo logs and undo data.\n\nSituations requiring recovery: instance crash (power failure, process kill), media failure (disk/datafile loss or corruption), human error (dropped table — flashback/PITR), hardware failure, and natural disasters (fire, flood) requiring restore at a new site.\n\nCrash recovery vs media recovery:\n\nAspect: Trigger; Crash recovery: Instance failure (SMON on startup); Media recovery: Loss/damage of files (media failure) Aspect: Files involved; Crash recovery: Online redo log + current datafiles; Media recovery: Backup copies + archived + online redo Aspect: Performed by; Crash recovery: Automatic at instance startup; Media recovery: DBA (RMAN or manual), needs backups Aspect: Purpose; Crash recovery: Synchronize cache and disk, undo uncommitted; Media recovery: Recreate lost files and roll forward Aspect: Needs archived logs?; Crash recovery: No; Media recovery: Yes (for point beyond last backup)\n\nSteps of media recovery (user-managed view):\n\n1. Identify the damaged files (alert log, V$RECOVER_FILE).\n2. Restore the lost datafile(s) from backup (OS copy) — and control file\nfrom backup if control files were lost.\n3. Start and mount the database (STARTUP MOUNT).\n4. Recover: RECOVER DATABASE; (or RECOVER DATAFILE 'path';) — Oracle\napplies archived redo logs and the online logs (roll forward), prompting for each log.\n5. Roll-back phase applies automatically using undo (uncommitted\ntransactions rolled back).\n6. Open the database (ALTER DATABASE OPEN;) — with RESETLOGS after\nincomplete/point-in-time recovery, and take a new full backup.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-033",
+      "chapterId": "chapter-bca-s7-database-administration-03",
+      "topicId": null,
+      "question": "What is database archiving? Why it is important? Write the steps to keep your database in archive log mode.",
+      "answer": "Database archiving = copying filled online redo log files to archived redo log files (by ARCn) before reuse, running with the database in ARCHIVELOG mode.\n\nImportance. With archived logs the DBA can recover the database from a backup up to the point of failure (complete recovery), perform point-in-time recovery, keep standby databases synchronized, and take hot (online) backups while the database is open — essential for 24×7 systems.\n\nSteps to enable ARCHIVELOG mode:\n\n1. Shut down the database; set the initialization parameters, e.g.\nLOG_ARCHIVE_DEST_1='/u01/arch' and LOG_ARCHIVE_FORMAT='arch%s.arc'.\n2. Start up and mount the database: STARTUP MOUNT;\n3. Enable archiving: ALTER DATABASE ARCHIVELOG;\n4. Open the database: ALTER DATABASE OPEN;\n5. Verify: ARCHIVE LOG LIST; (or SELECT log_mode FROM v$database;) and\nV$ARCHIVED_LOG for archived files. Enable automatic archiving (LOG_ARCHIVE_START=TRUE in older releases; in modern releases ARCn is automatic).\n\nTo disable: shut down, mount, ALTER DATABASE NOARCHIVELOG;, open.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-039",
+      "chapterId": "chapter-bca-s7-database-administration-07",
+      "topicId": null,
+      "question": "Explain the term backup restore and recovery in oracle database. Also explain the different backups and recovery process with example using RMAN and datapump utility.",
+      "answer": "Definitions. *Backup:* copy of database data used for recovery. *Restore:* copying backup files back over lost/damaged ones. *Recovery:* applying redo and undo after restore to bring the database to a consistent point in time.\n\nBackup types:\n\n- Physical backups: copies of files (datafiles, control file, spfile,\narchived logs) — *cold/offline* (consistent backup with DB shut down) and *hot/online* (ARCHIVELOG mode, database open) — taken with RMAN or OS copy (user-managed).\n- Logical backups: contents exported with Data Pump\n(expdp/impdp) — schema/table/full; not a substitute for physical backups but easy for object-level restore.\n- RMAN additionally supports full/incremental (0/1, differential vs\ncumulative) backups, image copies and backup sets.\n\nRMAN example:\n\n$ rman\nRMAN> CONNECT TARGET /\nRMAN> CONFIGURE CONTROLFILE AUTOBACKUP ON;\nRMAN> BACKUP DATABASE PLUS ARCHIVELOG;         -- physical backup\nRMAN> RESTORE DATABASE;                        -- restore after loss\nRMAN> RECOVER DATABASE;                        -- apply redo\nRMAN> ALTER DATABASE OPEN;\n\nData Pump example (logical):\n\nexpdp system/manager DIRECTORY=dpump DUMPFILE=hr.dmp SCHEMAS=hr\nimpdp system/manager DIRECTORY=dpump DUMPFILE=hr.dmp SCHEMAS=hr\n\nRecovery process (media failure): mount → restore files → RECOVER DATABASE (roll forward through archived/online redo) → automatic rollback of uncommitted transactions → open. Logical corruption is repaired by re-importing the affected objects with Data Pump or flashback features.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-007",
+      "chapterId": "chapter-bca-s7-database-administration-08",
+      "topicId": null,
+      "question": "List and briefly describe the main components of a scheduler. Explain how these components interact in a typical scheduling workflow.",
+      "answer": "Oracle Scheduler (DBMS_SCHEDULER) components:\n\n1. Job — the definition of what to run: the action (PL/SQL block, stored\nprocedure, executable) plus who runs it (schema) and how often. Created with DBMS_SCHEDULER.CREATE_JOB.\n2. Schedule — when to run: a time-based schedule (start time, repeat\ninterval in calendaring syntax, end time) or an event-based schedule (fires when an event occurs) or an inclusive schedule (combination).\n3. Program — a named object describing the action (type: PLSQL_BLOCK,\nSTORED_PROCEDURE, EXECUTABLE) and its arguments, reusable by many jobs.\n4. Job class — a service/resource group class that assigns logging level,\npriority and resource-consumer-group mapping to a set of jobs for administration and tuning.\n5. Window / window group — a time span (e.g. maintenance window) during\nwhich a resource plan is active; windows can prioritize job classes.\n6. Event queue / chains — events raised into SCHEDULER$_EVENT_QUEUE\ntrigger event-based jobs; chains define ordered dependencies of steps.\n\nTypical workflow: create a program (optional) → create a schedule → create the job referencing program and schedule → enable the job → at each scheduled time the coordinator/slave processes run the job action, record state in *_SCHEDULER_JOBS and write logs to the job class's log destination → errors move the job to the failed state and can raise events for event-based reaction. Jobs, schedules, programs and classes can all be reused independently.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-020",
+      "chapterId": "chapter-bca-s7-database-administration-08",
+      "topicId": null,
+      "question": "What is scheduler and why scheduler is important in oracle database? Explain the different components of the scheduler with their workflow. Also explain the difference between time-based scheduling and event-based scheduling.",
+      "answer": "What and why. The Oracle Scheduler (DBMS_SCHEDULER) is a built-in enterprise job scheduler that runs PL/SQL procedures, SQL blocks, and operating-system executables at defined times or in response to events. It is important because DBA tasks — backups, statistics gathering, refreshes, patches, maintenance windows — must run automatically and repeatedly, removing human error, enabling resource control (job classes/windows) and providing a central job log for auditing.\n\nComponents: *job* (what + when), *program* (reusable action definition), *schedule* (reusable timing definition), *job class* (resource/log grouping), *window* (resource-plan activation period), *window group*, *chains* (dependency workflows), *credentials* (for remote external jobs), and the coordinator/background processes that actually execute jobs.\n\nWorkflow: define program (optional) → define schedule → create job referencing both → enable → at run time the scheduler's coordinator picks up due jobs, spawns slave processes, executes the action, records outcome in *_SCHEDULER_JOB_RUN_DETAILS and job-class logs; failed jobs can fire events, and windows can raise events too (event-driven chaining).\n\nTime-based vs event-based scheduling. Time-based schedules fire according to a calendar expression (FREQ=DAILY;BYHOUR=2), independent of anything happening in the database — e.g. backup every night at 2 a.m. Event-based schedules fire when a named event occurs — a signal raised by an application into SCHEDULER$_EVENT_QUEUE (e.g. start the load job the moment a file arrives or a queue receives a message). Time-based is predictable and periodic; event-based is reactive, running only when the triggering condition occurs (can combine both in one schedule).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041387665
+    },
+    {
+      "id": "question-bca-s7-database-administration-037",
+      "chapterId": "chapter-bca-s7-database-administration-08",
+      "topicId": null,
+      "question": "What is job scheduling in oracle database? Explain the difference between time based and event based schedule.",
+      "answer": "Job scheduling = the automatic, repeated execution of database or OS tasks (backups, refreshes, statistics, loads) defined as jobs in the Oracle Scheduler instead of being started manually.\n\n- Time-based schedule — the job runs according to a clock definition:\nFREQ=DAILY; BYHOUR=2; BYMINUTE=0 (start time, repeat interval, end time). Runs even if nothing has happened; ideal for routine maintenance.\n- Event-based schedule — the job starts when a specific *event* arrives\nin the Scheduler event queue (SCHEDULER$_EVENT_QUEUE), e.g. a message from an application \"file loaded\". Reactive: runs only when the trigger occurs.\n\nDifference: time-based is periodic/clock-driven (predictable, e.g. nightly backup); event-based is condition-driven (immediate response to a signal, zero periodicity). Both can be combined — an inclusive schedule fires on the union of the two.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-database-administration-042",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "Write SQL commands for following:",
+      "answer": "i. Create the table named tblbank having fields (Acc-no, name, address, ph-no, Balance)\nii. Add primary key in above table iii. Add check constraints in the balance field, value of balance > 300 iv. Rename the table tblbank to Bank\nv. Insert some rows and delete one of the record from the table Bank\nvi. Create the logical backup of above table using expdp utility vii. Give select, update privilege to another user Mohan viii. Add loan_id field as foreign key referencing the table loan ix. Modify the name field to increase the character length\nx. Rename the name field to cname\n\n-- (i) create the table\nCREATE TABLE tblbank (\n  acc_no   NUMBER(10),\n  name     VARCHAR2(50),\n  address  VARCHAR2(100),\n  ph_no    VARCHAR2(15),\n  balance  NUMBER(12,2)\n);\n\n-- (ii) add primary key\nALTER TABLE tblbank ADD CONSTRAINT pk_bank PRIMARY KEY (acc_no);\n\n-- (iii) check constraint on balance\nALTER TABLE tblbank ADD CONSTRAINT chk_balance CHECK (balance > 300);\n\n-- (iv) rename the table\nRENAME tblbank TO Bank;   -- or: ALTER TABLE tblbank RENAME TO Bank;\n\n-- (v) insert rows and delete one record\nINSERT INTO Bank VALUES (101,'Ram Sharma','Kathmandu','9841000000', 50000);\nINSERT INTO Bank VALUES (102,'Sita Karki','Pokhara','9846000000', 75000);\nCOMMIT;\nDELETE FROM Bank WHERE acc_no = 101;\nCOMMIT;\n\n-- (vi) logical backup using Data Pump export\n-- Operating system:\nexpdp system/manager DIRECTORY=dpump_dir DUMPFILE=bank.dmp\n  TABLES=Bank\n\n-- (vii) privileges to user Mohan\nGRANT SELECT, UPDATE ON Bank TO Mohan;\n\n-- (viii) foreign key to table loan\nALTER TABLE Bank ADD (loan_id NUMBER(10));\nALTER TABLE Bank ADD CONSTRAINT fk_loan\n  FOREIGN KEY (loan_id) REFERENCES loan(loan_id);\n\n-- (ix) increase length of name\nALTER TABLE Bank MODIFY (name VARCHAR2(100));\n\n-- (x) rename the column\nALTER TABLE Bank RENAME COLUMN name TO cname;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-044",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "What is partitioning? Explain the different method of table partitioning.",
+      "answer": "Partitioning splits a large table (or index) into smaller physical pieces (partitions) that are managed individually, while the table remains one logical object. SQL statements see one table; queries touching only some partitions skip the rest (partition pruning), and maintenance (drops, backups) works partition-wise. Improves manageability, availability and performance of VLDBs.\n\nMethods of table partitioning:\n\n1. Range partitioning — rows mapped by column ranges, e.g. by date:\n\nCREATE TABLE sales (sale_date DATE, amount NUMBER)\nPARTITION BY RANGE (sale_date) (\n  PARTITION p2025 VALUES LESS THAN (TO_DATE('2026-01-01','YYYY-MM-DD')),\n  PARTITION pmax   VALUES LESS THAN (MAXVALUE));\n\n2. List partitioning — rows grouped by discrete values, e.g. by region:\nPARTITION BY LIST (region) (PARTITION asia VALUES ('IN','NP','BD'), ...).\n3. Hash partitioning — a hash function spreads rows evenly over\npartitions; used when no obvious range/list key exists and even distribution (I/O balancing) is the goal.\n4. Composite partitioning — combine two methods: range-hash,\nrange-list, etc. — first partition by range, then subpartition each partition (e.g. monthly range × regional hash).\n5. Interval partitioning — range partitioning that automatically creates\na new partition when inserted data exceeds the current maximum.\n\nBenefits: reduced I/O through pruning, easier maintenance (ALTER TABLE ... DROP PARTITION), parallel operations per partition, and independent availability (offline one partition while others stay online).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-045",
+      "chapterId": "chapter-bca-s7-database-administration-01",
+      "topicId": null,
+      "question": "Write SQL commands for following:",
+      "answer": "-- i. create the table emp\nCREATE TABLE emp (\n  emp_id  NUMBER(6),\n  name    VARCHAR2(50),\n  address VARCHAR2(100),\n  dob     DATE,\n  salary  NUMBER(10,2)\n);\n\n-- ii. add primary key\nALTER TABLE emp ADD CONSTRAINT pk_emp PRIMARY KEY (emp_id);\n\n-- iii. check constraint on salary\nALTER TABLE emp ADD CONSTRAINT chk_salary CHECK (salary > 10000);\n\n-- iv. rename the table emp to employee\nRENAME emp TO employee;   -- ALTER TABLE emp RENAME TO employee;\n\n-- v. insert rows and delete one record\nINSERT INTO employee VALUES (1,'Rita Rai','Lalitpur',TO_DATE('1998-05-12','YYYY-MM-DD'),25000);\nINSERT INTO employee VALUES (2,'Hari Thapa','Bhaktapur',TO_DATE('1995-09-30','YYYY-MM-DD'),30000);\nCOMMIT;\nDELETE FROM employee WHERE emp_id = 1;\nCOMMIT;\n\n-- vi. logical backup using expdp (OS command)\nexpdp system/manager DIRECTORY=dpump DUMPFILE=emp.dmp TABLES=employee\n\n-- vii. privileges to another user User1\nGRANT SELECT, UPDATE ON employee TO User1;\n\n-- viii. foreign key department_id -> department\nALTER TABLE employee ADD (department_id NUMBER(6));\nALTER TABLE employee ADD CONSTRAINT fk_dept\n  FOREIGN KEY (department_id) REFERENCES department(department_id);\n\n-- ix. increase name length\nALTER TABLE employee MODIFY (name VARCHAR2(100));\n\n-- x. rename name column to ename\nALTER TABLE employee RENAME COLUMN name TO ename;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-040",
+      "chapterId": "chapter-bca-s7-database-administration-02",
+      "topicId": null,
+      "question": "Explain the purpose of the Automatic Diagnostic Repository (ADR) in Oracle. How does it help in database diagnostics and troubleshooting?",
+      "answer": "Purpose (2 marks). The Automatic Diagnostic Repository (ADR) is a file-based, hierarchical repository introduced in Oracle 11g that stores diagnostic data — alert logs, trace files, incident dumps, core files, health monitor reports — for all Oracle products and instances on a host. It is located outside the database and is managed by the Automatic Diagnostic Repository Command Interpreter (ADRCI), so diagnostics remain available even when the database is down. Its location is controlled by the DIAGNOSTIC_DEST initialization parameter.\n\nHow it helps in diagnostics and troubleshooting (3 marks).\n\n1. One location for everything: critical errors, incidents and dumps are\nconsolidated under one directory tree, eliminating hunting through USER_DUMP_DEST/BACKGROUND_DUMP_DEST directories.\n2. Incident packaging: a single problem can generate many dumps; ADR\ngroups them as incidents so a DBA can review one problem rather than thousands of files, and ips package generate bundles evidence for Oracle Support.\n3. ADRCI tooling: commands such as SHOW ALERT, SHOW INCIDENT,\nSHOW TRACEFILE let the DBA view and purge diagnostics from a unified interface without SQL*Plus.\n4. Independence from the instance: because ADR is file-based and written\nbefore database availability, it helps diagnose problems that occur during startup (e.g. missing datafiles, failed background processes).\n5. Retention management: each diagnostic type has a configurable retention\npolicy, preventing diagnostic directories from growing unbounded.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-041",
+      "chapterId": "chapter-bca-s7-database-administration-03",
+      "topicId": null,
+      "question": "Explain multiplexing of online redo logs and control files. How does it improve database reliability?",
+      "answer": "Multiplexing means keeping at least two identical copies of a critical file in different locations, so the loss of one copy does not endanger the database.\n\nControl-file multiplexing. The control file is a small binary file that records the physical structure of the database (datafiles, redo logs, SCN). It must exist for the instance to mount the database. Copies are kept in different disks and listed in the CONTROL_FILES parameter:\n\nALTER SYSTEM SET CONTROL_FILES =\n  '/ora01/oradata/MYDB/ctrl01.ctl', '/ora02/oradata/MYDB/ctrl02.ctl',\n  '/ora03/oradata/MYDB/ctrl03.ctl' SCOPE=SPFILE;\n-- shutdown, copy an existing control file to the new location, startup\n\nOracle writes to all copies simultaneously (up to eight copies) but reads only the first.\n\nRedo-log multiplexing. Each redo log group holds two or more identical members, preferably on different disks. LGWR writes every member of the current group concurrently:\n\nALTER DATABASE ADD LOGFILE GROUP 3\n  ('/ora02/oradata/MYDB01/redo0301.log',\n   '/ora03/oradata/MYDB01/redo0302.log') SIZE 10M;\n\nALTER DATABASE ADD LOGFILE MEMBER\n  '/ora04/oradata/MYDB01/redo0203.log' TO GROUP 2;\n\nReliability improvement. A media failure that destroys one control file or one redo member no longer destroys the database: the instance keeps running on the remaining members (an alert-log entry is written when a member is unavailable), and recovery is a simple file copy rather than a media recovery. This removes single points of failure for the two files that are essential to mount and recover the database — at the cost of slightly longer writes, which is insignificant compared with the benefit.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    },
+    {
+      "id": "question-bca-s7-database-administration-043",
+      "chapterId": "chapter-bca-s7-database-administration-03",
+      "topicId": null,
+      "question": "What is multiplexing? Why is it needed? Write the steps of multiplexing the control files.",
+      "answer": "Definition. Multiplexing is keeping a copy of the same file — control file or redo log member — in different locations (preferably different disks).\n\nWhy needed. These files are single points of failure: without a control file the instance cannot mount the database; without redo logs recovery data is lost. If one copy is lost on disk failure, the database can continue / restart from the remaining copy — eliminating a single point of failure for minimal overhead.\n\nSteps (using SPFILE):\n\n1. Alter the SPFILE while the database is open:\n\nALTER SYSTEM SET CONTROL_FILES =\n  '/ora01/oradata/MYDB/ctrl01.ctl', '/ora02/oradata/MYDB/ctrl02.ctl',\n  '/ora03/oradata/MYDB/ctrl03.ctl', '/ora04/oradata/MYDB/ctrl04.ctl'\n  SCOPE=SPFILE;\n\n(The change takes effect at next restart.)\n\n2. Shut down the database: SHUTDOWN NORMAL;\n3. Copy an existing control file to the new location with an OS command:\n\ncp /ora01/oradata/MYDB/ctrl01.ctl /ora04/oradata/MYDB/ctrl04.ctl\n\n4. Start the instance: STARTUP;\n\n(With a PFILE, edit CONTROL_FILES in init.ora first, shut down, copy the file, then STARTUP.) A maximum of eight multiplexed copies is allowed; Oracle writes all copies at once and reads only the first.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1791041513970,
+      "updatedAt": 1791041513970
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s7-database-administration-003",
+      "normalizedKeyword": "profiles",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-003",
+      "normalizedKeyword": "create a profile with password parameters",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-003",
+      "normalizedKeyword": "complexity",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-005",
+      "normalizedKeyword": "starting the listener",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-005",
+      "normalizedKeyword": "stopping the listener",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-005",
+      "normalizedKeyword": "other useful commands",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-006",
+      "normalizedKeyword": "set the environment",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-006",
+      "normalizedKeyword": "configure the fast recovery area",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-006",
+      "normalizedKeyword": "put the database in archivelog mode",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-007",
+      "normalizedKeyword": "job",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-007",
+      "normalizedKeyword": "schedule",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-007",
+      "normalizedKeyword": "program",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-040",
+      "normalizedKeyword": "purpose (2 marks)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-040",
+      "normalizedKeyword": "how it helps in diagnostics and troubleshooting (3 marks)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-040",
+      "normalizedKeyword": "one location for everything",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-041",
+      "normalizedKeyword": "multiplexing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-041",
+      "normalizedKeyword": "control-file multiplexing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-041",
+      "normalizedKeyword": "redo-log multiplexing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-008",
+      "normalizedKeyword": "common user",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-008",
+      "normalizedKeyword": "local user",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-008",
+      "normalizedKeyword": "common roles",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-009",
+      "normalizedKeyword": "monitoring",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-009",
+      "normalizedKeyword": "managing accounts",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-009",
+      "normalizedKeyword": "creation with sensible defaults",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-011",
+      "normalizedKeyword": "datafiles",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-011",
+      "normalizedKeyword": "relationship with tablespaces",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-011",
+      "normalizedKeyword": "command to add a datafile",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-012",
+      "normalizedKeyword": "host naming method",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-012",
+      "normalizedKeyword": "easy connect naming",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-012",
+      "normalizedKeyword": "directory naming (ldap)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-017",
+      "normalizedKeyword": "creation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-017",
+      "normalizedKeyword": "use",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-018",
+      "normalizedKeyword": "concepts",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-018",
+      "normalizedKeyword": "backup",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-018",
+      "normalizedKeyword": "restore",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-019",
+      "normalizedKeyword": "overview",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-019",
+      "normalizedKeyword": "instance",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-019",
+      "normalizedKeyword": "database",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-020",
+      "normalizedKeyword": "what and why",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-020",
+      "normalizedKeyword": "components",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-020",
+      "normalizedKeyword": "workflow",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-013",
+      "normalizedKeyword": "1. system privileges",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-013",
+      "normalizedKeyword": "2. object privileges",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-013",
+      "normalizedKeyword": "directly to a user",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-015",
+      "normalizedKeyword": "relationship",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-015",
+      "normalizedKeyword": "things pdbs share with the cdb (and with each other)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-015",
+      "normalizedKeyword": "instance",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-022",
+      "normalizedKeyword": "backup policy",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-022",
+      "normalizedKeyword": "assess requirements",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-022",
+      "normalizedKeyword": "classify data",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-027",
+      "normalizedKeyword": "oracle net (foundation layer)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-027",
+      "normalizedKeyword": "connection pooling / shared server",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-027",
+      "normalizedKeyword": "naming methods",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-029",
+      "normalizedKeyword": "memory structure",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-029",
+      "normalizedKeyword": "instance",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-029",
+      "normalizedKeyword": "pga vs sga",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-037",
+      "normalizedKeyword": "job scheduling",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-037",
+      "normalizedKeyword": "time-based schedule",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-037",
+      "normalizedKeyword": "event-based schedule",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-043",
+      "normalizedKeyword": "why needed",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-044",
+      "normalizedKeyword": "partitioning",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-044",
+      "normalizedKeyword": "methods of table partitioning",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-044",
+      "normalizedKeyword": "range partitioning",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-014",
+      "normalizedKeyword": "profile",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-023",
+      "normalizedKeyword": "need",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-024",
+      "normalizedKeyword": "index",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-024",
+      "normalizedKeyword": "guidelines for creating indexes",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-025",
+      "normalizedKeyword": "cdb (container database)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-025",
+      "normalizedKeyword": "cdb$root (root)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-025",
+      "normalizedKeyword": "pdb$seed",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-028",
+      "normalizedKeyword": "database recovery",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-028",
+      "normalizedKeyword": "situations requiring recovery",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-028",
+      "normalizedKeyword": "crash recovery vs media recovery",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-031",
+      "normalizedKeyword": "oracle instance",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-031",
+      "normalizedKeyword": "data structures of the sga",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-031",
+      "normalizedKeyword": "database buffer cache",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-026",
+      "normalizedKeyword": "database administration",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-026",
+      "normalizedKeyword": "roles and responsibilities of a dba",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-026",
+      "normalizedKeyword": "installation and upgrades",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-030",
+      "normalizedKeyword": "privilege",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-030",
+      "normalizedKeyword": "system privileges",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-030",
+      "normalizedKeyword": "object privileges",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-033",
+      "normalizedKeyword": "database archiving",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-035",
+      "normalizedKeyword": "cdb (container database)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-035",
+      "normalizedKeyword": "pdb (pluggable database)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-035",
+      "normalizedKeyword": "relationship",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-038",
+      "normalizedKeyword": "dbms",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-038",
+      "normalizedKeyword": "client/server",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-038",
+      "normalizedKeyword": "architecture (three structures)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-039",
+      "normalizedKeyword": "definitions",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-039",
+      "normalizedKeyword": "backup types",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-039",
+      "normalizedKeyword": "physical backups",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-032",
+      "normalizedKeyword": "synonym",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-032",
+      "normalizedKeyword": "location transparency",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-032",
+      "normalizedKeyword": "simplifies sql",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-036",
+      "normalizedKeyword": "profile",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-034",
+      "normalizedKeyword": "database administrator (dba)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-034",
+      "normalizedKeyword": "roles of the dba",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-database-administration-034",
+      "normalizedKeyword": "installation & configuration",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s7-database-administration",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "title: Database Administration (TU BCA, Sem VII, CACS 405) — Board Questions with Answers"
+        }
+      ],
+      "notes": "The board Q&A gives CACS 405; the manifest code DAB is explicitly labelled inferred and is not used."
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 1: Introduction to Oracle Database"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 2: Managing Database Instances"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 3: Tablespace and Storage Management"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 4: Managing Users, Roles and Privileges"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 5: Multitenant Database Architecture"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 6: Configure the Oracle Network Environment"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 7: Backup and Recovery"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-database-administration-08",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/important-questions.md",
+          "locator": "Unit 8: Automate Tasks with the Scheduler"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 2. Explain the purpose of the Automatic Diagnostic Repository (ADR) in Oracle. How does it help in database diagnostics and troubleshooting? [2+3]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 3. Explain multiplexing of online redo logs and control files. How does it improve database reliability? [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 4. Describe the steps to manage user passwords in Oracle Database, including password expiration, complexity, and locking/unlocking accounts. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 5. Create a Container Database named CDB_TEST. Provide the SQL commands you would use to create it and verify its creation. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 6. How can you start and stop an Oracle Listener? Explain the commands with examples. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 7. Describe the steps involved in configuring RMAN for performing database backups. Include commands or procedures used to set up RMAN. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group B — Attempt any SIX questions [6×5 = 30] / 8. List and briefly describe the main components of a scheduler. Explain how these components interact in a typical scheduling workflow. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group C — Attempt any TWO questions [2×10 = 20] / 9. Explain how privileges and roles are managed in Multitenant architecture. Distinguish between common and local privileges. [5+5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group C — Attempt any TWO questions [2×10 = 20] / 10. Explain how to monitor and manage user accounts in Oracle Database, including account locking, unlocking, and password expiration. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-042",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2026 Examination (Office of the Dean) / Group C — Attempt any TWO questions [2×10 = 20] / 11. Write SQL commands for following: [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 2. What are data files? How it is related with tablespace? Write a command to add a datafile in existing tablespace."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 3. Explain the different methods of network configuration to connect to the oracle database."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 4. Explain the different privileges in an oracle database and explain how you can grant and revoke the privilege to the user with examples."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 5. What is profile? Why is it important? Explain with an example."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 6. Explain how PDBs are related to CDB in multitenant architecture. Also mention the common things that they share with each other."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-043",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 7. What is multiplexing? Why is it needed? Write the steps of multiplexing the control files."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group B — Attempt any SIX questions / 8. Explain the use of sequence in oracle database with example."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group C — Attempt any TWO questions / 9. Discuss backup, restore and recovery in oracle database. As a DBA in an organization, explain your backup and recovery strategy. Explain how you can recover the database in case of different types of failure. Also explain the process of media recovery."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group C — Attempt any TWO questions / 10. Explain oracle database architecture in detail including memory, process, and storage structure of oracle database."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2020 Batch Examination / Group C — Attempt any TWO questions / 11. What is scheduler and why scheduler is important in oracle database? Explain the different components of the scheduler with their workflow. Also explain the difference between time-based scheduling and event-based scheduling."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-044",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 2. What is partitioning? Explain the different method of table partitioning."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 3. As a DBA, explain how you can define a backup policy in your organization."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 4. What is multiplexing? Why is it needed? Write the steps of multiplexing the online redo log files."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 5. What is indexing? Why it is important in database? Explain the different guidelines to create index in database."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 6. Explain the oracle multitenant architecture with CDB and PDB concept."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 7. What is database administration? Explain the roles and responsibilities of DBA."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group B — Attempt any SIX questions / 8. Explain the different oracle net service components."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group C — Attempt any TWO questions / 9. What do you mean by database recovery? Explain in which situation database needs to be recovered. Explain the difference between crash recovery and media recovery. Also explain the steps involved in media recovery."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group C — Attempt any TWO questions / 10. Describe the memory structure of oracle database. Explain how PGA differs from SGA. Also explain about oracle instance and different components of SGA."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2018 Batch Examination / Group C — Attempt any TWO questions / 11. What is privilege and why is it required? Explain the different system and object privileges used in ORACLE database with their importance. Write command to do following:"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 2. What do you mean by oracle Instance? Explain about the different data structures used in SGA."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 3. What is synonym? Why it is important? Explain it with example."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 4. What is database archiving? Why it is important? Write the steps to keep your database in archive log mode."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 5. Explain the term database administrator (DBA) and describe the different roles of DBA."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 6. What is CDB and PDB in oracle multitenant architecture? Explain how they are related."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 7. What is user profile? Write the commands to create the user profile and assign it to user."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-037",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group B — Attempt any SIX questions / 8. What is job scheduling in oracle database? Explain the difference between time based and event based schedule."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group C — Attempt any TWO questions / 9. What do you mean by database management system? Mention the clear architecture of oracle database management system including different files, process and memory structure."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group C — Attempt any TWO questions / 10. Explain the term backup restore and recovery in oracle database. Also explain the different backups and recovery process with example using RMAN and datapump utility."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-database-administration-045",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/database-administration/database-administration-board-qa.md",
+          "locator": "2017 Batch Examination / Group C — Attempt any TWO questions / 11. Write SQL commands for following: [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "courses": [
+    {
+      "id": "course-bca",
+      "code": "BCA",
+      "name": "Bachelor of Computer Applications",
+      "shortName": "BCA",
+      "structureType": "semester",
+      "summary": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 0,
+      "updatedAt": 0
+    }
+  ],
+  "academicPeriods": [
+    {
+      "id": "period-bca-semester-4",
+      "courseId": "course-bca",
+      "periodNumber": 4,
+      "periodType": "semester",
+      "name": "Semester 4",
+      "shortName": "Sem 4",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 0,
+      "updatedAt": 0
+    },
+    {
+      "id": "period-bca-semester-5",
+      "courseId": "course-bca",
+      "periodNumber": 5,
+      "periodType": "semester",
+      "name": "Semester 5",
+      "shortName": "Sem 5",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 0,
+      "updatedAt": 0
+    },
+    {
+      "id": "period-bca-semester-6",
+      "courseId": "course-bca",
+      "periodNumber": 6,
+      "periodType": "semester",
+      "name": "Semester 6",
+      "shortName": "Sem 6",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 0,
+      "updatedAt": 0
+    },
+    {
+      "id": "period-bca-semester-7",
+      "courseId": "course-bca",
+      "periodNumber": 7,
+      "periodType": "semester",
+      "name": "Semester 7",
+      "shortName": "Sem 7",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 0,
+      "updatedAt": 0
+    },
+    {
+      "id": "period-bca-semester-8",
+      "courseId": "course-bca",
+      "periodNumber": 8,
+      "periodType": "semester",
+      "name": "Semester 8",
+      "shortName": "Sem 8",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 0,
+      "updatedAt": 0
+    }
+  ],
+  "subjectFiles": [
+    {
+      "subjectId": "subject-bca-s4-dbms",
+      "academicPeriodId": "period-bca-semester-4",
+      "path": "subjects/subject-bca-s4-dbms.json"
+    },
+    {
+      "subjectId": "subject-bca-s5-mise",
+      "academicPeriodId": "period-bca-semester-5",
+      "path": "subjects/subject-bca-s5-mise.json"
+    },
+    {
+      "subjectId": "subject-bca-s5-dnt",
+      "academicPeriodId": "period-bca-semester-5",
+      "path": "subjects/subject-bca-s5-dnt.json"
+    },
+    {
+      "subjectId": "subject-bca-s6-mp",
+      "academicPeriodId": "period-bca-semester-6",
+      "path": "subjects/subject-bca-s6-mp.json"
+    },
+    {
+      "subjectId": "subject-bca-s6-dcc",
+      "academicPeriodId": "period-bca-semester-6",
+      "path": "subjects/subject-bca-s6-dcc.json"
+    },
+    {
+      "subjectId": "subject-bca-s7-database-administration",
+      "academicPeriodId": "period-bca-semester-7",
+      "path": "subjects/subject-bca-s7-database-administration.json"
+    },
+    {
+      "subjectId": "subject-bca-s7-na",
+      "academicPeriodId": "period-bca-semester-7",
+      "path": "subjects/subject-bca-s7-na.json"
+    },
+    {
+      "subjectId": "subject-bca-s7-spm",
+      "academicPeriodId": "period-bca-semester-7",
+      "path": "subjects/subject-bca-s7-spm.json"
+    },
+    {
+      "subjectId": "subject-bca-s8-gis",
+      "academicPeriodId": "period-bca-semester-8",
+      "path": "subjects/subject-bca-s8-gis.json"
+    },
+    {
+      "subjectId": "subject-bca-s8-ms",
+      "academicPeriodId": "period-bca-semester-8",
+      "path": "subjects/subject-bca-s8-ms.json"
+    }
+  ]
+}

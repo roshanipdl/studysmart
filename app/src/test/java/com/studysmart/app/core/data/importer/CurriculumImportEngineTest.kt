@@ -21,7 +21,7 @@ class CurriculumImportEngineTest {
         assertEquals(1L, dao.marker!!.contentVersion)
     }
     private fun payload(): CurriculumImportPayload {
-        val root = File(System.getProperty("curriculum.snapshot") ?: "../Android data/database-stage-1")
+        val root = File(requireNotNull(System.getProperty("curriculum.snapshot")) { "Missing required test property: curriculum.snapshot (configure the repository curriculum fixture)" })
         return CurriculumJsonParser().read { File(root, checkedBundlePath(it)).readBytes() }
     }
 

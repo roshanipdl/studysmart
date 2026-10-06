@@ -1,0 +1,955 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s8-ms",
+    "academicPeriodId": "period-bca-semester-8",
+    "code": "CACS 457",
+    "name": "Multimedia System",
+    "description": "",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s8-ms-01",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 1,
+      "title": "Introduction",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-02",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 2,
+      "title": "Sound and Audio",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-03",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 3,
+      "title": "Images and Graphics",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-04",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 4,
+      "title": "Video and Animation",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-05",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 5,
+      "title": "Data Compression",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-06",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 6,
+      "title": "Abstractions for Programming",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-07",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 7,
+      "title": "Multimedia Design",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s8-ms-08",
+      "subjectId": "subject-bca-s8-ms",
+      "chapterNumber": 8,
+      "title": "Multimedia Applications",
+      "description": "",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s8-ms-001",
+      "chapterId": "chapter-bca-s8-ms-01",
+      "topicId": null,
+      "question": "Define multimedia. Explain hypermedia, characteristics, scope and challenges.",
+      "answer": "Expected: 5 or 10 marks. Repeated in 2025 and 2019; related to 2018.\n\nAnswer\n\nMultimedia is the computer-based or digitally manipulated integration of two or more media types, such as text, graphics, photographs, audio, animation and video, in one presentation or application. Multimedia may be passive and linear, or interactive and non-linear.\n\nInteractive multimedia allows the user to control the order, timing or selection of content. When the interactive content is organized as linked nodes through which a user can navigate, it is called hypermedia. Hypertext is the text-only form of linked information; hypermedia extends the links to images, sound, video and animation.\n\nCharacteristics\n\n1. Integration: several media types are presented as one coordinated experience.\n2. Digital representation: media are stored, processed and transmitted as digital data.\n3. Interactivity: users can select, pause, replay, search or navigate content.\n4. Temporal behavior: audio, video and animation have timing and synchronization requirements.\n5. High resource demand: multimedia requires considerable storage, processing power, bandwidth and display capability.\n6. Nonlinear navigation: menus, links, buttons and maps allow more than one path through content.\n7. Creative and technical production: successful work requires content, design, programming, media production and project organization.\n\nScope and applications\n\nMultimedia is used in e-learning, training simulations, games, entertainment, advertising, digital publishing, museums, public kiosks, business presentations, telemedicine, video conferencing, product demonstrations, virtual reality and web applications. In Nepal, useful examples include remote learning, health consultation for rural communities, disaster-awareness material and tourism information systems.\n\nChallenges\n\n- large audio and video files create storage and bandwidth pressure;\n- continuous media require real-time delivery and synchronization;\n- compression introduces a quality versus size trade-off;\n- different devices, operating systems, codecs and screen sizes create compatibility problems;\n- authoring requires suitable hardware, software, skilled people and coordinated workflows;\n- copyright, privacy, accessibility and security must be managed;\n- testing is difficult because users and delivery networks vary.\n\nConclusion: multimedia is not merely a collection of files. It is an integrated, time-sensitive and often interactive system that combines media, technology, users and a delivery environment.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-002",
+      "chapterId": "chapter-bca-s8-ms-01",
+      "topicId": null,
+      "question": "Explain the global structure of a multimedia system with a block diagram.",
+      "answer": "Expected: 10 marks. Asked as 2018 Group C.\n\nAnswer\n\nA global multimedia structure shows how real-world content becomes digital media, how it is stored and synchronized, and how it is delivered to a user.\n\nBlocks\n\n1. Content sources: text, photographs, drawings, music, speech, video, animation, sensors and user input.\n2. Capture and digitization: microphones, cameras, scanners and authoring tools convert analog or physical content into digital representations. Audio is sampled and quantized; images are scanned or generated; video is captured as frames.\n3. Processing and authoring: editing tools modify media, while an authoring system combines media objects, navigation, scripts, events and timing.\n4. Storage and management: files, asset libraries, metadata, databases and backups hold original and edited content. File formats and codecs describe how data is organized.\n5. Compression: codecs reduce storage and transmission requirements. Lossless compression preserves exact data; lossy compression removes less noticeable information.\n6. Synchronization and control: the system coordinates audio, video, animation, user events and timing. Buffers compensate for differences between production, transmission and playback rates.\n7. Network and delivery: files may be delivered from local storage, a server, a web application, a streaming service, a disc or a kiosk. Bandwidth, latency and protocol behavior affect quality.\n8. Presentation and interaction: displays, speakers, projectors, controllers, keyboards, touchscreens and accessibility devices present the result and return user commands.\n\nConclusion: the system is a loop, not a one-way file transfer. User feedback changes navigation and content selection, while quality depends on every block.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-003",
+      "chapterId": "chapter-bca-s8-ms-02",
+      "topicId": null,
+      "question": "What is sound? Explain speech generation and speech analysis.",
+      "answer": "Expected: 5 marks. Repeated in 2018 and 2019.\n\nAnswer\n\nSound is produced by vibration of matter. The vibration creates pressure variations in a medium such as air. The variation over time is represented by a waveform. Loudness is related mainly to amplitude and is measured in decibels; pitch is related mainly to frequency. Human hearing is approximately 20 Hz to 20 kHz.\n\nSpeech generation\n\nSpeech generation is the production of intelligible voice from linguistic or symbolic input. A simplified system is:\n\ntext or phonemes -> linguistic analysis -> phoneme sequence\n                 -> prosody and timing -> excitation/source model\n                 -> vocal-tract filter -> digital speech waveform -> speaker\n\n1. Input and linguistic analysis: text is divided into words, sounds or phonemes.\n2. Pronunciation and prosody: the system determines pronunciation, stress, duration, rhythm and intonation.\n3. Source generation: a voiced excitation is modelled as periodic pulses and an unvoiced excitation as noise.\n4. Vocal-tract filtering: a filter models the resonances of the mouth, throat and nasal passages.\n5. Synthesis and output: the generated samples are converted to audio and played through a speaker.\n\nSpeech analysis performs the reverse task. It measures waveform properties, segments speech, extracts features such as energy, zero-crossing rate, pitch and spectral envelope, and may use a filter-bank or Fourier analysis to identify phonemes, speakers or commands.\n\nMusic versus speech: music usually has wider frequency content, simultaneous instruments and structured pitch; speech has changing phonemes, formants, pauses and language-dependent patterns. Speech may be compressed at lower bit rates when intelligibility is preserved.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-004",
+      "chapterId": "chapter-bca-s8-ms-02",
+      "topicId": null,
+      "question": "Define MIDI and compare it with digital audio. Explain how sampling rate, bit depth, channels and duration determine uncompressed audio file size, and demonstrate the calculation with an example.",
+      "answer": "Expected: 5 or 10 marks. MIDI and file-size calculations appeared in 2025, 2018 and the supplied questions.\n\nMIDI\n\nMIDI (Musical Instrument Digital Interface) is a communication standard and event protocol for electronic instruments, computers and synthesizers. A MIDI file stores time-stamped performance instructions rather than sampled sound. Messages may specify note-on, note-off, pitch, velocity, instrument, tempo, control changes and program changes.\n\nMIDI versus digital audio\n\nFeature: Representation; MIDI: Score or performance events; Digital audio: Samples of the actual waveform Feature: Typical size; MIDI: Very small; Digital audio: Large, especially uncompressed Feature: Quality; MIDI: Depends on playback synthesizer; Digital audio: Relatively consistent across devices Feature: Editing; MIDI: Note, instrument and tempo can be edited; Digital audio: Waveform editing is less semantic Feature: Speech/natural sound; MIDI: Poorly suited to speech and real-world sound; Digital audio: Suitable for speech, music and effects Feature: Bandwidth; MIDI: Low; Digital audio: Higher; compression often needed Feature: Device dependence; MIDI: High; Digital audio: Lower after recording Feature: Best use; MIDI: Interactive music, games, composition; Digital audio: Voice, recordings, sound effects and final delivery\n\nFor a game soundtrack, MIDI gives small files, dynamic tempo and easy instrument changes, but playback can differ between devices. Digital audio gives a fixed, authentic performance and works for vocals and effects, but requires more storage and bandwidth.\n\nFormula\n\nuncompressed bytes = sampling rate x bit depth x channels x duration / 8\n\nThe notes give the equivalent intermediate formula:\n\nbytes per second = sampling rate x bits per sample x channels / 8\n\n30 seconds, 44.1 kHz, 8-bit, stereo\n\nbytes = 44,100 x 8 x 2 x 30 / 8\n       = 2,116,800 bytes\n\nThis is approximately 2.1168 MB using decimal units, or about 2.02 MiB using binary units.\n\n10 seconds, 44.1 kHz, 16-bit, stereo\n\nbytes = 44,100 x 16 x 2 x 10 / 8\n       = 1,764,000 bytes\n\nThis is approximately 1.764 MB, or about 1.68 MiB. The factor of two for stereo and the division by eight to convert bits to bytes must be shown.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-005",
+      "chapterId": "chapter-bca-s8-ms-03",
+      "topicId": null,
+      "question": "Differentiate bitmap and vector graphics. Explain vector storage.",
+      "answer": "Expected: 5 marks. Asked in 2018 and 2019.\n\nAnswer\n\nProperty: Basic unit; Bitmap or raster: Pixel or cell; Vector or drawn graphic: Geometric object and mathematical path Property: Description; Bitmap or raster: Color value for each pixel; Vector or drawn graphic: Coordinates, curves, lines, fill and stroke properties Property: Best for; Bitmap or raster: Photographs and detailed textures; Vector or drawn graphic: Logos, diagrams, text, lines and geometric shapes Property: Scaling; Bitmap or raster: Can become pixelated; Vector or drawn graphic: Scales with little quality loss Property: Memory; Bitmap or raster: Often large for high resolution; Vector or drawn graphic: Often compact for simple shapes Property: Editing; Bitmap or raster: Pixel-level retouching; Vector or drawn graphic: Object-level editing Property: Examples; Bitmap or raster: BMP, JPEG, PNG, GIF, TIFF; Vector or drawn graphic: SVG, EPS, CAD and drawing objects\n\nMethod of storing a vector image\n\n1. Establish a coordinate system with an origin and x/y axes.\n2. Store each object as a record containing its type, such as line, rectangle, ellipse, polygon or curve.\n3. Store coordinates, dimensions, control points and transformations such as translation, rotation and scaling.\n4. Store appearance attributes such as fill color, stroke color, stroke width, pattern, opacity and layer order.\n5. During display, the renderer calculates the object boundary, rasterizes it at the target resolution and applies anti-aliasing.\n\nFor example, a rectangle can be stored as (x, y, width, height, fill, stroke) instead of storing the color of every pixel inside it. A line can be represented by two endpoints; a curve can use control points.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-006",
+      "chapterId": "chapter-bca-s8-ms-03",
+      "topicId": null,
+      "question": "Explain image analysis, color dithering and common image formats.",
+      "answer": "Expected: 5 or 10 marks. Image analysis and dithering appeared in 2018 and 2019.\n\nImage analysis is the extraction of useful information from an image. Typical techniques are:\n\n1. Preprocessing: remove noise, correct brightness and contrast, resize or sharpen.\n2. Color analysis: inspect RGB, HSV/HSB or grayscale values and identify color regions.\n3. Segmentation: separate foreground objects from background using thresholds, edges, regions or clustering.\n4. Feature extraction: calculate boundaries, texture, shape, area, corners, patterns or connected components.\n5. Recognition and classification: assign objects or regions to categories such as face, road, symbol or tumor.\n6. Geometric transformation: rotate, scale, crop, warp or correct perspective.\n\nDithering reduces an image to a smaller color palette. Each original pixel is mapped to a nearby available color, and adjacent pixels are arranged in a pattern so that the eye perceives an intermediate color. For example, a blue-gray color unavailable in a 256-color palette may be approximated by alternating blue and gray pixels. Ordered, random and error-diffusion dithering are common approaches. Dithering improves visual similarity but adds a pattern or noise.\n\nCommon formats\n\n- BMP: simple bitmap format, often large and commonly associated with Windows.\n- JPEG/JPG: lossy photographic compression using DCT and quantization.\n- PNG: lossless format with transparency and good support for graphics.\n- GIF: indexed-color format limited to 256 colors per frame; supports simple animation and transparency.\n- TIFF: flexible, high-quality bitmap format used in scanning and publishing.\n- SVG: text-based vector format describing shapes and paths.\n- PDF: container capable of holding text, bitmap images and vector artwork.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-007",
+      "chapterId": "chapter-bca-s8-ms-04",
+      "topicId": null,
+      "question": "Define digital video and explain methods of controlling animation.",
+      "answer": "Expected: 5 marks. Asked in 2018; related animation questions appeared in 2025.\n\nDigital video is a time-ordered sequence of digitally represented image frames, usually accompanied by synchronized audio. Each frame stores discrete pixel values, while frame rate determines the number of frames shown per second. A video system must manage resolution, color depth, frame rate, audio rate, storage, codec and synchronization.\n\nAnimation control methods\n\n1. Frame-by-frame or straight-ahead animation: each frame is created or changed in sequence. It gives direct control but requires more work and storage.\n2. Key-frame or pose-to-pose animation: the animator specifies important key frames; the system creates intermediate frames.\n3. Tweening: the software interpolates position, scale, rotation, color or shape between two key frames.\n4. Timeline-based control: objects and media are placed on tracks with start times, durations, layers and events.\n5. Path-based animation: an object follows a geometric path or motion guide.\n6. Cel or layered animation: foreground objects are changed over a fixed background, reducing repeated drawing.\n7. Kinematics: joint relationships are defined and movement is calculated; inverse kinematics lets a target position determine connected joints.\n8. Morphing: one image or shape is transformed into another by warping and blending.\n\nComputer animation creates the illusion of motion by displaying related images rapidly. The notes describe common rates of 24 or 30 frames per second, although the actual rate depends on the delivery system.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-008",
+      "chapterId": "chapter-bca-s8-ms-04",
+      "topicId": null,
+      "question": "Compare timeline-based, frame-based and tween-based animation.",
+      "answer": "Method: Frame-based; Main idea: Every frame is explicitly drawn or selected; Strength: Precise control of complex motion; Limitation: More authoring effort and storage; Example: Hand-drawn explosion sequence Method: Timeline-based; Main idea: Events are arranged against time on tracks; Strength: Easy synchronization of layers and audio; Limitation: Requires careful timing design; Example: A title appears at 2 s, music at 3 s Method: Tween-based; Main idea: Software calculates in-between states between key frames; Strength: Efficient for smooth position/scale/rotation changes; Limitation: Poor for irregular or highly detailed motion; Example: Ball moves from x=0 to x=300 between two key frames\n\nTimeline and tweening often work together: key frames are placed on a timeline and the authoring system interpolates the interval.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-009",
+      "chapterId": "chapter-bca-s8-ms-04",
+      "topicId": null,
+      "question": "Explain video-on-demand and the application of multimedia in telemedicine.",
+      "answer": "Video-on-demand (VoD) is a service in which a user selects a stored video and controls its playback without waiting for a fixed broadcast schedule. The system stores encoded media on a server, receives a request, authenticates the user, allocates a stream and sends data through a network. Buffering, adaptive bitrate, server capacity, codec support and synchronization affect the experience. Progressive download stores the file locally as it arrives; streaming plays from a buffer while downloading continues.\n\nTelemedicine applications include:\n\n- live audio/video consultation between patient and clinician;\n- transmission of medical images, reports and patient records;\n- remote monitoring using cameras and sensors;\n- specialist consultation and second opinions;\n- e-prescription, triage and follow-up;\n- medical education and simulation for health workers.\n\nBenefits include access for remote communities, lower travel cost and faster collaboration. Requirements include secure communication, privacy, reliable bandwidth, adequate image quality, authentication, informed consent and a fallback method when the connection fails.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-010",
+      "chapterId": "chapter-bca-s8-ms-05",
+      "topicId": null,
+      "question": "Why is compression necessary? Differentiate lossless and lossy compression.",
+      "answer": "Expected: 5 or 10 marks. Repeated throughout the board papers.\n\nMultimedia data is large because images contain many pixels, audio contains many samples, and video contains many frames plus audio. Compression reduces storage, transmission time, bandwidth and buffer requirements. It also makes interactive delivery and streaming practical.\n\nFeature: Reconstruction; Lossless compression: Exactly reproduces original; Lossy compression: Reconstructs an approximation Feature: Information loss; Lossless compression: None; Lossy compression: Some information is discarded Feature: Typical methods; Lossless compression: RLE, Huffman, arithmetic, LZW; Lossy compression: Quantization, JPEG, MPEG, MP3/AAC Feature: Compression ratio; Lossless compression: Usually lower; Lossy compression: Usually higher Feature: Use; Lossless compression: Text, source data, medical or archival content; Lossy compression: Photos, music and video where small perceptual loss is acceptable Feature: Repeated editing; Lossless compression: Safe from generation loss; Lossy compression: Repeated re-encoding can degrade quality\n\nRun-Length Encoding example\n\nFor the board string:\n\nThe runs are:\n\n5a 4b 3c 2d 1e\n\nIf each count-character pair is written as two symbols, the original has 15 characters and the encoded form has 10 symbols. Therefore:\n\ncompression ratio = original size / compressed size\n                  = 15 / 10\n                  = 1.5 : 1\n\nThe exact storage ratio depends on the representation used for counts. RLE works well for long repeated runs but can increase size when values alternate frequently.\n\nFor a 4K video over a low-bandwidth network, lossy compression is preferred because the reduction in bitrate is much greater. The codec removes perceptually less important information, allowing playback with acceptable quality. Lossless compression would preserve every bit but may leave a bitrate too large for the network.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-011",
+      "chapterId": "chapter-bca-s8-ms-05",
+      "topicId": null,
+      "question": "Explain JPEG compression step by step.",
+      "answer": "Expected: 10 marks. Asked in 2025, 2019 and 2018.\n\nJPEG is primarily a lossy still-image compression method. Its central transform is the Discrete Cosine Transform (DCT). A typical baseline sequential JPEG encoder is:\n\n1. Color conversion: convert RGB to a luminance/chrominance representation such as YCbCr. Human vision is more sensitive to brightness than color detail.\n2. Chroma subsampling: reduce Cb and Cr resolution, commonly using a 4:2:2 or 4:2:0 arrangement.\n3. Block division: divide each component into 8 x 8 blocks.\n4. Level shift: subtract a midpoint, commonly 128 for 8-bit samples, so values are centered around zero.\n5. DCT: transform each spatial block into frequency coefficients. The DC coefficient represents average intensity; AC coefficients represent changes and detail.\n6. Quantization: divide coefficients by a quantization table and round them. This is the main lossy step; high-frequency values are often reduced more strongly.\n7. Zigzag scan: order low-to-high frequency coefficients so zeros tend to occur at the end.\n8. Run-length coding: represent repeated zero coefficients compactly.\n9. Entropy coding: encode symbols using Huffman coding or another supported entropy method.\n10. File construction: store headers, dimensions, quantization tables, Huffman tables and coded data.\n\nDuring decoding, the operations are reversed. Dequantization cannot restore the exact discarded coefficients, so JPEG is not bit-for-bit reversible.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-012",
+      "chapterId": "chapter-bca-s8-ms-05",
+      "topicId": null,
+      "question": "Explain MPEG compression and compare JPEG with MPEG.",
+      "answer": "MPEG standards compress moving pictures and associated audio. They exploit both spatial redundancy within a frame and temporal redundancy between frames.\n\nMPEG process\n\n1. divide video into frames and macroblocks;\n2. encode selected complete frames as I-frames using spatial compression similar to JPEG;\n3. estimate motion between frames;\n4. store motion vectors and residual differences rather than repeating unchanged pixels;\n5. encode prediction errors with transform, quantization and entropy coding;\n6. use P-frames predicted from a previous I or P frame and B-frames predicted from previous and future reference frames;\n7. compress audio separately and multiplex audio, video and timing information into a container.\n\nFeature: Main target; JPEG: Still image; MPEG: Moving video and audio Feature: Redundancy; JPEG: Spatial within one image; MPEG: Spatial plus temporal between frames Feature: Core tools; JPEG: DCT, quantization, entropy coding; MPEG: DCT-like coding, motion estimation, prediction and entropy coding Feature: Video efficiency; JPEG: Compresses each frame independently; MPEG: More efficient for sequences with similar neighboring frames Feature: Random access; JPEG: Simple image access; MPEG: Depends on I-frame positions and GOP structure Feature: Quality effects; JPEG: Blocking and ringing artifacts; MPEG: Blocking, motion artifacts, ghosting and dropped-frame effects Feature: Typical use; JPEG: Photographs and web images; MPEG: Streaming, television, DVD and video files\n\nFor 2025’s comparison, MPEG is normally more efficient for video because it removes inter-frame redundancy. Both can create perceptual quality loss through quantization, but MPEG can also create temporal artifacts when motion estimation or bitrate is insufficient.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-013",
+      "chapterId": "chapter-bca-s8-ms-05",
+      "topicId": null,
+      "question": "Compare Huffman and arithmetic coding. Explain DCT-based JPEG modes.",
+      "answer": "Feature: Code unit; Huffman coding: Variable-length codeword for each symbol; Arithmetic coding: Represents a whole sequence as a fractional interval Feature: Model; Huffman coding: Uses a symbol frequency tree; Arithmetic coding: Uses cumulative probability intervals Feature: Simplicity; Huffman coding: Relatively simple and fast; Arithmetic coding: More mathematically complex Feature: Efficiency; Huffman coding: Near the entropy limit for many distributions; Arithmetic coding: Can approach entropy more closely for skewed probabilities Feature: Implementation; Huffman coding: Easy to implement and widely supported; Arithmetic coding: Requires careful precision and has historically raised patent or performance concerns Feature: Error behavior; Huffman coding: Symbol boundaries can help resynchronization; Arithmetic coding: One bit error may affect a larger interval or sequence\n\nIn JPEG, the baseline sequential DCT mode processes the image in a normal scan and generally uses quantization followed by entropy coding. Progressive DCT mode sends an image in multiple scans: an early scan gives a rough view and later scans refine it. The term “expanded OCT-based modes” in the supplied HTML is treated as an OCR/HTML corruption; the technically relevant term is DCT-based JPEG modes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-014",
+      "chapterId": "chapter-bca-s8-ms-06",
+      "topicId": null,
+      "question": "Explain abstraction levels, toolkits and object-oriented multimedia programming.",
+      "answer": "Expected: 5 or 10 marks. Asked in 2025 and 2019.\n\nAbstraction hides implementation detail and exposes a simpler interface. Multimedia systems can be understood in levels:\n\n1. Device and signal level: samples, pixels, buffers, codecs, drivers and file bytes. Example: a PCM audio buffer containing 16-bit samples.\n2. Media-object level: named objects such as AudioClip, Image, Video, TextBlock or Sprite with properties. Example: an AudioClip has duration, volume and format.\n3. Composition and synchronization level: timelines, scenes, layers, transitions, tracks and event relationships. Example: play narration when a slide enters the timeline.\n4. Interaction and application level: menus, navigation, user events, scripts, data models and application rules. Example: clicking a quiz answer changes feedback and starts another clip.\n\nLibraries, toolkits and languages\n\n- libraries provide reusable functions for decoding, drawing, recording, mixing, rendering and networking;\n- toolkits provide higher-level media objects, timelines, widgets, event systems and codecs;\n- authoring systems allow card/page, icon/event or time-based composition;\n- higher-level languages reduce low-level code and express behavior, synchronization and interaction clearly;\n- lower-level APIs remain useful when exact timing, hardware control or performance is required.\n\nObject-oriented approach\n\nAn object-oriented multimedia system models media as objects with state, behavior and events. A MediaObject base class may provide load(), play(), pause(), stop() and setVolume(); subclasses such as AudioClip, VideoClip and Animation add specialized behavior.\n\n- Encapsulation: media data and operations are kept behind a defined interface.\n- Inheritance: specialized media objects reuse common properties and methods.\n- Polymorphism: a common play() command can work for audio, video or animation.\n- Composition: a scene contains media objects, tracks and controls.\n- Event handling: click, timer, cue, completion and error events trigger actions.\n\nThe approach improves reuse and maintenance, but object abstractions must still respect timing, memory, thread safety and codec limitations.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-015",
+      "chapterId": "chapter-bca-s8-ms-07",
+      "topicId": null,
+      "question": "What are multimedia interface components? Explain five fundamental design rules.",
+      "answer": "Expected: 5 marks. Asked in 2018 and 2019.\n\nComponents\n\n1. Content area: displays text, images, animation and video.\n2. Navigation: menus, links, buttons, breadcrumbs, maps and search.\n3. Media controls: play, pause, stop, seek, volume, captions and full screen.\n4. Input controls: keyboard fields, choices, sliders, touch actions and voice input.\n5. Feedback/status: progress, selection state, loading message, errors and completion signals.\n6. Layout and visual system: grid, typography, color, icons, spacing and hierarchy.\n7. Help and accessibility: instructions, keyboard access, captions, transcripts, contrast and adjustable text.\n\nFive rules\n\n1. Keep it simple: show only what is needed for the current task and avoid decorative overload.\n2. Be consistent: use the same labels, icons, colors, navigation location and interaction behavior throughout.\n3. Provide visible feedback: acknowledge clicks, show loading/progress state, and indicate the current location.\n4. Give users control: allow pause, replay, volume control, back navigation, cancellation and appropriate choice of pace.\n5. Prevent and recover from errors: validate input, explain the problem in plain language, offer recovery, and do not destroy user work.\n\nAccessible multimedia also supplies captions and transcripts, meaningful text alternatives, keyboard navigation, sufficient contrast, non-color cues, readable controls and options for reduced motion.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-016",
+      "chapterId": "chapter-bca-s8-ms-07",
+      "topicId": null,
+      "question": "Explain multimedia application-development phases and the importance of testing.",
+      "answer": "Expected: 10 marks. Asked in 2025 and 2019.\n\nThe terminology varies slightly between the important-question list and the course notes. A practical lifecycle combines both descriptions:\n\n1. Analysis: identify the problem, audience, objectives, content, delivery platform, budget, constraints and success criteria.\n2. Design: develop the information architecture, navigation map, storyboard, interface, visual language, media plan and synchronization plan.\n3. Development/production: create or acquire text, graphics, audio, video and animation; edit assets; program interaction; assemble scenes and integrate media.\n4. Implementation/integration: connect data, install codecs and libraries, package the application and prepare it for the target devices or network.\n5. Testing and evaluation: test function, content, usability, accessibility, synchronization, performance, compatibility, security and user satisfaction.\n6. Delivery and maintenance: release the product, train users where necessary, collect feedback, fix defects and issue updates.\n\nWhy testing and evaluation matter\n\n- catches broken links, missing files, crashes, bad input handling and navigation errors;\n- checks audio/video synchronization, buffering, frame rate and playback quality;\n- identifies platform, browser, screen-size, codec and bandwidth problems;\n- confirms that objectives and content are correct;\n- reveals whether users understand the interface without assistance;\n- verifies accessibility for users with different abilities;\n- measures performance and reduces the risk of failure after release.\n\nFor an e-learning application, a test may discover that captions are absent, a quiz score is not saved, the video stalls on a slow connection, and the “Next” button is invisible on a small screen. Evaluation converts these observations into revisions before delivery.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-017",
+      "chapterId": "chapter-bca-s8-ms-08",
+      "topicId": null,
+      "question": "Explain how telemedicine and e-learning address the Three Cs.",
+      "answer": "Expected: 10 marks. Asked in 2025 Group C.\n\nThe Three Cs are Communication, Collaboration and Content Delivery. Multimedia applications combine text, images, audio, video, animation, interaction and data services to support all three.\n\nTelemedicine\n\n- Communication: live or recorded audio/video consultation, messaging, alerts and remote instructions connect patient and clinician.\n- Collaboration: doctors, nurses, specialists and laboratories share images, reports and observations; conferencing supports diagnosis and second opinions.\n- Content delivery: medical images, prescriptions, patient education videos, treatment instructions and monitoring dashboards reach the patient or health worker.\n\nImportant requirements are privacy, encryption, authentication, consent, reliable connectivity, accurate records, adequate image resolution and a safe fallback when communication fails.\n\nE-learning\n\n- Communication: teacher announcements, live classes, discussion boards, chat, voice and video feedback.\n- Collaboration: shared documents, group projects, peer review, virtual laboratories and teacher-student interaction.\n- Content delivery: recorded lectures, text modules, diagrams, simulations, animations, quizzes, captions and downloadable resources.\n\nBenefits and limitations\n\nBenefits include access across distance, flexible timing, richer explanation, repeated playback, immediate feedback and support for different learning styles. Limitations include digital divide, bandwidth cost, privacy, accessibility gaps, unreliable devices, content quality and the need for trained users.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s8-ms-018",
+      "chapterId": "chapter-bca-s8-ms-08",
+      "topicId": null,
+      "question": "Explain video conferencing, digital-video editing and media integration.",
+      "answer": "Video conferencing is real-time two-way communication using captured audio and video over a network. A typical system contains cameras, microphones, capture and codec software, an encoder, network transport, a jitter buffer, decoder, display and speakers.\n\ncamera/microphone -> capture -> encode -> network -> jitter buffer\n       ^                                                   |\n       |                                                   v\ndisplay/speakers <- decode <- render <- synchronization <-+\n\nThe system must synchronize streams, control latency, handle packet loss, adjust bitrate, echo-cancel audio, authenticate participants and provide screen sharing or recording when required.\n\nDigital-video editing and production normally involves:\n\n1. idea, audience and requirements analysis;\n2. script, storyboard, shot list and production plan;\n3. capture or acquire footage, audio and graphics;\n4. ingest and organize media assets;\n5. select and trim clips in a nonlinear editor;\n6. arrange the timeline and synchronize sound;\n7. add transitions, titles, effects, color correction and captions;\n8. mix and normalize audio;\n9. encode a delivery version for the target platform;\n10. test quality, compatibility, accessibility and copyright before release.\n\nMedia integration means coordinating text, graphics, animation, audio, video, user events and data in a single application. The integration is successful only when the content is coherent, the timing is correct, the interface is usable and the delivery platform can sustain the required data rate.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s8-ms-001",
+      "normalizedKeyword": "multimedia",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-001",
+      "normalizedKeyword": "interactive multimedia",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-001",
+      "normalizedKeyword": "hypermedia",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-003",
+      "normalizedKeyword": "sound",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-003",
+      "normalizedKeyword": "input and linguistic analysis",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-003",
+      "normalizedKeyword": "pronunciation and prosody",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-007",
+      "normalizedKeyword": "digital video",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-007",
+      "normalizedKeyword": "frame-by-frame or straight-ahead animation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-007",
+      "normalizedKeyword": "key-frame or pose-to-pose animation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-014",
+      "normalizedKeyword": "abstraction",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-014",
+      "normalizedKeyword": "device and signal level",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-014",
+      "normalizedKeyword": "media-object level",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-015",
+      "normalizedKeyword": "content area",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-015",
+      "normalizedKeyword": "navigation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-015",
+      "normalizedKeyword": "media controls",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-017",
+      "normalizedKeyword": "communication, collaboration and content delivery",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-017",
+      "normalizedKeyword": "communication",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-017",
+      "normalizedKeyword": "collaboration",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-002",
+      "normalizedKeyword": "content sources",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-002",
+      "normalizedKeyword": "capture and digitization",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-002",
+      "normalizedKeyword": "processing and authoring",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-004",
+      "normalizedKeyword": "midi (musical instrument digital interface)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-004",
+      "normalizedKeyword": "2.1168 mb",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-004",
+      "normalizedKeyword": "2.02 mib",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-006",
+      "normalizedKeyword": "image analysis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-006",
+      "normalizedKeyword": "preprocessing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-006",
+      "normalizedKeyword": "color analysis",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-011",
+      "normalizedKeyword": "discrete cosine transform (dct)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-011",
+      "normalizedKeyword": "color conversion",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-011",
+      "normalizedKeyword": "chroma subsampling",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-016",
+      "normalizedKeyword": "analysis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-016",
+      "normalizedKeyword": "design",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-016",
+      "normalizedKeyword": "development/production",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-018",
+      "normalizedKeyword": "video conferencing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-018",
+      "normalizedKeyword": "digital-video editing and production",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-009",
+      "normalizedKeyword": "video-on-demand (vod)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-009",
+      "normalizedKeyword": "telemedicine applications",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-012",
+      "normalizedKeyword": "mpeg",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-012",
+      "normalizedKeyword": "i-frames",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s8-ms-012",
+      "normalizedKeyword": "p-frames",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s8-ms-013",
+      "normalizedKeyword": "baseline sequential dct mode",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s8-ms-013",
+      "normalizedKeyword": "dct-based jpeg modes",
+      "weight": 1.0,
+      "sortOrder": 2
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s8-ms",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "title: How to Write Answers"
+        }
+      ],
+      "notes": "The board Q&A identifies Semester VIII CACS 457; its cited course-note PDF is labelled Semester V elective, so the chapter list is corroborated against the local unit-wise important-question text instead."
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 1: Introduction"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 1: Introduction"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 2: Sound and Audio"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 2: Sound / Audio System"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 3: Images and Graphics"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 3: Images and Graphics"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 4: Video and Animation"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 4: Video and Animation"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 5: Data Compression"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 5: Data Compression"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 6: Abstractions for Programming"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 6: Abstractions for Programming"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 7: Multimedia Design"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 7: Multimedia Design"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s8-ms-08",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 8: Multimedia Applications"
+        },
+        {
+          "path": "BCA/Semester-8/MS/imp.md",
+          "locator": "Unit 8: Multimedia Applications"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 1: Introduction / Q1. Define multimedia. Explain hypermedia, characteristics, scope and challenges."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 1: Introduction / Q2. Explain the global structure of a multimedia system with a block diagram."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 2: Sound and Audio / Q3. What is sound? Explain speech generation and speech analysis."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 2: Sound and Audio / Q4. What is MIDI? Compare MIDI with digital audio and calculate audio file sizes."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 3: Images and Graphics / Q5. Differentiate bitmap and vector graphics. Explain vector storage."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 3: Images and Graphics / Q6. Explain image analysis, color dithering and common image formats."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 4: Video and Animation / Q7. Define digital video and explain methods of controlling animation."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 4: Video and Animation / Q8. Compare timeline-based, frame-based and tween-based animation."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 4: Video and Animation / Q9. Explain video-on-demand and the application of multimedia in telemedicine."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 5: Data Compression / Q10. Why is compression necessary? Differentiate lossless and lossy compression."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 5: Data Compression / Q11. Explain JPEG compression step by step."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 5: Data Compression / Q12. Explain MPEG compression and compare JPEG with MPEG."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 5: Data Compression / Q13. Compare Huffman and arithmetic coding. Explain DCT-based JPEG modes."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 6: Abstractions for Programming / Q14. Explain abstraction levels, toolkits and object-oriented multimedia programming."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 7: Multimedia Design / Q15. What are multimedia interface components? Explain five fundamental design rules."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 7: Multimedia Design / Q16. Explain multimedia application-development phases and the importance of testing."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 8: Multimedia Applications / Q17. Explain how telemedicine and e-learning address the Three Cs."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s8-ms-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-8/MS/ms-board-qa.md",
+          "locator": "Unit 8: Multimedia Applications / Q18. Explain video conferencing, digital-video editing and media integration."
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

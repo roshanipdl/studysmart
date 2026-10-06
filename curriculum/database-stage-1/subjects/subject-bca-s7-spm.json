@@ -1,0 +1,3174 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s7-spm",
+    "academicPeriodId": "period-bca-semester-7",
+    "code": "CACS 407",
+    "name": "Software Project Management",
+    "description": "",
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": 1790974676039,
+    "updatedAt": 1790974676039
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s7-spm-01",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 1,
+      "title": "Software Project Management Concepts",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-02",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 2,
+      "title": "Software Project Scheduling",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-03",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 3,
+      "title": "Software Estimation Techniques",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-04",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 4,
+      "title": "Software Evaluation and Costing",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-05",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 5,
+      "title": "Risk Management",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-06",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 6,
+      "title": "Software Quality Management",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "chapter-bca-s7-spm-07",
+      "subjectId": "subject-bca-s7-spm",
+      "chapterNumber": 7,
+      "title": "Software Configuration Management",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s7-spm-001",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Define Project and Software Project.",
+      "answer": "A project is a temporary, unique endeavour undertaken to create a defined product, service or result within constraints of time, cost and quality. A software project is a project whose deliverable is software or a software-intensive system.\nA project has objectives, a life span (temporary — it ends), uniqueness (no two projects are identical), funds, a life cycle and risk. A software project keeps all of these but the product is intangible: it cannot be seen or touched, its complexity is high, its requirements change easily, and there is no standard repeatable process. Example: developing a college management system is a software project — defined deliverable, deadline and budget, but invisible and change-prone.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-002",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Differentiate between Software Project and other projects.",
+      "answer": "Software projects differ from other (physical/engineering) projects in product nature, complexity, change behaviour, process standardisation and progress visibility:\nAspect: Product; Software project: Invisible, intangible; Other projects: Visible, tangible\nAspect: Complexity; Software project: High, many interacting parts; Other projects: Usually decomposable, understood\nAspect: Change; Software project: Requirements change often; Other projects: Design stabilizes; changes costly\nAspect: Process; Software project: No standard repeatable process; Other projects: Mature standard processes\nAspect: Progress; Software project: Hard to see; needs milestones/reviews; Other projects: Visible physical progress\nAspect: Verification; Software project: Cannot be exhaustively tested; Other projects: Can be inspected/measured\nThese differences are why software needs its own management discipline: careful estimation (Unit 3), incremental delivery and configuration control (Unit 7), and continuous risk management (Unit 5).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-003",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Explain the importance of Software Project Management (SPM).",
+      "answer": "SPM matters because it delivers the project on time, in budget and to the required quality, while managing resources, risks, communication and change.\n(1) Project success and delivery; (2) resource optimization; (3) risk management; (4) stakeholder communication; (5) quality assurance; (6) adaptability to change; (7) customer satisfaction; (8) documentation and knowledge transfer; (9) project closure and evaluation; (10) legal and contractual compliance. Without SPM, projects drift: deadlines slip, budgets overrun, quality falls and stakeholders lose confidence.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-004",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Explain the problems faced in software project management.",
+      "answer": "The recurring problems are unclear/changing requirements, poor communication, inadequate planning, unrealistic expectations, poorly defined roles, skill shortages, integration issues, insufficient testing, resource constraints, unforeseen risks and ineffective change management.\n(1) Unclear/changing requirements — scope creep; (2) poor communication — misunderstandings and delays; (3) inadequate planning — bad estimates and schedules; (4) unrealistic expectations — stress, compromised quality; (5) unclear roles — duplication and gaps; (6) lack of skilled staff; (7) integration/compatibility issues; (8) inadequate testing; (9) resource constraints; (10) unforeseen risks; (11) ineffective change management. Pair each with its remedy in answers: change control for scope creep, a communication plan for poor communication, risk planning for unforeseen risks.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-005",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Explain the process of Software Project Management.",
+      "answer": "SPM runs as five phases: Initiation → Planning → Execution → Monitoring and Controlling → Closing.\n1. Initiation — define the project (purpose, goals, objectives); feasibility study (technical, financial, operational); create the project charter.\n2. Planning — project plan (scope, schedule, budget, resources, risk, communication); risk management plan; resource planning; quality plan.\n3. Execution — form the team and define roles; development (coding, testing, integration); communication; monitoring & control.\n4. Monitoring and Controlling — track performance against the plan; change control with approvals; issue tracking.\n5. Closing — formal closure; post-implementation review (lessons learned); document archive; client acceptance.\nThe phases form a cycle: monitoring feeds corrections back into planning.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-006",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Write the characteristics / features of a good project manager.",
+      "answer": "Leadership, communication, organization, problem-solving, adaptability, decision-making, risk management, time management, negotiation, team building, stakeholder management and continuous improvement.\nA good project manager (1) gives clear direction and motivates; (2) communicates clearly and listens actively; (3) keeps plans, schedules and documentation organized; (4) solves problems methodically under pressure; (5) adapts plans to change; (6) makes informed decisions; (7) manages risk proactively; (8) manages time and meets deadlines; (9) negotiates to resolve conflicts; (10) builds strong teams; (11) manages client expectations; (12) learns from every project.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-007",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Who is a Project Manager? Explain his roles and responsibilities.",
+      "answer": "The project manager is the person responsible for planning, executing, monitoring and closing the project — the leader who coordinates people, resources and communication to deliver the objectives.\nRoles and responsibilities. (1) Plan and schedule work; define scope, milestones and deliverables; (2) lead and motivate the team; define roles; (3) allocate and manage resources (people, equipment, budget); (4) communicate with stakeholders and manage expectations; (5) monitor progress and take corrective action; (6) manage risks and changes; (7) protect quality; (8) close the project and capture lessons learned.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-008",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Explain the qualities and qualifications of a successful software project manager.",
+      "answer": "Qualities: Integrity, responsibility, calmness under pressure, decisiveness, empathy, proactivity, attention to detail and commitment to quality.\nQualifications: Technical understanding of software engineering and development methods; training and experience in project management; estimation and planning skills; communication and negotiation skills; leadership experience; domain and technology awareness.\nIn exams, separate the two lists clearly: qualities are personal traits; qualifications are acquired knowledge/credentials (education, training, certifications, experience of similar projects, familiarity with tools).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-009",
+      "chapterId": "chapter-bca-s7-spm-01",
+      "topicId": null,
+      "question": "Explain the overview of software project planning.",
+      "answer": "Planning is the first activity of the project; it defines scope, estimates resources, builds schedules and sets the roadmap. Its value: saves money, saves time and produces quality output — \"if you fail to plan, you plan to fail.\"\nEvery plan answers five questions: Who is involved; Why (success factors); What will be delivered; When (milestones); How (approach, technologies, tools). Planning flow: identify project requirements → identify cost estimates and risks → identify critical success factors → prepare project charter and project plan → commence the project. Planning produces the project plan, risk plan, resource plan and quality plan used by every later unit.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-010",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "What is project scheduling? Explain its importance.",
+      "answer": "Project scheduling decides which activities will be done, in what order, by whom and when, and expresses this as a timeline with milestones.\nImportance. (1) Converts the plan into dated, actionable work; (2) coordinates resources across activities; (3) reveals the critical path and total duration; (4) enables progress monitoring and variance detection; (5) supports communication between team and stakeholders; (6) reduces the risk of missed deadlines.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-011",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain the objectives of activity planning.",
+      "answer": "The objectives are to define tasks clearly, identify their sequence and dependencies, allocate resources, estimate durations, develop the schedule, analyse the critical path, set milestones, assess risks, optimize, communicate, monitor, stay adaptable, improve efficiency and evaluate feedback.\n(1) Task definition — e.g. \"design database schema\"; (2) sequence and dependency identification — which task must finish before another starts; (3) resource allocation — assign people/equipment; (4) time estimation — durations from data, experts or formulas; (5) schedule development — the dated plan; (6) critical path analysis — find the longest dependent chain. The remaining objectives (7–14) add milestones, risk assessment, optimization, communication, monitoring, adaptability, efficiency and feedback.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-012",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Define Work Breakdown Structure (WBS). Explain its advantages.",
+      "answer": "WBS is a hierarchical decomposition of the project into phases, deliverables and work packages, organizing the scope so it can be planned, estimated and controlled.\nAdvantages. (1) Makes the full scope visible and manageable; (2) basis for bottom-up estimation and scheduling; (3) assigns responsibility for every piece; (4) the 100% rule prevents missing work; (5) mutual exclusivity prevents duplication; (6) supports monitoring, control and change management.\nKey principles: hierarchy (project at root), phases/deliverables at top levels, work packages at the bottom (estimable, assignable), mutual exclusivity, the 100% rule, control accounts, coding structure, visualization, dynamic updates. Types include deliverable-based, phase-based, organizational-based, hybrid, product-based, process-based, location-based, risk-based and cost-based.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-013",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "What is a network diagram? Explain the steps to draw it.",
+      "answer": "A network diagram represents project activities and their dependencies as nodes and links, so schedules can be calculated and optimized.\nSteps to draw it. (1) List activities with durations and precedents from the WBS; (2) determine the sequence/dependencies; (3) draw one start node and one end node; (4) place activities left to right, linking predecessors; (5) verify no loops or dangles; (6) calculate durations (forward/backward pass, float, critical path).\nRules. Only one start node; one end node; nodes carry durations; links normally have none; precedents are immediate preceding activities; no loops; no dangles.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-014",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain Critical Path Method (CPM).",
+      "answer": "CPM is a deterministic network technique that builds the project network with a single duration per activity, computes early and late times, and identifies the longest dependent chain — the critical path — which fixes the minimum project duration.\nSteps. List activities/durations/precedents → draw the network → forward pass (ES, EF) → backward pass (LS, LF) → float = LS − ES → critical path = zero float → monitor and control along it.\nWorked example. For the notes' A–H table (see A2.9), the duration is 13 weeks and the critical path is F → G.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-015",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain Program Evaluation and Review Technique (PERT).",
+      "answer": "PERT is a network technique for projects with uncertain durations. Each activity gets three estimates — optimistic (To), most likely (Tm), pessimistic (Tp) — and the expected duration is (To + 4Tm + Tp) / 6.\nThe expected durations then go through the same forward/backward pass as CPM to find the critical path. PERT handles uncertainty explicitly; the wider the To–Tp range, the less certain the estimate. The notes' example (activities O–K) computes expected durations of 0, 15, 9, 12, 10, 29, 12, 37, 48, 12, 6, 6 for O–K.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-016",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain Precedence Diagramming Method (PDM).",
+      "answer": "PDM is an activity-on-node technique: activities are drawn as boxes connected by dependency arrows.\nDependencies. Finish-to-Start; Start-to-Start; Finish-to-Finish; Start-to-Finish (rarely used).\nDependency levels. Mandatory (hard logic); discretionary (soft logic); external; internal.\nSteps. Break the WBS into activity levels → list activities and sequences → add relationships/dependencies → draw the diagram. Benefits: clear dependencies, supports overlapping work, easy to update, feeds the schedule.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-017",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "What is critical path? How do you identify critical activities?",
+      "answer": "The critical path is the longest sequence of dependent activities through the network; it determines the minimum project duration. Critical activities are those on it — they have zero float (LS − ES = 0).\nHow to identify. Compute ES/EF by forward pass and LS/LF by backward pass; compute each activity's float; the path of zero-float activities from start to finish is the critical path. Any delay on it delays the project; non-critical activities may be delayed within their float.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-018",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain Forward Pass and Backward Pass with example.",
+      "answer": "The forward pass computes earliest times: ES = max(EF of predecessors); EF = ES + duration. The backward pass computes latest times: LF = min(LS of successors); LS = LF − duration; float = LS − ES.\nWorked example (notes' A–H table, also 2026 board Q11).\nActivity: A; Duration: 6; Precedents: –; ES: 0; EF: 6; LS: 2; LF: 8; Float: 2\nActivity: B; Duration: 4; Precedents: –; ES: 0; EF: 4; LS: 3; LF: 7; Float: 3\nActivity: C; Duration: 3; Precedents: A; ES: 6; EF: 9; LS: 8; LF: 11; Float: 2\nActivity: D; Duration: 4; Precedents: B; ES: 4; EF: 8; LS: 7; LF: 11; Float: 3\nActivity: E; Duration: 3; Precedents: B; ES: 4; EF: 7; LS: 7; LF: 10; Float: 3\nActivity: F; Duration: 10; Precedents: –; ES: 0; EF: 10; LS: 0; LF: 10; Float: 0\nActivity: G; Duration: 3; Precedents: E, F; ES: 10; EF: 13; LS: 10; LF: 13; Float: 0\nActivity: H; Duration: 2; Precedents: C, D; ES: 9; EF: 11; LS: 11; LF: 13; Float: 2\nDuration 13 weeks; critical path F → G.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-019",
+      "chapterId": "chapter-bca-s7-spm-02",
+      "topicId": null,
+      "question": "Explain methods of shortening project duration.",
+      "answer": "(1) Add resources to critical activities (crashing); (2) overlap activities (fast tracking); (3) reduce or simplify scope; (4) improve productivity/tools and remove bottlenecks; (5) overtime or temporary staff; (6) re-plan discretionary dependencies — watching cost, quality and risk.\nShortening must target the critical path (delaying non-critical work has no effect). Each method trades cost against time: crashing increases cost; fast tracking increases risk; scope reduction changes the deliverable. The result must be re-validated with a new network calculation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-020",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "What is software effort estimation?",
+      "answer": "Software effort estimation predicts the effort (person-time), duration and cost needed to complete a software project. It is the basis for budgets, schedules, resource plans and bids; it is hard because requirements are volatile and software is intangible.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-021",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain problems with over-estimation and under-estimation.",
+      "answer": "Over-estimation: Resource underutilization, wasted budget, lost competitive opportunities, reduced stakeholder confidence, delayed delivery.\nUnder-estimation: Resource shortages and overworked staff, quality problems from rushing, budget overruns, damaged stakeholder relations, risk of project abandonment.\nBoth also prevent learning (repeat errors), misalign communication with stakeholders and disrupt planning.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-022",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain the basis of software estimation.",
+      "answer": "The basis of estimation includes: project size and complexity; scope/requirements clarity and stability; development methodology; historical data; team expertise; the estimation technique; risks; technology and tools; iterations and changes; stakeholder involvement; external dependencies; regulatory requirements; industry standards; testing/QA effort; documentation requirements.\nSize is measured in lines of code or function points; historical data gives reference points; methodology dictates units (story points vs structured estimates); technology choice adds learning-curve effort. A good estimate states its assumptions and its confidence range.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-023",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain different software effort estimation techniques.",
+      "answer": "The main techniques are expert judgment, estimation by analogy, bottom-up estimation, top-down estimation, parametric models, three-point estimation, Delphi/Wideband Delphi and story points.\nExpert judgment — experienced people estimate from knowledge (good when data is scarce). Analogy — compare with similar past projects (quick, similarity-dependent). Bottom-up — estimate each work package and sum (accurate, slow). Top-down — high-level estimate first, refine later (quick, less accurate). Parametric — equations from historical data (e.g. COCOMO). Three-point — (To + 4Tm + Tp)/6 handles uncertainty. Delphi — expert panel iterates to consensus. Story points — relative agile sizing.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-024",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain Expert Judgment technique.",
+      "answer": "Expert judgment relies on the insight of experienced individuals or teams who understand the domain, technologies and processes; they estimate from knowledge. Best when historical data is limited or the project is novel; it adds qualitative insight. Weakness: subjective and biased — reduce bias with multiple experts (Delphi) and documented assumptions.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-025",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain Estimation by Analogy.",
+      "answer": "Estimating by analogy compares the current project with similar completed projects and derives the estimate from their actual effort, adjusting for differences. It is fast, needs little detail and suits early planning (top-down in nature). Weakness: accuracy depends on how similar and relevant the reference projects are.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-026",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain Bottom-Up Estimation technique.",
+      "answer": "Bottom-up estimation decomposes the project into small work packages (via the WBS), estimates effort for each individually, and aggregates them into the total. It is the most accurate method — especially for well-defined projects with a detailed WBS — but it is time-consuming and requires detailed analysis. (Compare with top-down: 2025 board Q5 asked exactly this comparison.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-027",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain Top-Down Estimation approach.",
+      "answer": "Top-down estimation makes a high-level estimate for the whole project first, then breaks it down into components. It is fast and used early when detailed information is unavailable, providing preliminary budgets and resource direction. Weakness: accuracy depends heavily on the estimator's experience; less precise than bottom-up.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-028",
+      "chapterId": "chapter-bca-s7-spm-03",
+      "topicId": null,
+      "question": "Explain Parametric Estimation Models with example.",
+      "answer": "Parametric models use mathematical equations and statistical relationships between historical data and project parameters (size, complexity, environment) to compute effort. Example: COCOMO (Constructive Cost Model) — effort is derived from estimated size (KLOC) multiplied by cost-driver factors. Strength: repeatable and objective; weakness: needs good calibration data and quality inputs.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-029",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "What is project evaluation? Explain its importance.",
+      "answer": "Project evaluation is the systematic assessment of a proposed (or running) project's value and feasibility — strategic, technical and economic — before major commitments are made, producing the basis for go/no-go decisions.\nImportance. (1) Selects projects that fit the organization's strategy; (2) prevents wasted investment; (3) exposes technical and market risks early; (4) gives a rational basis to compare competing proposals; (5) documents assumptions and accountability for decisions; (6) guides post-implementation review.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-030",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain Strategic Assessment.",
+      "answer": "Strategic assessment judges whether the project is the right project for the organization: (1) project alignment with goals — supports mission, vision and strategic objectives; (2) market analysis — market conditions and trends, relevance and success potential; (3) competitive analysis — competitive landscape, unique selling points and challenges; (4) risk analysis — regulatory, market, technology risks and mitigation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-031",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain Technical Assessment.",
+      "answer": "Technical assessment judges whether the project is feasible with available means: (1) technical feasibility — resources, technology and expertise; (2) infrastructure requirements — hardware, software and supporting resources; (3) scalability — ability to handle future growth and load; (4) security and compliance — security measures and relevant regulations. Related assessments cover economic feasibility (CBA) and operational fit.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-032",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "What is Cost-Benefit Analysis (CBA)?",
+      "answer": "CBA is a systematic process for assessing the costs and benefits of a project to decide whether it is economically worthwhile. Steps: identify costs → identify benefits → quantify → discount future flows → compare (NPV/BCR/payback...) → decide.\nCosts include development, operation, maintenance and transition; benefits include revenue, savings and productivity. Where values cannot be quantified, assumptions are stated. The result is used for selection and justification; the companion analysis of timing is cash flow forecasting (A4.7).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-033",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain cost-benefit evaluation techniques.",
+      "answer": "The main techniques: Payback period (initial investment ÷ net annual cash inflow; shorter is better); Present value (P = F/(1+r/100)ⁿ); Net Present Value (positive → viable); ROI (net gain ÷ cost); Benefit-Cost Ratio (PV benefits ÷ PV costs; BCR > 1 → worthwhile); IRR (discount rate where NPV = 0; above cost of capital → viable); Net benefit (benefits − costs); Break-even (revenues = costs); Opportunity cost (value of best alternative forgone); Sensitivity analysis (effect of changes in key variables).\nThe notes also list the common methods as payback, present value, net present value, net benefit, break-even and cash flow analysis. For full marks, give the formula or decision rule for each technique named.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-034",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain cash flow forecasting.",
+      "answer": "Cash flow is the movement of money in and out of the organization. Cash flow forecasting estimates cash flow over a future period so the organization knows when funds must be available.\nImportance. (1) Detects periods of negative cash flow; (2) supports financing and budgeting decisions; (3) checks the project's ability to fund itself; (4) enables monitoring against the plan. It works on timing, not on worth (that is CBA's job).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-035",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Differentiate between cash flow forecasting and cost-benefit analysis.",
+      "answer": "Cash flow forecasting: Shows the timing of money in and out per period; Cost-benefit analysis: Judges the economic worth of the project\nCash flow forecasting: Question: \"Can we fund it each period?\"; Cost-benefit analysis: Question: \"Is it worth doing at all?\"\nCash flow forecasting: Budgeting and monitoring tool; Cost-benefit analysis: Selection and justification tool\nCash flow forecasting: Uses periods, inflows and outflows; Cost-benefit analysis: Uses costs, benefits, discounting, decision rules",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-036",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain risk evaluation in software projects.",
+      "answer": "Risk evaluation is the systematic assessment of potential risks and their impact. Steps: (1) identification (stakeholders, historical data, brainstorming, checklists, workshops); (2) analysis of likelihood and impact — qualitative (low/medium/high) and quantitative (Monte Carlo, sensitivity analysis); (3) prioritization by probability × impact; (4) response planning (avoid, mitigate, transfer, accept); (5) monitoring and review with an updated risk register.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-038",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Explain project approach: choosing technologies; choice of process models; structured methods.",
+      "answer": "Choosing technologies — evaluate the technology stack (scalability, performance, security, compatibility), industry standards and best practices, team expertise and future scalability. Choice of process models — match project complexity (simple → Waterfall; complex → Agile), required customer involvement and required adaptability. Structured methods — match project size/complexity, documentation requirements (e.g. V-Model for compliance-heavy projects) and team skillset.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-039",
+      "chapterId": "chapter-bca-s7-spm-04",
+      "topicId": null,
+      "question": "Why is choosing the best process model important in project management?",
+      "answer": "The process model decides how requirements changes are handled, how much planning and documentation exists, when testing and customer feedback happen, and how risk is controlled. The right model matches the project's uncertainty, size, criticality and team capability — reducing cost, schedule and quality risk. The wrong model misaligns the project's reality (e.g. rigid Waterfall for volatile requirements) and causes late failures.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 11,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-040",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Define risk in software project management.",
+      "answer": "Risk is an uncertain event or condition that, if it occurs, has a positive or negative effect on project objectives. Software projects are inherently risky: requirements change, technology evolves and estimates are uncertain. Risk management balances accepting risk (for reward) with controlling it.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-041",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain risk identification.",
+      "answer": "Risk identification recognizes and documents potential risks. (1) Define the risk universe — all possible risks (IT, operational, regulatory, legal, political, strategic, credit); (2) select the risks the project/organization is actually exposed to; (3) categorize into core risks (must be taken for performance) and non-core risks (minimized or eliminated).\nTechniques. Brainstorming, checklists, expert interviews, historical data analysis, risk registers and risk workshops.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-042",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain risk planning.",
+      "answer": "Risk planning develops responses for identified risks: Avoid (remove the risk by changing the plan), Mitigate (reduce probability or impact), Transfer (shift to another party — insurance is typical), Accept (acknowledge and monitor, with contingency). It also assigns owners, triggers and contingency reserves.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-043",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain risk evaluation.",
+      "answer": "Risk evaluation assesses each risk's likelihood and impact to prioritize it. Qualitative methods assign scales (low/medium/high); quantitative methods assign numbers (Monte Carlo simulation, sensitivity analysis). The notes' schedule-risk material uses a risk matrix with Severity (Catastrophic-4, Critical-3, Marginal-2, Negligible-1) and Probability (Frequent-5, Probable-4, Occasional-3, Remote-2, Improbable-1).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-044",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain risk management process.",
+      "answer": "Five steps: (1) Identify risks (brainstorming, registers, historical data, interviews); (2) Analyse characteristics, consequences, root causes — qualitative and quantitative; (3) Prioritize by significance and impact; (4) Treat — avoidance, reduction, transfer or acceptance; (5) Monitor continuously — review treatment effectiveness and adjust as the landscape changes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-045",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain categories of risk in software projects.",
+      "answer": "Strategic; operational; financial; compliance; reputational; legal; market; technological; environmental; human-resources; project risks (budget overruns, scope changes, timeline delays).\nGive one example per category: strategic — strategy fails in market shifts; operational — process/human errors; financial — currency or credit changes; compliance — fines from breaking regulations; reputational — negative publicity; legal — litigation; market — demand changes; technological — breaches, obsolescence; environmental — natural disasters; HR — skill shortages; project — delay and overrun.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-046",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "Explain the framework for dealing with risk.",
+      "answer": "The Risk Management Framework (RMF) has five components: (1) risk identification (risk universe; core vs non-core); (2) risk measurement and assessment (exposure size and loss probability; VaR, EaR, economic capital; scenario analysis and stress testing); (3) risk mitigation (sell assets/liabilities, insurance, hedging, diversification); (4) risk reporting and monitoring (regular reports to people with authority to adjust exposures); (5) risk governance (roles, segregated duties, authority for limits and approvals).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-047",
+      "chapterId": "chapter-bca-s7-spm-05",
+      "topicId": null,
+      "question": "How are schedule risks evaluated?",
+      "answer": "By identifying and categorizing risks whose effects fall on activity durations, then assessing likely impact on the activity plan — for example with a risk matrix combining severity (4-point) and probability (5-point) scales. Not all risks can be eliminated; even avoidable ones are documented, and their likely effect on the schedule is weighed when prioritizing responses.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-048",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Define software quality. Why is it important?",
+      "answer": "Software quality is the degree to which a software product meets specified requirements and satisfies user needs/expectations. It covers functionality, reliability, performance, usability, maintainability, scalability, security, compatibility, testability and robustness.\nImportance. Customer satisfaction; user experience; reliability and stability; cost savings; brand reputation; competitive advantage; security; adaptability and scalability; compliance; ease of maintenance; risk mitigation; customer retention.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-049",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Explain Total Quality Management (TQM).",
+      "answer": "TQM is a management philosophy that aims to improve the quality of products and services throughout all levels of the organization — a holistic approach where everyone continuously improves quality to meet or exceed customer expectations. It originated in manufacturing and now applies to software.\nSeven principles. Customer focus; continuous improvement (Kaizen); employee involvement; process-oriented approach; data-driven decision making; supplier relationships; leadership commitment.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-050",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Why is TQM important for software quality management?",
+      "answer": "(1) Prevents defects instead of fixing them late; (2) makes quality everyone's responsibility, not just QA's; (3) uses data to drive process improvement; (4) improves customer satisfaction; (5) strengthens supplier relationships and incoming quality; (6) builds a culture of continuous improvement and competitive advantage. Asked in 2019 (Q7).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-051",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Explain Six Sigma quality management.",
+      "answer": "Six Sigma is a set of methodologies and tools to improve business processes by reducing defects and errors, minimizing variation and increasing quality and efficiency. Its goal is 3.4 defects per million opportunities.\nPrinciples. Customer focus; assess the value chain and find the problem; eliminate defects and outliers; involve stakeholders; flexible and responsive system.\nMethodologies. DMAIC — Define, Measure, Analyse, Improve, Control (improve existing processes); DMADV — Define, Measure, Analyse, Design, Verify (design/re-design, a.k.a. Design for Six Sigma). Executed by Green Belts, Black Belts and Master Black Belts. Asked in 2018 (Q7).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-052",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Explain ISO 9126 software quality model.",
+      "answer": "ISO 9126 (ISO, 1991; replaced by ISO 25010 in 2011) is an international standard for evaluating software quality. Six characteristics: functionality (meets needs), reliability (steady performance), usability (easy to understand/learn/use), efficiency (good performance, no waste), maintainability (easy to modify/fix), portability (easy to move between environments). Each characteristic has metrics to measure that quality aspect.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-053",
+      "chapterId": "chapter-bca-s7-spm-06",
+      "topicId": null,
+      "question": "Explain the place of software quality in software planning.",
+      "answer": "Quality must be planned from the start — it is not a final test phase. (1) Build quality requirements (performance, reliability, security, usability) into requirements definition; (2) allocate budget/time for QA; (3) identify quality risks and mitigations; (4) schedule dedicated testing phases; (5) comply with quality standards; (6) integrate the QA team with clear communication; (7) plan for UX/usability testing; (8) refine the plan iteratively through continuous improvement.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-054",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Define Software Configuration Management (SCM).",
+      "answer": "SCM is a set of processes, tools and policies that manage and control changes to a software project throughout its life cycle. Its goal is to produce software consistently and reliably through version control, change management and configuration control.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-055",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain the need and importance of SCM.",
+      "answer": "SCM is needed because software changes constantly and many people work on the same artifacts. It (1) controls the evolution of the software; (2) enables collaboration and coordination on one version; (3) provides version control and rollback; (4) facilitates replication and distribution to test/production/customer environments; (5) improves quality and reliability and reduces errors; (6) supports audits and compliance; (7) enables continuous development with stable baselines.\nAdvantages/disadvantages. Advantages: productivity, fewer defects, collaboration, stability. Disadvantages: complexity and overhead, dependency-management difficulty, conflicts/delays in large teams.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-056",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain elements of SCM.",
+      "answer": "Four elements/requirements: (1) Identification — unique labels for every configuration item (code, docs, artifacts) and versions; (2) Control — manage and govern changes; change control boards evaluate, approve and document; (3) Audit — systematic verification of compliance with SCM policy; finds discrepancies; keeps documented process = practice; (4) Status accounting — records and reports the status, versions and changes of configuration items; supports tracking and communication.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-057",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "What is a baseline? Explain its importance.",
+      "answer": "A baseline is a stable, formally reviewed and agreed version of a product or configuration item, fixed at a point in time and changeable only through formal change control — \"ready for release.\"\nImportance. (1) Provides a stable reference for future change; (2) prevents uncontrollable change vulnerability; (3) every baseline element stays under formal change control; (4) supports testing, audits and release management. Types: development, functional, release, project, interface, configuration-item, test.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-058",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain SCM repository.",
+      "answer": "The SCM repository is the centralized store — mechanisms and data structures — where versions of source code, documentation and artifacts are kept, managed and version-controlled; the core component for collaboration and change control.\nFunctions. Version control (history/revert); change tracking and history (audit trail); branching and merging (parallel work); access control (permissions); collaboration (shared space); build/release management; repository hosting; reporting. Participants: Project Manager, Configuration Manager, Developer, Auditor, User.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-059",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain versioning and version control.",
+      "answer": "Version control is the practice/system that tracks changes to code and artifacts over time — commits, branches, merges, release labels, rollback. Versioning assigns version numbers/labels so each release or configuration can be identified, reproduced and traced. Together they make multi-person, multi-release development manageable.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-060",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Why are versioning and version control important for continuous development?",
+      "answer": "(1) Complete history — what changed, when, by whom; safe rollback; (2) parallel development via branches; (3) controlled integration — merges and conflict resolution; (4) reproducibility — any past release can be rebuilt from its label; (5) traceability for audits and compliance; (6) stable baselines support frequent, controlled releases (continuous delivery) without breaking the product.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-061",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain the SCM process.",
+      "answer": "Five stages: (1) Identification — name/categorize configuration items with unique IDs; (2) Change control — submit, evaluate, approve and implement changes; (3) Version control — track versions, branch, merge, label releases; (4) Configuration auditing — verify built = delivered and baselines are satisfied; maintain traceability; (5) Reporting — version history, change logs, build status, release notes for decisions and compliance.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-062",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "What is change control process? Explain its steps.",
+      "answer": "Change control is the systematic process for managing changes to configuration items so they are evaluated, approved and implemented in a controlled manner.\nSteps. (1) Initiation — a formal Change Request (CR) with context, reasons, impacts; (2) Assessment — completeness review; filter incomplete requests; (3) Analysis — technical impact, resources, risk; informs the Change Control Board; (4) Implementation — after CCB approval: modify code, update docs, integrate; (5) Closure — finalize documentation/records and communicate closure.\nBenefits. Stability; risk mitigation; communication; compliance; resource optimization; documentation and traceability; prevention of scope creep; collective (CCB) decisions; continuous improvement; supports agile; customer satisfaction.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-063",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Explain configuration audit and status reporting.",
+      "answer": "Configuration audit verifies that the software product satisfies baseline requirements, that what is built equals what is delivered, and that traceability links all configuration items to work requests — the \"watchdog\" preserving scope integrity. Status reporting generates and presents information about status, history and performance of configuration items, changes and releases — supporting decisions, compliance and continuous improvement.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    },
+    {
+      "id": "question-bca-s7-spm-064",
+      "chapterId": "chapter-bca-s7-spm-07",
+      "topicId": null,
+      "question": "Case study: version control tools (Git, CVS, SVN).",
+      "answer": "Tool: Git; Type: Distributed VCS; Key points: Full repository copy per developer; offline work; fast branching/merging; created by Linus Torvalds; large projects\nTool: GitHub; Type: Hosting platform for Git; Key points: Repository hosting, pull requests, code reviews, issue tracking; hub for open-source and private projects\nTool: CVS; Type: Centralized (legacy); Key points: Central repository; complex branching/merging; legacy projects only\nTool: SVN; Type: Centralized; Key points: Improvement over CVS: atomic commits, better branching/merging, efficient binary handling; centralized workflows\nExam-ready contrast. Distributed (Git): every developer has full history; works offline; branches cheap. Centralized (CVS/SVN): one central repository; simpler mental model; single point of coordination.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 11,
+      "createdAt": 1790974676039,
+      "updatedAt": 1790974676039
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s7-spm-001",
+      "normalizedKeyword": "temporary",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-001",
+      "normalizedKeyword": "unique",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-001",
+      "normalizedKeyword": "software project",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-002",
+      "normalizedKeyword": "intangible",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-002",
+      "normalizedKeyword": "requirements change",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-002",
+      "normalizedKeyword": "progress",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-003",
+      "normalizedKeyword": "on time",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-003",
+      "normalizedKeyword": "budget",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-003",
+      "normalizedKeyword": "quality",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-004",
+      "normalizedKeyword": "scope creep",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-004",
+      "normalizedKeyword": "poor communication",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-004",
+      "normalizedKeyword": "change management",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-005",
+      "normalizedKeyword": "initiation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-005",
+      "normalizedKeyword": "planning",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-005",
+      "normalizedKeyword": "monitoring and controlling",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-006",
+      "normalizedKeyword": "leadership",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-006",
+      "normalizedKeyword": "communication",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-006",
+      "normalizedKeyword": "risk management",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-007",
+      "normalizedKeyword": "stakeholders",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-007",
+      "normalizedKeyword": "resources",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-007",
+      "normalizedKeyword": "milestones",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-008",
+      "normalizedKeyword": "integrity",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-008",
+      "normalizedKeyword": "technical understanding",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-008",
+      "normalizedKeyword": "training and experience",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-009",
+      "normalizedKeyword": "scope",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-009",
+      "normalizedKeyword": "milestones",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-009",
+      "normalizedKeyword": "project plan",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-010",
+      "normalizedKeyword": "timeline",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-010",
+      "normalizedKeyword": "milestones",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-010",
+      "normalizedKeyword": "critical path",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-011",
+      "normalizedKeyword": "task definition",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-011",
+      "normalizedKeyword": "dependencies",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-011",
+      "normalizedKeyword": "resource allocation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-012",
+      "normalizedKeyword": "hierarchical decomposition",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-012",
+      "normalizedKeyword": "work packages",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-012",
+      "normalizedKeyword": "100% rule",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-013",
+      "normalizedKeyword": "network diagram",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-013",
+      "normalizedKeyword": "dependencies",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-013",
+      "normalizedKeyword": "critical path",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-014",
+      "normalizedKeyword": "deterministic network",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-014",
+      "normalizedKeyword": "critical path",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-014",
+      "normalizedKeyword": "float",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-015",
+      "normalizedKeyword": "pert",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-015",
+      "normalizedKeyword": "three estimates",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-015",
+      "normalizedKeyword": "expected duration",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-016",
+      "normalizedKeyword": "activity-on-node",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-016",
+      "normalizedKeyword": "finish-to-start",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-016",
+      "normalizedKeyword": "dependencies",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-017",
+      "normalizedKeyword": "zero float",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-017",
+      "normalizedKeyword": "critical path",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-017",
+      "normalizedKeyword": "forward pass",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-018",
+      "normalizedKeyword": "forward pass",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-018",
+      "normalizedKeyword": "backward pass",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-018",
+      "normalizedKeyword": "float",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-019",
+      "normalizedKeyword": "crashing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-019",
+      "normalizedKeyword": "fast tracking",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-019",
+      "normalizedKeyword": "critical path",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-020",
+      "normalizedKeyword": "effort estimation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-020",
+      "normalizedKeyword": "person-time",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-020",
+      "normalizedKeyword": "cost",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-021",
+      "normalizedKeyword": "over-estimation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-021",
+      "normalizedKeyword": "under-estimation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-021",
+      "normalizedKeyword": "quality problems",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-022",
+      "normalizedKeyword": "historical data",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-022",
+      "normalizedKeyword": "project size",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-022",
+      "normalizedKeyword": "team expertise",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-023",
+      "normalizedKeyword": "cocomo",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-023",
+      "normalizedKeyword": "expert judgment",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-023",
+      "normalizedKeyword": "bottom-up estimation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-024",
+      "normalizedKeyword": "subjective",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-024",
+      "normalizedKeyword": "multiple experts",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-024",
+      "normalizedKeyword": "delphi",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-025",
+      "normalizedKeyword": "analogy",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-025",
+      "normalizedKeyword": "similar completed projects",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-025",
+      "normalizedKeyword": "actual effort",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-026",
+      "normalizedKeyword": "work packages",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-026",
+      "normalizedKeyword": "wbs",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-026",
+      "normalizedKeyword": "bottom-up",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-027",
+      "normalizedKeyword": "high-level estimate",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-027",
+      "normalizedKeyword": "preliminary budgets",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-027",
+      "normalizedKeyword": "top-down",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-028",
+      "normalizedKeyword": "parametric models",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-028",
+      "normalizedKeyword": "cocomo",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-028",
+      "normalizedKeyword": "kloc",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-029",
+      "normalizedKeyword": "go/no-go",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-029",
+      "normalizedKeyword": "feasibility",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-029",
+      "normalizedKeyword": "project's value",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-030",
+      "normalizedKeyword": "project alignment with goals",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-030",
+      "normalizedKeyword": "market analysis",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-030",
+      "normalizedKeyword": "competitive analysis",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-031",
+      "normalizedKeyword": "technical feasibility",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-031",
+      "normalizedKeyword": "infrastructure requirements",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-031",
+      "normalizedKeyword": "scalability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-032",
+      "normalizedKeyword": "costs and benefits",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-032",
+      "normalizedKeyword": "discount future flows",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-032",
+      "normalizedKeyword": "npv",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-033",
+      "normalizedKeyword": "payback period",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-033",
+      "normalizedKeyword": "present value",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-033",
+      "normalizedKeyword": "net present value",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-034",
+      "normalizedKeyword": "cash flow forecasting",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-034",
+      "normalizedKeyword": "negative cash flow",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-034",
+      "normalizedKeyword": "financing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-035",
+      "normalizedKeyword": "timing of money",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-035",
+      "normalizedKeyword": "economic worth",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-035",
+      "normalizedKeyword": "cash flow forecasting",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-036",
+      "normalizedKeyword": "likelihood",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-036",
+      "normalizedKeyword": "impact",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-036",
+      "normalizedKeyword": "response planning",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-038",
+      "normalizedKeyword": "technology stack",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-038",
+      "normalizedKeyword": "process models",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-038",
+      "normalizedKeyword": "structured methods",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-039",
+      "normalizedKeyword": "uncertainty",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-039",
+      "normalizedKeyword": "customer feedback",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-039",
+      "normalizedKeyword": "risk is controlled",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-040",
+      "normalizedKeyword": "uncertain event or condition",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-040",
+      "normalizedKeyword": "project objectives",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-040",
+      "normalizedKeyword": "risk management",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-041",
+      "normalizedKeyword": "risk universe",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-041",
+      "normalizedKeyword": "core risks",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-041",
+      "normalizedKeyword": "non-core risks",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-042",
+      "normalizedKeyword": "avoid",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-042",
+      "normalizedKeyword": "mitigate",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-042",
+      "normalizedKeyword": "transfer",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-043",
+      "normalizedKeyword": "likelihood",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-043",
+      "normalizedKeyword": "impact",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-043",
+      "normalizedKeyword": "risk matrix",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-044",
+      "normalizedKeyword": "identify",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-044",
+      "normalizedKeyword": "prioritize",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-044",
+      "normalizedKeyword": "monitor",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-045",
+      "normalizedKeyword": "strategic",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-045",
+      "normalizedKeyword": "technological",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-045",
+      "normalizedKeyword": "human-resources",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-046",
+      "normalizedKeyword": "risk measurement and assessment",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-046",
+      "normalizedKeyword": "risk mitigation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-046",
+      "normalizedKeyword": "risk governance",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-047",
+      "normalizedKeyword": "activity durations",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-047",
+      "normalizedKeyword": "severity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-047",
+      "normalizedKeyword": "probability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-048",
+      "normalizedKeyword": "functionality",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-048",
+      "normalizedKeyword": "reliability",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-048",
+      "normalizedKeyword": "security",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-049",
+      "normalizedKeyword": "continuous improvement",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-049",
+      "normalizedKeyword": "employee involvement",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-049",
+      "normalizedKeyword": "customer focus",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-050",
+      "normalizedKeyword": "prevents defects",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-050",
+      "normalizedKeyword": "customer satisfaction",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-050",
+      "normalizedKeyword": "process improvement",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-051",
+      "normalizedKeyword": "3.4 defects per million opportunities",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-051",
+      "normalizedKeyword": "dmaic",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-051",
+      "normalizedKeyword": "dmadv",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-052",
+      "normalizedKeyword": "iso 9126",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-052",
+      "normalizedKeyword": "functionality",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-052",
+      "normalizedKeyword": "maintainability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-053",
+      "normalizedKeyword": "quality requirements",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-053",
+      "normalizedKeyword": "budget/time for qa",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-053",
+      "normalizedKeyword": "testing phases",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-054",
+      "normalizedKeyword": "scm",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-054",
+      "normalizedKeyword": "change management",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-054",
+      "normalizedKeyword": "configuration control",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-055",
+      "normalizedKeyword": "rollback",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-055",
+      "normalizedKeyword": "collaboration",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-055",
+      "normalizedKeyword": "audits",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-056",
+      "normalizedKeyword": "identification",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-056",
+      "normalizedKeyword": "control",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-056",
+      "normalizedKeyword": "status accounting",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-057",
+      "normalizedKeyword": "baseline",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-057",
+      "normalizedKeyword": "change control",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-057",
+      "normalizedKeyword": "stable reference",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-058",
+      "normalizedKeyword": "version control",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-058",
+      "normalizedKeyword": "branching and merging",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-058",
+      "normalizedKeyword": "change tracking",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-059",
+      "normalizedKeyword": "version numbers",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-059",
+      "normalizedKeyword": "rollback",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-059",
+      "normalizedKeyword": "release labels",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-060",
+      "normalizedKeyword": "complete history",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-060",
+      "normalizedKeyword": "parallel development",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-060",
+      "normalizedKeyword": "reproducibility",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-061",
+      "normalizedKeyword": "identification",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-061",
+      "normalizedKeyword": "configuration auditing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-061",
+      "normalizedKeyword": "release notes",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-062",
+      "normalizedKeyword": "change request",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-062",
+      "normalizedKeyword": "change control board",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-062",
+      "normalizedKeyword": "approval",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-063",
+      "normalizedKeyword": "configuration audit",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-063",
+      "normalizedKeyword": "status reporting",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-063",
+      "normalizedKeyword": "traceability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-spm-064",
+      "normalizedKeyword": "git",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-spm-064",
+      "normalizedKeyword": "cvs",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-spm-064",
+      "normalizedKeyword": "svn",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s7-spm",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/manifest.md",
+          "locator": "Course Manifest title and course metadata"
+        },
+        {
+          "path": "BCA/Semester-7/spm/board.md",
+          "locator": "Paper 1 (2026), Course Title and Code No: CACS 407"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1: Software Project Management Concepts"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 1: Software Project Management Concepts"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2: Software Project Scheduling"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 2: Software Project Scheduling"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3: Software Estimation Techniques"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 3: Software Estimation Techniques"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4: Software Evaluation and Costing"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 4: Software Evaluation and Costing"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5: Risk Management"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 5: Risk Management"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6: Software Quality Management"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 6: Software Quality Management"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-spm-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7: Software Configuration Management"
+        },
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "Part A / Unit 7: Software Configuration Management"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.1: Define Project and Software Project. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 1: Define Project and Software Project."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.2: Differentiate between Software Project and other projects. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 2: Differentiate between Software Project and other projects."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.3: Explain the importance of Software Project Management (SPM). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 3: Explain the importance of Software Project Management (SPM)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.4: Explain the problems faced in software project management. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 4: Explain the problems faced in software project management."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.5: Explain the process of Software Project Management. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 5: Explain the process of Software Project Management."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.6: Write the characteristics / features of a good project manager. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 6: Write the characteristics / features of a good project manager."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.7: Who is a Project Manager? Explain his roles and responsibilities. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 7: Who is a Project Manager? Explain his roles and responsibilities."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.8: Explain the qualities and qualifications of a successful software project manager. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 8: Explain the qualities and qualifications of a successful software project manager."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A1.9: Explain the overview of software project planning. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 1 / question 9: Explain the overview of software project planning."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.1: What is project scheduling? Explain its importance. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 1: What is project scheduling? Explain its importance."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.2: Explain the objectives of activity planning. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 2: Explain the objectives of activity planning."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.3: Define Work Breakdown Structure (WBS). Explain its advantages. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 3: Define Work Breakdown Structure (WBS). Explain its advantages."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.4: What is a network diagram? Explain the steps to draw it. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 4: What is a network diagram? Explain the steps to draw it."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.5: Explain Critical Path Method (CPM). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 5: Explain Critical Path Method (CPM)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.6: Explain Program Evaluation and Review Technique (PERT). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 6: Explain Program Evaluation and Review Technique (PERT)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.7: Explain Precedence Diagramming Method (PDM). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 7: Explain Precedence Diagramming Method (PDM)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.8: What is critical path? How do you identify critical activities? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 8: What is critical path? How do you identify critical activities?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.9: Explain Forward Pass and Backward Pass with example. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 9: Explain Forward Pass and Backward Pass with example."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A2.10: Explain methods of shortening project duration. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 2 / question 10: Explain methods of shortening project duration."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.1: What is software effort estimation? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 1: What is software effort estimation?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.2: Explain problems with over-estimation and under-estimation. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 2: Explain problems with over-estimation and under-estimation."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.3: Explain the basis of software estimation. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 3: Explain the basis of software estimation."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.4: Explain different software effort estimation techniques. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 4: Explain different software effort estimation techniques."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.5: Explain Expert Judgment technique. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 5: Explain Expert Judgment technique."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.6: Explain Estimation by Analogy. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 6: Explain Estimation by Analogy."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.7: Explain Bottom-Up Estimation technique. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 7: Explain Bottom-Up Estimation technique."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.8: Explain Top-Down Estimation approach. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 8: Explain Top-Down Estimation approach."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A3.9: Explain Parametric Estimation Models with example. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 3 / question 9: Explain Parametric Estimation Models with example."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.1: What is project evaluation? Explain its importance. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 1: What is project evaluation? Explain its importance."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.2: Explain Strategic Assessment. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 2: Explain Strategic Assessment."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.3: Explain Technical Assessment. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 3: Explain Technical Assessment."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.4: What is Cost-Benefit Analysis (CBA)? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 4: What is Cost-Benefit Analysis (CBA)?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.5: Explain cost-benefit evaluation techniques. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 5: Explain cost-benefit evaluation techniques."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.6: Explain cash flow forecasting. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 6: Explain cash flow forecasting."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.7: Differentiate between cash flow forecasting and cost-benefit analysis. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 7: Differentiate between cash flow forecasting and cost-benefit analysis."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.8: Explain risk evaluation in software projects. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 8: Explain risk evaluation in software projects."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.10: Explain project approach: choosing technologies; choice of process models; structured methods. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 10: Explain project approach:"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A4.11: Why is choosing the best process model important in project management? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 4 / question 11: Why is choosing the best process model important in project management?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.1: Define risk in software project management. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 1: Define risk in software project management."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.2: Explain risk identification. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 2: Explain risk identification."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-042",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.3: Explain risk planning. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 3: Explain risk planning."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-043",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.4: Explain risk evaluation. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 4: Explain risk evaluation."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-044",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.5: Explain risk management process. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 5: Explain risk management process."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-045",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.6: Explain categories of risk in software projects. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 6: Explain categories of risk in software projects."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-046",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.7: Explain the framework for dealing with risk. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 7: Explain the framework for dealing with risk."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-047",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A5.8: How are schedule risks evaluated? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 5 / question 8: How are schedule risks evaluated?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-048",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.1: Define software quality. Why is it important? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 1: Define software quality. Why is it important?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-049",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.2: Explain Total Quality Management (TQM). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 2: Explain Total Quality Management (TQM)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-050",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.3: Why is TQM important for software quality management? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 3: Why is TQM important for software quality management?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-051",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.4: Explain Six Sigma quality management. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 4: Explain Six Sigma quality management."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-052",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.5: Explain ISO 9126 software quality model. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 5: Explain ISO 9126 software quality model."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-053",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A6.6: Explain the place of software quality in software planning. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 6 / question 6: Explain the place of software quality in software planning."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-054",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.1: Define Software Configuration Management (SCM). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 1: Define Software Configuration Management (SCM)."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-055",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.2: Explain the need and importance of SCM. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 2: Explain the need and importance of SCM."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-056",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.3: Explain elements of SCM. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 3: Explain elements of SCM."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-057",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.4: What is a baseline? Explain its importance. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 4: What is a baseline? Explain its importance."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-058",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.5: Explain SCM repository. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 5: Explain SCM repository."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-059",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.6: Explain versioning and version control. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 6: Explain versioning and version control."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-060",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.7: Why are versioning and version control important for continuous development? / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 7: Why are versioning and version control important for continuous development?"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-061",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.8: Explain the SCM process. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 8: Explain the SCM process."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-062",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.9: What is change control process? Explain its steps. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 9: What is change control process? Explain its steps."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-063",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.10: Explain configuration audit and status reporting. / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 10: Explain configuration audit and status reporting."
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-spm-064",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/spm/spm-board-qa.md",
+          "locator": "A7.11: Case study: version control tools (Git, CVS, SVN). / Answer"
+        },
+        {
+          "path": "BCA/Semester-7/spm/important-questions.md",
+          "locator": "Unit 7 / question 11: Case study:"
+        }
+      ]
+    }
+  ]
+}

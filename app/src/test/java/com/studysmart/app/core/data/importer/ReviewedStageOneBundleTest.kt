@@ -7,8 +7,8 @@ import org.junit.Test
 class ReviewedStageOneBundleTest {
     @Test fun reviewedBundleUsesOnlyStageOneRecordsAndRetainsAnswersAndKeywords() {
         fun read(root: File) = CurriculumJsonParser().read { File(root, checkedBundlePath(it)).readBytes() }
-        val old = read(File(System.getProperty("curriculum.snapshot") ?: "../Android data/database-stage-1"))
-        val next = read(File(System.getProperty("curriculum.reviewed") ?: "../Android data/database-stage-1-reviewed"))
+        val old = read(File(requireNotNull(System.getProperty("curriculum.snapshot")) { "Missing required test property: curriculum.snapshot (configure the repository curriculum fixture)" }))
+        val next = read(File(requireNotNull(System.getProperty("curriculum.reviewed")) { "Missing required test property: curriculum.reviewed (configure the repository curriculum fixture)" }))
         assertEquals("bca-stage1-reviewed", next.manifest.datasetId)
         assertEquals(1L, next.manifest.contentVersion)
         assertEquals(setOf("course-bca"), next.courses.map { it.id }.toSet())

@@ -6,7 +6,7 @@ import org.junit.Test
 
 class CurriculumImportValidatorTest {
     @Test fun overflowingSchemaVersionIsRejected() {
-        val root = File(System.getProperty("curriculum.snapshot") ?: "../Android data/database-stage-1")
+        val root = File(requireNotNull(System.getProperty("curriculum.snapshot")) { "Missing required test property: curriculum.snapshot (configure the repository curriculum fixture)" })
         assertThrows(IllegalArgumentException::class.java) {
             CurriculumJsonParser().read { path ->
                 val bytes = File(root, checkedBundlePath(path)).readBytes()
@@ -16,7 +16,7 @@ class CurriculumImportValidatorTest {
         }
     }
     private fun payload(): CurriculumImportPayload {
-        val root = File(System.getProperty("curriculum.snapshot") ?: "../Android data/database-stage-1")
+        val root = File(requireNotNull(System.getProperty("curriculum.snapshot")) { "Missing required test property: curriculum.snapshot (configure the repository curriculum fixture)" })
         return CurriculumJsonParser().read { path -> File(root, checkedBundlePath(path)).readBytes() }
     }
 
@@ -52,7 +52,7 @@ class CurriculumImportValidatorTest {
     }
 
     @Test fun corruptFileHashIsRejected() {
-        val root = File(System.getProperty("curriculum.snapshot") ?: "../Android data/database-stage-1")
+        val root = File(requireNotNull(System.getProperty("curriculum.snapshot")) { "Missing required test property: curriculum.snapshot (configure the repository curriculum fixture)" })
         assertThrows(IllegalArgumentException::class.java) {
             CurriculumJsonParser().read { path -> File(root, checkedBundlePath(path)).readBytes() + if (path == "curriculum.json") byteArrayOf(32) else byteArrayOf() }
         }

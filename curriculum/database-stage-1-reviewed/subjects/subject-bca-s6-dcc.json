@@ -1,0 +1,3088 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s6-dcc",
+    "academicPeriodId": "period-bca-semester-6",
+    "code": "CACS 352",
+    "name": "Distributed System",
+    "description": "",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s6-dcc-01",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 1,
+      "title": "Introduction to Distributed Systems",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-02",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 2,
+      "title": "Architecture",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-03",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 3,
+      "title": "Processes",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-04",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 4,
+      "title": "Communication",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-05",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 5,
+      "title": "Naming",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-06",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 6,
+      "title": "Coordination",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-07",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 7,
+      "title": "Consistency and Replication",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-08",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 8,
+      "title": "Fault Tolerance",
+      "description": "",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-dcc-09",
+      "subjectId": "subject-bca-s6-dcc",
+      "chapterNumber": 9,
+      "title": "Security",
+      "description": "",
+      "sortOrder": 9,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s6-dcc-001",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "\"Distributed system acts as a single coherent system to its end user.\" Justify the statement with its features and challenges.",
+      "answer": "A distributed system is a collection of independent computers that appears to its users as a single coherent system. The two key features are that the components (nodes) are autonomous, yet users (people or programs) perceive a single system view. The nodes collaborate by message passing over a network; middleware on top of the local operating systems provides the same interface everywhere.\n\nFeatures that create the single-system illusion:\n\n- Resource sharing — users access remote printers, files, storage and\nservices as if they were local.\n- Distribution transparency — access, location, migration, relocation,\nreplication, concurrency and failure are hidden from users.\n- Openness — standard protocols and interfaces let components from different\nvendors interoperate.\n- Scalability — the system grows in size, geography and administration\nwithout users noticing the added machines.\n- Concurrency and fault tolerance — many users are served at once, and\nfailures of individual nodes do not stop the service.\n\nChallenges:\n\n- Heterogeneity — different hardware, operating systems, networks and\nlanguages must interoperate.\n- Security — shared resources and messages must be protected; denial of\nservice remains a problem.\n- Failure handling and concurrency — components fail independently, and\nshared resources must be safe under concurrent access.\n- Transparency vs performance — hiding distribution must not cost too much\nperformance.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-002",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "Why is a distributed operating system needed? Differentiate between network operating system and distributed operating system.",
+      "answer": "Why needed: a distributed OS manages a collection of independent computers as one system, so that users get a single-system view with resource sharing, transparency, scalability and fault tolerance — needs that a traditional per-machine OS cannot meet.\n\nNetwork operating system: Each machine runs its own OS; users explicitly log in to remote machines; Distributed operating system: One OS manages all machines; users see a single system Network operating system: Resource access is explicit (remote login, file transfer); Distributed operating system: Resource access is transparent (looks local) Network operating system: Little or no transparency; Distributed operating system: High degree of transparency Network operating system: Independent failures affect only that machine; Distributed operating system: System continues despite node failures Network operating system: Easier to build (loosely coupled); Distributed operating system: Harder to build (tightly coupled) Network operating system: Example: UNIX/Linux with NFS; Distributed operating system: Example: Amoeba, Plan 9",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-003",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "What is a distributed system? Explain the characteristics of distributed systems and different types of distributed systems.",
+      "answer": "Definition: a collection of independent computers that appears to its users as a single coherent system; the nodes are autonomous and collaborate only by message passing.\n\nCharacteristics:\n\n1. Concurrency — programs sharing resources execute simultaneously; this\nreduces latency and increases throughput.\n2. No global clock — there is no single correct global time; coordination\nuses message passing, and clocks must be synchronized (Lamport clocks, NTP, Berkeley).\n3. Independent failures — any computer can fail at any time; the workload of\na failed node is taken over by others, so the system as a whole continues.\n\nTypes of distributed systems:\n\n1. Distributed computing systems (high-performance computing):\n   - Cluster computing — similar workstations closely connected by a\n     high-speed LAN, same OS on each node, devices perform the same task as a\n     single unit (databases).\n   - Grid computing — a federation of systems possibly in different\n     administrative domains with different hardware/software; devices perform\n     different tasks (simulations, automation).\n2. Distributed information systems — manage and integrate business\ninformation across servers: transaction processing systems, enterprise application integration, web servers, distributed databases.\n3. Distributed pervasive systems — small, battery-powered, mobile, wireless\ndevices embedded in everyday objects (ubiquitous computing): home systems, sensor networks, surveillance systems.\n\nExamples: Internet, WWW, email, telephone/cellular networks, electronic banking, airline reservations, real-time process control.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-004",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "Explain the different characteristics of a distributed system.",
+      "answer": "*(Same content as Q3, part 1.)* A distributed system is a collection of autonomous computing elements that appears to users as a single coherent system. Its defining characteristics are:\n\n- Concurrency — multiple programs execute at the same time on different\nmachines, forming a common system; e.g. a web application serving many users simultaneously; reduces latency, increases throughput.\n- No global clock — machines cannot be perfectly synchronized and there is no\nglobal time; the only communication is message passing, so ordering relies on logical clocks.\n- Independent failures — any node may crash at any time; unlike a centralized\nsystem where server failure stops everything, the remaining nodes take over the workload, providing reliability.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-005",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "Why do we need distributed systems? Write the advantages and disadvantages of distributed systems. [2+8]",
+      "answer": "Need: to share resources, scale beyond one machine, tolerate failures and provide low-latency service to users everywhere. Four main reasons: scalability, reliability and fault tolerance, performance, and uptime requirements.\n\nAdvantages:\n\n1. Horizontal scaling — machines can be added whenever required.\n2. Low latency — machines placed geographically closer to users serve them\nfaster.\n3. Fault tolerance — if one server or data center goes down, others continue\nto serve.\n4. Resource sharing — printers, storage, files and data are shared\neconomically.\n5. Better performance/price — many commodity machines can outperform one\nexpensive machine.\n\nDisadvantages:\n\n1. Complexity — the biggest disadvantage: more machines, more messages, more\ndata.\n2. Data integration and consistency — synchronizing changes while nodes\nstart, stop or fail is hard.\n3. Network and communication failures — messages may be lost, delayed or\ndelivered out of order.\n4. Management overhead — monitoring, logging and load balancing must be\nadded for visibility.\n5. Security — a larger attack surface; more components to protect.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-006",
+      "chapterId": "chapter-bca-s6-dcc-01",
+      "topicId": null,
+      "question": "Why do we need a distributed system?",
+      "answer": "Same reasoning as Q5's \"need\": (1) scalability — accommodate increased usage and datasets by adding machines; (2) reliability and fault tolerance — redundancy at every layer keeps the application available when nodes fail; (3) performance — many machines process jobs with low latency instead of one finite machine; (4) uptime requirements — tight availability targets can only be met by distributed, replicated systems. In short, distributed systems exist out of necessity: a single machine is limited by resources, loses data if it fails, and cannot serve users when down.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-007",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Differentiate between client-server and peer-to-peer architecture in a distributed system.",
+      "answer": "Client-server: Centralized: processes divided into servers (provide a service) and clients (request it); Peer-to-peer: Decentralized: no central control; each node is a peer Client-server: Communication is request-reply; the client waits for the server's reply; Peer-to-peer: A node can be client or server at a given time Client-server: Server is a single point of failure — its crash disrupts all clients; Peer-to-peer: No single point of failure; multiple service-providing nodes make it reliable Client-server: Access time can be higher under load; the server may crash as users increase; Peer-to-peer: Amount of resources grows as peers join — extremely scalable Client-server: More stable and secure; cheaper to set up (no extensive hardware); Peer-to-peer: Comparatively less stable; expensive to implement Client-server: Examples: web servers, database servers; Peer-to-peer: Examples: BitTorrent, Gnutella, Chord (structured)\n\nArchitectural note: client-server uses the layered/request-reply style; P2P is built on overlay networks — logical networks over the Internet — which may be unstructured (flooding search) or structured (DHT-based, e.g. Chord).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-008",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Explain different aspects of distribution transparency in brief.",
+      "answer": "Transparency hides the fact that processes and resources are physically distributed:\n\nTransparency: Access; Description: Hide differences in data representation and how a resource is accessed Transparency: Location; Description: Hide where a resource is located Transparency: Migration; Description: Hide that a resource may move to another location Transparency: Relocation; Description: Hide that a resource may be moved while in use Transparency: Replication; Description: Hide that a resource is replicated Transparency: Concurrency; Description: Hide that a resource may be shared by several competitive users Transparency: Failure; Description: Hide the failure and recovery of a resource\n\nA system presenting itself as a single computer is transparent. Aiming for full transparency must be balanced against performance — e.g. hiding latency may conflict with efficiency.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-009",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "What is middleware? Explain the different architecture styles of a distributed system.",
+      "answer": "Middleware is a software layer between applications and operating systems that provides services beyond the OS so components of a distributed system can communicate and manage data. It hides distribution and heterogeneity and offers common services (naming, replication, transactions, security).\n\nArchitecture styles (logical organization into components and connectors):\n\n1. Layered — layers with specific responsibilities; each layer calls the\nadjacent layer; requests flow top-down, responses bottom-up. Example: OSI model, 3-tier web application. Layers can be replaced independently.\n2. Object-based — loosely coupled objects interacting through interfaces;\ncommunication is method invocation (RPC/RMI); less structured.\n3. Data-centered — a central repository/blackboard accessed by many\ncomponents (producer-consumer); e.g. a CMS with a central database, CRM control tables.\n4. Event-based — communication through events on an event bus; based on\npublisher-subscriber; components are loosely coupled and easy to add, remove or modify.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-010",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Explain different architecture styles used in distributed systems.",
+      "answer": "*(Same content as Q9, part 2:)* four styles — layered (sequential calls between layers; OSI, presentation/business/data), object-based (objects and method invocation = RPC/RMI), data-centered (shared repository; CMS, CRM), event-based (publish-subscribe over an event bus; loosely coupled).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-011",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "What are the different architecture styles of a distributed system? Explain each in detail.",
+      "answer": "1. Layered architecture. Components are organized into layers; each layer\ncontacts only the adjacent layer, so every call follows a predefined path. Bottom layers provide services to top layers; requests flow downward, responses upward. A well-known example is the OSI model; a web application with presentation, business-logic and data layers is another. *Advantage:* each layer can be replaced or modified without affecting the whole architecture. *Limitation:* not all systems fit strict layering.\n\n2. Object-based architecture. A loosely coupled arrangement of objects\nwithout layers or a fixed call sequence. Each component is an object; objects interact through interfaces or connectors, and communication happens as method invocations — generally Remote Procedure Calls (or RMI). Component = object, connector = RPC/RMI. *Advantage:* direct, natural modeling. *Limitation:* less structured; object management overhead.\n\n3. Data-centered architecture. Revolves around a central data repository\n(repository or blackboard) that multiple components access and manipulate — like a producer-consumer problem with a shared persistent store (e.g. a MySQL database). Examples: a content management system with a central database, and CRM systems using table-driven control tables. *Advantage:* simple sharing of consistent data. *Limitation:* the repository can become a bottleneck or single point of failure.\n\n4. Event-based architecture. All communication happens through events: when\nan event is generated it is sent to an event bus, and interested nodes pull and process it. It is based on the publisher-subscriber style; there is no direct communication between nodes. *Advantage:* components are loosely coupled and easy to add, remove or modify. *Limitation:* event delivery guarantees and ordering are harder.\n\nSummary table:\n\nStyle: Layered; Organization: Layers with responsibilities; Connector: Sequential calls between adjacent layers Style: Object-based; Organization: Interacting objects; Connector: Method invocation (RPC/RMI) Style: Data-centered; Organization: Central repository; Connector: Shared data store Style: Event-based; Organization: Publishers/subscribers; Connector: Event bus",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-012",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Explain peer-to-peer architecture in brief.",
+      "answer": "In P2P there is no central control: each node can be a client or a server at a given time, and every node is called a peer. Because there is no central authority, the single-point-of-failure problem is inherent to the design: no one node is critical. Unlike client-server, P2P becomes more powerful as users increase — resources grow with peers, making it extremely scalable. Peers organize into overlay networks (logical links over the underlay network):\n\n- Unstructured — no specific structure, easy design, higher churn, flooding\nsearch; Napster, Gnutella, BitTorrent.\n- Structured — deterministic construction via a Distributed Hash Table\n(nodes and keys get m-bit identifiers; a deterministic scheme maps keys to nodes); Chord, CAN, Tapestry, Kademlia.\n\nHybrid systems combine both (BitTorrent's tracker, super-peers, edge servers).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-013",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "What is virtualization? Explain different types of virtualization with examples. Explain the role of middleware in a distributed system with a suitable diagram. [1+4+5]",
+      "answer": "Virtualization is the creation of a virtual (rather than actual) version of something — a hardware platform, resource, operating system, storage device or network resource. It runs a virtual instance of a computer system in a layer abstracted from the actual hardware; to the applications it appears they are on their own dedicated machine.\n\nTypes (with examples):\n\n1. Server virtualization — partitioning a physical server into small virtual\nservers (each with its own OS); example: VMware ESXi running several VMs.\n2. Storage virtualization — composing multiple network storage devices into\none logical unit; example: SAN storage pools.\n3. Network function virtualization — decoupling network functions from\nproprietary appliances and running them as software in VMs; example: virtual routers/firewalls in cloud networks.\n4. Desktop/application virtualization — a process virtual machine (runtime\nsystem) executes a single application; example: the Java runtime.\n\nRole of middleware (diagram described): middleware is the layer between the applications (top) and the operating systems/network (bottom) on each machine:\n\nComputer 1        Computer 2        Computer 3\n+-----------+     +-----------+     +-----------+\n| Application|    | Application|    | Application|\n+-----------+     +-----------+     +-----------+\n|  Middleware  (same interface everywhere)      |\n+-----------------------------------------------+\n|  Operating system + network                   |\n+-----------------------------------------------+\n\nMiddleware offers each application the same interface, hides the heterogeneity of hardware, operating systems and protocols, and provides common services (naming, replication, communication, transactions, security). It is the \"glue\" that makes separate applications run together efficiently — without it, each application would need to speak every machine's protocol; with it, applications communicate through one uniform layer.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-dcc-014",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Explain the role of middleware in a distributed system.",
+      "answer": "Middleware is a software layer situated between applications and operating systems. Its role:\n\n- Hides intricacies of distributed applications — developers write to one\ninterface, not to each machine's details.\n- Hides heterogeneity of hardware, operating systems and protocols.\n- Provides uniform, high-level interfaces for interoperable, reusable and\nportable applications.\n- Provides common services that minimize duplication: naming, location,\nservice discovery, replication, protocol handling, communication faults, concurrency, transactions, storage, access control and authentication.\n- Enables interoperability and service integration (APIs, message brokers)\nand supports scalability and fault tolerance (fault detection, recovery, load balancing).\n\nMost middleware follows object-based and event-based styles (RPC, message- oriented middleware, object middleware, database middleware).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-015",
+      "chapterId": "chapter-bca-s6-dcc-02",
+      "topicId": null,
+      "question": "Explain the concept of middleware and system architecture with examples.",
+      "answer": "*(Combines Q9/Q14 with system architecture.)* Middleware — see Q14. System architecture is the placement of software components on physical machines; components may be co-located or distributed, which affects performance and reliability. The three families are:\n\n1. Centralized (client-server) — a server implements a service, clients send\nrequests and wait for replies; application layering (user interface, processing, data) leads to multi-tiered architectures. Example: a 3-tier web application.\n2. Decentralized (P2P) — every node is both client and server; overlay\nnetworks; examples: BitTorrent, Chord.\n3. Hybrid — client-server plus decentralized parts; examples: BitTorrent\ntracker, super-peers, edge servers.\n\nExample combination: a microservices e-commerce system uses a 3-tier structure (client app, service layer, data layer) with microservices communicating via APIs — middleware (API gateway, message broker) glues the tiers.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-016",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "How does virtualization contribute to the functionality of a distributed system?",
+      "answer": "Virtualization is the creation of a virtual version of a resource (hardware platform, operating system, storage, network). In distributed systems it contributes by:\n\n1. Better utilization and scalability — one physical machine runs many\nvirtual servers, so resources are used efficiently and capacity scales with demand.\n2. Isolation and fault containment — each VM is isolated; a crash in one VM\ndoes not bring down others, improving reliability.\n3. Portability and flexibility — a VM can be moved between machines (live\nmigration), enabling load balancing and maintenance without downtime.\n4. Heterogeneity handling — multiple different operating systems run\nconcurrently on the same hardware, so legacy and new components coexist.\n5. Cost and energy savings — fewer physical machines are needed; cloud\nproviders can offer on-demand virtual resources.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-017",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "What is code migration? Explain the migration models.",
+      "answer": "Code migration (mobility) is the capability to dynamically change the bindings between code fragments and the location where they are executed — moving programs between machines so they execute at the target. Reasons: improve performance (move processes from loaded to lightly loaded machines), improve communication times (ship code to where large data sets reside), and flexibility (clients fetch software on demand).\n\nA process has three segments: code (instructions), resource (references to external resources), execution (process state, private data, stack, instruction pointer).\n\nMigration models:\n\n1. Weak mobility — only the code segment is transferred; the program always\nstarts from a predefined starting position (e.g. Java applets).\n2. Strong mobility — code and execution segments are transferred, so the\nprocess resumes where it left off. Characterized by migration (suspend, transfer, resume) and remote cloning (a copy continues elsewhere while the original keeps running).\n3. Sender-initiated — the sending party pushes code (uploading code to a\nserver; e.g. a client sending a query to a database server).\n4. Receiver-initiated — the receiving party pulls code (downloading; e.g. a\nclient fetching a Java applet).\n\nAdditionally, resource bindings determine what can move: process-to-resource by identifier (strongest), by value, or by type (weakest); and resource-to-machine as unattached, fastened or fixed.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-018",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "What is virtualization? Explain the types of virtualization with example.",
+      "answer": "Definition: virtualization is the creation of a virtual (rather than actual) version of something — a hardware platform, resource, operating system, storage device or network resource. It breaks down physical infrastructure into smaller, reusable, flexible units presented to users as discrete units.\n\nTypes:\n\n1. Server virtualization — partitioning one physical server into several\nvirtual servers, each with its own OS and applications. Example: VMware ESXi or KVM hosting multiple VMs on one host.\n2. Storage virtualization — combining multiple network storage devices so\nthey appear as a single storage unit. Example: a storage area network (SAN) pool.\n3. Network function virtualization (NFV) — decoupling network functions\n(routers, firewalls, load balancers) from proprietary hardware and running them as software in VMs. Example: virtual firewall appliances in cloud networks.\n4. Desktop/application virtualization — a runtime system provides an\nabstract instruction set for a single application (process VM). Example: the Java runtime; thin-client desktops.\n5. Hardware/system virtualization — a Virtual Machine Monitor (hypervisor)\ncompletely shields the original hardware and offers the full instruction set as an interface, so multiple different operating systems run concurrently. Example: VirtualBox, Xen, Hyper-V.\n\nHypervisor types: Type 1 runs directly on hardware and acts as the OS (ESXi, Hyper-V, KVM, XenServer — popular in cloud); Type 2 runs on a host OS (VMware Workstation, VirtualBox, QEMU, Parallels).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-019",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "Explain the different types of threads and attacks in distributed systems.",
+      "answer": "*(Two-part question: threads + attacks.)*\n\nTypes of threads:\n\n- User-level threads — created and managed by a user-level library in user\nmode; the kernel is unaware and treats the process as single-threaded. Fast to create, no kernel privileges, run on any OS; but one blocking thread blocks the whole process and they cannot exploit multiprocessors.\n- Kernel-level threads — managed directly by the OS kernel. Slower to\ncreate/switch (mode switch), but blocking one thread does not block others and threads can run on different processors.\n\nMultithreading models relate the two: many-to-one, one-to-one, many-to-many.\n\nAttacks in distributed systems (security threats):\n\n1. Interception — unauthorized access to a service or data (eavesdropping).\n2. Interruption — making services/data unavailable (denial of service).\n3. Modification — unauthorized changing of data or tampering with a service.\n4. Fabrication — generating data/activity that would not normally exist\n(e.g. replaying previously sent messages).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-020",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "Differentiate between stateful and stateless servers.",
+      "answer": "Stateless server: Does not remember anything from one request to another; Stateful server: Maintains information about its clients across requests Stateless server: Every request is self-contained; Stateful server: Session context kept on the server Stateless server: Example: HTTP server; Stateful server: Example: FTP server Stateless server: Simpler to recover after crash; easy to replicate; Stateful server: More complex recovery; state must be preserved or rebuilt Stateless server: Lower server memory overhead; Stateful server: Better for long interactive sessions\n\nRelated server design points: clients contact servers at a port (HTTP 80, FTP 21); servers may be iterative (one request at a time) or concurrent (hand off to threads/processes); communication interrupts can be handled by abruptly restarting the client or by out-of-band data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-021",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "Write short notes on: user-level thread. [2.5]",
+      "answer": "User-level threads are implemented by a user-level library entirely in user mode; the kernel is not aware of their existence and handles the process as if it were single-threaded. They are represented by a program counter, stack, registers and a small process control block, and require no kernel privileges for switching. Advantages: faster to create and manage than kernel threads, run on any OS, no kernel involvement in synchronization. Disadvantages: cannot use multiprocessing, and if one user-level thread performs a blocking operation the entire process blocks.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-022",
+      "chapterId": "chapter-bca-s6-dcc-03",
+      "topicId": null,
+      "question": "Write short notes on: full virtualization and para-virtualization. [2.5]",
+      "answer": "Full virtualization — the virtual machine simulates the complete hardware so an unmodified guest OS runs without knowing it is virtualized; the VMM traps and emulates privileged instructions. Example: VMware, VirtualBox. Advantage: guest OS needs no changes; disadvantage: emulation overhead.\n\nPara-virtualization — the guest OS is modified to be aware it runs in a VM and cooperates with the hypervisor through hypercalls instead of emulated privileged instructions. Example: Xen with a modified Linux kernel. Advantage: better performance; disadvantage: requires OS changes and loses binary portability.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-023",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Define name, address and identifier. Explain the types of communication in distributed systems.",
+      "answer": "Name — a string of bits or characters used to refer to an entity (host, printer, file, process, user...). Address — the name of an access point of an entity; an entity may have multiple addresses, and addresses can change (a mobile host gets a new IP). Identifier — a name with three properties: it refers to at most one entity, each entity has at most one identifier, and it is never reused.\n\nTypes of communication:\n\n1. Transient vs persistent — transient middleware discards a message that\ncannot be delivered immediately (TCP/UDP); persistent middleware stores messages until the receiver is ready (email, message queuing).\n2. Synchronous vs asynchronous — synchronous (blocking): the sender blocks\nuntil the request is accepted, delivered or processed; asynchronous (non-blocking): the sender continues immediately after submitting the message (needs a local buffer).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-024",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Describe transient synchronous communication with a suitable diagram.",
+      "answer": "Transient communication: the middleware discards a message if it cannot be delivered to the receiver immediately — the sender and receiver must both be running at the same time, and the message is not stored by the system. It is the typical model of transport-level communication (TCP, UDP).\n\nSynchronous communication: the sender is blocked until its request is known to be accepted. Synchronization can happen at three points:\n\n1. the sender is blocked until the middleware takes over transmission;\n2. the sender waits until the request is delivered to the recipient;\n3. the sender waits until the request is fully processed (the recipient returns\na response).\n\nCombined — transient synchronous communication is the classic request-reply interaction, as used by RPC:\n\nClient                          Server\n  |  ---- Request (send) ------>  |     Client blocked until\n  |                               |     reply is returned\n  |  <--- Reply (response) -----  |\n  |                               |\nTime ---------------------------->\n\nDiagram to draw: a vertical time axis with two columns (Client, Server); an arrow \"Request\" from client to server; a waiting gap on the client; an arrow \"Reply\" from server to client. Caption: *\"Transient synchronous communication: both parties active; the message is discarded if it cannot be delivered; the sender blocks for the reply.\"* The telephone call and RPC are typical examples; TCP/UDP provide transient transport.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-dcc-025",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Explain wrapper and interceptor in detail.",
+      "answer": "Wrapper — a piece of code that adapts an existing component so it can be used in a new environment without modifying the component itself. A wrapper \"wraps\" the original interface and translates calls to the representation or protocol the new environment expects. Uses:\n\n- adapting legacy code to a new middleware or API;\n- converting between different data representations (marshaling);\n- adding monitoring, logging or security checks around the original component.\n\nInterceptor — a piece of code that is invoked automatically at specific points in a call chain (e.g. when a remote method is called, before or after message passing) and can inspect, modify, redirect or log the call without the application knowing. Uses:\n\n- adding transparency (e.g. forwarding a call to the correct replica);\n- implementing security checks (authentication/authorization on every call);\n- logging, tracing, load balancing, caching.\n\nDifference: a wrapper is a static adapter placed around a component; an interceptor is dynamically invoked at interception points in the communication path, usually inserted by the middleware. Both let functionality be added without changing the underlying component.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-026",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "What is RPC? Explain the RPC process in brief.",
+      "answer": "RPC (Remote Procedure Call) is a technique for building distributed systems that allows a program on one machine to call a procedure on another machine as if it were local, without knowing that it is remote. RPC is not a transport protocol; it uses existing communication features transparently. This transparency is one of the great strengths of RPC: the application contains no communication code, so it is independent of the communication hardware and protocols used, the operating system, and the calling sequence of the underlying communication software. RPC offers access and location transparency.\n\nThe RPC process (steps):\n\n1. The client procedure calls the client stub in the normal way.\n2. The client stub builds a message (marshals parameters) and calls the local\noperating system.\n3. The client's OS sends the message to the remote OS.\n4. The remote OS gives the message to the server stub.\n5. The server stub unpacks the parameters and calls the server.\n6. The server does the work and returns the result to the stub.\n7. The server stub packs the result in a message and calls its local OS.\n8. The server's OS sends the message to the client's OS.\n9. The client's OS gives the message to the client stub.\n10. The stub unpacks the result and returns it to the client.\n\nDiagram: client machine (client process, client stub, client OS) and server machine (server stub, server process, server OS) with \"1. call to procedure\", \"2. build message\", \"3. message sent across network\", \"4. server OS hands message to stub\", \"5. stub unpacks\", \"6. local call to implementation\". Variants: asynchronous RPC (wait for acceptance only), deferred synchronous RPC (reply later via a second RPC), one-way RPC (no acknowledgement).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-027",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "What is Remote Procedure Call (RPC)? Explain its operation, advantages and disadvantages.",
+      "answer": "Definition and operation: see Q26 — RPC lets a client call a remote procedure as a local one. The client stub marshals parameters into a message; the OS transmits it; the server stub unmarshals and calls the server; the result travels back symmetrically. The client is blocked while the server processes the call (conventional RPC). Parameter marshaling converts values to a byte sequence; because machines differ (ASCII/EBCDIC, big/little-endian), both sides must agree on the message format.\n\nAdvantages:\n\n1. Transparency — access and location transparency; the programmer writes\nordinary procedure calls.\n2. Simplicity and familiarity — the request-reply style maps naturally onto\nclient-server computing.\n3. Encapsulation — communication details (encoding, message passing,\nretransmission) are hidden in the stubs.\n4. Interoperability — defined interfaces (IDL) allow different languages and\nplatforms to interoperate.\n\nDisadvantages / issues:\n\n1. Blocking — the client waits for the reply; unsuitable when the receiver\nmay not be active (message-oriented communication is needed).\n2. Data representation problems — endianness and character-set differences\nrequire agreed encodings.\n3. Failure handling — the client cannot always distinguish a crashed server\nfrom a lost message/reply; semantics: at-least-once, at-most-once, guarantee nothing; non-idempotent operations need sequence numbers.\n4. Performance — marshaling, network round trips and stub overhead make it\nslower than a local call.\n\nMessage-oriented communication (as asked in 2019 Q11): unlike RPC, it does not assume the receiver is executing. Message-oriented transient communication (Berkeley sockets) requires both parties active; message-oriented persistent communication (message-queuing systems/MOM) stores messages in queues (put/get/poll/notify), decoupling sender and receiver in time; the sender is guaranteed only eventual insertion into the recipient's queue.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-028",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Explain the concept of Berkeley sockets / Write short notes on Berkeley socket. [2.5–5]",
+      "answer": "A socket is a communication endpoint to which an application writes data to be sent over the network and from which it reads incoming data; a socket is one endpoint of a two-way communication link between two programs, provided by the transport layer. Berkeley sockets are the standard transport-layer interface; many distributed applications are built on this simple message- oriented model.\n\nAPI sequence (TCP client-server):\n\nPrimitive: `socket()`; Meaning: Create a new communication endpoint Primitive: `bind()`; Meaning: (Server) associate a socket with a local port number and IP address Primitive: `listen()`; Meaning: (Server) put a bound TCP socket into listening state Primitive: `accept()`; Meaning: (Server) accept an incoming connection attempt; creates a new socket Primitive: `connect()`; Meaning: (Client) assign a free local port and attempt to establish a TCP connection Primitive: `send()`/`recv()` (or `write()`/`read()`, `sendto()`/`recvfrom()`); Meaning: Send and receive data over the connection Primitive: `close()`; Meaning: Release the resources; terminate the connection (TCP)\n\nDiagram: server side socket → bind → listen → accept → read → close; client side socket → connect → write → read → close, with the accept/connect pair as the synchronization point.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-029",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Explain the concept of multicast communication.",
+      "answer": "Multicast communication is the support for sending data to multiple receivers:\n\n1. Network-level multicasting (IP multicast) — the network handles group\ndelivery; Internet Group Management Protocol (IGMP) manages group membership; class D addresses are reserved for multicast.\n2. Transport-level multicasting — a separate unicast transport connection to\neach receiver; the application-level data unit is duplicated at the sender and transmitted over each connection.\n3. Application-level multicasting — nodes form their own overlay network\n(tree or mesh) using traditional unicast; no router changes needed, no per-group state in routers, easy to deploy, and unicast congestion/reliability mechanisms can be reused. Metrics: link stress (identical packets per physical link; optimal 1), stretch (overlay delay ÷ direct unicast delay), tree cost.\n4. Gossip-based dissemination — epidemic protocols spread updates among a\nlarge collection of nodes using only local information: anti-entropy (push/pull/push-pull exchanges) and gossiping (an infected node tells others); deletion is spread via death certificates.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-030",
+      "chapterId": "chapter-bca-s6-dcc-04",
+      "topicId": null,
+      "question": "Case study: Java RMI and Message Passing Interface (MPI).",
+      "answer": "Java RMI allows an object in one Java VM to invoke methods on an object in another Java VM — remote communication between Java programs. A server creates remote objects, makes references accessible and waits; a client obtains a reference and invokes methods. Architecture: transport layer (connections), stub (client-side proxy), skeleton (server-side proxy), Remote Reference Layer (manages references). The client's call reaches the stub → RRL → server RRL → skeleton → object; results return the same way. The RMI registry is a namespace where objects are registered under bind names (bind()/rebind()) and looked up by clients (lookup()).\n\nMPI (Message Passing Interface) is a subroutine/library specification (not a language) for passing messages between processes in a distributed-memory model, widely used for parallel programming in clusters: the head node is the master and the other nodes are workers; tasks are divided among workers that run simultaneously. The standard covers point-to-point message passing, collective communications, groups and communicators, process topologies, environmental management, process creation/management and one-sided communications (MPI-1 1994, MPI-2 1997, MPI-3 2012, MPI-4 2021). Its goal is a practical, portable, efficient and flexible standard for message-passing programs.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-031",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Define name, address and identifier. [2]",
+      "answer": "A name is a string of bits or characters used to refer to an entity (host, printer, disk, file, process, user, mailbox, web page...). To operate on an entity you need an access point; the name of an access point is an address (an entity may have several addresses and can change them). An identifier is a name with three properties: it refers to at most one entity, each entity is referred to by at most one identifier, and it always refers to the same entity (never reused). Addresses and identifiers are machine-readable; human-friendly names (like DNS names) are character strings.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-032",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Explain structured naming scheme of an entity in brief.",
+      "answer": "Structured names are human-readable names composed from simple names (file names, host names). They are organized into name spaces represented as a labeled directed graph with two types of nodes:\n\n- Leaf node — represents a named entity and stores information about it\n(e.g. its address); it has no outgoing edges.\n- Directory node — has outgoing edges, each labeled with a name, and stores\na directory table of (edge label, node identifier) pairs.\n\nThe graph has a single root node (only outgoing edges). Name resolution is the process of looking up a name by traversing the graph; it needs a closure mechanism — knowing where to start: a reference to the root node for absolute path names, or to the current directory for relative path names.\n\nAliasing: an entity may be named by multiple path names — multiple path names referring to the same node are hard links; a leaf node holding a path name that refers to another node is a symbolic link.\n\nExample: the path /home/steen/mbox traverses the root, the home directory node and the steen directory node to the leaf mbox; the path /keys may be a hard link to the same node.\n\nCombining name spaces: a foreign name space is mounted onto a mount point — the mount point directory node stores the identifier of the foreign directory node. Mounting requires the access protocol name, the server name, and the mounting point name.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-033",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Explain attribute-based naming with an example.",
+      "answer": "Attribute-based naming lets a user search for an entity whose name is not known, by providing any description of the entity — typically (attribute, value) pairs. Such systems are called directory services (as opposed to naming systems). A directory service stores collections of bindings between names and attributes and looks up entries matching attribute-based specifications.\n\nExample: \"What is the name of the user with telephone number 020-555 9980?\" — the directory returns the user whose telephone attribute has that value. In an email system, messages are tagged with attributes such as sender, recipient and subject, and users can search by any combination. Real examples: Microsoft Active Directory and Azure AD.\n\nWhy useful: distributed systems are increasingly information-based; users may know properties of an entity without knowing its name, and attribute-based naming exploits that information to locate it.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-034",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "What is a naming system? Discuss the desirable features of a good naming system in a distributed system.",
+      "answer": "A naming system is middleware that assists in name resolution — mapping names to addresses — and maintains the name-to-address bindings.\n\nDesirable features:\n\n1. Location transparency — the name should not reveal the physical location\nof the object; users refer to objects without knowing where they are.\n2. Location independency — the name of an object need not change when the\nobject's location changes; this supports object migration.\n3. Scalability — the naming system itself is distributed, so it must handle\ngrowth: name spaces are partitioned into global, administrational and managerial layers, implemented by multiple name servers.\n4. Availability and reliability — name resolution must work even when some\nservers fail (replication of naming data).\n5. Performance — resolution must be fast; caching mechanisms lower lookup\ntimes.\n6. Global naming facility — location independency across organizations\nrequires a global naming service (e.g. DNS, GNS).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-035",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Explain the DNS query types / different types of DNS queries. [2.5–5]",
+      "answer": "DNS (Domain Name System) is a naming database that translates domain names into IP addresses. Query types:\n\n1. Recursive query — the client requires the local server to give the\nmapping or an error message. The server that does not know the answer forwards the query to the next server and so on, and returns the final answer to the client (the server does the recursion). Higher demand on each server; reduced communication cost; caching is more effective (the server caches intermediate answers).\n2. Iterative query — each server that does not know the mapping returns the\naddress of the next server to ask (a referral); the client's resolver continues querying until it gets the answer. Only the client's resolver caches results. Global-layer servers support only iterative resolution.\n\nFour servers involved in loading a webpage: DNS recursor (receives queries and makes further requests), root nameserver (first step; points to more specific locations), TLD nameserver (hosts the last part of the hostname, e.g. com), authoritative nameserver (the final stop; returns the IP address or an error).\n\nResolution steps: browser sends a recursive query → recursive resolver (usually the ISP) answers from cache or queries root → TLD → authoritative → resolver caches the A record → error if the authoritative server cannot find the record.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-036",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Explain the types of name resolution algorithms used in a distributed system. [4]",
+      "answer": "*(See Q35 for detail.)* Two algorithms:\n\n- Recursive name resolution — the local server is required to return the\nmapping or an error; it recursively queries other servers until it obtains the address. Advantages: reduced communication costs, effective caching (servers cache intermediate results); drawback: higher demand on each name server — global-layer name servers therefore support only iterative resolution.\n- Iterative name resolution — each server that does not know the mapping\nreturns the address of the next server to the requester, and the client's resolver continues. Only the client's resolver performs caching.\n\nCaching: in both algorithms the server stores the response in cache before forwarding it, lowering future search times.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-037",
+      "chapterId": "chapter-bca-s6-dcc-05",
+      "topicId": null,
+      "question": "Case study: The Global Name Service (GNS).",
+      "answer": "The Global Name Service was designed and implemented by Lampson and colleagues at the DEC Systems Research Center (1986). It provides facilities for resource location, email addressing and authentication, and is designed to accommodate changes in the structure of a name space as the naming database grows from small to large scale.\n\nGNS manages a naming database composed of a tree of directories holding names and values. Names have two parts: the first part identifies a directory; the second refers to a value tree or some portion of it. Directories have unique Directory Identifiers (DI); multi-part path names refer to directories like a Unix file system. A directory contains a list of names and references; the leaves of the directory tree contain value trees (structured values). Example: the attributes of user Peter are stored under <EC/UK/AC/QMW, Peter.Smith>; the password appears as <EC/UK/AC/QMW, Peter.Smith/password>, and mail addresses are listed in the value tree under <EC/UK/AC/QMW, Peter.Smith/mailboxes>.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-038",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "What do you mean by logical clock? Explain Lamport's logical clock. [2+8]",
+      "answer": "Logical clock: a mechanism for capturing chronological and causal relationships in a distributed system. Because distributed systems have no physically synchronous global clock, a logical clock provides a global ordering of events from different processes. It is not tied to real time; what matters is agreement on the order in which events occur, not on the exact time.\n\nLamport's logical clock (Leslie Lamport) determines the order of events and provides the basis for vector clocks. It defines the happens-before relation a → b (\"a happens before b\" — all processes agree that a occurs first, then b), observed directly in two situations:\n\n1. If a and b are events in the same process and a occurs before b, then\na → b.\n2. If a is the sending of a message and b its receipt by another process, then\na → b — a message cannot be received before it is sent (it takes finite, nonzero time to arrive).\n\nHappens-before is transitive: if a → b and b → c, then a → c. Events in different processes that never exchange messages are concurrent — nothing can be said about their order.\n\nEach event a gets a time value C(a) such that a → b implies C(a) < C(b).\n\nImplementation rules:\n\n- [IR1] If a → b within the same process, then C(b) = C(a) + d (the clock is\nincremented for each event).\n- [IR2] On receiving a message with timestamp tm,\nC = max(C_local, tm + d): if the receiver's clock shows a value before the sending time, it fast-forwards to one more than the sending time.\n\nExample (from the notes): processes P1, P2, P3 tick at different rates (6/8/10 ticks). Message m3 leaves P3 at 60 and arrives at P2 when its clock reads 56 — impossible; with Lamport's rule, P2's clock is adjusted to 61 or later when it receives the message.\n\nLimitation: if a → b then C(a) < C(b), but C(a) < C(b) does not imply a → b — concurrent events can have ordered timestamps. Vector clocks address this limitation by using a vector of N integers, incremented on internal/send/receive events and updated element-wise with the maximum on receive; they can detect causally related versus concurrent events.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-039",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "What is clock synchronization? Why is it needed in distributed systems? Explain physical clock synchronization algorithms in detail. [2+2+6]",
+      "answer": "Clock synchronization is the mechanism to synchronize the time of all computers in a distributed system. Why needed: each computer has its own physical clock (a quartz oscillator with counter and holding register generating clock ticks). Crystals run at slightly different rates, so clocks gradually get out of synch — clock skew (difference in time values) and drift (different tick rates). Programs that expect timestamps to be correct and independent of the machine (files, objects, messages) can fail; ordering events and coordinating activities requires synchronized clocks.\n\nTwo ways: external synchronization (an external reference time, e.g. a UTC receiver, is used) and internal synchronization (nodes share their physical clock values and adjust).\n\nPhysical clock synchronization algorithms:\n\n1. Cristian's algorithm — assumes one machine (the time server) has a WWV\nreceiver; every specific number of seconds each machine sends a request for the current time and the server responds. The client computes:\n\nT_client = T_server + (T1 − T0) / 2        (assumes symmetric delays)\nerror ∈ [−(T1 − T0)/2, (T1 − T0)/2]\n\nwhere T0 = request time, T1 = response time. Example: request at 5:08:15.100, response at 5:08:15.900 (elapsed 800 ms → the timestamp was generated 400 ms ago); with T_server = 5:09:25.300, set the client clock to 5:09:25.700. Works well in low-latency networks; requires a special time source; prone to failure of the central server.\n\n2. Berkeley algorithm — assumes no machine has an accurate time source (no\nUTC receiver):\n\n1. A master node is elected from the pool; the rest are slaves.\n2. The master periodically pings the slaves and fetches their clock times (using\nCristian's algorithm).\n3. The master computes the average time difference between the received\ntimes and its own clock, adds it to its own time, and broadcasts the adjustment to the slaves.\n\nUsed for internal synchronization only; no separate time source is needed; failures are handled by electing a new leader. Comparison: Cristian gives external synchronization if the server is synchronized to an external clock; Berkeley handles failures better by re-electing a master.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-dcc-040",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "Explain the Berkeley algorithm with a suitable diagram.",
+      "answer": "See Q39 for the algorithm. Diagram to draw: a \"distributed network\" circle with the master node connected to slave nodes; arrows \"request time\" from master to slaves and \"reply time\" back; then a broadcast arrow \"adjustment +Δ\" to all slaves. Caption: *\"Berkeley's algorithm: the master polls slaves, averages the offsets, and broadcasts the correction.\"*\n\nSteps (as in the notes): (1) a master is chosen by election; (2) the master pings the slaves and fetches their times; (3) the master averages the time differences and broadcasts the adjustment; (4) on master failure, a new master is elected.\n\nRelated (Model Q4): clock skew and clock drift — skew is the difference between two clock values at a given instant (clocks disagree); drift is the rate difference (clocks tick at different speeds). Berkeley corrects skew by averaging offsets and tolerates drift by periodic resynchronization.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-041",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "What do you mean by physical clock and logical clock? Explain the Network Time Protocol and Berkeley algorithm.",
+      "answer": "Physical clock — a hardware timer (quartz crystal, counter, holding register) tied to real time; used to order events and measure time differences, but subject to skew and drift. Logical clock — derived from potential cause-effect between events; not tied to real time; used to order events (Lamport's logical clock, vector clocks).\n\nNetwork Time Protocol (NTP) — the Internet's time synchronization protocol built on Cristian's idea: a client exchanges timestamped messages with time servers and estimates the offset θ and delay δ from the round trip:\n\nθ = ((T1 − T0) + (T2 − T3)) / 2      δ = (T3 − T0) − (T2 − T1)\n\nwhere T0 = client send, T1 = server receive, T2 = server send, T3 = client receive. NTP uses a hierarchy of servers (strata) and selects the best estimate from several servers, correcting for network delays and rejecting outliers; it keeps clocks synchronized to UTC (external synchronization). If the correction is negative, the clock must not be set backwards abruptly — time is adjusted gradually.\n\nBerkeley algorithm — see Q39/Q40; used when no UTC receiver exists; master polls slaves, averages offsets, broadcasts correction; internal synchronization; failure handled by electing a new master.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-dcc-042",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "Why is clock synchronization needed in a distributed system? Explain the Network Time Protocol in brief.",
+      "answer": "Need: each machine has its own clock and crystals run at slightly different rates, so clocks disagree (skew/drift). Without synchronization, event ordering is wrong (an event that happened after another may be timestamped earlier), file and message timestamps become inconsistent, and coordination (mutual exclusion, distributed transactions, scheduling) breaks. NTP — see Q41: clients exchange timestamped messages with time servers, estimate offset θ and delay δ from the round trip, and adjust the clock to UTC; servers form a hierarchy and clients pick the best estimate; clocks are corrected gradually, never set backwards abruptly.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-043",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "What is mutual exclusion and how is it maintained in distributed environments?",
+      "answer": "Mutual exclusion ensures that concurrent processes do not access a shared resource simultaneously, preventing corruption or inconsistency: only one process at a time may enter the critical section. Distributed mutual exclusion algorithms fall into two families:\n\n1. Token-based — a single token is passed between processes; only the\nholder may access the resource, and it passes the token on when finished (Token Ring algorithm: a logical ring; the token circulates; no starvation; a lost token must be regenerated; crash recovery is easy).\n2. Permission-based — a process wanting the resource first requires\npermission:\n   - Centralized — a coordinator grants permission; simple, guarantees\n     mutual exclusion, but the coordinator is a single point of failure and a\n     bottleneck, and a dead coordinator is indistinguishable from \"denied\".\n   - Decentralized — each resource is replicated n times with its own\n     coordinator; a majority vote (m > n/2) is needed; non-blocking; backs off\n     randomly on denial; utilization drops under heavy contention.\n   - Distributed (Ricart–Agrawala) — timestamped requests are sent to all\n     processes; a process replies OK if it is not interested, queues the request\n     if it is accessing, and compares timestamps if it also wants the resource\n     (lowest timestamp wins). The requester proceeds when all permissions are\n     in, then sends OK to queued processes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-044",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "What is the role of a coordinator in a distributed system? Explain different approaches of electing a coordinator.",
+      "answer": "Role of the coordinator: many distributed algorithms need one process to act as coordinator, initiator or leader — e.g. the master in Berkeley clock synchronization, the coordinator in 2PC, or the permission-granting process in centralized mutual exclusion. It serializes decisions, grants permissions and coordinates replicated actions. The election algorithm dynamically selects a unique coordinator: every active process has a unique priority number, and the highest-priority process is chosen; when the coordinator fails, a new one is elected, and all processes must agree on the winner.\n\n1. Bully algorithm:\n\n1. A process P notices the coordinator is not responding and sends an ELECTION\nmessage to all processes with higher numbers.\n2. If no one responds, P wins and becomes coordinator.\n3. If a higher process answers, it takes over and P's job is done.\n4. Any process receiving an ELECTION message from a lower-numbered colleague\nreplies OK and holds its own election (unless already holding one).\n\nEventually one process remains and announces its victory; a previously-down process that comes back holds an election and wins if it has the highest number (\"the biggest guy in town always wins\"). Drawbacks: every process must know every other process, and message traffic is heavy.\n\n2. Ring algorithm:\n\n1. Processes are arranged in a logical ring; each knows its successor.\n2. A process noticing the coordinator's failure builds an ELECTION message with\nits own number and sends it to its successor, skipping dead members.\n3. Each sender adds its own number to the list, becoming a candidate.\n4. When the message returns to the initiator, the type changes to COORDINATOR\nand circulates once more, announcing the highest-numbered member as the new coordinator and the new ring.\n\nComparison: the bully algorithm uses more messages but converges quickly when the highest process is up; the ring algorithm avoids broadcasting and handles crashed members by skipping, but a lost message can break the ring.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-045",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "Write short notes on: Bully Algorithm. [2.5]",
+      "answer": "The bully algorithm elects a coordinator among processes that all know each other's numbers. When a process notices the coordinator is not responding, it sends an ELECTION message to all processes with higher numbers. If none responds it becomes coordinator; if one answers, that higher process takes over and runs its own election. A process receiving an ELECTION message from a lower-numbered process replies OK and holds an election unless already doing so. The highest process eventually wins and announces itself; a restarted higher-numbered process also wins (\"bully\"). Drawbacks: large state (everyone knows everyone) and heavy message traffic.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-046",
+      "chapterId": "chapter-bca-s6-dcc-06",
+      "topicId": null,
+      "question": "Explain the concept of distributed event matching.",
+      "answer": "In a distributed system viewed as a collection of processes, the coordination part handles communication and cooperation. In publish/subscribe systems, processes subscribe to messages containing information on specific subjects, while other processes publish such messages; the middleware performs event matching. A data item is published when it is made available for others to read; a subscription is passed to the middleware containing a description of interested data items — typically (attribute, value) pairs, possibly with (attribute, range) pairs. The middleware matches subscriptions against published items; on a match it either forwards the published data to matching subscribers or sends a notification so subscribers can read the item. Most publish/subscribe systems require the communicating processes to be active at the same time (temporal coupling). Gossip-based coordination (random pair-wise exchanges, hierarchical groups with delegates) is a probabilistic, fully distributed alternative for event routing that scales gracefully.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-047",
+      "chapterId": "chapter-bca-s6-dcc-07",
+      "topicId": null,
+      "question": "How can you claim that replication is one of the scaling techniques in a distributed system? Explain consistency protocols with a suitable diagram.",
+      "answer": "Replication as a scaling technique: scaling techniques are hiding communication latencies, distribution and replication. Replication helps scale in numbers — when many processes access data managed by a single server, replicating the server and dividing the work improves performance — and in geographical area — placing a copy of data near the processes that use it decreases access time. It also increases reliability: if one replica crashes, another takes over. The price is consistency: when a copy is modified, all copies must be updated.\n\nConsistency protocols implement specific consistency models:\n\n1. Primary-based protocols (remote-write / primary-backup): one primary\ncoordinator controls replication. All writes are forwarded to the primary (W1: write request → W2: forward to primary → W3: update backups → W4: acknowledge update → W5: acknowledge write completed); reads are carried out locally at each replica. Diagram: client → primary → backup replicas with write arrows; local reads at each replica.\n2. Replicated-write protocols (active replication): multiple replicas\ncoordinate; clients write at any replica, which propagates updates to the others.\n3. Cache-coherence protocols: a special case of client-controlled\nreplication; caches are special replicas; coherence enforced by server-initiated invalidation (server sends invalidation messages when an item changes) or server updates the cache (server propagates the update).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-048",
+      "chapterId": "chapter-bca-s6-dcc-07",
+      "topicId": null,
+      "question": "What is replication? Explain data-centric consistency models with a suitable example. Explain the types of name resolution algorithms used in distributed systems. [1+5+4]",
+      "answer": "Replication is the process of maintaining data at multiple computers to enhance reliability and performance.\n\nData-centric consistency models (from strongest to weakest):\n\n1. Strict consistency — any read returns the most recent write; all writes\ninstantly visible everywhere; based on absolute global time; impossible to implement in practice.\n2. Sequential consistency — the result of any execution is the same as if\nall operations were executed in some sequential order, with each process's operations in program order. *Example:* P1 writes x=a; P3 and P4 read b then a — a valid sequential order exists; if P4 reads a then b while P3 reads b then a, the store is not sequentially consistent.\n3. Causal consistency — causally related writes are seen by all processes in\nthe same order; concurrent writes may be seen in different orders. *Example:* W1(x)a then W2(x)b where W2 depends on reading a — all processes must see a before b; two concurrent writes may appear in either order.\n4. FIFO consistency — writes by a single process are seen by all others in\nthe order issued; writes from different processes may be seen in different orders.\n\nName resolution algorithms: recursive (server returns the mapping or error; more effective caching, higher server demand) vs iterative (server returns the address of the next server; only the client caches) — see Q35/Q36.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-049",
+      "chapterId": "chapter-bca-s6-dcc-07",
+      "topicId": null,
+      "question": "Explain the types of data-centric consistency models.",
+      "answer": "See Q48, points 1–4: strict (most recent write always returned; impossible in practice), sequential (one total order respecting program order), causal (causally related writes in same order; concurrent writes may differ), FIFO (per-process order preserved; different processes may be seen in different orders). A consistency model is a contract between the distributed data store and the applications; only by loosening consistency can efficient solutions be attained, and how much can be loosened depends on the application.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-050",
+      "chapterId": "chapter-bca-s6-dcc-07",
+      "topicId": null,
+      "question": "Explain strict consistency and sequential consistency along with suitable examples.",
+      "answer": "Strict consistency — the strongest model: for any incoming write, once the write is acknowledged to the client, the updated value is visible on a read from any node (the system always returns the latest write). Writes become instantaneously visible to all processes. It is based on absolute global time or global agreement on the commitment of changes, which a distributed system cannot provide — therefore strict consistency is the ideal model but impossible to implement. *Example:* P1 writes x = 5 at absolute time t; any process reading x at any later moment, on any replica, must get 5.\n\nSequential consistency — a slightly weaker model: the result of any execution is the same as if all read and write operations were executed in some sequential order, and the operations of each individual process appear in that sequence in the order specified by its program. It assumes all operations are executed in some sequential order, but does not require that order to match real time. *Example (from the notes):* P1: W(x)a; P3: R(x)b then R(x)a; P4: R(x)b then R(x)a — this is sequentially consistent because a single total order (W(x)a, R(x)b, R(x)a) can explain all reads. If P4 instead read R(x)a then R(x)b while P3 read R(x)b then R(x)a, no single sequential order can explain both, so the store is not sequentially consistent.\n\nKey difference: strict consistency needs absolute time; sequential consistency needs only a common sequential order — hence sequential consistency is implementable while strict consistency is not.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-051",
+      "chapterId": "chapter-bca-s6-dcc-07",
+      "topicId": null,
+      "question": "Write short notes on: sequential consistency. [2.5]",
+      "answer": "A data store is sequentially consistent when the result of any execution is the same as if the read and write operations of all processes were executed in some sequential order, and each process's operations appear in that sequence in program order. It is weaker than strict consistency (no absolute-time requirement) and stronger than causal consistency (it demands a total order, while causal consistency only orders causally related operations). Sequential consistency is important because it is achievable and matches intuitive \"single-copy\" behavior.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-052",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "Define distributed commit. Explain two-phase commit with a suitable diagram.",
+      "answer": "Distributed commit: the problem of having an operation performed by every member of a process group, or by none at all. A distributed transaction involves multiple servers; to ensure atomicity, all servers must agree whether to commit or abort. The process initiating the transaction is the coordinator; the others are participants. A simple scheme — the coordinator tells all participants whether to perform the operation — is called one-phase commit.\n\nTwo-phase commit (2PC): each phase has two steps.\n\n1. Voting phase: the coordinator sends a vote-request to all\nparticipants; each participant replies vote-commit (prepared to commit locally) or vote-abort.\n2. Decision phase: the coordinator collects the votes. If all voted commit,\nit sends global-commit; if any voted abort, it sends global-abort. Each participant that voted commit waits for the decision: on global-commit it commits locally; on global-abort it aborts locally.\n\nDiagram to draw:\n\nCoordinator                 Participants\n    |--- vote-request ----------->|\n    |<-- vote-commit/vote-abort --|\n    |--- global-commit/abort ---->|\n\nCrash recovery: on timeout, a coordinator in WAIT sends global-abort; a participant in INIT aborts; a participant in READY contacts another participant and follows its state; if all are READY they block until the coordinator recovers. 3PC adds a PREPARE-COMMIT phase so participants do not block in fail-stop crashes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-dcc-053",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "What are the types of failures that may occur in a distributed system? Explain the methods used to recover from the crash. Explain one-phase and two-phase commit protocols in detail. [2.5+2.5+5]",
+      "answer": "Failure models:\n\n- Crash — the server halts but was correct until then.\n- Omission — the server fails to respond; receive omission (fails to\nreceive messages) and send omission (fails to send).\n- Timing — the response lies outside the specified time interval.\n- Response — the response is incorrect: value failure (wrong value) or\nstate-transition failure (deviates from the correct control flow).\n- Arbitrary (Byzantine) — arbitrary responses at arbitrary times.\n\n(Faults are also classified as transient, intermittent or permanent.)\n\nCrash recovery: fundamental to fault tolerance is replacing an erroneous state with an error-free state. Forward recovery removes errors so the system can proceed (needs advance knowledge of errors). Backward recovery brings the system back to a previous error-free state — widely used; techniques: checkpointing (periodic state recording; consistent global state; recovery line; independent checkpoints can cause cascaded rollback and the domino effect; coordinated checkpoints use a distributed snapshot) and message logging (record state and log received messages; on crash, restore the checkpoint and replay the log; sender-based vs receiver-based logging).\n\nOne-phase commit: the coordinator periodically communicates with the servers carrying out the individual transactions and tells them whether to commit or abort — a single decision message.\n\nTwo-phase commit: vote-request → votes → global-commit/abort (see Q52), including crash recovery behavior and the blocking problem that 3PC solves.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-054",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "Define distributed commit. Explain two-phase commit with a suitable diagram.",
+      "answer": "See Q52 — identical answer.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-055",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "Explain different types of faults with recovery methods.",
+      "answer": "Fault types: transient (occurs once and disappears), intermittent (occurs, vanishes, reappears), permanent (persists until the component is replaced). Failure models (effects): crash, omission (receive/send), timing, response (value/state-transition) and arbitrary failures; communication channels can exhibit the same failure classes (TCP masks omission but not crash failures).\n\nRecovery methods:\n\n1. Forward recovery — remove all errors from the state and continue; the\nmain problem is that the errors must be known in advance.\n2. Backward recovery — return to a previous error-free state; the widely\nused approach, via checkpointing (independent vs coordinated checkpoints; consistent global state; recovery line; domino effect) and message logging (restore checkpoint + replay logged messages; sender-based or receiver-based).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-056",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "What is fault and fault tolerance? What are the different types of faults?",
+      "answer": "A fault is the cause of an error — a defect in a component; an error is part of the system state that may lead to a failure (the system cannot meet its promises). Fault tolerance is the ability of the system to continue operating acceptably in the presence of faults, automatically recovering from partial failures; the key technique is redundancy — information redundancy (extra bits), time redundancy (repeat the action), physical redundancy (extra equipment/processes).\n\nTypes of faults:\n\n- By duration: transient (occurs once, disappears), intermittent\n(appears, vanishes, reappears), permanent (until replaced).\n- By effect (failure models): crash, omission (receive/send), timing,\nresponse (value, state transition), arbitrary (Byzantine).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-057",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "How is process resilience achieved through groups?",
+      "answer": "Process resilience is protection against process failures, achieved by replicating processes into groups: a message sent to the group is delivered to all members, so if one process fails another can take over. Groups can be dynamic — created/destroyed, joined/left during operation, and a process may belong to several groups — and let processes deal with a collection as a single abstraction (a client sends one message to the group without knowing who or how many members there are).\n\nGroup types:\n\n- Flat group — all processes are equal; no boss; decisions are made\ncollectively.\n- Hierarchical group — one coordinator and workers; a request is sent to the\ncoordinator, which decides the best-suited worker and forwards the request.\n\nDecision making and elections: with replicated processes, the group must agree on decisions (e.g. which request to execute); when the coordinator fails, an election algorithm (bully, ring) picks a new one. Physical redundancy (several identical processes) masks process failures; group membership must be maintained so messages reach all live members.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-058",
+      "chapterId": "chapter-bca-s6-dcc-08",
+      "topicId": null,
+      "question": "Write short notes on: checkpointing. [2.5]",
+      "answer": "Checkpointing is a backward error recovery technique: each process periodically records its state to stable storage so that, after a failure, the system can roll back to a previous error-free state. Frequency trade-off: high frequency adds overhead; low frequency loses more computation on recovery. A consistent global state (distributed snapshot) requires that if a process recorded the receipt of a message, some process recorded its sending; recovery rolls back to the recovery line — the most recent consistent collection of checkpoints. Independent checkpoints may require cascaded rollback and can cause the domino effect (a failed process triggers others to roll back); coordinated checkpoints use the distributed snapshot algorithm so the saved state is globally consistent and all processes restart from the latest snapshot.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-dcc-059",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Discuss the different attacks that can target distributed systems and explain how they can be mitigated.",
+      "answer": "Attack/threat types:\n\n1. Interception — an unauthorized party gains access to a service or data\n(eavesdropping on communication, illegally copying data). *Mitigation:* encryption (confidentiality) — secure channels ensure messages cannot be eavesdropped.\n2. Interruption — services or data become unavailable, unusable or destroyed\n(denial of service, corrupted files). *Mitigation:* access control, redundancy, firewalls, DDoS defenses (filtering, rate limiting, replication).\n3. Modification — unauthorized changing of data or tampering with a service\n(altering transmitted data, tampering with database entries). *Mitigation:* message integrity checks (hashes, MACs), digital signatures, authentication of parties.\n4. Fabrication — additional data/activity that would not normally exist\n(adding entries to a password file, replaying previously sent messages). *Mitigation:* mutual authentication, message integrity, nonces/timestamps against replay, authorization checks.\n\nGeneral mechanisms: encryption, authentication, authorization and auditing; firewalls for external access; digital certificates against phony keys and man-in-the-middle attacks.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-060",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Write short notes on: public key cryptography. [2.5]",
+      "answer": "Public key cryptography (asymmetric encryption) uses a key pair: a public key encrypts and a private key decrypts; the public key is placed in a public repository and the private key is kept secret, and it is computationally infeasible to derive one from the other. To send data, the sender obtains the recipient's public key, encrypts the message, and the recipient decrypts with the private key. It can ensure:\n\n- Confidentiality — encrypt the entire message with the recipient's public\nkey (only the holder of the private key can read it).\n- Integrity and authenticity — create a digital signature by hashing the\nmessage and encrypting the hash with the sender's private key; any change produces a different hash.\n- Identity verification — check the public key against a certificate\nauthority.\n\nIt removes the need for pre-shared secret keys (unlike symmetric cryptography, which is faster but needs key establishment and mutual trust).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-061",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Write short notes on: security management. [2.5]",
+      "answer": "Security management in distributed systems covers:\n\n1. Key management — establishing, distributing and revoking keys;\ncertificates play an important role in distributing public keys. Keys must be revoked after compromise/invalidation.\n2. Certificate lifetime and revocation — lifelong certificates require a\nrevocation mechanism such as a Certificate Revocation List (CRL) published regularly; clients must check the latest CRL; alternatively certificates expire automatically, but CRL checks are still needed.\n3. Secure group management — KDCs and CAs must be trusted and highly\navailable; replication increases availability but also vulnerability; no single member should be able to compromise certificates.\n4. Authorization management — granting and maintaining access rights\nunforgeably with capabilities and attribute certificates, including secure delegation of rights to other processes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-062",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "What are the three components of security? Explain different types of security threats and security mechanisms. [2+4+4]",
+      "answer": "Three components (goals) of security: confidentiality (information disclosed only to authorized parties), integrity (alterations only in an authorized way, detectable and recoverable), and availability (services and data remain accessible — implied by dependability). Together they are often summarized as the CIA triad.\n\nSecurity threats (4 types): interception, interruption, modification, fabrication — see Q59.\n\nSecurity mechanisms (4):\n\n1. Encryption — transforms data so attackers cannot understand it; provides\nconfidentiality and supports integrity checking.\n2. Authentication — verifies the claimed identity of a user, client, server\nor host (e.g. passwords; before a service works for a client it must learn the client's identity).\n3. Authorization — after authentication, checks whether the client is\nauthorized for the requested action (access control; e.g. read/modify fields of a medical record).\n4. Auditing — traces which clients accessed what and how; does not protect\ndirectly but is essential for analyzing breaches and deterring attackers.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-063",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Discuss different access control mechanisms.",
+      "answer": "Access control verifies access rights; authorization grants them. In the client-server model, requests are operations on objects controlled by a server, and can be carried out only if the client has sufficient rights.\n\n- Subjects and objects — subjects (processes acting on behalf of users)\nissue requests to access objects; objects encapsulate state and expose operations through interfaces.\n- Reference monitor — records which subject may do what and decides whether\nan operation is allowed; it is called on every invocation and must be tamperproof.\n- Access control matrix — M[s, o] lists the operations subject s may perform\non object o. Real matrices are impractical (mostly empty), so they are implemented as:\n  - Access Control Lists (ACLs) — column-wise: each object keeps the list of\n    subjects and their rights; the server checks whether it knows the client and\n    allows the operation.\n  - Capabilities — row-wise: each subject holds capabilities (like tickets);\n    the server checks only the capability's validity and the operation listed;\n    capabilities must be unforgeable (signed; as in Amoeba).\n- Firewalls — special reference monitors for external access:\npacket-filtering gateways (header-based), application-level gateways (content inspection) and proxy gateways (front ends for specific applications).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-064",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Explain the importance of secure naming in a distributed environment.",
+      "answer": "Naming maps human-friendly names to addresses; in distributed systems naming services (DNS, directories, certificates) are the entry point to every interaction. Secure naming means the binding between a name and the entity it refers to is trustworthy — an attacker must not be able to substitute a malicious entity under a legitimate name.\n\nWhy it matters:\n\n- Man-in-the-middle attacks exploit insecure name-to-key bindings: a phony\nkey posted under the intended recipient's name intercepts encrypted data. Digital certificates solve this by binding identity information to a public key with a trusted signature.\n- Secure channels require authentication of the communicating parties — the\nparties must first be *named* and that naming must be trustworthy (DNS spoofing or poisoned caches can redirect clients to impostor servers).\n- Access control depends on accurate subject naming (who is requesting);\nauthorization management uses capabilities/attribute certificates whose unforgeability is a naming problem.\n- Availability and integrity of naming data — naming services themselves must\nbe protected (KDC/CA trust, replication without weakening security).\n\nIn short, all higher-level security (authentication, authorization, secure channels) rests on the ability to name entities securely.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-065",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Write short notes on: access control matrix. [2.5]",
+      "answer": "An access control matrix models the access rights of subjects with respect to objects: each subject is a row, each object a column, and entry M[s, o] lists precisely which operations subject s can request on object o. Whenever subject s invokes method m of object o, the reference monitor checks whether m is listed in M[s, o]; otherwise the invocation fails. Because systems have thousands of users and millions of objects and most entries are empty, implementing a true matrix is impractical — it is instead distributed column-wise as ACLs (each object keeps its list of subjects and rights) or row-wise as capabilities (each subject holds unforgeable tickets).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-066",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Write short notes on: denial of service (DoS). [2.5]",
+      "answer": "A denial-of-service (DoS) attack maliciously prevents authorized processes from accessing resources — an interruption threat. Defenses become increasingly important as distributed systems open up through the Internet. Single-source DoS is often handled effectively (filtering, rate limiting), but distributed denial of service (DDoS) is much harder: a huge collection of hijacked processes (unknowingly participating machines) jointly attempt to bring down a networked service. Attacks are classified as aiming at bandwidth depletion (flooding the network) or resource depletion (exhausting connections, memory, CPU). Mitigations include firewalls, traffic filtering, redundancy/replication and load balancing.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-dcc-067",
+      "chapterId": "chapter-bca-s6-dcc-09",
+      "topicId": null,
+      "question": "Write short notes on: digital signature. [2.5]",
+      "answer": "A digital signature is a mathematical algorithm used to validate the authenticity and integrity of a message (email, transaction, document). It creates a virtual fingerprint unique to a person or entity: the sender hashes the message (SHA-1, SHA-2/SHA-256, MD5) and encrypts the hash with the private key; the recipient decrypts with the sender's public key and compares hash values — the signature is valid if they match. Any change to the message changes the hash, so tampering is detected; the signature also provides non-repudiation (the sender cannot deny signing). Digital signatures are significantly more secure than other electronic signatures and build trust in online interactions.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s6-dcc-001",
+      "normalizedKeyword": "autonomous",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-001",
+      "normalizedKeyword": "single system view",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-001",
+      "normalizedKeyword": "resource sharing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-007",
+      "normalizedKeyword": "architectural note",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-007",
+      "normalizedKeyword": "overlay networks",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-016",
+      "normalizedKeyword": "better utilization and scalability",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-016",
+      "normalizedKeyword": "isolation and fault containment",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-016",
+      "normalizedKeyword": "portability and flexibility",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-023",
+      "normalizedKeyword": "name",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-023",
+      "normalizedKeyword": "address",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-023",
+      "normalizedKeyword": "identifier",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-031",
+      "normalizedKeyword": "name",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-031",
+      "normalizedKeyword": "address",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-031",
+      "normalizedKeyword": "identifier",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-038",
+      "normalizedKeyword": "logical clock",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-038",
+      "normalizedKeyword": "lamport's logical clock",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-038",
+      "normalizedKeyword": "happens-before",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-047",
+      "normalizedKeyword": "replication as a scaling technique",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-047",
+      "normalizedKeyword": "replication",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-047",
+      "normalizedKeyword": "numbers",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-052",
+      "normalizedKeyword": "distributed commit",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-052",
+      "normalizedKeyword": "coordinator",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-052",
+      "normalizedKeyword": "participants",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-059",
+      "normalizedKeyword": "attack/threat types",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-059",
+      "normalizedKeyword": "interception",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-059",
+      "normalizedKeyword": "encryption",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-002",
+      "normalizedKeyword": "why needed",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-017",
+      "normalizedKeyword": "code migration (mobility)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-017",
+      "normalizedKeyword": "code",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-017",
+      "normalizedKeyword": "resource",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-024",
+      "normalizedKeyword": "transient communication",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-024",
+      "normalizedKeyword": "synchronous communication",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-024",
+      "normalizedKeyword": "combined — transient synchronous communication",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-032",
+      "normalizedKeyword": "name spaces",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-032",
+      "normalizedKeyword": "labeled directed graph",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-032",
+      "normalizedKeyword": "leaf node",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-039",
+      "normalizedKeyword": "clock synchronization",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-039",
+      "normalizedKeyword": "why needed",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-039",
+      "normalizedKeyword": "clock skew",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-048",
+      "normalizedKeyword": "replication",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-048",
+      "normalizedKeyword": "data-centric consistency models",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-048",
+      "normalizedKeyword": "strict consistency",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-053",
+      "normalizedKeyword": "failure models",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-053",
+      "normalizedKeyword": "crash",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-053",
+      "normalizedKeyword": "omission",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-060",
+      "normalizedKeyword": "key pair",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-060",
+      "normalizedKeyword": "public key",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-060",
+      "normalizedKeyword": "private key",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-003",
+      "normalizedKeyword": "characteristics",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-003",
+      "normalizedKeyword": "concurrency",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-003",
+      "normalizedKeyword": "no global clock",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-009",
+      "normalizedKeyword": "middleware",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-009",
+      "normalizedKeyword": "architecture styles",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-009",
+      "normalizedKeyword": "layered",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-018",
+      "normalizedKeyword": "server virtualization",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-018",
+      "normalizedKeyword": "storage virtualization",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-018",
+      "normalizedKeyword": "network function virtualization (nfv)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-025",
+      "normalizedKeyword": "wrapper",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-025",
+      "normalizedKeyword": "interceptor",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-025",
+      "normalizedKeyword": "difference",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-033",
+      "normalizedKeyword": "(attribute, value) pairs",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-033",
+      "normalizedKeyword": "directory services",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-033",
+      "normalizedKeyword": "why useful",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-040",
+      "normalizedKeyword": "diagram to draw",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-040",
+      "normalizedKeyword": "related (model q4): clock skew and clock drift",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-040",
+      "normalizedKeyword": "skew",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-049",
+      "normalizedKeyword": "strict",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-049",
+      "normalizedKeyword": "sequential",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-049",
+      "normalizedKeyword": "causal",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-061",
+      "normalizedKeyword": "key management",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-061",
+      "normalizedKeyword": "revoking",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-061",
+      "normalizedKeyword": "certificate lifetime and revocation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-004",
+      "normalizedKeyword": "concurrency",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-004",
+      "normalizedKeyword": "no global clock",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-004",
+      "normalizedKeyword": "independent failures",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-010",
+      "normalizedKeyword": "layered",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-010",
+      "normalizedKeyword": "object-based",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-010",
+      "normalizedKeyword": "data-centered",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-019",
+      "normalizedKeyword": "types of threads",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-019",
+      "normalizedKeyword": "user-level threads",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-019",
+      "normalizedKeyword": "kernel-level threads",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-026",
+      "normalizedKeyword": "rpc (remote procedure call)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-026",
+      "normalizedKeyword": "the rpc process (steps)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-026",
+      "normalizedKeyword": "diagram",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-034",
+      "normalizedKeyword": "naming system",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-034",
+      "normalizedKeyword": "name resolution",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-034",
+      "normalizedKeyword": "desirable features",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-041",
+      "normalizedKeyword": "physical clock",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-041",
+      "normalizedKeyword": "logical clock",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-041",
+      "normalizedKeyword": "network time protocol (ntp)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-050",
+      "normalizedKeyword": "strict consistency",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-050",
+      "normalizedKeyword": "absolute global time",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-050",
+      "normalizedKeyword": "sequential consistency",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-055",
+      "normalizedKeyword": "fault types",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-055",
+      "normalizedKeyword": "recovery methods",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-055",
+      "normalizedKeyword": "forward recovery",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-062",
+      "normalizedKeyword": "three components (goals) of security",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-062",
+      "normalizedKeyword": "confidentiality",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-062",
+      "normalizedKeyword": "integrity",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-005",
+      "normalizedKeyword": "need",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-005",
+      "normalizedKeyword": "horizontal scaling",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-005",
+      "normalizedKeyword": "low latency",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-011",
+      "normalizedKeyword": "1. layered architecture",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-011",
+      "normalizedKeyword": "2. object-based architecture",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-011",
+      "normalizedKeyword": "3. data-centered architecture",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-020",
+      "normalizedKeyword": "related server design points",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-020",
+      "normalizedKeyword": "port",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-020",
+      "normalizedKeyword": "iterative",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-027",
+      "normalizedKeyword": "parameter marshaling",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-027",
+      "normalizedKeyword": "transparency",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-027",
+      "normalizedKeyword": "simplicity and familiarity",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-035",
+      "normalizedKeyword": "recursive query",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-035",
+      "normalizedKeyword": "iterative query",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-035",
+      "normalizedKeyword": "four servers involved in loading a webpage",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-042",
+      "normalizedKeyword": "need",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-042",
+      "normalizedKeyword": "ntp",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-056",
+      "normalizedKeyword": "fault",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-056",
+      "normalizedKeyword": "error",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-056",
+      "normalizedKeyword": "failure",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-063",
+      "normalizedKeyword": "subjects and objects",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-063",
+      "normalizedKeyword": "reference monitor",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-063",
+      "normalizedKeyword": "access control matrix",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-006",
+      "normalizedKeyword": "scalability",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-006",
+      "normalizedKeyword": "reliability and fault tolerance",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-006",
+      "normalizedKeyword": "performance",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-012",
+      "normalizedKeyword": "peer",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-012",
+      "normalizedKeyword": "overlay networks",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-012",
+      "normalizedKeyword": "unstructured",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-028",
+      "normalizedKeyword": "socket",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-028",
+      "normalizedKeyword": "berkeley sockets",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-028",
+      "normalizedKeyword": "api sequence (tcp client-server)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-036",
+      "normalizedKeyword": "recursive name resolution",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-036",
+      "normalizedKeyword": "iterative name resolution",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-036",
+      "normalizedKeyword": "caching",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-043",
+      "normalizedKeyword": "mutual exclusion",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-043",
+      "normalizedKeyword": "token-based",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-043",
+      "normalizedKeyword": "token",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-057",
+      "normalizedKeyword": "groups",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-057",
+      "normalizedKeyword": "dynamic",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-057",
+      "normalizedKeyword": "group types",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-064",
+      "normalizedKeyword": "naming",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-064",
+      "normalizedKeyword": "secure naming",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-064",
+      "normalizedKeyword": "why it matters",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-013",
+      "normalizedKeyword": "virtualization",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-013",
+      "normalizedKeyword": "types (with examples)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-013",
+      "normalizedKeyword": "server virtualization",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-022",
+      "normalizedKeyword": "full virtualization",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-022",
+      "normalizedKeyword": "para-virtualization",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-029",
+      "normalizedKeyword": "network-level multicasting (ip multicast)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-029",
+      "normalizedKeyword": "transport-level multicasting",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-029",
+      "normalizedKeyword": "application-level multicasting",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-037",
+      "normalizedKeyword": "global name service",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-037",
+      "normalizedKeyword": "tree of directories holding names and values",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-037",
+      "normalizedKeyword": "value tree",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-044",
+      "normalizedKeyword": "role of the coordinator",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-044",
+      "normalizedKeyword": "election algorithm",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-044",
+      "normalizedKeyword": "1. bully algorithm",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-058",
+      "normalizedKeyword": "checkpointing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-058",
+      "normalizedKeyword": "consistent global state (distributed snapshot)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-058",
+      "normalizedKeyword": "recovery line",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-065",
+      "normalizedKeyword": "access control matrix",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-065",
+      "normalizedKeyword": "row",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-065",
+      "normalizedKeyword": "column",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-014",
+      "normalizedKeyword": "hides intricacies of distributed applications",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-014",
+      "normalizedKeyword": "hides heterogeneity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-014",
+      "normalizedKeyword": "provides uniform, high-level interfaces",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-030",
+      "normalizedKeyword": "java rmi",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-030",
+      "normalizedKeyword": "architecture",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-030",
+      "normalizedKeyword": "stub",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-066",
+      "normalizedKeyword": "denial-of-service (dos) attack",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-066",
+      "normalizedKeyword": "interruption",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-066",
+      "normalizedKeyword": "distributed denial of service (ddos)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-015",
+      "normalizedKeyword": "middleware",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-015",
+      "normalizedKeyword": "system architecture",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-015",
+      "normalizedKeyword": "centralized (client-server)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-046",
+      "normalizedKeyword": "subscribe",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-046",
+      "normalizedKeyword": "publish",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-046",
+      "normalizedKeyword": "event matching",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-dcc-067",
+      "normalizedKeyword": "digital signature",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-dcc-067",
+      "normalizedKeyword": "hashes",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-dcc-067",
+      "normalizedKeyword": "encrypts the hash with the private key",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s6-dcc",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "title: Distributed System (CACS 352) — Board Questions with Answers"
+        }
+      ],
+      "notes": "The board Q&A identifies this subject as Distributed System (CACS 352); the folder/manifest use Distributed and Cloud Computing, and the manifest leaves code blank. Board identity is used; reconciliation remains open."
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 1 — Introduction to Distributed Systems"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 1 — Introduction to Distributed Systems"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 2 — Architecture"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 2 — Architecture"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 3 — Processes"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 3 — Processes"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 4 — Communication"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 4 — Communication"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 5 — Naming"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 5 — Naming"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 6 — Coordination"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 6 — Coordination"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 7 — Consistency and Replication"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 7 — Consistency and Replication"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-08",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 8 — Fault Tolerance"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 8 — Fault Tolerance"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-dcc-09",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Unit 9 — Security"
+        },
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/notes.md",
+          "locator": "Unit 9 — Security"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q1. \"Distributed system acts as a single coherent system to its end user.\" Justify the statement with its features and challenges. [5] — 2021 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q2. Why is a distributed operating system needed? Differentiate between network operating system and distributed operating system. [1+4] — 2024 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q3. What is a distributed system? Explain the characteristics of distributed systems and different types of distributed systems. [10] — 2019 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q4. Explain the different characteristics of a distributed system. [5] — 2017 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q5. Why do we need distributed systems? Write the advantages and disadvantages of distributed systems. [2+8] — Model Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 1 — Introduction to Distributed Systems / Q6. Why do we need a distributed system? [5] — Model Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q7. Differentiate between client-server and peer-to-peer architecture in a distributed system. [5] — 2021 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q8. Explain different aspects of distribution transparency in brief. [5] — 2024 Q7 / Model Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q9. What is middleware? Explain the different architecture styles of a distributed system. [5] — 2019 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q10. Explain different architecture styles used in distributed systems. [5] — 2018 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q11. What are the different architecture styles of a distributed system? Explain each in detail. [10] — 2017 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q12. Explain peer-to-peer architecture in brief. [5] — Model Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q13. What is virtualization? Explain different types of virtualization with examples. Explain the role of middleware in a distributed system with a suitable diagram. [1+4+5] — 2021 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q14. Explain the role of middleware in a distributed system. [5] — 2017 Q9 (part)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 2 — Architecture / Q15. Explain the concept of middleware and system architecture with examples. [5] — ImpQns Unit 2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q16. How does virtualization contribute to the functionality of a distributed system? [5] — 2024 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q17. What is code migration? Explain the migration models. [1+4] — 2024 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q18. What is virtualization? Explain the types of virtualization with example. [10] — 2018 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q19. Explain the different types of threads and attacks in distributed systems. [5] — 2018 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q20. Differentiate between stateful and stateless servers. [5] — 2019 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q21. Write short notes on: user-level thread. [2.5] — Model Q8a / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 3 — Processes / Q22. Write short notes on: full virtualization and para-virtualization. [2.5] — Model Q8b"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q23. Define name, address and identifier. Explain the types of communication in distributed systems. [2+3] — 2024 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q24. Describe transient synchronous communication with a suitable diagram. [5] — 2021 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q25. Explain wrapper and interceptor in detail. [5] — 2021 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q26. What is RPC? Explain the RPC process in brief. [5] — 2017 Q2 / 2024 Q8c"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q27. What is Remote Procedure Call (RPC)? Explain its operation, advantages and disadvantages. [10] — 2018 Q10 / 2019 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q28. Explain the concept of Berkeley sockets / Write short notes on Berkeley socket. [2.5–5] — 2017 Q8b"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q29. Explain the concept of multicast communication. [5] — ImpQns Unit 4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 4 — Communication / Q30. Case study: Java RMI and Message Passing Interface (MPI). [5] — ImpQns Unit 4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q31. Define name, address and identifier. [2] — 2024 Q6 (part 1) / ImpQns Unit 5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q32. Explain structured naming scheme of an entity in brief. [5] — 2017 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q33. Explain attribute-based naming with an example. [5] — 2018 Q4 / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q34. What is a naming system? Discuss the desirable features of a good naming system in a distributed system. [5] — Model Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q35. Explain the DNS query types / different types of DNS queries. [2.5–5] — 2021 Q8a"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q36. Explain the types of name resolution algorithms used in a distributed system. [4] — 2024 Q11 (part)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-037",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 5 — Naming / Q37. Case study: The Global Name Service (GNS). [5] — ImpQns Unit 5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q38. What do you mean by logical clock? Explain Lamport's logical clock. [2+8] — 2021 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q39. What is clock synchronization? Why is it needed in distributed systems? Explain physical clock synchronization algorithms in detail. [2+2+6] — 2024 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q40. Explain the Berkeley algorithm with a suitable diagram. [5] — 2019 Q4 / Model Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q41. What do you mean by physical clock and logical clock? Explain the Network Time Protocol and Berkeley algorithm. [10] — 2018 Q11 / 2017 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-042",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q42. Why is clock synchronization needed in a distributed system? Explain the Network Time Protocol in brief. [5] — 2017 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-043",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q43. What is mutual exclusion and how is it maintained in distributed environments? [5] — 2024 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-044",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q44. What is the role of a coordinator in a distributed system? Explain different approaches of electing a coordinator. [10] — 2017 Q11 / 2019 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-045",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q45. Write short notes on: Bully Algorithm. [2.5] — ImpQns Unit 6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-046",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 6 — Coordination / Q46. Explain the concept of distributed event matching. [5] — ImpQns Unit 6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-047",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 7 — Consistency and Replication / Q47. How can you claim that replication is one of the scaling techniques in a distributed system? Explain consistency protocols with a suitable diagram. [3+7] — 2021 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-048",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 7 — Consistency and Replication / Q48. What is replication? Explain data-centric consistency models with a suitable example. Explain the types of name resolution algorithms used in distributed systems. [1+5+4] — 2024 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-049",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 7 — Consistency and Replication / Q49. Explain the types of data-centric consistency models. [5] — 2019 Q5 / 2018 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-050",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 7 — Consistency and Replication / Q50. Explain strict consistency and sequential consistency along with suitable examples. [10] — Model Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-051",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 7 — Consistency and Replication / Q51. Write short notes on: sequential consistency. [2.5] — 2019 Q8a"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-052",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q52. Define distributed commit. Explain two-phase commit with a suitable diagram. [5] — 2021 Q6 / 2019 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-053",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q53. What are the types of failures that may occur in a distributed system? Explain the methods used to recover from the crash. Explain one-phase and two-phase commit protocols in detail. [2.5+2.5+5] — 2024 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-054",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q54. Define distributed commit. Explain two-phase commit with a suitable diagram. [5] — 2019 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-055",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q55. Explain different types of faults with recovery methods. [5] — 2018 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-056",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q56. What is fault and fault tolerance? What are the different types of faults? [1+4] — Model Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-057",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q57. How is process resilience achieved through groups? [5] — 2017 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-058",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 8 — Fault Tolerance / Q58. Write short notes on: checkpointing. [2.5] — 2021 Q8b"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-059",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q59. Discuss the different attacks that can target distributed systems and explain how they can be mitigated. [5] — 2021 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-060",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q60. Write short notes on: public key cryptography. [2.5] — 2024 Q8a / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-061",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q61. Write short notes on: security management. [2.5] — 2024 Q8b / 2019 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-062",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q62. What are the three components of security? Explain different types of security threats and security mechanisms. [2+4+4] — Model Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-063",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q63. Discuss different access control mechanisms. [5] — 2018 Q8a / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-064",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q64. Explain the importance of secure naming in a distributed environment. [5] — 2018 Q8b / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-065",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q65. Write short notes on: access control matrix. [2.5] — 2019 Q8b"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-066",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q66. Write short notes on: denial of service (DoS). [2.5] — 2017 Q8c / ImpQns"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-dcc-067",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/distributed-and-cloud-computing/distributed-and-cloud-computing-board-qa.md",
+          "locator": "Distributed System (CACS 352) — Board Questions with Answers / Unit 9 — Security / Q67. Write short notes on: digital signature. [2.5] — 2021 Q8c"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

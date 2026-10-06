@@ -1,0 +1,2046 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s6-mp",
+    "academicPeriodId": "period-bca-semester-6",
+    "code": "CACS 351",
+    "name": "Mobile Programming",
+    "description": "",
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s6-mp-01",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 1,
+      "title": "Introduction to Mobile and Mobile Programming",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-02",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 2,
+      "title": "Introduction to Android Programming",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-03",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 3,
+      "title": "Designing the User Interface",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-04",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 4,
+      "title": "Android Activity",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-05",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 5,
+      "title": "UI Fragments, Menus and Dialogs",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-06",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 6,
+      "title": "ListView, GridView and RecyclerView",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-07",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 7,
+      "title": "Advanced Android Concepts",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s6-mp-08",
+      "subjectId": "subject-bca-s6-mp",
+      "chapterNumber": 8,
+      "title": "Introduction to iOS Programming",
+      "description": "",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s6-mp-001",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What is a mobile device? Explain different features of mobile device.",
+      "answer": "A mobile device (handheld computer) is a computing device small enough to be held and operated in the hand, typically with an LCD/OLED touch screen and designed for portable, on-the-go use (smartphones, tablets, PDAs, e-readers, smartwatches).\n\nFeatures:\n\n1. Portable — light and compact; can be carried and used anywhere.\n2. Personal — customisable with wallpapers/apps/settings; belongs to one user.\n3. Companion — always with the user; constant communication, entertainment and\nproductivity support.\n4. Easy usage — intuitive touch interfaces; usable without technical training.\n5. Connected — internet connectivity and links with online services and smart\ndevices.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-002",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What do you mean by mobile device? List and explain any four popular programming languages used for developing mobile application.",
+      "answer": "A mobile device is a general term for any handheld computer or smartphone — for example tablets, e-readers, smartphones, PDAs, portable music players, smartwatches and fitness trackers. Four popular mobile programming languages:\n\n1. Java — the original official Android language (now Kotlin is preferred);\nhuge ecosystem and community; more verbose for beginners.\n2. Kotlin — Google's official Android language since 2019; interoperates with\nJava, removes boilerplate (no semicolons, fewer null-pointer issues), beginner friendly.\n3. C# — similar to Java, garbage-collected, cleaner syntax; used with Xamarin /\n.NET for cross-platform mobile apps.\n4. Swift — Apple's modern language for iOS/macOS; safe, fast, expressive; the\nstandard choice for iPhone/iPad development (Objective-C is the legacy option).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-003",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What is a smart mobile device? Explain different platforms used in mobile devices.",
+      "answer": "A smart mobile device is a mobile device with computing capability: it runs an operating system, installs applications, connects to the internet and offers sensors, multimedia and communication features (smartphones, tablets, smartwatches).\n\nPlatforms:\n\n- Android (Google) — open-source, used by many OEMs; Java/Kotlin; huge device\nrange and customisation.\n- iOS (Apple) — proprietary; Swift/Objective-C; known for smoothness, security\nand integration.\n- KaiOS — lightweight feature-phone platform with basic apps.\n- Windows Phone (discontinued) — Microsoft's former platform.\n- Tizen / HarmonyOS / Wear OS — niche devices (TVs, wearables) and emerging\necosystems.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-004",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What are different mobile application development approaches? Explain in details.",
+      "answer": "1. Native development — build separately per platform with the platform SDK and\nlanguage (Kotlin/Java for Android; Swift/Objective-C for iOS). Best performance and full device-feature access; highest cost (two codebases).\n2. Cross-platform development — one codebase deployed to both platforms using\nframeworks such as React Native, Flutter or Xamarin. Saves time/cost by reusing code; may lag native performance and newest features.\n3. Web app development — HTML/CSS/JavaScript served in the mobile browser.\nPlatform-independent and easy to update; limited performance and device access.\n4. Progressive Web Apps (PWA) — web apps with app-like capabilities (offline\ncaching, installable icon, device APIs). Middle ground: no app store required, better reach, still browser-sandboxed.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-005",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What is Android? Explain different categories of mobile devices.",
+      "answer": "Android is a mobile operating system developed by Google (debuted 2008 with Android 1.0) and an open-source software stack for phones, tablets, TVs and more. Categories of mobile devices: mobile phones (voice-centric), low-end devices (basic, limited features), mid-end devices (budget smartphones with a balance of price and performance), high-end devices/flagships (top specifications), and non-phone devices such as tablets, smartwatches, fitness trackers and portable media players.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-006",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "Explain Android architecture with a suitable diagram.",
+      "answer": "Android is a stack of software components, commonly shown as five sections in four main layers:\n\n┌─────────────────────────────────────────────┐\n│ APPLICATIONS  (Calculator, Contacts, apps)  │\n├─────────────────────────────────────────────┤\n│ APPLICATION FRAMEWORK                       │\n│  Activity Manager · Window Manager ·        │\n│  Content Providers · View System ·          │\n│  Notification · Resource · Location Manager │\n├──────────────────────┬──────────────────────┤\n│ LIBRARIES            │ ANDROID RUNTIME      │\n│  Surface Manager ·   │  Core libraries +    │\n│  Media Framework ·   │  ART (was Dalvik VM) │\n│  SQLite · OpenGL ES ·│                      │\n│  WebKit · libc · SSL │                      │\n├──────────────────────┴──────────────────────┤\n│ LINUX KERNEL  (drivers, memory, security)   │\n└─────────────────────────────────────────────┘\n\n1. Linux kernel — memory/process management, device drivers, security; the core\nservices all layers depend on.\n2. Libraries + Android Runtime — libraries (Surface Manager for display\ncomposition, Media Framework, SQLite, OpenGL ES, WebKit, libc, SSL…) and the runtime that executes each app in its own process. The runtime moved from Dalvik (JIT) to ART (AOT compilation) for better performance.\n3. Application framework — managers/APIs that developers build against:\nActivity Manager, Window Manager, Content Providers, View System, Notification Manager, Resource Manager, Telephony/Location Manager.\n4. Applications — user-facing apps (system + installed).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-007",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "What is surface manager library? How DVM is different from ART?",
+      "answer": "Surface Manager is the Android library responsible for composing the display: it combines drawing surfaces from multiple applications into one screen image (handling windows, off-screen buffers and smoothing), so apps can share the screen without conflicts. It also manages 2-D/3-D graphics composition.\n\nDalvik VM (DVM): Used up to Android 4.4; ART: Default runtime from Android 5.0 Dalvik VM (DVM): Executes `.dex` bytecode with **JIT** compilation at runtime; ART: Compiles apps **ahead-of-time (AOT)** during installation Dalvik VM (DVM): One VM instance per app, register-based; ART: Same per-app model, but precompiled native code Dalvik VM (DVM): Slower app start and higher battery use for heavy apps; ART: Faster execution, better battery and memory behaviour",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-008",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "Draw the hierarchical directory structure of an Android application. How can you use string and string array in Android? Explain.",
+      "answer": "MyApp/\n├── app/\n│   ├── manifests/AndroidManifest.xml\n│   ├── java/  (Kotlin/Java sources; package folders)\n│   ├── res/\n│   │   ├── drawable/      images\n│   │   ├── layout/        activity_main.xml …\n│   │   ├── menu/          options_menu.xml …\n│   │   ├── mipmap/        launcher icons\n│   │   └── values/        strings.xml, colors.xml, arrays.xml, themes.xml\n│   └── build.gradle (module)\n├── gradle/  ·  build.gradle (project)  ·  settings.gradle\n\nStrings: define <string name=\"app_name\">My App</string> in res/values/strings.xml; reference it as @string/app_name in layouts or getString(R.string.app_name) in code. String arrays: <string-array name=\"fruits\"><item>Apple</item>…</string-array> in res/values/arrays.xml; used with android:entries=\"@array/fruits\" (Spinner/ ListView) or getResources().getStringArray(R.array.fruits) in code.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-009",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "How to create AVD's? How to use spinner in android? Explain with suitable example.",
+      "answer": "Creating an AVD: Android Studio → Tools → AVD Manager → Create Virtual Device → choose hardware profile (e.g., Pixel phone / tablet) → select a system image (API level; download if needed) → name the AVD and set RAM/storage → Finish → press ▶ to launch the emulator, then Run the app on it.\n\nSpinner: a drop-down that lets the user pick one item; items come from a string array or adapter.\n\n<Spinner android:id=\"@+id/spinner\"\n    android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n    android:entries=\"@array/fruits\" android:prompt=\"Select an item\"/>\n\nspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {\n    @Override public void onItemSelected(AdapterView<?> p, View v, int pos, long id) {\n        Toast.makeText(getApplicationContext(), p.getItemAtPosition(pos).toString(),\n                       Toast.LENGTH_SHORT).show();\n    }\n    @Override public void onNothingSelected(AdapterView<?> p) { }\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-010",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "List and explain any five widgets used in android programming.",
+      "answer": "1. TextView — displays read-only text (android:text, android:textSize).\n2. EditText — accepts user input (android:hint, android:inputType such as\ntext/number/password).\n3. Button — clickable trigger for actions (android:text); handled with\nsetOnClickListener.\n4. ImageView — displays images/drawables (android:src, android:scaleType).\n5. CheckBox / RadioButton — two-state toggles (independent vs. exclusive within a\ngroup). (Also common: Spinner for one-of-many selection.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-011",
+      "chapterId": "chapter-bca-s6-mp-02",
+      "topicId": null,
+      "question": "What is an event? How many ways to handle events in android programming?",
+      "answer": "An event is an action or occurrence (click, long press, touch, key press, focus change) generated by the user or system and delivered through Android's FIFO event queue. Handling concepts:\n\n1. Event listener — interface with a single callback on a View\n(OnClickListener.onClick, OnLongClickListener, OnTouchListener, OnKeyListener, OnFocusChangeListener, OnMenuItemClickListener).\n2. Event registration — attaching the handler to the listener\n(view.setOnClickListener(...)).\n3. Event handler — the callback method that performs the action when the event\nfires.\n\nWays to handle: anonymous inner class listeners, activity implementing the listener interface, lambda expressions, declaring android:onClick in XML, and overriding framework methods (onTouchEvent, onKeyDown).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-012",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "What is the difference between android:layout_gravity and android:gravity attribute in linear layout. Create an android application that will convert distance entered into Kilometers into Meters using Table Layout.",
+      "answer": "- android:gravity — sets the alignment of the content inside the view (text in\na TextView, children in a LinearLayout).\n- android:layout_gravity — sets the alignment of the view itself within its\nparent container.\n\n<TableLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"\n    android:padding=\"16dp\">\n    <TableRow>\n        <TextView android:text=\"Kilometers:\" android:padding=\"4dp\"/>\n        <EditText android:id=\"@+id/kmEdit\" android:inputType=\"numberDecimal\"/>\n    </TableRow>\n    <TableRow>\n        <Button android:id=\"@+id/convertButton\" android:text=\"Convert\"/>\n    </TableRow>\n    <TableRow>\n        <TextView android:id=\"@+id/meterView\"/>\n    </TableRow>\n</TableLayout>\n\nButton convert = findViewById(R.id.convertButton);\nconvert.setOnClickListener(v -> {\n    double km = Double.parseDouble(((EditText) findViewById(R.id.kmEdit)).getText().toString());\n    ((TextView) findViewById(R.id.meterView)).setText((km * 1000) + \" meters\");\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-013",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "Differentiate RelativeLayout and ConstraintLayout with suitable example.",
+      "answer": "Aspect: Positioning; RelativeLayout: Relative to parent/other views; ConstraintLayout: Flexible constraints (to parent, siblings, guidelines) Aspect: Complexity; RelativeLayout: Gets deeply nested for complex UIs; ConstraintLayout: Fewer nested levels; flat hierarchies Aspect: Performance; RelativeLayout: Slower with deep nesting; ConstraintLayout: Generally good even for complex layouts Aspect: Alignment; RelativeLayout: Fine-grained attributes (alignParent…, alignTop…); ConstraintLayout: Constraints + bias + guidelines + chains Aspect: Flexibility; RelativeLayout: Less responsive across sizes; ConstraintLayout: Excellent responsiveness Aspect: Best for; RelativeLayout: Fixed alignments/positions; ConstraintLayout: Responsive, complex UIs\n\nExample (the same label centred over a button):\n\n<!-- RelativeLayout -->\n<RelativeLayout ...>\n    <Button android:id=\"@+id/btn\" android:layout_centerInParent=\"true\"\n        android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n        android:text=\"OK\"/>\n    <TextView android:layout_above=\"@id/btn\" android:layout_centerHorizontal=\"true\"\n        android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n        android:text=\"Label\"/>\n</RelativeLayout>\n\n<!-- ConstraintLayout -->\n<androidx.constraintlayout.widget.ConstraintLayout ...>\n    <Button android:id=\"@+id/btn\" android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\" android:text=\"OK\"\n        app:layout_constraintTop_toTopOf=\"parent\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"/>\n    <TextView android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n        android:text=\"Label\"\n        app:layout_constraintBottom_toTopOf=\"@id/btn\"\n        app:layout_constraintStart_toStartOf=\"@id/btn\"\n        app:layout_constraintEnd_toEndOf=\"@id/btn\"/>\n</androidx.constraintlayout.widget.ConstraintLayout>",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-014",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "Develop an android application to calculate perimeter of rectangle using LinearLayout.",
+      "answer": "<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\" android:padding=\"16dp\">\n    <EditText android:id=\"@+id/lengthEdit\" android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\" android:hint=\"Length\"\n        android:inputType=\"numberDecimal\"/>\n    <EditText android:id=\"@+id/breadthEdit\" android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\" android:hint=\"Breadth\"\n        android:inputType=\"numberDecimal\"/>\n    <Button android:id=\"@+id/calcButton\" android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\" android:text=\"Calculate Perimeter\"/>\n    <TextView android:id=\"@+id/resultView\" android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"/>\n</LinearLayout>\n\npublic class MainActivity extends AppCompatActivity {\n    @Override protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n        findViewById(R.id.calcButton).setOnClickListener(v -> {\n            double l = Double.parseDouble(((EditText) findViewById(R.id.lengthEdit)).getText().toString());\n            double b = Double.parseDouble(((EditText) findViewById(R.id.breadthEdit)).getText().toString());\n            ((TextView) findViewById(R.id.resultView)).setText(\"Perimeter = \" + 2 * (l + b));\n        });\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-015",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "Explain AbsoluteLayout’s positioning attributes. Develop an Android calculator using AbsoluteLayout with two numeric inputs, separate multiplication and division buttons, and a TextView displaying the result.",
+      "answer": "Important AbsoluteLayout attributes: android:layout_x and android:layout_y — the exact coordinates of a child within the parent (in dp). The layout is deprecated because fixed coordinates do not adapt to different screen sizes/densities.\n\n<AbsoluteLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\" android:layout_height=\"match_parent\">\n    <EditText android:id=\"@+id/num1\" android:layout_x=\"40dp\" android:layout_y=\"40dp\"\n        android:layout_width=\"200dp\" android:layout_height=\"wrap_content\"\n        android:inputType=\"numberDecimal\" android:hint=\"First number\"/>\n    <EditText android:id=\"@+id/num2\" android:layout_x=\"40dp\" android:layout_y=\"110dp\"\n        android:layout_width=\"200dp\" android:layout_height=\"wrap_content\"\n        android:inputType=\"numberDecimal\" android:hint=\"Second number\"/>\n    <Button android:id=\"@+id/mulBtn\" android:layout_x=\"40dp\" android:layout_y=\"180dp\"\n        android:text=\"Multiply\"/>\n    <Button android:id=\"@+id/divBtn\" android:layout_x=\"160dp\" android:layout_y=\"180dp\"\n        android:text=\"Divide\"/>\n    <TextView android:id=\"@+id/resultView\" android:layout_x=\"40dp\" android:layout_y=\"250dp\"\n        android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"/>\n</AbsoluteLayout>\n\nfindViewById(R.id.mulBtn).setOnClickListener(v -> {\n    double a = Double.parseDouble(((EditText) findViewById(R.id.num1)).getText().toString());\n    double b = Double.parseDouble(((EditText) findViewById(R.id.num2)).getText().toString());\n    ((TextView) findViewById(R.id.resultView)).setText(\"Result = \" + (a * b));\n});\nfindViewById(R.id.divBtn).setOnClickListener(v -> {\n    double a = Double.parseDouble(((EditText) findViewById(R.id.num1)).getText().toString());\n    double b = Double.parseDouble(((EditText) findViewById(R.id.num2)).getText().toString());\n    ((TextView) findViewById(R.id.resultView)).setText(b != 0 ? \"Result = \" + (a / b) : \"Cannot divide by zero\");\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-016",
+      "chapterId": "chapter-bca-s6-mp-04",
+      "topicId": null,
+      "question": "Why fragment is needed in android? Write a java code only to send data from one activity to another activity using implicit intent.",
+      "answer": "Why fragments: they make UIs modular and reusable, allow one activity to host different UI combinations (e.g., list + detail side by side on tablets, swapped on phones), support dynamic add/replace at runtime, and can be retained across configuration changes.\n\nImplicit-intent Java code (no target class named):\n\nIntent send = new Intent(Intent.ACTION_SEND);\nsend.setType(\"text/plain\");\nsend.putExtra(Intent.EXTRA_TEXT, \"Hello from my app\");\nsend.putExtra(Intent.EXTRA_SUBJECT, \"App message\");\nstartActivity(Intent.createChooser(send, \"Share via\"));",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-017",
+      "chapterId": "chapter-bca-s6-mp-04",
+      "topicId": null,
+      "question": "Explain different types of API. Develop an android application to pass name and age of customer from one activity to another. [4+6]",
+      "answer": "API types:\n\n1. Web APIs (web services) — accessed over HTTP; used by many clients\n(phones/tablets/PCs); e.g., REST/JSON services.\n2. Local APIs — local middleware services on the machine; e.g., TAPI\n(Telephony API), .NET.\n3. Program APIs — make a remote program appear local via RPC; e.g., SOAP.\n\nPass name + age between activities:\n\n// FirstActivity\nEditText nameEdit = findViewById(R.id.nameEdit);\nEditText ageEdit  = findViewById(R.id.ageEdit);\nfindViewById(R.id.nextButton).setOnClickListener(v -> {\n    Intent i = new Intent(FirstActivity.this, SecondActivity.class);\n    i.putExtra(\"name\", nameEdit.getText().toString());\n    i.putExtra(\"age\", Integer.parseInt(ageEdit.getText().toString()));\n    startActivity(i);\n});\n\n// SecondActivity.onCreate\nString name = getIntent().getStringExtra(\"name\");\nint age = getIntent().getIntExtra(\"age\", 0);\n((TextView) findViewById(R.id.detailView)).setText(\"Name: \" + name + \"\\nAge: \" + age);",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-018",
+      "chapterId": "chapter-bca-s6-mp-04",
+      "topicId": null,
+      "question": "Differentiate activities and fragments. Develop an Android app whose first fragment accepts a rectangular box’s length, width and height; a Volume button passes them to a second fragment, which calculates and displays the volume in a TextView.",
+      "answer": "Activity: Standalone screen component with its own lifecycle; Fragment: Modular UI part hosted inside an activity Activity: Represents a whole screen; Fragment: Represents a portion of a screen Activity: Communicates via intents; Fragment: Communicates via host activity / interfaces Activity: Recreated on configuration change (unless handled); Fragment: Can be retained across configuration changes Activity: Declared in the manifest; Fragment: Declared in layout or created by FragmentManager\n\n// FirstFragment: inputs + button\npublic class FirstFragment extends Fragment {\n    @Override public View onCreateView(LayoutInflater inf, ViewGroup c, Bundle b) {\n        View v = inf.inflate(R.layout.fragment_first, c, false);\n        v.findViewById(R.id.volumeButton).setOnClickListener(x -> {\n            String l = ((EditText) v.findViewById(R.id.lengthEdit)).getText().toString();\n            String w = ((EditText) v.findViewById(R.id.widthEdit)).getText().toString();\n            String h = ((EditText) v.findViewById(R.id.heightEdit)).getText().toString();\n            Bundle args = new Bundle();\n            args.putString(\"l\", l); args.putString(\"w\", w); args.putString(\"h\", h);\n            SecondFragment second = new SecondFragment();\n            second.setArguments(args);\n            ((MainActivity) requireActivity()).showSecondFragment(second);\n        });\n        return v;\n    }\n}\n// SecondFragment reads getArguments() and computes volume = l * w * h, then shows it.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-019",
+      "chapterId": "chapter-bca-s6-mp-04",
+      "topicId": null,
+      "question": "Develop an android application to input your Name, Age, gender and other personal information. Pass and display this information in another activity.",
+      "answer": "<!-- activity_first.xml (extract) -->\n<EditText android:id=\"@+id/nameEdit\"  android:hint=\"Name\"/>\n<EditText android:id=\"@+id/ageEdit\"   android:hint=\"Age\" android:inputType=\"number\"/>\n<RadioGroup android:id=\"@+id/genderGroup\">\n    <RadioButton android:id=\"@+id/male\"   android:text=\"Male\"/>\n    <RadioButton android:id=\"@+id/female\" android:text=\"Female\"/>\n</RadioGroup>\n<Button android:id=\"@+id/submitButton\" android:text=\"Submit\"/>\n\n// FirstActivity\nfindViewById(R.id.submitButton).setOnClickListener(v -> {\n    Intent i = new Intent(FirstActivity.this, SecondActivity.class);\n    i.putExtra(\"name\", ((EditText) findViewById(R.id.nameEdit)).getText().toString());\n    i.putExtra(\"age\", ((EditText) findViewById(R.id.ageEdit)).getText().toString());\n    int checked = ((RadioGroup) findViewById(R.id.genderGroup)).getCheckedRadioButtonId();\n    i.putExtra(\"gender\", checked == R.id.male ? \"Male\" : \"Female\");\n    startActivity(i);\n});\n\n// SecondActivity: read getStringExtra for name/age/gender and display in a TextView.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-020",
+      "chapterId": "chapter-bca-s6-mp-04",
+      "topicId": null,
+      "question": "How to handle different device orientations (portrait/landscape) in an Android application?",
+      "answer": "Options: (a) let the system recreate the activity and save/restore state with onSaveInstanceState() / onCreate(Bundle); (b) provide alternative resources in res/layout-land/ (and values-land/) so each orientation gets its own layout; (c) handle the change yourself with android:configChanges=\"orientation|screenSize\" and re-layout in onConfigurationChanged() (least preferred); (d) use retained fragments/ViewModels to keep data across recreation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-021",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "What is menu? Develop an android application to create popup menu having menu item \"Edit\", \"Copy\", \"Paste\", \"Redo\" and \"Undo\".",
+      "answer": "A menu presents common actions/options to the user; Android has three types — options menu (action bar), context menu (long-press), and popup menu (floating, anchored to a view).\n\n<!-- res/menu/popup_menu.xml -->\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <item android:id=\"@+id/edit\" android:title=\"Edit\"/>\n    <item android:id=\"@+id/copy\" android:title=\"Copy\"/>\n    <item android:id=\"@+id/paste\" android:title=\"Paste\"/>\n    <item android:id=\"@+id/redo\" android:title=\"Redo\"/>\n    <item android:id=\"@+id/undo\" android:title=\"Undo\"/>\n</menu>\n\nButton anchor = findViewById(R.id.menuButton);\nPopupMenu popup = new PopupMenu(this, anchor);\npopup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());\npopup.setOnMenuItemClickListener(item -> {\n    if (item.getItemId() == R.id.edit)  { /* handle */ }\n    // … copy, paste, redo, undo\n    return true;\n});\npopup.show();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-022",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Explain the process of creating options menu in android app with suitable program.",
+      "answer": "1. Define items in res/menu/menu_main.xml.\n2. Inflate the menu by overriding onCreateOptionsMenu(Menu) in the activity.\n3. Handle clicks by overriding onOptionsItemSelected(MenuItem).\n4. (Optional) Add app:showAsAction=\"ifRoom\" for action-bar items.\n\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <item android:id=\"@+id/action_settings\" android:title=\"Settings\"/>\n    <item android:id=\"@+id/action_about\"    android:title=\"About\"/>\n</menu>\n\n@Override public boolean onCreateOptionsMenu(Menu menu) {\n    getMenuInflater().inflate(R.menu.menu_main, menu);\n    return true;\n}\n@Override public boolean onOptionsItemSelected(MenuItem item) {\n    switch (item.getItemId()) {\n        case R.id.action_settings: /* … */ return true;\n        case R.id.action_about:    /* … */ return true;\n        default: return super.onOptionsItemSelected(item);\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-023",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Develop an android application to create two fragments and display it in activity.",
+      "answer": "// Create two fragment classes\npublic class FirstFragment extends Fragment {\n    @Override public View onCreateView(LayoutInflater inf, ViewGroup c, Bundle b) {\n        return inf.inflate(R.layout.fragment_first, c, false);\n    }\n}\npublic class SecondFragment extends Fragment {\n    @Override public View onCreateView(LayoutInflater inf, ViewGroup c, Bundle b) {\n        return inf.inflate(R.layout.fragment_second, c, false);\n    }\n}\n\n<!-- activity_main.xml: two containers -->\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\">\n    <FrameLayout android:id=\"@+id/container1\"\n        android:layout_width=\"match_parent\" android:layout_height=\"0dp\"\n        android:layout_weight=\"1\"/>\n    <FrameLayout android:id=\"@+id/container2\"\n        android:layout_width=\"match_parent\" android:layout_height=\"0dp\"\n        android:layout_weight=\"1\"/>\n</LinearLayout>\n\n// MainActivity: add both fragments\ngetSupportFragmentManager().beginTransaction()\n    .replace(R.id.container1, new FirstFragment())\n    .replace(R.id.container2, new SecondFragment())\n    .commit();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-024",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "What is Toast? Develop an android application to create alert dialog to input any number and then calculate factorial of number and display the result in Toast.",
+      "answer": "Toast is a small transient message shown for a short time without interrupting the user or requiring any action.\n\nEditText numberEdit = new EditText(this);\nnumberEdit.setInputType(InputType.TYPE_CLASS_NUMBER);\n\nAlertDialog.Builder builder = new AlertDialog.Builder(this);\nbuilder.setTitle(\"Factorial\")\n    .setView(numberEdit)\n    .setPositiveButton(\"Calculate\", (dialog, which) -> {\n        int n = Integer.parseInt(numberEdit.getText().toString());\n        long fact = 1;\n        for (int i = 2; i <= n; i++) fact *= i;\n        Toast.makeText(this, \"Factorial = \" + fact, Toast.LENGTH_SHORT).show();\n    })\n    .setNegativeButton(\"Cancel\", null)\n    .show();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-025",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "What does android APK file contain? Develop an android application with context menu having menu item \"Red\", \"Yellow\", \"Green\", \"Black\" and \"Blue\" etc. and change background color of layout when user selects a menu item accordingly.",
+      "answer": "APK contents: compiled .dex code, resources (layouts/drawables/strings), the AndroidManifest.xml, native libraries (if any), assets, META-INF signing certificates/keys, and the resources.arsc index — effectively the packaged, signed application.\n\n// MainActivity\nView layout = findViewById(R.id.mainLayout);\nregisterForContextMenu(layout);\n\n@Override public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {\n    super.onCreateContextMenu(menu, v, info);\n    menu.add(\"Red\"); menu.add(\"Yellow\"); menu.add(\"Green\"); menu.add(\"Black\"); menu.add(\"Blue\");\n}\n@Override public boolean onContextItemSelected(MenuItem item) {\n    switch (item.getTitle().toString()) {\n        case \"Red\":    layout.setBackgroundColor(Color.RED);    return true;\n        case \"Yellow\": layout.setBackgroundColor(Color.YELLOW); return true;\n        case \"Green\":  layout.setBackgroundColor(Color.GREEN);  return true;\n        case \"Black\":  layout.setBackgroundColor(Color.BLACK);  return true;\n        case \"Blue\":   layout.setBackgroundColor(Color.BLUE);   return true;\n        default: return super.onContextItemSelected(item);\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-026",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "What are uses of fragments? How fragments are differing from activity?",
+      "answer": "Uses: modular/reusable UI units; adapt layouts to screen size (phone vs tablet); combine multiple fragments in one activity; dynamic UI changes (add/replace/remove at runtime); retain state across configuration changes; divide complex screens into manageable parts.\n\nDifferences: see the Activity vs Fragment table in Q18 (lifecycle, UI ownership, communication mechanism, configuration-change behaviour, hosting).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-027",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Develop an android application to display alert dialog box.",
+      "answer": "findViewById(R.id.showButton).setOnClickListener(v -> {\n    new AlertDialog.Builder(MainActivity.this)\n        .setTitle(\"Alert!\")\n        .setMessage(\"Do you want to proceed?\")\n        .setPositiveButton(\"Yes\", (d, w) -> Toast.makeText(this, \"Yes clicked\", Toast.LENGTH_SHORT).show())\n        .setNegativeButton(\"No\", (d, w) -> Toast.makeText(this, \"No clicked\", Toast.LENGTH_SHORT).show())\n        .setNeutralButton(\"Cancel\", null)\n        .show();\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-028",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "How do you find view element in your program? Which dialog boxes can you use in your android application?",
+      "answer": "Finding views: findViewById(R.id.viewId) (returns the view; cast in Java for typed widgets); with View Binding / Data Binding, references are generated automatically.\n\nDialog boxes: AlertDialog (message + buttons), ProgressDialog (progress), DatePickerDialog / TimePickerDialog (pick date/time), and custom dialogs (your own layout via Dialog.setContentView). Toast is used for transient messages (not a dialog).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-029",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Why fragment needed in android application? How fragment can be added to an activity?",
+      "answer": "Need: modularity, reuse, flexible layouts for different screen sizes, dynamic composition, state retention. Adding: (a) statically — <fragment android:name=\"com.example.MyFragment\" android:id=\"@+id/frag\" /> inside the activity layout; (b) dynamically — getSupportFragmentManager().beginTransaction() .add(R.id.container, new MyFragment()).commit(); (with replace, remove, addToBackStack as needed). The fragment class extends Fragment and inflates its UI in onCreateView.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-030",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Develop an android application to calculate simple interest using customize dialog box.",
+      "answer": "// dialog_simple_interest.xml has EditTexts: principal, rate, time and a TextView result\nDialog dialog = new Dialog(this);\ndialog.setTitle(\"Simple Interest\");\ndialog.setContentView(R.layout.dialog_simple_interest);\n\nEditText p = dialog.findViewById(R.id.principalEdit);\nEditText r = dialog.findViewById(R.id.rateEdit);\nEditText t = dialog.findViewById(R.id.timeEdit);\ndialog.findViewById(R.id.calcButton).setOnClickListener(v -> {\n    double P = Double.parseDouble(p.getText().toString());\n    double R = Double.parseDouble(r.getText().toString());\n    double T = Double.parseDouble(t.getText().toString());\n    double si = (P * R * T) / 100;\n    ((TextView) dialog.findViewById(R.id.resultView)).setText(\"SI = \" + si);\n});\ndialog.show();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-031",
+      "chapterId": "chapter-bca-s6-mp-05",
+      "topicId": null,
+      "question": "Develop an android application to display list of student (student_name) in List View and display the student details (roll, name and address) in a fragment when ListView item is selected.",
+      "answer": "// MainActivity: ListView of names; on click, show a fragment with details\nString[] names = {\"Ram\", \"Sita\", \"Hari\"};\nListView list = findViewById(R.id.studentList);\nlist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names));\nlist.setOnItemClickListener((parent, view, pos, id) -> {\n    Bundle args = new Bundle();\n    args.putInt(\"roll\", pos + 1);\n    args.putString(\"name\", names[pos]);\n    args.putString(\"address\", \"Kathmandu\");\n    DetailFragment frag = new DetailFragment();\n    frag.setArguments(args);\n    getSupportFragmentManager().beginTransaction()\n        .replace(R.id.detailContainer, frag).commit();\n});\n// DetailFragment.onCreateView inflates a layout with three TextViews and fills them from getArguments().",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 11,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-032",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "What is JSON? Develop an android application to display 10 different images of fruit in Grid View with two columns.",
+      "answer": "JSON (JavaScript Object Notation) is a lightweight, human-readable data-interchange format: objects {} of key–value pairs and arrays []; used to send data between server and app. (Decoding example in Q44.)\n\nint[] fruitImages = {R.drawable.apple, R.drawable.banana, R.drawable.orange,\n        R.drawable.grapes, R.drawable.mango, R.drawable.pear, R.drawable.peach,\n        R.drawable.plum, R.drawable.cherry, R.drawable.kiwi};\nGridView grid = findViewById(R.id.grid);\ngrid.setNumColumns(2);\ngrid.setAdapter(new BaseAdapter() {\n    @Override public int getCount() { return fruitImages.length; }\n    @Override public Object getItem(int i) { return fruitImages[i]; }\n    @Override public long getItemId(int i) { return i; }\n    @Override public View getView(int i, View convertView, ViewGroup parent) {\n        ImageView iv = new ImageView(MainActivity.this);\n        iv.setImageResource(fruitImages[i]);\n        iv.setAdjustViewBounds(true);\n        return iv;\n    }\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-033",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "Develop an android application to display list of Student (Student name) in ListView and display the student details (student image, roll, name and college) in a Custom Dialog when ListView item is selected.",
+      "answer": "String[] students = {\"Ram\", \"Sita\", \"Hari\", \"Gita\", \"Bikash\"};\nListView list = findViewById(R.id.studentList);\nlist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, students));\nlist.setOnItemClickListener((parent, view, pos, id) -> {\n    Dialog dialog = new Dialog(MainActivity.this);\n    dialog.setTitle(\"Student Details\");\n    dialog.setContentView(R.layout.dialog_student);\n    ((ImageView) dialog.findViewById(R.id.studentImage)).setImageResource(R.drawable.student_photo);\n    ((TextView) dialog.findViewById(R.id.rollView)).setText(\"Roll: \" + (pos + 1));\n    ((TextView) dialog.findViewById(R.id.nameView)).setText(\"Name: \" + students[pos]);\n    ((TextView) dialog.findViewById(R.id.collegeView)).setText(\"College: TU BCA\");\n    dialog.show();\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-034",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "List and explain any three features of RecyclerView. Develop an android application to display any five programming languages in GridView.",
+      "answer": "Three key features: (1) mandatory ViewHolder pattern with efficient view recycling — smooth scrolling, low memory; (2) pluggable LayoutManagers — LinearLayoutManager, GridLayoutManager, StaggeredGridLayoutManager; (3) item decorations and animations — dividers, margins, add/remove/update animations built in.\n\nGridView grid = findViewById(R.id.grid);\ngrid.setNumColumns(3);\ngrid.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,\n        new String[]{\"Java\", \"Kotlin\", \"Python\", \"C#\", \"Swift\"}));",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-035",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "What is difference between ArrayAdapter and CursorAdapter? Develop an android application to display the application name with logo in Grid View and display their site in another activity when a Grid View item is clicked.",
+      "answer": "ArrayAdapter: Binds an in-memory array/list of objects; CursorAdapter: Binds a database `Cursor` (SQLite query result) ArrayAdapter: You manage updates manually (`notifyDataSetChanged`); CursorAdapter: Automatically re-queries when the cursor changes ArrayAdapter: Simple item layouts; CursorAdapter: Typically used with `SimpleCursorAdapter` or subclassed for custom rows\n\nString[] apps = {\"YouTube\", \"Facebook\", \"Twitter\", \"TikTok\", \"Snapchat\", \"Telegram\"};\nint[] logos = {R.drawable.youtube, R.drawable.facebook, R.drawable.twitter,\n               R.drawable.tiktok, R.drawable.snapchat, R.drawable.telegram};\nString[] sites = {\"https://youtube.com\", \"https://facebook.com\", \"https://twitter.com\",\n                  \"https://tiktok.com\", \"https://snapchat.com\", \"https://telegram.org\"};\nGridView grid = findViewById(R.id.grid);\ngrid.setNumColumns(3);\ngrid.setAdapter(new BaseAdapter() { /* getView inflates logo + name row */ });\ngrid.setOnItemClickListener((parent, view, pos, id) -> {\n    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(sites[pos]));\n    startActivity(i);\n});",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-036",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "Develop an android application to display 8 programming languages in ListView.",
+      "answer": "String[] languages = {\"Java\", \"Kotlin\", \"Python\", \"C#\", \"C++\", \"Swift\", \"JavaScript\", \"Go\"};\nListView list = findViewById(R.id.languageList);\nlist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, languages));\nlist.setOnItemClickListener((parent, view, pos, id) ->\n    Toast.makeText(this, languages[pos], Toast.LENGTH_SHORT).show());",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-037",
+      "chapterId": "chapter-bca-s6-mp-06",
+      "topicId": null,
+      "question": "How is ListView different from RecyclerView? Explain with example.",
+      "answer": "See the comparison table in Unit 6 of the comprehensive guide. Summary: RecyclerView recycles views through a mandatory ViewHolder, supports pluggable LayoutManagers (linear/grid/staggered), decorations and animations, and makes endless scrolling easier; ListView is simpler and has basic recycling with limited layout options.\n\n// RecyclerView example (a list of 8 languages)\nRecyclerView rv = findViewById(R.id.recyclerView);\nrv.setLayoutManager(new LinearLayoutManager(this));\nrv.setAdapter(new LanguageAdapter()); // adapter with ViewHolder (see comprehensive guide)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-038",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Provided that a MYSQL database named \"Bank\" with table named Customer with columns (account_no, name, account_type and amount) — connect remotely and display customers whose deposit amount is greater than 5000.",
+      "answer": "Server side: a small PHP endpoint queries MySQL and returns JSON:\n\n<?php\n$conn = new mysqli(\"localhost\", \"root\", \"\", \"Bank\");\n$result = $conn->query(\"SELECT * FROM Customer WHERE amount > 5000\");\n$json = array();\nwhile ($row = $result->fetch_array()) {\n    $json[\"data\"][] = array(\"account_no\" => $row[\"account_no\"], \"name\" => $row[\"name\"],\n        \"account_type\" => $row[\"account_type\"], \"amount\" => $row[\"amount\"]);\n}\necho json_encode($json);\n$conn->close();\n?>\n\nAndroid side (network on a background thread; parse JSON; show in a ListView):\n\n// In a background thread (AsyncTask/Thread) — INTERNET permission required\nURL url = new URL(\"https://yourhost/bank.php\");\nHttpURLConnection conn = (HttpURLConnection) url.openConnection();\nBufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));\nStringBuilder sb = new StringBuilder(); String line;\nwhile ((line = reader.readLine()) != null) sb.append(line);\nreader.close();\n\nJSONObject root = new JSONObject(sb.toString());\nJSONArray data = root.getJSONArray(\"data\");\nString[] rows = new String[data.length()];\nfor (int i = 0; i < data.length(); i++) {\n    JSONObject c = data.getJSONObject(i);\n    rows[i] = c.getString(\"account_no\") + \" - \" + c.getString(\"name\")\n            + \" (\" + c.getString(\"account_type\") + \") : \" + c.getDouble(\"amount\");\n}\nrunOnUiThread(() -> ((ListView) findViewById(R.id.bankList))\n        .setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rows)));",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-039",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Explain the procedure for generating API key for displaying Google map? Develop an android application to display the Google map with marker TRIBHUVAN UNIVERSITY. [4+6]",
+      "answer": "API key: Google Cloud console → create a project → APIs & Services → Enable \"Maps SDK for Android\" → Credentials → Create credentials → API key → copy it.\n\n<!-- Manifest -->\n<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>\n<application ...>\n    <meta-data android:name=\"com.google.android.geo.API_KEY\"\n               android:value=\"YOUR_API_KEY\"/>\n    <activity android:name=\".MapsActivity\" .../>\n</application>\n\n// build.gradle (module)\nimplementation 'com.google.android.gms:play-services-maps:18.2.0'\n\n<!-- activity_maps.xml -->\n<fragment xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:id=\"@+id/map\" android:name=\"com.google.android.gms.maps.SupportMapFragment\"\n    android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"/>\n\npublic class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {\n    @Override protected void onCreate(Bundle b) {\n        super.onCreate(b);\n        setContentView(R.layout.activity_maps);\n        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);\n    }\n    @Override public void onMapReady(GoogleMap map) {\n        LatLng tu = new LatLng(27.6813, 85.3180);   // TRIBHUVAN UNIVERSITY\n        map.addMarker(new MarkerOptions().position(tu).title(\"TRIBHUVAN UNIVERSITY\"));\n        map.moveCamera(CameraUpdateFactory.newLatLngZoom(tu, 15f));\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-040",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Provided that a SQLite database named \"BookStore\" with a table named Book (book_id as Integer, name as Text, author as Text) — insert three book records and display the book information.",
+      "answer": "public class DBHelper extends SQLiteOpenHelper {\n    public DBHelper(Context c) { super(c, \"BookStore\", null, 1); }\n    @Override public void onCreate(SQLiteDatabase db) {\n        db.execSQL(\"CREATE TABLE Book (book_id INTEGER PRIMARY KEY, name TEXT, author TEXT)\");\n    }\n    @Override public void onUpgrade(SQLiteDatabase db, int o, int n) { }\n}\n\n// Insert three records\nSQLiteDatabase db = new DBHelper(this).getWritableDatabase();\nContentValues cv = new ContentValues();\ncv.put(\"book_id\", 1); cv.put(\"name\", \"Android Basics\");      cv.put(\"author\", \"A. Author\");   db.insert(\"Book\", null, cv);\ncv.clear();\ncv.put(\"book_id\", 2); cv.put(\"name\", \"Kotlin in Action\");    cv.put(\"author\", \"D. Jemerov\");  db.insert(\"Book\", null, cv);\ncv.clear();\ncv.put(\"book_id\", 3); cv.put(\"name\", \"Head First Java\");     cv.put(\"author\", \"K. Sierra\");   db.insert(\"Book\", null, cv);\n\n// Display\nCursor c = db.rawQuery(\"SELECT * FROM Book\", null);\nStringBuilder sb = new StringBuilder();\nwhile (c.moveToNext()) {\n    sb.append(c.getInt(0)).append(\" · \").append(c.getString(1))\n      .append(\" · \").append(c.getString(2)).append(\"\\n\");\n}\n((TextView) findViewById(R.id.bookView)).setText(sb.toString());\nc.close(); db.close();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-041",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Why we use API in android? Provided that SQLITE database named \"Hospital\" with table named Doctor (Did as Integer, DName as Text, Specialization as Text, Experience as Real) — insert records and display doctors whose experience is less than 5.5 years.",
+      "answer": "Why APIs: they let the app reuse tested functionality and talk to remote services (maps, payments, data) efficiently instead of reimplementing them — modularity, efficiency and interoperability.\n\nSQLiteDatabase db = new DBHelper(this).getWritableDatabase();  // table Doctor as above\nContentValues cv = new ContentValues();\ncv.put(\"Did\", 1); cv.put(\"DName\", \"Dr. Sharma\"); cv.put(\"Specialization\", \"Cardiology\"); cv.put(\"Experience\", 4.5);\ndb.insert(\"Doctor\", null, cv);   // repeat for more doctors\n\nCursor c = db.rawQuery(\"SELECT * FROM Doctor WHERE Experience < ?\", new String[]{\"5.5\"});\nwhile (c.moveToNext()) {\n    // Did, DName, Specialization, Experience — append to a TextView/ListView\n}\nc.close(); db.close();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-042",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "What are different data types supported by SQLite? How to decode JSON data in android application? Explain with suitable example.",
+      "answer": "SQLite storage classes: NULL, INTEGER, REAL (floating point), TEXT, BLOB. SQLite is dynamically typed — a column has a declared type but can store any storage class (affinity rules apply).\n\nJSON decoding (see Q38 for the network variant):\n\nString jsonData = \"{\\\"data\\\":[{\\\"sid\\\":1,\\\"name\\\":\\\"Ram\\\",\\\"address\\\":\\\"KTM\\\"}]}\";\ntry {\n    JSONObject root = new JSONObject(jsonData);\n    JSONArray arr = root.getJSONArray(\"data\");\n    for (int i = 0; i < arr.length(); i++) {\n        JSONObject row = arr.getJSONObject(i);\n        Log.d(\"Row\" + i, row.getInt(\"sid\") + \" \" + row.getString(\"name\")\n                + \" \" + row.getString(\"address\"));\n    }\n} catch (JSONException e) {\n    e.printStackTrace();\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-043",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Provided that SQLITE database named \"College\" with table named Student (Roll as Integer, Name as Text, Address as Text) — insert five student records and display the student information.",
+      "answer": "Same pattern as Q40: SQLiteOpenHelper creates Student(Roll INTEGER PRIMARY KEY, Name TEXT, Address TEXT); insert five rows with ContentValues; read back with rawQuery(\"SELECT * FROM Student\", null) and display Roll/Name/Address in a TextView or ListView.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s6-mp-044",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "Develop an android application to demonstrate retrieval of content from a remote server.",
+      "answer": "// INTERNET permission in the manifest; run network work off the main thread\nnew AsyncTask<Void, Void, String>() {\n    @Override protected String doInBackground(Void... v) {\n        StringBuilder sb = new StringBuilder();\n        try {\n            URL url = new URL(\"https://example.com/api/data\");\n            HttpURLConnection conn = (HttpURLConnection) url.openConnection();\n            BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));\n            String line;\n            while ((line = r.readLine()) != null) sb.append(line);\n            r.close();\n        } catch (Exception e) { return \"Error: \" + e.getMessage(); }\n        return sb.toString();\n    }\n    @Override protected void onPostExecute(String result) {\n        ((TextView) findViewById(R.id.resultView)).setText(result);\n    }\n}.execute();",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-045",
+      "chapterId": "chapter-bca-s6-mp-07",
+      "topicId": null,
+      "question": "How to generate signed APK? Write a program to locate user's current location (write only java and manifest file).",
+      "answer": "Signed APK: Build → Generate Signed Bundle/APK → APK → create/choose keystore (path, password, key alias) → select release build → V1 (Jar Signature) → Finish → the signed APK is written under app/release/.\n\n<!-- Manifest -->\n<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>\n<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>\n\nLocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);\nif (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)\n        == PackageManager.PERMISSION_GRANTED) {\n    Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);\n    if (loc != null) {\n        double lat = loc.getLatitude(), lon = loc.getLongitude();\n        ((TextView) findViewById(R.id.locationView)).setText(\"Lat: \" + lat + \", Lon: \" + lon);\n    }\n}",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s6-mp-046",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "What do you mean by storyboard? Write a Swift program to find largest and smallest number among three numbers using ternary operator.",
+      "answer": "A storyboard is a single visual file in Xcode holding multiple view controllers and the transitions (segues) between them; it lets you design and see the app's screen flow visually (e.g., a table view's cell connected to a detail screen with a Show segue).\n\nlet a = 10, b = 25, c = 7\nlet largest  = a > b ? (a > c ? a : c) : (b > c ? b : c)\nlet smallest = a < b ? (a < c ? a : c) : (b < c ? b : c)\nprint(\"Largest: \\(largest), Smallest: \\(smallest)\")",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-047",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "Define ViewController. Write a Swift program to calculate factorial of a number using function.",
+      "answer": "A view controller (UIViewController subclass) manages one screen/scene: it owns the view hierarchy, handles user interaction, and coordinates data flow between the model and the views.\n\nfunc factorial(_ n: Int) -> Int {\n    var result = 1\n    if n > 1 { for i in 2...n { result *= i } }\n    return result\n}\nprint(factorial(5))   // 120",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-048",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "What do you mean by View hierarchy in iOS programming? Write a Swift program to find sum of all elements of 1-D array.",
+      "answer": "View hierarchy: views (UIView instances) are nested in a tree — a root view contains subviews, which may contain their own subviews. The hierarchy defines rendering order, layout and event routing; Auto Layout constraints keep it adaptive across screen sizes and orientations.\n\nfunc sum(_ arr: [Int]) -> Int {\n    var total = 0\n    for value in arr { total += value }\n    return total\n}\nprint(sum([1, 2, 3, 4, 5]))   // 15",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s6-mp-049",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "What do you mean by view hierarchy in iOS programming? Write a swift function to calculate factorial of any positive integer.",
+      "answer": "View hierarchy: views (UIView instances) are nested in a tree — a root view contains subviews, which may contain their own subviews. The hierarchy defines rendering order, layout and event routing; Auto Layout constraints keep it adaptive across screen sizes and orientations.\n\nfunc factorial(_ n: Int) -> Int {\n    var result = 1\n    if n > 1 { for i in 2...n { result *= i } }\n    return result\n}\nprint(factorial(5))   // 120",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791048487551
+    },
+    {
+      "id": "question-bca-s6-mp-050",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "What are different types of UI controls used in iOS programming? Write a swift program to find sum of all elements of 1-D array.",
+      "answer": "iOS UI controls: UIButton (actions), UILabel (text), UITextField (single-line input), UITextView (multi-line input), UISwitch (on/off), UISlider (range), UISegmentedControl (mutually exclusive options), UIDatePicker (date/time).\n\nfunc sum(_ arr: [Int]) -> Int {\n    var total = 0\n    for value in arr { total += value }\n    return total\n}\nprint(sum([1, 2, 3, 4, 5]))   // 15",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791048487551
+    },
+    {
+      "id": "question-bca-s6-mp-051",
+      "chapterId": "chapter-bca-s6-mp-01",
+      "topicId": null,
+      "question": "What do you mean by mobile programming? Explain life cycle of mobile application development.",
+      "answer": "Mobile programming is the set of processes and procedures for writing software for small, wireless computing devices (PDAs, enterprise digital assistants, phones). Life cycle: two interlinked components — the front-end (app on the device) and back-end services (support it) — developed through an iterative/agile cycle: Develop → Test → Release → Deploy → Monitor → Analyze, then repeat with improvements. Back-end decisions include build-vs-buy for services and self-hosted vs third-party hosting.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1791048794325,
+      "updatedAt": 1791048794325
+    },
+    {
+      "id": "question-bca-s6-mp-052",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "Define widget. Explain different widget attributes with example.",
+      "answer": "Widgets are the building blocks of a UI — they show text/graphics, accept interaction, or arrange other widgets (buttons, text inputs, check boxes…). Attributes: android:layout_width/layout_height (match_parent, wrap_content), android:orientation (LinearLayout direction), android:text (TextView/Button label, preferably via string resources). Example:\n\n<Button android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n    android:text=\"@string/hello\" />",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1791048794325,
+      "updatedAt": 1791048794325
+    },
+    {
+      "id": "question-bca-s6-mp-053",
+      "chapterId": "chapter-bca-s6-mp-03",
+      "topicId": null,
+      "question": "Differentiate RelativeLayout and LinearLayout with example.",
+      "answer": "LinearLayout: Arranges children linearly (horizontal/vertical); RelativeLayout: Arranges children relative to parent/each other LinearLayout: `layout_weight` distributes space/size; RelativeLayout: Uses `layout_toRightOf`, `layout_below`, `layout_alignParentTop`, … LinearLayout: Good for simple linear forms (sign-up screens); RelativeLayout: Good for complex arrangements (store layouts) LinearLayout: Can be nested inside RelativeLayout; RelativeLayout: Can be a child of LinearLayout",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": false,
+      "sortOrder": 6,
+      "createdAt": 1791048794325,
+      "updatedAt": 1791048986958
+    },
+    {
+      "id": "question-bca-s6-mp-056",
+      "chapterId": "chapter-bca-s6-mp-08",
+      "topicId": null,
+      "question": "How can you create array and use array in swift language? Explain.",
+      "answer": "A Swift array stores values of the same type in an ordered list.\n\nvar sm_arr = [Int]()          // empty array\nsm_arr = [1, 2, 3, 4]         // initialise with values\nlet first = sm_arr[0]         // access by index\nsm_arr.append(5)              // add an element\nfor v in sm_arr { print(v) }  // iterate",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1791048794325,
+      "updatedAt": 1791048794325
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s6-mp-001",
+      "normalizedKeyword": "portable",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-001",
+      "normalizedKeyword": "personal",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-001",
+      "normalizedKeyword": "companion",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-006",
+      "normalizedKeyword": "five sections in four main layers",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-006",
+      "normalizedKeyword": "linux kernel",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-006",
+      "normalizedKeyword": "libraries + android runtime",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-012",
+      "normalizedKeyword": "content inside",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-012",
+      "normalizedKeyword": "view itself",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-016",
+      "normalizedKeyword": "why fragments",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-021",
+      "normalizedKeyword": "menu",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-032",
+      "normalizedKeyword": "json",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-046",
+      "normalizedKeyword": "storyboard",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-002",
+      "normalizedKeyword": "java",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-002",
+      "normalizedKeyword": "kotlin",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-002",
+      "normalizedKeyword": "c#",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-007",
+      "normalizedKeyword": "surface manager",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-007",
+      "normalizedKeyword": "jit",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-007",
+      "normalizedKeyword": "ahead-of-time (aot)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-017",
+      "normalizedKeyword": "api types",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-017",
+      "normalizedKeyword": "web apis (web services)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-017",
+      "normalizedKeyword": "local apis",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-039",
+      "normalizedKeyword": "api key",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-047",
+      "normalizedKeyword": "view controller",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-003",
+      "normalizedKeyword": "platforms",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-003",
+      "normalizedKeyword": "android",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-003",
+      "normalizedKeyword": "ios",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-008",
+      "normalizedKeyword": "strings",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-008",
+      "normalizedKeyword": "string arrays",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-034",
+      "normalizedKeyword": "three key features",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-034",
+      "normalizedKeyword": "mandatory viewholder pattern",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-034",
+      "normalizedKeyword": "pluggable layoutmanagers",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-048",
+      "normalizedKeyword": "view hierarchy",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-004",
+      "normalizedKeyword": "native development",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-004",
+      "normalizedKeyword": "cross-platform development",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-004",
+      "normalizedKeyword": "web app development",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-009",
+      "normalizedKeyword": "creating an avd",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-009",
+      "normalizedKeyword": "avd manager",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-009",
+      "normalizedKeyword": "spinner",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-024",
+      "normalizedKeyword": "toast",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-041",
+      "normalizedKeyword": "why apis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-049",
+      "normalizedKeyword": "view hierarchy",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-005",
+      "normalizedKeyword": "mobile phones",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-005",
+      "normalizedKeyword": "low-end devices",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-005",
+      "normalizedKeyword": "mid-end devices",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-010",
+      "normalizedKeyword": "textview",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-010",
+      "normalizedKeyword": "edittext",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-010",
+      "normalizedKeyword": "button",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-025",
+      "normalizedKeyword": "apk contents",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-042",
+      "normalizedKeyword": "sqlite storage classes",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-042",
+      "normalizedKeyword": "json decoding",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-050",
+      "normalizedKeyword": "ios ui controls",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-011",
+      "normalizedKeyword": "event",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-011",
+      "normalizedKeyword": "event listener",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-011",
+      "normalizedKeyword": "event registration",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-026",
+      "normalizedKeyword": "uses",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-026",
+      "normalizedKeyword": "differences",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-051",
+      "normalizedKeyword": "front-end",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-051",
+      "normalizedKeyword": "back-end services",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-051",
+      "normalizedKeyword": "develop → test → release → deploy → monitor → analyze",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s6-mp-056",
+      "normalizedKeyword": "array",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-028",
+      "normalizedKeyword": "finding views",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-028",
+      "normalizedKeyword": "dialog boxes",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-045",
+      "normalizedKeyword": "signed apk",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-045",
+      "normalizedKeyword": "v1 (jar signature)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s6-mp-029",
+      "normalizedKeyword": "need",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s6-mp-029",
+      "normalizedKeyword": "adding",
+      "weight": 1.0,
+      "sortOrder": 2
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s6-mp",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "title: Mobile Programming (CACS 351) — Board Questions with Answers"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 1 — Introduction to Mobile and Mobile Programming"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 1 — Introduction to Mobile and Mobile Programming"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 2 — Introduction to Android Programming"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 2 — Introduction to Android Programming"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 3 — Designing the User Interface"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 3 — Designing the User Interface"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 4 — Android Activity"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 4 — Android Activity"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 5 — UI Fragments, Menus and Dialogs"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 5 — UI Fragments, Menus and Dialogs"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 6 — ListView, GridView and RecyclerView"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 6 — Listview, Gridview and Recyclerview"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 7 — Advanced Android Concepts"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 7 — Advanced Android Concepts"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s6-mp-08",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Unit 8 — Introduction to iOS Programming"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/notes.md",
+          "locator": "Unit 8 — Introduction to iOS Programming"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 1 — Introduction to Mobile and Mobile Programming / Q1. What is a mobile device? Explain different features of mobile device. [1+4] — 2021 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 1 — Introduction to Mobile and Mobile Programming / Q2. What do you mean by mobile device? List and explain any four popular programming languages used for developing mobile application. [1+4] — 2017 Q2 *[from solved source]*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 1 — Introduction to Mobile and Mobile Programming / Q3. What is a smart mobile device? Explain different platforms used in mobile devices. — 2019 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 1 — Introduction to Mobile and Mobile Programming / Q4. What are different mobile application development approaches? Explain in details. — 2018 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 1 — Introduction to Mobile and Mobile Programming / Q5. What is Android? Explain different categories of mobile devices. [1+4] — 2024 Q2"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q6. Explain Android architecture with a suitable diagram. [5] — 2024 Q3 (also asked 2017 Q4)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q7. What is surface manager library? How DVM is different from ART? — 2019 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q8. Draw the hierarchical directory structure of an Android application. How can you use string and string array in Android? Explain. — 2018 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q9. How to create AVD's? How to use spinner in android? Explain with suitable example. — 2018 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q10. List and explain any five widgets used in android programming. [5] — 2021 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 2 — Introduction to Android Programming / Q11. What is an event? How many ways to handle events in android programming? — 2017 Q3"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 3 — Designing the User Interface / Q12. What is the difference between android:layout_gravity and android:gravity attribute in linear layout. Create an android application that will convert distance entered into Kilometers into Meters using Table Layout. [1+4] — 2024 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 3 — Designing the User Interface / Q13. Differentiate RelativeLayout and ConstraintLayout with suitable example. [5] — 2021 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 3 — Designing the User Interface / Q14. Develop an android application to calculate perimeter of rectangle using LinearLayout. [5] — 2021 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 3 — Designing the User Interface / Q15. What are important attributes used in Absolute Layout? Develop a simple calculator application with two input fields for inputting numbers and two buttons for performing multiplication and division and display the result in Text View using Absolute Layout. — 2019 Q4"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 4 — Android Activity / Q16. Why fragment is needed in android? Write a java code only to send data from one activity to another activity using implicit intent. [1+4] — 2024 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 4 — Android Activity / Q17. Explain different types of API. Develop an android application to pass name and age of customer from one activity to another. [4+6] — 2021 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 4 — Android Activity / Q18. What is difference between activity and fragment? Develop an android application to create user interface for input length, width, and height of Rectangular box and Button for Volume in one fragment; when the button is clicked, the data are passed into a second fragment and the volume is calculated and displayed in a Text View. — 2019 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 4 — Android Activity / Q19. Develop an android application to input your Name, Age, gender and other personal information. Pass and display this information in another activity. — 2017 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 4 — Android Activity / Q20. How to handle different device orientations (portrait/landscape) in an Android application? — important-questions list"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q21. What is menu? Develop an android application to create popup menu having menu item \"Edit\", \"Copy\", \"Paste\", \"Redo\" and \"Undo\". [1+4] — 2024 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q22. Explain the process of creating options menu in android app with suitable program. [5] — 2021 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q23. Develop an android application to create two fragments and display it in activity. [5] — 2021 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q24. What is Toast? Develop an android application to create alert dialog to input any number and then calculate factorial of number and display the result in Toast. — 2019 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q25. What does android APK file contain? Develop an android application with context menu having menu item \"Red\", \"Yellow\", \"Green\", \"Black\" and \"Blue\" etc. and change background color of layout when user selects a menu item accordingly. — 2019 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q26. What are uses of fragments? How fragments are differing from activity? — 2018 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q27. Develop an android application to display alert dialog box. — 2018 Q6"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q28. How do you find view element in your program? Which dialog boxes can you use in your android application? — 2017 Q8"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q29. Why fragment needed in android application? How fragment can be added to an activity? — 2017 Q5"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q30. Develop an android application to calculate simple interest using customize dialog box. — 2017 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 5 — UI Fragments, Menus and Dialogs / Q31. Develop an android application to display list of student (student_name) in List View and display the student details (roll, name and address) in a fragment when ListView item is selected. — 2018 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q32. What is JSON? Develop an android application to display 10 different images of fruit in Grid View with two columns. [1+4] — 2024 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q33. Develop an android application to display list of Student (Student name) in ListView and display the student details (student image, roll, name and college) in a Custom Dialog when ListView item is selected. [3+7] — 2024 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q34. List and explain any three features of RecyclerView. Develop an android application to display any five programming languages in GridView. [3+7] — 2021 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q35. What is difference between ArrayAdapter and CursorAdapter? Develop an android application to display the application name with logo in Grid View and display their site in another activity when a Grid View item is clicked. — 2019 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q36. Develop an android application to display 8 programming languages in ListView. — 2018 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-037",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 6 — ListView, GridView and RecyclerView / Q37. How is ListView different from RecyclerView? Explain with example. — 2017 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q38. Provided that a MYSQL database named \"Bank\" with table named Customer with columns (account_no, name, account_type and amount) — connect remotely and display customers whose deposit amount is greater than 5000. [10] — 2024 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q39. Explain the procedure for generating API key for displaying Google map? Develop an android application to display the Google map with marker TRIBHUVAN UNIVERSITY. [4+6] — 2024 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q40. Provided that a SQLite database named \"BookStore\" with a table named Book (book_id as Integer, name as Text, author as Text) — insert three book records and display the book information. [10] — 2021 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q41. Why we use API in android? Provided that SQLITE database named \"Hospital\" with table named Doctor (Did as Integer, DName as Text, Specialization as Text, Experience as Real) — insert records and display doctors whose experience is less than 5.5 years. [10] — 2019 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-042",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q42. What are different data types supported by SQLite? How to decode JSON data in android application? Explain with suitable example. — 2019 Q7"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-043",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q43. Provided that SQLITE database named \"College\" with table named Student (Roll as Integer, Name as Text, Address as Text) — insert five student records and display the student information. — 2017 Q9"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-044",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q44. Develop an android application to demonstrate retrieval of content from a remote server. — 2018 Q10"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-045",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 7 — Advanced Android Concepts / Q45. How to generate signed APK? Write a program to locate user's current location (write only java and manifest file). — 2018 Q11"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-046",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q46. What do you mean by storyboard? Write a Swift program to find largest and smallest number among three numbers using ternary operator. [1+4] — 2024 Q8"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-047",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q47. Define ViewController. Write a Swift program to calculate factorial of a number using function. [1+4] — 2021 Q8"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-048",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q48. What do you mean by View hierarchy in iOS programming? Write a Swift program to find sum of all elements of 1-D array. [1+4] — 2019 Q8"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-049",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q49. What do you mean by view hierarchy in iOS programming? Write a swift function to calculate factorial of any positive integer. — 2018 Q8"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q48. What do you mean by View hierarchy in iOS programming? Write a Swift program to find sum of all elements of 1-D array. [1+4] — 2019 Q8"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q47. Define ViewController. Write a Swift program to calculate factorial of a number using function. [1+4] — 2021 Q8"
+        }
+      ],
+      "notes": "Explicit cross-references expanded from cited source sections into a plain-text study answer; exam marks were not mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-050",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q50. What are different types of UI controls used in iOS programming? Write a swift program to find sum of all elements of 1-D array. — 2017 Q6"
+        },
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Unit 8 — Introduction to iOS Programming / Q48. What do you mean by View hierarchy in iOS programming? Write a Swift program to find sum of all elements of 1-D array. [1+4] — 2019 Q8"
+        }
+      ],
+      "notes": "Explicit cross-references expanded from cited source sections into a plain-text study answer; exam marks were not mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-051",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Model Set (supplied model questions with answers) / M1. What do you mean by mobile programming? Explain life cycle of mobile application development. — Model Q2 *[from solved source]*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-052",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Model Set (supplied model questions with answers) / M2. Define widget. Explain different widget attributes with example. — Model Q3 *[from solved source]*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-056",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Model Set (supplied model questions with answers) / M6. How can you create array and use array in swift language? Explain. — Model Q7 *[from solved source]*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s6-mp-053",
+      "sources": [
+        {
+          "path": "BCA/Semester-6/mp-mobile-programming/mp-mobile-programming-board-qa.md",
+          "locator": "Mobile Programming (CACS 351) — Board Questions with Answers / Model Set (supplied model questions with answers) / M3. Differentiate RelativeLayout and LinearLayout with example. — Model Q4 *[from solved source]*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

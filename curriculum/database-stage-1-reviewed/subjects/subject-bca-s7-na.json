@@ -1,0 +1,1343 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s7-na",
+    "academicPeriodId": "period-bca-semester-7",
+    "code": "CACS 406",
+    "name": "Network Administration",
+    "description": "",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s7-na-01",
+      "subjectId": "subject-bca-s7-na",
+      "chapterNumber": 1,
+      "title": "Introduction",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-na-02",
+      "subjectId": "subject-bca-s7-na",
+      "chapterNumber": 2,
+      "title": "Work Station, Server and Services",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-na-03",
+      "subjectId": "subject-bca-s7-na",
+      "chapterNumber": 3,
+      "title": "Infrastructure",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-na-04",
+      "subjectId": "subject-bca-s7-na",
+      "chapterNumber": 4,
+      "title": "Service Recommendation",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s7-na-05",
+      "subjectId": "subject-bca-s7-na",
+      "chapterNumber": 5,
+      "title": "Preparing procurement plan/document for enterprise level network setup",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s7-na-001",
+      "chapterId": "chapter-bca-s7-na-01",
+      "topicId": null,
+      "question": "Explain the importance of professional ethics in network administration.",
+      "answer": "*(2026 Q2; also 2020 Q2 \"key aspects\")*\n\nA network administrator holds privileged access to user data, credentials and the infrastructure every business function depends on, so a published code of ethics protects users, the organization and the administrator. The USENIX System Administrators' Code of Ethics commits SAs to the highest standards of ethical and professional conduct. Key aspects:\n\n1. Professionalism — professional conduct in the workplace; personal feelings or beliefs never cause unfair or unprofessional treatment.\n2. Personal integrity — honesty about competence and mistakes; declaring and recusing from conflicts of interest.\n3. Privacy — accessing private information only when necessary for technical duties; protecting confidentiality.\n4. Laws and policies — educating yourself and others on relevant laws, regulations and policies.\n5. Communication — open communication with management, users and colleagues; listening to all parties.\n6. System integrity — ensuring integrity, reliability and availability of systems; designing systems to support the organization's purpose.\n7. Education — continuously updating and sharing technical knowledge.\n8. Responsibility to the computing community — cooperating to maintain the integrity of shared network and computing resources.\n9. Social responsibility — encouraging adoption of policies and laws consistent with these principles.\n10. Ethical responsibility — building and maintaining a safe, healthy and productive workplace.\n\ncommitments with one line each (5×0.8). Mention the USENIX code by name.*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-024",
+      "chapterId": "chapter-bca-s7-na-01",
+      "topicId": null,
+      "question": "How does AI and Automation impact modern network management?",
+      "answer": "*(2020 B4)*\n\n- Automation of routine work: configuration deployment, patching, account\nlifecycle and compliance checks run as code (Ansible, Terraform, PowerShell DSC), removing manual error and freeing administrator time.\n- AI-assisted operations (AIOps): anomaly detection in metrics/logs spots\ndegrading links, failing disks and security incidents earlier than threshold alarms.\n- Intent-based networking: administrators declare policy (\"this VLAN must not\nreach the database VLAN\"); the controller computes and enforces device configs.\n- Self-healing: automated failover, quarantine of infected hosts, traffic\nre-routing around congestion.\n- Capacity forecasting: machine-learning trends predict saturation before it happens.\n- Impact on the profession: repetitive tasks shrink; design, security review,\nautomation engineering and data interpretation skills grow; administrators must validate automated decisions and keep humans in the loop for high-risk changes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-002",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "Describe any five types of servers with their application.",
+      "answer": "*(2026 Q3; fuller variant in 2020 C9, answered in Part B)*\n\n- Web server — stores and serves web pages over HTTP/HTTPS; application: hosting a company's public website or intranet portal (Apache, Nginx, IIS).\n- Mail server — sends, receives and stores email using SMTP for transfer and POP3/IMAP for retrieval; application: corporate email with anti-spam and webmail access.\n- File server — central storage with shared folders and permissions; application: department shares and home directories (SMB/NFS, Samba on Linux).\n- Database server — stores structured data and answers queries; application: backend for ERP or web applications (MySQL, PostgreSQL, MS SQL).\n- Print server — manages shared print queues, drivers and quotas; application: floor-wide shared printers with usage accounting.\n- *Also acceptable:* DNS/DHCP infrastructure servers, backup servers, proxy servers, application servers.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-003",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "What are the essential hardware strategies for servers?",
+      "answer": "*(2026 Q4; 2018 C10 covers strategies + service requirement planning)*\n\n1. Buy more than you need, but not too much — judge real requirements from trend data (CPU, memory, disk usage per quarter), avoiding both under-provisioning and waste.\n2. Buy vendor support appropriate to the need — full on-site contracts for critical servers; depot service plus cold/warm spares for less-critical hosts (high-cost staff must never wait for parts).\n3. Buy reputable maintenance and keep it — standardize on reliable vendors to reduce spares variety and training; negotiate realistic response times (SLAs).\n4. Build in redundancy — RAID arrays, dual power supplies on separate circuits, UPS/generator power, redundant NICs and links.\n5. Plan space, cooling and growth — rack layout, airflow, capacity headroom and documented refresh cycles.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-004",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "What are the different remote administration tools?",
+      "answer": "*(2026 Q5; 2020 Q3 asks additionally \"why remote administration is needed\")*\n\nNeed: administrators cannot sit at every console; remote administration lets a central team manage servers and workstations across sites, respond to incidents outside office hours, reduce travel/cost, and manage cloud or VM hosts that have no physical console at all.\n\nTools:\n\n1. SSH (Secure Shell) — encrypted command-line administration of Linux/Unix hosts; also tunnels and file transfer (scp/sftp).\n2. RDP (Remote Desktop) — full graphical desktop of Windows servers/workstations (mstsc); Remote Server Administration Tools (RSAT) manage roles remotely.\n3. VNC / TeamViewer / AnyDesk — cross-platform screen sharing and unattended remote control, useful for mixed OS fleets and user support.\n4. Web-based consoles and out-of-band management — vendor iLO/iDRAC/IPMI cards power-cycle and console a dead server; cloud/provider dashboards and central tools (Puppet, Ansible, WSUS, intune) push configuration at scale.\n5. *Also acceptable:* PowerShell remoting, screen/tmux sessions, VPN plus management VLANs for secure reach.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-009",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "Write the design considerations for the workstation architecture.",
+      "answer": "*(2018 Q3)*\n\n- Standardized models and platforms — a few vetted configurations make imaging, spares and support predictable.\n- Appropriate processor, memory and storage — right type of CPU for the workload, RAM above the OS minimum, fast SSD storage for responsiveness.\n- Upgradability and life-cycle planning — expandable RAM/slots, planned refresh instead of run-to-failure.\n- Compatibility and drivers — OS/driver support for the exact hardware revision; UEFI/secure boot; WOL for management.\n- Peripherals and user needs — keyboards, displays, webcams, printers; locality, reliability, productivity and user agency drive the final design.\n- Manageability — remote management (RDP/VNC/SSH), central patching, asset tracking and security (encryption, antivirus) built in from the start.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-010",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "What do you mean by network service requirements? Explain the guidelines for network service requirement planning.",
+      "answer": "*(2018 Q4; strategy variant in 2018 C10)*\n\nMeaning: network service requirements are the documented functional and operational needs a service must satisfy — what it does, for whom, how well and under what constraints. Typical topics: functionality, users and load, availability (SLO/SLA, scheduled-reboot policy), performance/latency, capacity and growth, security and privacy, monitoring/support, backup/DR and budget.\n\nGuidelines for planning:\n\n1. Understand the service and its real users before choosing technology.\n2. Decide capacity expectations — current peak plus projected growth.\n3. Set availability targets matched to business impact — not \"five nines\" for everything; specify warning periods for reboots.\n4. Define measurable SLO/SLA levels and how each will be verified.\n5. Plan redundancy, monitoring and backup from day one, not after go-live.\n6. Document assumptions, revisit them as usage changes, and prefer technology-neutral requirement wording so the best implementation can be chosen.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-018",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "What are the different types of servers? How do they interact within a network to deliver seamless services?",
+      "answer": "*(2020 C9; 5-mark variant in 2026 Q3)*\n\nTypes (define + application): web servers (HTTP content — Apache/Nginx/IIS), mail servers (SMTP/POP3/IMAP — corporate email), file servers (shared storage — SMB/NFS), print servers (shared queues), database servers (structured query data — MySQL/PostgreSQL), DNS servers (name resolution), DHCP servers (IP leasing), directory/authentication servers (AD/LDAP — logins), proxy/cache servers (forward/ reverse caching), backup servers (nightly copies, archives), monitoring servers (Nagios/Zabbix), software repository servers (package mirrors).\n\nInteraction scenario (walk a request through the network):\n\n1. A workstation boots: DHCP leases an IP/options; DNS resolves names.\n2. The user logs in: the directory server authenticates and applies policy.\n3. The user opens the intranet: the web server serves the page; the page's\nforms query the database server; static assets may come from a cache/proxy.\n4. The user prints a document: the print server queues it to the printer.\n5. Files are saved to the file server; nightly the backup server copies\nchanged data to media; the monitoring server watches every step and pages on faults.\n6. Updates arrive via the software repository server; mail flows through the mail server.\n\nConclusion: each server specializes in one service, and they interlock — DNS finds every other server, DHCP attaches clients, directory services authorize users, databases feed web apps, monitoring/backup protect the whole — which is how the network delivers seamless services.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-021",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "Explain the server hardware/software strategies and service requirement planning.",
+      "answer": "*(2018 C10)*\n\nHardware strategies:\n\n1. Buy more than you need but not too much — verify with quarterly trend data (CPU load, memory pressure, disk usage).\n2. Buy support contracts matched to criticality (on-site for production, depot + cold spares for test systems); staff time outweighs hardware cost.\n3. Buy reputable maintenance; standardize vendors/models to cut spares variety and training.\n4. Build resilience: RAID, redundant PSUs on separate circuits, UPS/generator, redundant NICs/paths, clustering where downtime is intolerable.\n\nSoftware strategies:\n\n1. Standard, tested OS/service versions with documented configurations; avoid untested bleeding edge in production.\n2. Patch management windows and staged rollouts; keep configurations in version control/documented runbooks.\n3. Prefer vendor-supported or well-established open-source stacks with long support lifetimes.\n4. License compliance and lifecycle planning (upgrade/retire decisions driven by vendor EOL dates).\n\nService requirement planning:\n\n- Identify customers, functionality and usage patterns before choosing products.\n- Set availability/SLO targets matched to business impact (and reboot-notice policies, e.g., telnet hosts get warnings, batch compute has blanket SLAs).\n- Plan capacity (current peak + growth), security/privacy, monitoring, backup/DR and support expectations.\n- Compare build vs buy (commercial/off-the-shelf/open source) on functionality, cost, support and maintainability.\n- Document assumptions and revisit as usage evolves.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-023",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "Why remote administration is needed? What are the different remote administration tools?",
+      "answer": "*(2020 B3 — see Part A Q4 for the condensed 5-mark version; answer with need + tool descriptions)*\n\nNeed (elaborate): centralized teams manage geographically distributed servers; 24/7 operations need at-home incident response; blade/cloud hosts have no local console; travel-free administration reduces cost and response time; automation and scale (hundreds of hosts) demand remote configuration channels.\n\nTools (elaborate each with features): SSH (encrypted CLI, tunnels, scp/sftp); RDP (graphical Windows desktop, RSAT); VNC/TeamViewer/AnyDesk (cross-platform GUI, unattended access); out-of-band management (iLO/iDRAC/IPMI — power control and console even with the OS down); web consoles and central management (WSUS, SCCM, Ansible/Puppet, cloud dashboards); VPN + management VLAN as the secure transport for all of the above.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-026",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "How do network administrators configure post-installation settings such as user accounts, security policies, and network services on a newly installed OS?",
+      "answer": "*(2020 B6)*\n\n1. User accounts: create local/domain accounts and groups; enforce least\nprivilege (standard users, separate admin accounts); set password policies (length, complexity, expiry); on Linux useradd/usermod, /etc/sudoers; on Windows AD users/computers and GPO.\n2. Security policies: apply baseline templates — password/lockout policy,\naudit policy, screen lock; firewall rules (ufw/iptables or Windows Firewall); antivirus/EDR; automatic update channels; disable unused services and ports; encryption/BitLocker/LUKS where required; secure boot.\n3. Network services configuration: hostname, static IP or DHCP reservation,\nsubnet mask, gateway, DNS servers and suffixes, time sync (NTP); join the domain; enable/enable-at-boot the required services (web, sshd, print, file); verify each with its test tool.\n4. Remote access and monitoring: enable hardened SSH/RDP (keys, restricted\nusers, non-default ports where policy demands); install the monitoring agent and backup agent.\n5. Verification and documentation: connectivity tests (ping, tracert),\nservice tests (ss -tuln / netstat -ano), security scan, then record the build in the configuration database and image the system for reuse.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-027",
+      "chapterId": "chapter-bca-s7-na-02",
+      "topicId": null,
+      "question": "Differentiate between windows and Linux Networking system.",
+      "answer": "*(2020 B7 — expand the comparison table in the comprehensive guide)*\n\nCover, point by point with examples: cost/licensing; user interface (GUI-first vs CLI-first); configuration storage (registry/consoles vs /etc text files); networking tools (ipconfig/netsh/Get-Net* vs ip/nmcli/ss/tcpdump); service management (Services console/sc vs systemd systemctl); directory services (Active Directory vs LDAP/Samba AD); file/printer sharing (SMB native vs Samba/NFS/CUPS); security model (ACLs/GPO/UAC vs POSIX permissions/sudo/SELinux); remote administration (RDP/RSAT vs SSH); hardware support/driver availability; and typical deployment scenarios (enterprise desktops vs servers/appliances) — closing with the observation that most enterprises run both, integrated.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-006",
+      "chapterId": "chapter-bca-s7-na-03",
+      "topicId": null,
+      "question": "What is data center? Define the role of datacenters in modern network operations.",
+      "answer": "Definition: a datacenter is a centralized facility — a room, a building or geographically distributed sites — that houses servers, storage systems and networking equipment for processing, storing and distributing large amounts of data for an organization.\n\nRoles in modern network operations:\n\n1. Hosting enterprise applications — ERP, email, databases and web systems run centrally where they can be powered, cooled and protected properly.\n2. Cloud and service delivery — public/private cloud platforms, SaaS and content/streaming delivery are operated from datacenters.\n3. Centralized data processing and storage — big data, analytics and backups concentrate compute and storage at scale.\n4. Network core and interconnection — carrier-neutral facilities exchange traffic between ISPs and enterprises (peering, CDN edges).\n5. Business continuity — redundant/DR datacenters keep services running when a primary site fails.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-011",
+      "chapterId": "chapter-bca-s7-na-03",
+      "topicId": null,
+      "question": "Define data centers. Explain the security concerns related to data centers.",
+      "answer": "*(2018 Q5; components/design variant in 2026 C9)*\n\nDefinition: a datacenter is a centralized facility housing servers, storage and networking infrastructure used to process, store and distribute an organization's data (see 2026 C9 for the full component answer).\n\nSecurity concerns:\n\n1. Physical security — perimeter control, badge/biometric access, CCTV, mantraps, guards, visitor logs; a stolen disk is a breach.\n2. Environmental threats — fire (suppression systems), flood, heat/cooling failure, power disturbances (UPS/generators/conditioning).\n3. Network security — firewalls, IPS, segmentation, DDoS protection for the services hosted.\n4. Data security and access control — encryption at rest/in transit, least privilege, audit trails for who touched what.\n5. Availability and compliance — redundancy and DR sites against outage; regulatory/privacy obligations on hosted data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-015",
+      "chapterId": "chapter-bca-s7-na-03",
+      "topicId": null,
+      "question": "Explain components of data center and its design consideration. What are the challenges involved in running modern data centers?",
+      "answer": "*(2026 C9)*\n\nComponents (3):\n\n1. Compute: rack/blade servers (and virtualization hosts) that run workloads.\n2. Storage: disk arrays, NAS/SAN systems holding applications and data.\n3. Network: routers, switches (access/distribution/core), firewalls, cabling, load balancers.\n4. Facility/infrastructure: power chain (utility feeds, UPS, generators, PDUs), cooling (CRAC, hot/cold aisles), physical security (biometrics, CCTV, mantraps), monitoring (environment sensors, DCIM/BMS).\n\nDesign considerations (3): site location (power cost, high-speed internet connectivity, low disaster risk); space and rack layout with scalable modular growth; cooling/thermal management and energy efficiency (PUE, hot/cold aisle containment); power redundancy (N+1/2N, dual feeds); network connectivity (multiple carriers); security layers (physical + cyber); manageability and monitoring; and compliance requirements.\n\nChallenges running modern datacenters (4):\n\n1. Power and heat — ever-rising rack densities and cooling costs dominate opex; energy regulations push green redesign.\n2. Space constraints — physical expansion collides with building limits; consolidation/virtualization needed.\n3. Hardware failure at scale — with thousands of components, failures are routine; redundancy, spares and proactive replacement are mandatory.\n4. Network outages and security threats — DDoS, intrusions, insider risk; an outage blast radius is the whole service.\n5. Operational complexity and staffing — 24/7 NOC, change management, capacity forecasting and cost control.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-019",
+      "chapterId": "chapter-bca-s7-na-03",
+      "topicId": null,
+      "question": "Explain the access, distribution and core layers of network infrastructure. Differentiate logical and physical network diagrams, then compare on-premises, colocation, cloud and hybrid enterprise datacenter strategies.",
+      "answer": "*(2020 C10)*\n\na) Three main types (layers) of network infrastructure:\n\n1. Access layer — connects end devices (PCs, printers, APs) to the network; edge switches, port security, PoE.\n2. Distribution layer — aggregates access switches; inter-VLAN routing, policy, filtering, QoS; first point of redundancy.\n3. Core layer (backbone) — high-speed transport between distribution blocks and to datacenters/internet; optimized for reliability and speed, minimal features.\n\nLogical vs physical diagram:\n\nPhysical diagram: Shows actual devices, cables, ports, rack locations; Logical diagram: Shows subnets, VLANs, routing domains, data flows Physical diagram: Uses device symbols with real location/room; Logical diagram: Uses network segments irrespective of geography Physical diagram: Used by installers/cabling teams; Logical diagram: Used to reason about addressing, routing, security Physical diagram: Example: \"switch B, rack 3, port 12\"; Logical diagram: Example: \"VLAN 20 — 10.1.20.0/24 behind router R1\"\n\nb) High-level enterprise datacenter strategy options and differences:\n\n1. On-premises datacenter — organization owns/operates the facility. Full control over hardware/security/compliance; highest capital and operations cost; capacity fixed by what you buy.\n2. Colocation — rent space, power, cooling and connectivity in a provider facility but keep your own hardware. Better facilities than most self-built sites; hardware still owned/refreshed by you.\n3. Cloud (public IaaS) — rent compute/storage/network from a provider; elastic, pay-as-you-go opex; less physical control; data/compliance and egress-cost considerations.\n4. Hybrid — combine on-prem/colo with cloud: keep latency-sensitive/regulated workloads local, burst elastic ones to cloud. Balances control and flexibility at the cost of more complex management/integration.\n\nDifferences to emphasize: capital vs operational expenditure, control vs elasticity, who owns the hardware life-cycle, and compliance/data gravity.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-005",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Explain Backup, Restore, and Software Repository services.",
+      "answer": "- Backup service — automatically copies data from hosts to backup media (disk, tape, cloud) on a schedule, using full/incremental/differential strategies and rotation schemes. Back up hosts while their data is in a consistent state; you cannot recover what was never backed up. Application: nightly full + hourly incrementals of file, database and system state.\n- Restore service — the flip side: recovering data from backups after loss, corruption, ransomware or hardware failure. Restore speed differs by strategy (incremental chains are slowest). Restores must be tested regularly; a backup that has never been restored is a hope, not a plan. Application: single-file \"oops\" recovery up to full bare-metal rebuild after a site disaster.\n- Software repository service — a storage location for software packages (apt/yum/RPM, Docker registries, internal mirrors) from which clients install approved, tested versions. Benefits: version control, bandwidth saving, security (signed packages, no random internet installs), and patching of air-gapped hosts. Application: an internal Debian/Ubuntu mirror that all internal servers point to via sources.list.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-007",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Why is service monitoring important in network administration? Give an example.",
+      "answer": "*(2026 Q8; fuller 10-mark variant in 2020 C11a)*\n\nMonitoring constantly collects and reports the status of services (via agents or protocol queries such as SNMP). Importance:\n\n- See failures before users do: proactive capability tests exercise the real service function, not just \"is the box up\".\n- Real-time alerting — pages the administrator the moment disk, memory, latency or a process crosses a threshold, shrinking MTTR.\n- Trend and capacity data — plotted history shows sudden peaks/drops, seasonal load and growth, feeding purchase and upgrade decisions.\n- SLA verification — proves the promised availability is actually delivered.\n- Safety for changes — monitoring verifies a change did no harm.\n\nExample: Nagios checks the mail service every five minutes. When the mail store's disk passes 90% full, the administrator is paged and expands the volume — instead of discovering at 9 a.m. that 200 users cannot receive mail.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-008",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Write the role of the network administrator, to improve the performance of networking services.",
+      "answer": "*(2018 Q2)*\n\n1. Baseline and monitor — measure current latency, throughput, utilization and error rates (SNMP, NetFlow, packet capture) so improvement is provable.\n2. Optimize the infrastructure — upgrade bottleneck links/switches, segment broadcast domains with VLANs, add QoS so critical traffic wins, tune routing.\n3. Maintain and tune servers/services — patch and tune OS/services, load-balance busy services, cache (DNS/proxy), right-size protocols.\n4. Control growth and capacity — trend forecasting, upgrades before saturation, remove zombie traffic/services.\n5. Operational discipline — change control, documentation, rapid fault isolation and user communication keep perceived performance high.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-012",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Define network printer. Write a procedure to set up the network printer.",
+      "answer": "*(2018 Q6)*\n\nDefinition: a network printer is a printer attached to the network rather than to a single workstation — either a stand-alone printer with its own network interface or a printer shared through a print server — so many users can print to it via shared queues.\n\nProcedure (CUPS example, Linux):\n\n1. Physically install the printer and give it an IP address (static or DHCP reservation); print a local test page.\n2. Choose the printing system — CUPS (recommended) or BSD-LPR.\n3. Detect the printer: URI type ipp://, lpd://, socket:// (JetDirect) or USB; verify with lpinfo -v.\n4. Download and install the correct driver/PPD for the model.\n5. Create the queue (lpadmin -p sales_printer -E -v ipp://... -m ...), set defaults (duplex, paper size, quotas).\n6. Share the queue (CUPS web interface at localhost:631 or cupsctl --remote-admin); publish to Windows clients via Samba or IPP.\n7. Configure each client to point at the queue and print a test page from the client; iterate until clean.\n\n*Windows variant: Print Management console → add printer with driver → share → deploy by GPO → client connects \\\\server\\printer.*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-013",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "What is a file server? Write a procedure to set up the file server.",
+      "answer": "*(2018 Q7)*\n\nDefinition: a file server is a computer whose primary role is to provide central shared storage — folders (shares) with access permissions — so users and applications store and retrieve files over the network instead of keeping them on local disks.\n\nProcedure (Linux/Samba example):\n\n1. Install and update the OS; set a static IP and hostname; apply security updates.\n2. Prepare storage: dedicated disk/LVM volume, mount it (e.g., /srv/shares), choose file system.\n3. Create groups and users matching the permission model (e.g., sales, finance).\n4. Create directory structure per department; set ownership/permissions (chgrp, chmod, sticky bits).\n5. Install and configure Samba: define shares in smb.conf (path, valid users, read/write lists), map groups, enable case options.\n6. Set a database password for users (smbpasswd), start/enable smb/nmb services.\n7. Open the firewall for SMB, connect from a client (\\\\server\\share), verify read/write and permissions, then document and schedule backups.\n\n*Windows variant: install File Server role → create share in Server Manager → NTFS\n+ share permissions → quota/DFS as needed → GPO-deploy mapped drives.*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-014",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Write short notes on (Any Two): a) Mail Server b) Disaster Recovery c) Network Operations",
+      "answer": "*(2018 Q8)*\n\na) Mail server. A mail server transfers, stores and delivers email. An MUA\n(Outlook, Thunderbird) sends via SMTP to an MTA; MTAs relay store-and-forward to the destination domain's MTA; delivery agents place mail in mailboxes retrieved by POP3 or IMAP4 (IMAP keeps mail server-side, POP downloads). ESMTP adds authentication/extension negotiation; webmail exposes the mailbox over HTTP. Practical components: postfix/exchange MTA, dovecot IMAP, spam filtering (RBLs, Bayesian filters, SPF/DKIM/DMARC), mailboxes with quotas.\n\nb) Disaster recovery. DR keeps an organization able to continue operating IT\nafter major failures — from a failed disk to a lost building. Core elements: maintained and tested offsite and online backups; spare hardware (cold/warm/ hot spares) and vendor support contracts; cold/warm/hot standby sites; redundant power/networks; documented, rehearsed procedures for every failure level; RTO/RPO targets driving the design. Rule of thumb: the plan you have not rehearsed is not a plan.\n\nc) Network operations. The routine running of a production network: daily\nsystem checking (health, disk, CPU, memory, logs), inspection of events and monitoring alarms, error handling and escalation (respond → troubleshoot → escalate → document → prevent recurrence), change control, backups verified, capacity trending and user communication. Good operations turn firefighting into repeatable, documented procedures.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s7-na-017",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Write basic commands of administration responsibilities on Linux and Windows to check and verify network connectivity and identify network services.",
+      "answer": "*(2026 C11)*\n\nLinux (5):\n\nPurpose: Connectivity test; Commands: `ping -c4 8.8.8.8`, `traceroute`/`tracepath`/`mtr host` Purpose: Interface/address/route verification; Commands: `ip addr show`, `ip route show`, `nmcli device status` Purpose: Name resolution; Commands: `dig example.com`, `nslookup`, `host` Purpose: Identify listening services/ports; Commands: `ss -tuln`, `netstat -tulpn`, `lsof -i :80` Purpose: Remote service/banner scan; Commands: `nmap -sV -p 1-1024 host`, `curl -I http://host` Purpose: Service status; Commands: `systemctl status sshd`, `journalctl -u nginx`\n\nWindows (5):\n\nPurpose: Connectivity test; Commands: `ping 8.8.8.8`, `tracert host`, `pathping host`, `Test-NetConnection host -Port 443` Purpose: Interface/address/route verification; Commands: `ipconfig /all`, `route print`, `Get-NetAdapter` Purpose: Name resolution; Commands: `nslookup example.com`, `Resolve-DnsName host` Purpose: Identify listening services/ports; Commands: `netstat -ano`, `Get-NetTCPConnection -State Listen` Purpose: Service status/scan; Commands: `Get-Service`, `services.msc`, `nmap -sV host`\n\nAnswer pattern: state the responsibility (verify connectivity → resolve names → identify services), give the Linux command and its Windows equivalent in pairs, and show one worked example (e.g., ping then tracert then netstat/ss).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-020",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "a) What is network service monitoring, and why is it important? What tools are commonly used? b) What are the key differences between full, incremental, and differential backups? How does ransomware impact network backup and recovery strategies?",
+      "answer": "*(2020 C11)*\n\na) Service monitoring is the constant collection and reporting of a service's\nstatus — via an agent on the host or by querying the service's protocol (SNMP, WMI, HTTP checks). It matters because it finds failures before users report them, pages administrators in real time, verifies SLAs and supplies trend data for capacity planning. A monitored example: a check exercising mail every 5 minutes catches a filling disk before mailboxes break.\n\n*Two complementary visions:* real-time monitoring (generic — uptime, disk, memory, reachability) and proactive capability testing (service-specific — run a test transaction). Collect data you will use; stop collecting long-term data when it stops being useful; plot trends and watch for sudden peaks/drops and seasonality.\n\nCommon tools: Nagios (and derivatives Icinga/Naemon), Zabbix, Cacti (RRD graphing), Grafana + Prometheus, PRTG, WhatsUp Gold, SolarWinds; SNMP-based monitors; syslog/journald + ELK stacks for log analytics.\n\nb) Backup type differences:\n\n: Copies; Full: Everything selected; Incremental: Changes since the last backup of **any** type; Differential: Changes since the last **full** backup : Backup speed; Full: Slowest; Incremental: Fastest; Differential: Medium : Space used; Full: Most; Incremental: Least; Differential: Medium : Restore needs; Full: One set; Incremental: Full + **every** incremental in order; Differential: Full + latest differential only : Restore speed; Full: Fastest; Incremental: Slowest (long chain); Differential: Medium\n\nHosts must be backed up while their data is in a consistent state (quiesced DB dumps/snapshots); rotation schemes (Grandfather-Father-Son, Towers of Hanoi) balance media cost against retained history.\n\nRansomware impact: modern ransomware encrypts live data and actively hunts connected backups to encrypt or delete them, turning \"we have backups\" into \"we had backups\". Mitigations that must be built into strategy: offline/immutable or air-gapped backup copies (object-lock/WORM), the 3-2-1 rule (3 copies, 2 media types, 1 offsite), separate backup service credentials from domain admins, dedicated backup networks/VLANs, frequent tested restores, and monitoring for mass file-change anomalies so backups are halted before they are overwritten.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-022",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "a) Write recent trends in network administration. b) Write a plan to upgrade a server.",
+      "answer": "*(2018 C11; single trends question in 2020 B4)*\n\na) Recent trends:\n\n1. Software-defined networking (SDN) — centralized controllers program switches; flexible, automated control.\n2. Virtualization and cloud computing — hypervisors, containers, IaaS/SaaS replacing one-app-per-server.\n3. AI and automation in network management — anomaly detection, intent-based config, self-healing, configuration bots.\n4. IPv6 adoption replacing depleted IPv4; high-speed wireless (Wi-Fi 6)/5G and IoT growth.\n5. Zero-trust security — identity-centric access, MFA, micro-segmentation.\n6. DevOps/infrastructure-as-code — Ansible/Terraform-style repeatable configuration; observability stacks.\n\nb) Server upgrade plan:\n\n1. Assess current hardware/software versions, utilization trends and future growth; define upgrade objectives (performance, capacity, security).\n2. Check compatibility of OS/applications/firmware with the new hardware/version; read release notes for breaking changes.\n3. Back up fully (system state + data) and rehearse the rollback path on a test/staging system.\n4. Schedule a low-usage maintenance window; announce to users; freeze other changes.\n5. Execute stepwise: firmware → OS → service software → configuration migration; verify each stage.\n6. Monitor closely after cutover (logs, metrics, user reports) against baseline.\n7. Document the new baseline and archive the old images/backups for the retention period.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-025",
+      "chapterId": "chapter-bca-s7-na-04",
+      "topicId": null,
+      "question": "Explain DNS, DHCP, VPN services to manage and ensure smooth communication between workstations and servers.",
+      "answer": "*(2020 B5)*\n\n- DNS (Domain Name System): hierarchical name→IP resolution. Clients query\nresolvers; resolvers walk root → TLD → authoritative servers; records (A, AAAA, CNAME, MX, PTR) are cached with TTLs. Smooth communication: users reach servers by name, mail routing works via MX, split-horizon DNS separates internal/external views.\n- DHCP (Dynamic Host Configuration Protocol): automatic IP configuration —\nDORA process (Discover, Offer, Request, Acknowledge) leases address, mask, gateway, DNS, WINS/options for a lease time; reservations pin addresses to MACs; relay agents serve multiple subnets. Smooth communication: no manual IP errors, roaming devices plug in and work.\n- VPN (Virtual Private Network): encrypted tunnels over untrusted networks —\nremote-access VPNs (client-to-site, e.g., OpenVPN/IPsec/SSL VPN) and site-to-site VPNs (branch-to-HQ). Smooth communication: remote users work as if on the LAN, traffic is confidential and integrity-protected, and administrators can restrict management interfaces to VPN-only access.\n\n*Exam tip: define each, sketch the packet flow, and close with one sentence tying all three to \"smooth communication between workstations and servers\".*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-016",
+      "chapterId": "chapter-bca-s7-na-05",
+      "topicId": null,
+      "question": "Prepare a detailed outline of a procurement plan for an enterprise-level network setup, highlighting requirements, vendor selection, budgeting, and risk management.",
+      "answer": "*(2026 C10; 2020 B8 asks the key components)*\n\nDefinition (2): a procurement plan documents the process an organization follows to acquire goods/services/works externally — needs, requirements, vendor research, RFP, review/selection, negotiation, contracts, implementation, testing and ongoing monitoring/maintenance. For an enterprise network it converts business needs into a purchasable, supportable infrastructure.\n\nDetailed outline:\n\n1. Requirements (definition):\n   - Business drivers and scope (sites, users, applications).\n   - Technical requirements: capacity/throughput, availability/SLA targets, security and compliance regulations, growth headroom, environmental constraints.\n   - Acceptance criteria and measurable SLOs; documentation standards.\n2. RFP creation:\n   - Write the RFP from the requirement matrix; invite vendors; hold vendor demonstrations; define scoring weights.\n3. Vendor selection:\n   - Research candidates (websites, product reviews, references, site visits).\n   - Evaluate proposals on cost, scalability, security, support (SLA, local presence), interoperability with existing equipment, roadmap/upgrade path.\n   - Shortlist, demo, negotiate, select the vendor that best meets needs and budget — not merely the lowest sticker price.\n4. Budgeting:\n   - Capex: switches/routers, servers, wireless, cabling/licences, UPS, spares.\n   - Opex: support contracts, bandwidth, power/cooling, staff training, renewals.\n   - Contingency reserve (typically 10–15%) and total-cost-of-ownership comparison of bids.\n5. Risk management:\n   - Vendor lock-in (mitigate: open standards, exit clauses), delivery delays (staged payments, penalty clauses), scope creep (change control), budget overrun (contingency, TCO checks), technology obsolescence (roadmap refresh), single-vendor failure (second source), installation/acceptance risk (pilot, acceptance testing before final payment).\n6. Implementation, testing and ongoing monitoring/maintenance: staged rollout, acceptance tests against criteria, warranty/support tracking, and periodic review of the plan.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-028",
+      "chapterId": "chapter-bca-s7-na-05",
+      "topicId": null,
+      "question": "What are the key components of a procurement plan for an enterprise-level network setup?",
+      "answer": "*(2020 B8 — the component list inside the Part B Q16 outline: requirements definition, RFP, vendor research/evaluation/selection, budgeting (capex/opex/ contingency), contract negotiation with SLAs, risk management plan, implementation and acceptance testing, ongoing monitoring/maintenance and review cycle.)*",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s7-na-029",
+      "chapterId": "chapter-bca-s7-na-05",
+      "topicId": null,
+      "question": "Suppose you are a network administrator in ABC Research Organization which has planned to establish a laboratory for its 25 researchers. Prepare a network design with required network hardware and software specifications.",
+      "answer": "*(2018 C9)*\n\nRequirements analysis: 25 concurrent users; research workloads (file sharing, computation, internet, printing); security of research data; budget-conscious but reliable; growth room for 30–50% more users.\n\nProposed design:\n\n- Access layer: 2 × 48-port managed gigabit access switches (stacked, 1 spare\nPSU between them) + 1 × access point for laptops; separate VLANs per research group.\n- Distribution/core: L3 switch with inter-VLAN routing and uplinks (2 × 10 GbE\nLACP) to the WAN router/firewall pair.\n- Security: firewall appliance with IPS and content filtering; VPN gateway for\nremote researchers; DMZ for any public-facing service.\n- Servers (rack, redundant PSU, RAID):\n  - File/authentication server (AD or Samba/LDAP), 2 × 4 TB RAID10, daily backups.\n  - Compute/application server (research applications, web).\n  - Backup server/NAS with offsite replication.\n- Workstations: 25 standardized desktops/laptops — modern multi-core CPU,\n16 GB RAM, 512 GB SSD, dual boot or VM images as needed; UPS-protected.\n- Print/peripherals: network laser printer (MFP) on the print server; scanner.\n- Internet: dual-WAN links (primary + backup) with load balancing.\n\nSoftware specifications: server OS (Windows Server / Ubuntu Server LTS), client OS standard image, office + research toolset, antivirus/EDR, monitoring (Nagios/Zabbix agent-based), backup software with rotation, patch/repository mirror, and documentation of IP plan (e.g., 192.168.10.0/24 users, .20.0/24 servers, .30.0/24 management).\n\nDeliverables: rack/physical diagram, logical IP/VLAN diagram, BOM with vendor quotes, acceptance-test plan and the procurement plan document (Unit V steps).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s7-na-001",
+      "normalizedKeyword": "professionalism",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-001",
+      "normalizedKeyword": "personal integrity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-001",
+      "normalizedKeyword": "privacy",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-002",
+      "normalizedKeyword": "web server",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-002",
+      "normalizedKeyword": "mail server",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-002",
+      "normalizedKeyword": "file server",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-005",
+      "normalizedKeyword": "backup service",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-005",
+      "normalizedKeyword": "restore service",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-005",
+      "normalizedKeyword": "tested regularly",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-006",
+      "normalizedKeyword": "roles in modern network operations",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-006",
+      "normalizedKeyword": "hosting enterprise applications",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-006",
+      "normalizedKeyword": "cloud and service delivery",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-016",
+      "normalizedKeyword": "detailed outline",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-016",
+      "normalizedKeyword": "requirements (definition)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-016",
+      "normalizedKeyword": "rfp creation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-003",
+      "normalizedKeyword": "buy more than you need, but not too much",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-003",
+      "normalizedKeyword": "buy vendor support appropriate to the need",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-003",
+      "normalizedKeyword": "buy reputable maintenance and keep it",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-007",
+      "normalizedKeyword": "see failures before users do",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-007",
+      "normalizedKeyword": "real-time alerting",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-007",
+      "normalizedKeyword": "trend and capacity data",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-011",
+      "normalizedKeyword": "security concerns",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-011",
+      "normalizedKeyword": "physical security",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-011",
+      "normalizedKeyword": "environmental threats",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-024",
+      "normalizedKeyword": "automation of routine work",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-024",
+      "normalizedKeyword": "ai-assisted operations (aiops)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-024",
+      "normalizedKeyword": "intent-based networking",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-004",
+      "normalizedKeyword": "need",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-004",
+      "normalizedKeyword": "tools",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-004",
+      "normalizedKeyword": "ssh (secure shell)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-008",
+      "normalizedKeyword": "baseline and monitor",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-008",
+      "normalizedKeyword": "optimize the infrastructure",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-008",
+      "normalizedKeyword": "maintain and tune servers/services",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-015",
+      "normalizedKeyword": "components (3)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-015",
+      "normalizedKeyword": "compute",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-015",
+      "normalizedKeyword": "storage",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-029",
+      "normalizedKeyword": "requirements analysis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-029",
+      "normalizedKeyword": "proposed design",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-029",
+      "normalizedKeyword": "access layer",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-009",
+      "normalizedKeyword": "standardized models and platforms",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-009",
+      "normalizedKeyword": "appropriate processor, memory and storage",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-009",
+      "normalizedKeyword": "upgradability and life-cycle planning",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-012",
+      "normalizedKeyword": "procedure (cups example, linux)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-019",
+      "normalizedKeyword": "a) three main types (layers) of network infrastructure",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-019",
+      "normalizedKeyword": "access layer",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-019",
+      "normalizedKeyword": "distribution layer",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-010",
+      "normalizedKeyword": "meaning",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-010",
+      "normalizedKeyword": "guidelines for planning",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-010",
+      "normalizedKeyword": "understand the service and its real users",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-013",
+      "normalizedKeyword": "procedure (linux/samba example)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-014",
+      "normalizedKeyword": "a) mail server",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-014",
+      "normalizedKeyword": "b) disaster recovery",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-014",
+      "normalizedKeyword": "tested",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-018",
+      "normalizedKeyword": "types (define + application)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-018",
+      "normalizedKeyword": "interaction scenario (walk a request through the network)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-018",
+      "normalizedKeyword": "dhcp",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-017",
+      "normalizedKeyword": "linux (5)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-017",
+      "normalizedKeyword": "windows (5)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-021",
+      "normalizedKeyword": "hardware strategies",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-021",
+      "normalizedKeyword": "software strategies",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-021",
+      "normalizedKeyword": "service requirement planning",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-020",
+      "normalizedKeyword": "a) service monitoring",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-020",
+      "normalizedKeyword": "common tools",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-020",
+      "normalizedKeyword": "b) backup type differences",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-023",
+      "normalizedKeyword": "need (elaborate)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-023",
+      "normalizedKeyword": "tools (elaborate each with features)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-022",
+      "normalizedKeyword": "a) recent trends",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-022",
+      "normalizedKeyword": "software-defined networking (sdn)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-022",
+      "normalizedKeyword": "virtualization and cloud computing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-026",
+      "normalizedKeyword": "user accounts",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-026",
+      "normalizedKeyword": "security policies",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-026",
+      "normalizedKeyword": "network services configuration",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s7-na-025",
+      "normalizedKeyword": "dns (domain name system)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s7-na-025",
+      "normalizedKeyword": "dhcp (dynamic host configuration protocol)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s7-na-025",
+      "normalizedKeyword": "vpn (virtual private network)",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s7-na",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "title: Network Administration (CACS 406) — Board Q&A Book"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-na-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/notes.md",
+          "locator": "Page 2 / Course Contents / Unit I: Introduction"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-na-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/notes.md",
+          "locator": "Page 2 / Course Contents / Unit II: Work Station, Server and Services"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-na-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/notes.md",
+          "locator": "Page 2 / Course Contents / Unit III: Infrastructure; corroborated by UNIT3: INFRASTRUCTURE"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-na-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/notes.md",
+          "locator": "Page 2 / Course Contents / Unit IV: Service Recommendation"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s7-na-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/notes.md",
+          "locator": "Page 2 / Course Contents / Unit V: Preparing procurement plan/document for enterprise level network setup"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q1. Explain the importance of professional ethics in network administration. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q2. Describe any five types of servers with their application. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q3. What are the essential hardware strategies for servers? [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q4. What are the different remote administration tools? [1+4]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q5. Explain Backup, Restore, and Software Repository services. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q6. What is data center? Define the role of datacenters in modern network operations. [1+4]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q7. Why is service monitoring important in network administration? Give an example. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q8. Write the role of the network administrator, to improve the performance of networking services. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q9. Write the design considerations for the workstation architecture. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q10. What do you mean by network service requirements? Explain the guidelines for network service requirement planning. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q11. Define data centers. Explain the security concerns related to data centers. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q12. Define network printer. Write a procedure to set up the network printer. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q13. What is a file server? Write a procedure to set up the file server. [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART A — 5-mark questions (Group B) / Q14. Write short notes on (Any Two): a) Mail Server b) Disaster Recovery c) Network Operations [5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q15. Explain components of data center and its design consideration. What are the challenges involved in running modern data centers? [3+3+4]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q16. Prepare a detailed outline of a procurement plan for an enterprise-level network setup, highlighting requirements, vendor selection, budgeting, and risk management. [2+4+4]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q17. Write basic commands of administration responsibilities on Linux and Windows to check and verify network connectivity and identify network services. [5+5]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q18. What are the different types of servers? How do they interact within a network to deliver seamless services? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q19. a) Explain the three main types of network infrastructure. Difference between logical and physical network diagram. b) What is the high-level option for an enterprise datacenter strategy? Explain the differences between the options. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q20. a) What is network service monitoring, and why is it important? What tools are commonly used? b) What are the key differences between full, incremental, and differential backups? How does ransomware impact network backup and recovery strategies? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q21. Explain the server hardware/software strategies and service requirement planning. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q22. a) Write recent trends in network administration. b) Write a plan to upgrade a server. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q23. Why remote administration is needed? What are the different remote administration tools? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q24. How does AI and Automation impact modern network management? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q25. Explain DNS, DHCP, VPN services to manage and ensure smooth communication between workstations and servers. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q26. How do network administrators configure post-installation settings such as user accounts, security policies, and network services on a newly installed OS? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q27. Differentiate between windows and Linux Networking system. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q28. What are the key components of a procurement plan for an enterprise-level network setup? [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s7-na-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-7/NA/na-network-administration-board-qa.md",
+          "locator": "PART B — 10-mark questions (Group C) / Q29. Suppose you are a network administrator in ABC Research Organization which has planned to establish a laboratory for its 25 researchers. Prepare a network design with required network hardware and software specifications. [10]"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

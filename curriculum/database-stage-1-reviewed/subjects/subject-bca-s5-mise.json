@@ -1,0 +1,2270 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s5-mise",
+    "academicPeriodId": "period-bca-semester-5",
+    "code": "CACS 301",
+    "name": "Management Information System and E-business",
+    "description": "",
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s5-mise-01",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 1,
+      "title": "Introduction to E-Commerce",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-mise-02",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 2,
+      "title": "The Network Infrastructure for E-Commerce",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-mise-03",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 3,
+      "title": "Introduction to Management Information System",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-mise-04",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 4,
+      "title": "E-Commerce Security and Fraud",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-mise-05",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 5,
+      "title": "E-Payment Systems",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s5-mise-06",
+      "subjectId": "subject-bca-s5-mise",
+      "chapterNumber": 6,
+      "title": "Launching a Successful EC Website",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s5-mise-001",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Define E-Commerce and E-Business. Differentiate between them.",
+      "answer": "E-Commerce is the paperless exchange of business information — buying and selling of goods, services and information over electronic systems such as the internet, using EDI, e-mail, electronic bulletin boards and Electronic Fund Transfer (EFT).\n\nE-Business is the broader electronically conducted business: e-commerce plus internal processes such as CRM, ERP, supply chain management and e-procurement.\n\ne-Commerce: Buying/selling online; e-Business: All business conducted electronically e-Commerce: External, transaction-focused; e-Business: Internal + external, whole enterprise e-Commerce: Narrower scope; e-Business: Broader scope (includes CRM, ERP, SCM) e-Commerce: Examples: Amazon order, eSewa top-up; e-Business: Examples: bank core system, ERP-driven factory\n\nAnswer tip: define both, then give 3–4 table rows and one example each.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-002",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Differentiate between Pure E-Commerce and Partial E-Commerce with examples.",
+      "answer": "- Pure EC: the product, the process and the delivery agent are all digital. Example: buying an e-book, an online course, or music — order, pay and receive online.\n- Partial EC: at least one dimension is physical. Examples: ordering a phone online with courier delivery; ordering online and picking up in store; a physical store that also shows its catalogue online.\n\nWhy it matters: pure EC enjoys instant delivery and zero logistics; partial EC still faces physical constraints (delivery, returns).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-003",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Explain different types of e-commerce models: B2B, B2C, C2C, G2C with examples.",
+      "answer": "Model: B2B; Parties: Business to business; Example: Alibaba wholesale, a factory buying parts from a supplier portal Model: B2C; Parties: Business to consumer; Example: Amazon, Daraz, eSewa merchant payments Model: C2C; Parties: Consumer to consumer; Example: OLX, Hamrobazar, eBay Model: C2B; Parties: Consumer to business; Example: Freelancer bids on a company project Model: G2C; Parties: Government to citizen; Example: Passport/vehicle tax portals, e-services\n\nEarly e-commerce was financed mainly by venture capital.\n\nNote on the 2017 board wording: the scanned 2017 paper prints \"Differentiate H2C, H2R and C2C\" — the terms \"H2C/H2R\" are non-standard and appear to be a print error. The solved model set for the same paper asks B2C, B2B and C2C and answers those models, so prepare B2C/B2B/C2C as the safe answer (mention the printed variant if you wish).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-004",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "How do properties like ubiquity, richness, interactivity and information density make e-commerce better than traditional commerce?",
+      "answer": "- Ubiquity — marketplace is everywhere, any time (no physical premises).\n- Global reach — trade crosses national boundaries without extra branches.\n- Universal standards — one internet standard lowers entry cost.\n- Richness — video, audio and text can all be used to present products.\n- Interactivity — two-way communication with the customer.\n- Information density — more information available to all parties, faster and cheaper; improves price transparency and trust.\n- Personalization/customization — offers tailored to the buyer (location, history).\n\nTogether they lower cost, widen choice and speed up transactions compared with traditional commerce.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-005",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "What are the benefits and limitations/barriers of E-Commerce?",
+      "answer": "Benefits\n\nTo organizations: Global market, 24/7 sales; To consumers: Wider choice, comparison shopping; To society: Rural access to services To organizations: Lower cost (no shopfront); To consumers: Lower prices, convenience; To society: Public services (health, education) at low cost To organizations: Faster, data-driven decisions; To consumers: Anytime home delivery; To society: Less travel and congestion\n\nLimitations/barriers\n\n- Technical: security and fraud risk, bandwidth, integration with legacy systems, standards.\n- Non-technical: trust and resistance to change, lack of skills, privacy concerns, legal/jurisdiction issues, delivery infrastructure in rural areas.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-006",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Define M-Commerce and explain its benefits for organizations, individuals and society.",
+      "answer": "M-Commerce is e-commerce conducted through mobile devices over wireless networks (apps, mobile web, wallets).\n\nAttributes: ubiquity, convenience, interactivity, personalization, localization.\n\n- Organizations: reach customers anywhere, push notifications, location-based offers, lower customer service cost.\n- Individuals: instant payments, tickets, banking, shopping on the move.\n- Society: financial inclusion in remote areas, cashless services, emergency and government services.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-007",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "What is L-Commerce? Explain its idea, components, applications and impact.",
+      "answer": "L-Commerce (location-based commerce) targets products, services and content to users based on their physical location.\n\nComponents: mobile device, positioning system (GPS/GNSS), mobile communication network, location service provider, content/application provider (and the user).\n\nApplications: maps and navigation, nearby restaurant/ATM search, ride-hailing, location-based ads, emergency services, fleet tracking.\n\nImpact: higher relevance and conversion, local market reach, privacy questions.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-008",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Explain the role of social networks and mobile commerce in today's online business.",
+      "answer": "Social networks: profiles + connections + sharing. Capabilities: user-generated content, communities/brands, marketing targeted by interest, customer insight, recruitment, feedback and support. Examples: Facebook, Instagram, LinkedIn, TikTok.\n\nMobile commerce: shopping/payment/banking from devices; enables impulse buying, push notifications, QR payments. Together they drive traffic (social commerce), reduce acquisition cost, and give real-time engagement — the modern explanation of \"social + mobile\" as EC growth drivers.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-009",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Explain the e-commerce framework and the role of the Internet and Web in e-commerce growth.",
+      "answer": "The EC framework has layers: infrastructure (internet, telecom, I-Way), services (search, security, payments), products/systems (marketplaces, e-procurement), and support (public policy, laws, technical standards, business partnerships). Public policy and partnerships (e.g., Nepal's IT policy, payment regulation) directly shape how fast EC grows.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-010",
+      "chapterId": "chapter-bca-s5-mise-01",
+      "topicId": null,
+      "question": "Discuss the forces fueling e-commerce and the challenges it faces.",
+      "answer": "Fuel: internet penetration, smartphone and cheap data, digital payments, logistics networks, government digital policy, pandemic-era behaviour shift, social media discovery, and new technologies (cloud, AI, 5G).\n\nChallenges: security/fraud, infrastructure reliability, digital divide, trust, regulation and taxation of cross-border trade, returns/logistics in remote areas.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-011",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "What is I-Way? Explain its components and role in E-Commerce.",
+      "answer": "I-Way (Information Superhighway) is the global, high-capacity network of networks whose infrastructure, standards and services carry all electronic commerce. It is the telecommunications infrastructure (television, telephony, computer networks) used for widespread, rapid access to information.\n\nComponents (per the unit notes; three major components):\n1. Consumer access equipment — the consumer-end hardware: computers, modems, routers, switches.\n2. Local on-ramps (access roads/media) — the \"last mile\" linking homes, businesses and schools to the backbone; telecom-based, cable-TV-based, wireless-based and computer-based.\n3. Global information distribution networks — the worldwide backbone networks that distribute information globally.\n\nRole: connects buyers, sellers and services worldwide, making 24/7 EC transactions possible; the highway over which every EC activity (catalogue, payment, delivery tracking) travels.\n\nAnswer tip: draw the three-component chain (access equipment → on-ramp → global network) as in the notes.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-012",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "Define wireless communication and compare Wi-Fi, UMTS and LTE.",
+      "answer": "Wireless communication transmits data without wires using radio waves, microwaves or infrared.\n\n: Standard; Wi-Fi: IEEE 802.11; UMTS (3G): 3GPP (WCDMA); LTE (4G): 3GPP (OFDMA) : Range; Wi-Fi: ~30–100 m (WLAN); UMTS (3G): Wide-area cellular; LTE (4G): Wide-area cellular : Speed; Wi-Fi: up to hundreds of Mbps; UMTS (3G): up to ~2 Mbps; LTE (4G): tens of Mbps, up to 100+ Mbps : Use; Wi-Fi: LAN, home/office hotspots; UMTS (3G): Voice + basic data, video calls; LTE (4G): Mobile broadband, HD video, hotspot",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-013",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "What is WAP? Explain its working and layered architecture.",
+      "answer": "WAP (Wireless Application Protocol) is an open standard letting mobile devices access internet content (lightweight web, banking, mail).\n\nWorking: the mobile browser requests a WAP page; the WAP gateway converts between WAP (WML) and web (HTML) protocols, compresses data, and returns it to the device.\n\nLayered architecture (top to bottom):\n1. WAE — Wireless Application Environment (WML, WMLScript — the \"browser\" layer).\n2. WSP — Wireless Session Protocol (sessions).\n3. WTP — Wireless Transaction Protocol (reliable transactions).\n4. WTLS — Wireless Transport Layer Security (encryption/authentication).\n5. WDP — Wireless Datagram Protocol (bearer-independent transport).\n\nDiagram tip: draw a stack of five boxes and label one example above each layer.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-014",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "Discuss major wireless technologies used in EC (2G–5G, WiMAX, WLAN, etc.).",
+      "answer": "Generation: 2G; Technology: GSM; Highlights: Digital voice, SMS/MMS; Typical speed: ~64 kbps Generation: 3G; Technology: UMTS/WCDMA; Highlights: Packet data, video calls; Typical speed: up to ~2 Mbps Generation: 4G; Technology: LTE, WiMAX; Highlights: All-IP, OFDMA/MIMO; Typical speed: ~100 Mbps+ Generation: 5G; Technology: NR; Highlights: mmWave, massive MIMO, network slicing; Typical speed: ~1–10 Gbps peak\n\nWLAN = local (Wi-Fi); WMAN/WiMAX = metropolitan broadband; Wi-Fi is the workhorse of in-store, campus and home EC.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-015",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "What are the security issues in wireless communication and how can EC transactions be protected?",
+      "answer": "Issues: no physical boundary → interception/eavesdropping, DoS flooding, spoofing (fake access points), session hijacking, weak encryption (WEP).\n\nProtection: WPA2/WPA3, change default credentials, VPN over untrusted networks, firewalls at access points, MAC filtering, HTTPS/TLS for transactions, regular firmware updates, limited signal leakage.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-016",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "How do ADSL, WiMAX, WLAN and WMAN differ?",
+      "answer": ": ADSL; Type: Wired broadband over telephone lines; asymmetric; Coverage: Home/office; Medium: Copper phone line : WLAN; Type: Wireless LAN (Wi-Fi); Coverage: Building/campus; Medium: Unlicensed radio : WMAN; Type: Wireless metropolitan (802.16); Coverage: City; Medium: Licensed radio : WiMAX; Type: Implementation of WMAN; Coverage: City-wide last mile; Medium: Licensed radio",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-017",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "What features of Wi-Fi have made it so popular?",
+      "answer": "No wiring, cheap hardware, easy installation, high speed, works with almost all devices, supports mobility within a building, unlicensed spectrum, easy to extend with access points.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-018",
+      "chapterId": "chapter-bca-s5-mise-02",
+      "topicId": null,
+      "question": "Differentiate LTE 4G and 3G UMTS.",
+      "answer": "3G UMTS: WCDMA, circuit + packet; LTE 4G: All-IP, packet only 3G UMTS: ~2 Mbps; LTE 4G: tens–hundreds Mbps 3G UMTS: Voice-centric evolution; LTE 4G: Data-centric (VoLTE) 3G UMTS: Higher latency; LTE 4G: Low latency, better streaming",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-019",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is MIS? Explain the components of CBIS and its importance.",
+      "answer": "MIS is the use of information technology, people and business processes to record, store and process data to support day-to-day and managerial decisions.\n\nCBIS is an organized integration of hardware, software and human elements designed to produce timely, integrated, accurate and useful information. Components: hardware (machines, devices), software (system + application + procedures), database (organized data), network (communication), people (users, IT staff).\n\nImportance: provides accurate and timely information at every management level, supports planning and control, improves efficiency and communication, and feeds decision-support systems.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-020",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "Explain TPS, MIS, DSS and EIS with examples, and how they vary from one another.",
+      "answer": "System: **TPS**; Users: Operational staff; Purpose: Record and process routine transactions in real time; Example: Payroll, billing, ATM System: **MIS**; Users: Middle managers; Purpose: Summary reports for routine decisions; Example: Monthly sales report System: **DSS**; Users: Analysts/decision makers; Purpose: Semi-structured problems, modelling and what-if analysis; Example: Price-simulation model System: **EIS/ESS**; Users: Top executives; Purpose: Strategic scanning, dashboards, trends; Example: Executive KPI dashboard\n\nThey differ in users, data scope, decision type and time horizon — TPS is operational/current; MIS tactical/historical; DSS analytical; EIS strategic/future-oriented.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-021",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is SCM? Explain SCM using the Nike sneakers example.",
+      "answer": "SCM is the management of the flow of goods, services, information and funds from raw material suppliers to the final consumer.\n\nNike example: a sneaker's components (laces, eyelets, uppers, soles) come from different specialized suppliers. Nike coordinates: demand forecast → component orders → assembly → quality check → warehouse → distribution to retail/online orders. SCM systems share demand and inventory data so each supplier produces the right quantity at the right time; this reduces inventory, delays and stock-outs while cutting costs.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-022",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is CRM and how does it improve customer relationships?",
+      "answer": "CRM is the development and maintenance of long-term mutually beneficial relationships with customers. It collects customer data across touchpoints (web, email, stores, support), builds a unified customer view, segments customers, personalizes offers, automates service, and measures satisfaction. Result: higher retention, loyalty, cross-sell/up-sell revenue, and lower acquisition cost.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-023",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is an Expert System? Explain its components and characteristics.",
+      "answer": "Expert System applies human expert knowledge to solve complex problems in a narrow domain.\n\nComponents: knowledge base (facts + rules), inference engine (forward/backward chaining), user interface, plus knowledge-acquisition facility and explanation module.\n\nCharacteristics: expert-level performance, explainable reasoning, works with uncertain data, symbolic reasoning, learns/expands through expert additions. Difference from TPS: TPS records routine transactions; an ES reasons using rules to recommend decisions.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-024",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is an International Information System? Discuss outsourcing and offshoring.",
+      "answer": "International IS supports business across national boundaries — shared data/processes across countries with differing laws, languages, currencies and infrastructure.\n\nOutsourcing: contracting business activities/processes to an external service provider (anywhere) to cut cost and focus on core work. Benefits: cost, expertise, flexibility; risks: loss of control, data security, dependency.\n\nOffshoring: moving processes to a different country, often to an owned subsidiary (captive centre) to access cheaper labour/talent.\n\nThey differ: outsourcing = who does it (external party); offshoring = where it happens (foreign country). They can combine (outsourced offshore vendor).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-025",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "Why are information systems essential in today's digital world?",
+      "answer": "Because modern organizations need real-time transactions, accurate management reporting, analytical decision support and strategic overview. IS enables new products/services, stores and shares knowledge, simplifies decisions with data, supports remote/collaborative work, and provides the transparency and speed customers and regulators now expect. Without TPS/MIS/DSS/ESS layers, organizations cannot compete or comply.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-026",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What are enterprise systems? Types (ERP, SCM, CRM) and implementation challenges.",
+      "answer": "Enterprise systems integrate information and processes across the whole organization on a shared database.\n\n- ERP — finance, HR, manufacturing, inventory in one suite.\n- SCM — supplier-to-customer flow coordination.\n- CRM — customer-facing processes and relationship data.\n\nChallenges: high cost, long implementation, process re-engineering, data migration/quality, customization vs upgrade tension, change management and training.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-027",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "What is a neural network?",
+      "answer": "A computing model inspired by the brain: layers of interconnected nodes (neurons) with weighted connections that learn patterns from data through training. Used in forecasting, pattern recognition, fraud detection and classification. It differs from an expert system (rules) by learning from examples rather than codified rules.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-028",
+      "chapterId": "chapter-bca-s5-mise-03",
+      "topicId": null,
+      "question": "Define information system resources; data vs information.",
+      "answer": "Data = raw, unorganized facts (text, numbers, audio, video). Information = processed data presented in a meaningful context, used by decision makers; its value decays with time.\n\nIS resources: hardware, software, databases, networks, people — the five components combined into a CBIS.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s5-mise-029",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Define and explain confidentiality, integrity, availability, authentication, authorization and non-repudiation.",
+      "answer": "Term: **Confidentiality**; Meaning: Only authorized parties can view data; How it is enforced: Encryption (SSL/TLS, AES), access control Term: **Integrity**; Meaning: Data is not altered in transit/storage; How it is enforced: Hashing, message digests, digital signatures, checksums Term: **Availability**; Meaning: Systems and data are accessible when needed; How it is enforced: Redundancy, backups, anti-DoS, disaster recovery Term: **Authentication**; Meaning: Proving who you are; How it is enforced: Passwords, OTP, biometrics, certificates, digital signatures Term: **Authorization**; Meaning: What an authenticated party may do; How it is enforced: RBAC/ACLs, permissions, least privilege Term: **Non-repudiation**; Meaning: A party cannot deny an action; How it is enforced: Digital signatures + certificates, audit logs\n\nThese are the EC security requirements every transaction must satisfy; the CIA triad (confidentiality, integrity, availability) is the core.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-030",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Differentiate virus, worm and Trojan horse.",
+      "answer": ": Reproduction; Virus: Attaches to host files, needs execution; Worm: Self-replicating; Trojan Horse: No replication : Spread; Virus: User action/files; Worm: Network automatically; Trojan Horse: Disguised download/attachment : Main effect; Virus: File corruption, damage; Worm: Network overload, spreading; Trojan Horse: Backdoor, data theft, remote control",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-031",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "What is ransomware? Types, effects and protection.",
+      "answer": "Ransomware is malware that encrypts or locks a victim's data and demands payment for release (e.g., WannaCry, Cryptolocker).\n\nTypes: crypto-ransomware (encrypts files), locker ransomware (locks device), scareware/law-enforcement variants, double-extortion (data stolen + encrypted).\n\nEffects: data loss, operational shutdown, financial loss, reputation damage, legal exposure (especially during/after COVID-19 when remote work expanded the attack surface).\n\nProtection: regular offline backups, patching, anti-malware, email/web filtering, least-privilege, user training, incident-response plan. Response: isolate, report to authorities, restore from backup; do not pay blindly.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-032",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Explain encryption/decryption and symmetric vs asymmetric encryption.",
+      "answer": "Encryption converts plaintext into ciphertext using a key; decryption reverses it.\n\nSymmetric: One shared secret key; Asymmetric: Public + private key pair Symmetric: Fast, less computation; Asymmetric: Slow, more computation Symmetric: Distributed key distribution problem; Asymmetric: Solves key exchange via public keys Symmetric: AES, DES, 3DES; Asymmetric: RSA, ECC, ElGamal\n\nCryptography types in short-note form: symmetric, asymmetric, and hashing (one-way, integrity).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-033",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "What is a digital signature? How does it ensure secure transactions?",
+      "answer": "A digital signature is a cryptographic stamp that proves a message's origin and integrity.\n\nWorking:\n1. Sender computes a hash of the message.\n2. Hash is encrypted with the sender's private key → the signature.\n3. Receiver decrypts the signature with the sender's public key, recomputes the hash and compares.\n\nRequirements in secure transactions: authenticity, integrity, non-repudiation, and assurance the signer holds the private key (certificates/PKI).\n\nWhy it matters: online payments, contracts and government services can be verified without face-to-face presence.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-034",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Describe EC defense strategies: biometrics, firewalls, VPN, IDS, IPS, SSL.",
+      "answer": "- Biometrics — fingerprint/face/iris authentication; hard to share or forget.\n- Firewall — filters traffic between networks; types: packet-filtering, stateful, proxy/application.\n- VPN — encrypted tunnel over public networks; protects remote EC users.\n- IDS — monitors traffic, detects intrusions (signature/anomaly), alerts; passive.\n- IPS — inline prevention: detects and blocks/drops attacks automatically.\n- SSL/TLS — encrypts the web session (HTTPS), certificates authenticate servers.\n\nLayered together with anti-malware, updates, backups, strong authentication and staff training they form defense-in-depth. PKI (certificate authority, certificates, key management) underpins SSL and digital signatures.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-035",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Describe IDS and IPS and how they work together.",
+      "answer": "IDS watches network/host traffic, matches signatures or anomalies, and raises alerts for administrators (out-of-band, no blocking). IPS sits in the traffic path, applies the same detection and then drops/quarantines the connection automatically.\n\nTogether: IDS provides visibility and investigation data; IPS provides automatic prevention for known-bad patterns. In EC networks they layer with firewalls to protect payment data.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-036",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Differentiate technical and non-technical attacks on e-commerce systems, with examples.",
+      "answer": "- Technical attacks exploit software/hardware: malware, viruses/worms, DoS/DDoS, zero-day exploits, SQL injection, session hijacking, Heartbleed, DNS poisoning, botnets.\n- Non-technical attacks exploit people: social engineering — phishing, social phishing, pharming, baiting, pretexting, scareware, fake support calls.\n\nEffects on e-commerce: theft of credentials/card data, order fraud, downtime and revenue loss, reputational damage. Defense: patching + monitoring for technical; training and verification procedures for non-technical.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-037",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "Explain social engineering and its forms.",
+      "answer": "Social engineering manipulates people into revealing information or performing actions: phishing (fake email/site), spear phishing (targeted), vishing/smishing (voice/SMS), pharming (DNS redirect to fake site), baiting (infected USB/free download), pretexting (impersonation), tailgating. Defense: awareness training, verification of requests, multi-factor authentication, email filtering.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-038",
+      "chapterId": "chapter-bca-s5-mise-04",
+      "topicId": null,
+      "question": "What is computer crime? Differentiate hackers and crackers.",
+      "answer": "Computer crime is any illegal act involving a computer — data theft, unauthorized access, fraud, vandalism, child exploitation, cyberstalking, malware distribution.\n\nHackers explore systems to learn/improve security (white-hat/ethical with permission); crackers break in with malicious intent (black-hat — data theft, damage). Grey-hat sits between. Legal and ethical boundaries matter more than the technique.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-039",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "What is Bitcoin? Advantages, disadvantages and legality in Nepal.",
+      "answer": "Bitcoin is the first decentralized cryptocurrency — peer-to-peer digital money on a blockchain with no central bank, secured by proof-of-work mining.\n\nAdvantages: borderless, low transfer cost, pseudonymous, inflation-proof supply (21M cap), 24/7.\n\nDisadvantages: price volatility, irreversible transactions, energy consumption, use in illegal trade, wallet/key loss risk, limited merchant acceptance.\n\nNepal (dated): NRB has not granted legal recognition to Bitcoin/crypto trading and has repeatedly warned the public against it; it is not legal tender. Confirm the current NRB position before quoting — this is a moving regulatory area.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-040",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "What is virtual currency? List types and differences from cryptocurrency.",
+      "answer": "Virtual currency is a digital representation of value used within a community/ecosystem, not issued by a central bank. Types: closed (only inside a game/app), convertible (exchangeable, e.g., crypto), and non-convertible.\n\nCryptocurrency vs virtual currency: cryptocurrency is a *subset* — decentralized, encrypted, blockchain-based (Bitcoin, Ethereum, USDT, XRP, Polkadot, Dogecoin, USDC, Shiba Inu, Terra...). Game tokens are virtual currency but usually not cryptocurrency.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-041",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "Explain the working of credit cards, e-checking and ACH in online payments.",
+      "answer": "Credit card flow: cardholder enters details → merchant gateway encrypts → acquiring bank/processor routes → card network → issuing bank authorizes (limit/fraud checks) → approval code → settlement batches funds to merchant → cardholder billed with grace period/APR.\n\nE-check: digital version of a paper cheque; customer authorizes, merchant converts to an e-check, submits through the ACH network; funds move between banks electronically with a confirmation record.\n\nACH (Automated Clearing House): the batch network for electronic bank-to-bank transfers (direct deposit, bill pay, e-checks); cheap and reliable but not instant.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-042",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "Discuss mobile payment systems and challenges in Nepal.",
+      "answer": "Systems: mobile banking apps, digital wallets (eSewa, Khalti, IME Pay), QR payments (Fonepay), mobile credit/debit, carrier billing.\n\nChallenges in Nepal: cash-on-delivery culture, limited merchant acceptance in rural areas, internet reliability, fraud perception, interoperability gaps, digital literacy, transaction fees, KYC/onboarding friction.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-043",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "What are the emerging trends and issues in online payments in Nepal?",
+      "answer": "Trends: QR-code ubiquity, wallet-to-bank interoperability, government digital payments, remittance digitization, BNPL/EMI, cross-border wallets, fraud-monitoring AI.\n\nIssues: cybersecurity (phishing, SIM swap), consumer protection/dispute handling, regulatory adaptation, technology cost, inclusion of unbanked users.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-044",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "Explain cryptocurrency with its legal provisions in Nepal.",
+      "answer": "Covered in Q39/Q40; emphasize: decentralized blockchain money, no central issuer; Nepal's NRB has warned it is not licensed/legal tender and trading is prohibited/unsupported — verify current rules (dated claim).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-045",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "Explain the trend of cashless transactions in Nepal with pros and cons.",
+      "answer": "Trend: rapid growth after 2015 (digital wallets, QR, mobile banking), accelerated by COVID-19, NRB retail-payment infrastructure (RTGS/connectIPS/QR standards), rising smartphone penetration.\n\nPros: convenience, speed, transparency and record-keeping, lower cash handling cost, supports e-commerce.\n\nCons: fraud/cyber risk, digital divide (elderly/rural), downtime dependence, fees, privacy, dispute resolution gaps.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-046",
+      "chapterId": "chapter-bca-s5-mise-05",
+      "topicId": null,
+      "question": "Write short notes on ACH and cryptography and its types.",
+      "answer": "ACH: automated clearing house — batch electronic funds transfer network between banks; used for salaries, e-checks, bill payments; batch (not real-time), cheap, reversible in fraud cases.\n\nCryptography: converting plaintext to ciphertext for confidentiality/integrity/authentication. Types: symmetric (AES/DES), asymmetric (RSA/ECC), hash functions (SHA-256); applied in SSL, digital signatures, PKI, blockchain.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-047",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "What is SEO? Explain its cycle and the use of bots.",
+      "answer": "SEO improves a website's visibility in organic search results.\n\nCycle (as shown in the supplied model-set answer figure, 8 steps looping): site maintenance/reoptimize → build your content → decide on keywords → add keywords to content → submit to search engine → find existing ranking → optimize pages → analyze traffic → repeat.\n\nImplementation detail: on-page work (titles, meta, headings, content, speed, mobile) and off-page work (backlinks, social signals); monitoring uses rankings, traffic and conversions, then the cycle refines.\n\nBots: search-engine crawlers (e.g., Googlebot) fetch pages, follow links and index content; robots.txt controls access; XML sitemaps guide discovery. Facilitating bots (clean structure, fast pages, valid sitemaps) is part of SEO. Types: White Hat (legitimate) vs Black Hat (deceptive).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-048",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "What are the different types of websites? Explain with examples.",
+      "answer": "Portal (Yahoo), informational/content (Wikipedia), e-commerce (Daraz), blog (personal/company blogs), wiki (collaborative), social network (Facebook), corporate/brand site, government service portal, educational (Moodle), search engine (Google), transactional/banking.\n\nFor EC: choose structure by purpose — catalogue, marketplace, single-brand store, affiliate, subscription.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-049",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "Explain website design criteria and factors affecting usability/performance.",
+      "answer": "Criteria: clear structure and navigation (menu, sitemap, breadcrumbs), consistent visual design, readable typography, quality content, fast loading (optimized images, caching, CDN), mobile responsiveness, accessibility (contrast, alt text), trust signals (HTTPS, contact, policies), easy checkout and search.\n\nUsability factors: learnability, efficiency, error prevention, satisfaction. Performance: page weight, server response, hosting quality, third-party scripts.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-050",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "What are the steps in planning an online business?",
+      "answer": "1. Idea and market research (demand, competitors, target segment).\n2. Business model and EC model selection (B2B/B2C/C2C; revenue model).\n3. Business plan — executive summary, company, market analysis, product/service, marketing, operations, funding request, financial projections.\n4. Business case — cost-benefit and risk analysis.\n5. Feasibility study (technical, economic, operational, schedule, legal).\n6. Funding and legal registration (company, PAN/VAT, domain, licenses).\n7. Build/buy the website, set up payments and logistics.\n8. Launch, promote and measure; iterate.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-051",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "Explain business case, EC model selection and funding options.",
+      "answer": "Business case: justification document — problem/opportunity, options, costs, benefits, risks, recommendation; includes cost-benefit analysis and risk elements.\n\nEC model selection: match transaction parties and revenue logic to the market — B2B for bulk/wholesale, B2C for retail brand, C2C marketplaces for used goods, G2C for services; revenue via sales, subscriptions, ads, transaction fees.\n\nFunding options in Nepal for graduates: bootstrapping/personal savings, family/friends, bank SME/startup loans, cooperatives/microfinance, government startup grants (e.g., startup funds under IT policy), angel investors/VC, crowdfunding, partnerships, incubation (ICT incubators).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-052",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "How to promote an EC website for a strong market presence?",
+      "answer": "SEO + content marketing, search ads (SEM), social media marketing (organic + paid), email/SMS campaigns, influencer/affiliate marketing, marketplace listings, discounts/coupons and loyalty, offline integration (QR, packaging), PR and reviews (trust), analytics-driven optimization.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-053",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "How can web content be used for cross-selling and up-selling?",
+      "answer": "Content types: text, images, product video, audio, animation, interactive tools, reviews/UGC.\n\n- Cross-selling: related-product blocks, \"frequently bought together\", bundles, accessory guides.\n- Up-selling: comparison tables, premium/deluxe versions, trade-in offers, feature highlight content.\n- Promotions: banners, coupons, seasonal landing pages, email flows informed by content/analytics.\n\nExample: a phone product page shows a case + charger (cross-sell), the Pro model comparison (up-sell), and a festival discount banner (promotion).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-054",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "Evaluate the feasibility of an EC project. What funding techniques suit fresh graduates?",
+      "answer": "Feasibility dimensions: technical (platform, skills, hosting), economic (cost-benefit, ROI, break-even), operational (processes, logistics, staff), schedule (timeline), legal (registration, tax, privacy).\n\nFunding for graduates: see Q51 — savings/bootstrapping, family, bank/startup loans, cooperatives/microfinance, government/startup grants, angels/VC, crowdfunding, partnerships and incubation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 8,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-055",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "Explain the process of building and deploying an EC website (domain, hosting, cPanel).",
+      "answer": "1. Plan (business + technical requirements) → choose platform (custom/CMS).\n2. Register a domain name (registrar, DNS).\n3. Choose hosting — shared, VPS, dedicated, cloud; consider price, uptime, support, SSL.\n4. Develop/populate content; integrate payment and shipping.\n5. Test (devices, security, checkout).\n6. Upload/deploy via cPanel (File Manager/FTP), configure email, databases, SSL certificate, backups.\n7. Go live; monitor; maintain and update.\n\ncPanel features: file manager, FTP accounts, email, MySQL databases, domains/subdomains, SSL/TLS, cron jobs, backups, one-click installers.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 9,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s5-mise-056",
+      "chapterId": "chapter-bca-s5-mise-06",
+      "topicId": null,
+      "question": "What is disaster recovery planning? Explain its steps.",
+      "answer": "DRP is the set of precautions to minimize loss and restore business operations after a disaster (natural, technical, human). It supports business continuity.\n\nSteps (Gupta 1998): 1) inventory critical assets and prioritize; 2) identify disaster situations and responsible individuals; 3) develop the course of action for each employee. Process view: identify resources → test recovery plan → obtain management approval → implement → update/maintain (loop). Options: hot/warm/cold backup sites, reciprocal arrangements, disaster service bureaus, outsourced recovery.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s5-mise-001",
+      "normalizedKeyword": "e-commerce",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-001",
+      "normalizedKeyword": "e-business",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-011",
+      "normalizedKeyword": "i-way (information superhighway)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-011",
+      "normalizedKeyword": "consumer access equipment",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-011",
+      "normalizedKeyword": "local on-ramps (access roads/media)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-019",
+      "normalizedKeyword": "mis",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-019",
+      "normalizedKeyword": "cbis",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-019",
+      "normalizedKeyword": "hardware",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-029",
+      "normalizedKeyword": "confidentiality",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-029",
+      "normalizedKeyword": "integrity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-029",
+      "normalizedKeyword": "availability",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-039",
+      "normalizedKeyword": "bitcoin",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-039",
+      "normalizedKeyword": "nepal (dated)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-047",
+      "normalizedKeyword": "seo",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-047",
+      "normalizedKeyword": "crawlers",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-002",
+      "normalizedKeyword": "pure ec",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-002",
+      "normalizedKeyword": "partial ec",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-002",
+      "normalizedKeyword": "why it matters",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-012",
+      "normalizedKeyword": "wireless communication",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-020",
+      "normalizedKeyword": "tps",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-020",
+      "normalizedKeyword": "mis",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-020",
+      "normalizedKeyword": "dss",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-040",
+      "normalizedKeyword": "virtual currency",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-040",
+      "normalizedKeyword": "cryptocurrency vs virtual currency",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-003",
+      "normalizedKeyword": "venture capital",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-003",
+      "normalizedKeyword": "note on the 2017 board wording",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-003",
+      "normalizedKeyword": "b2c, b2b and c2c",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-013",
+      "normalizedKeyword": "wap (wireless application protocol)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-013",
+      "normalizedKeyword": "wap gateway",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-013",
+      "normalizedKeyword": "wae",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-021",
+      "normalizedKeyword": "scm",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-031",
+      "normalizedKeyword": "ransomware",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-041",
+      "normalizedKeyword": "credit card flow",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-041",
+      "normalizedKeyword": "e-check",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-041",
+      "normalizedKeyword": "ach",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-004",
+      "normalizedKeyword": "ubiquity",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-004",
+      "normalizedKeyword": "global reach",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-004",
+      "normalizedKeyword": "universal standards",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-014",
+      "normalizedKeyword": "wlan",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-014",
+      "normalizedKeyword": "wman/wimax",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-014",
+      "normalizedKeyword": "wi-fi",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-022",
+      "normalizedKeyword": "crm",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-032",
+      "normalizedKeyword": "encryption",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-032",
+      "normalizedKeyword": "decryption",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-050",
+      "normalizedKeyword": "business plan",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-050",
+      "normalizedKeyword": "business case",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-005",
+      "normalizedKeyword": "limitations/barriers",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-015",
+      "normalizedKeyword": "interception/eavesdropping",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-015",
+      "normalizedKeyword": "dos flooding",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-015",
+      "normalizedKeyword": "spoofing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-023",
+      "normalizedKeyword": "expert system",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-023",
+      "normalizedKeyword": "knowledge base",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-023",
+      "normalizedKeyword": "inference engine",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-033",
+      "normalizedKeyword": "digital signature",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-033",
+      "normalizedKeyword": "hash",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-033",
+      "normalizedKeyword": "sender's private key",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-051",
+      "normalizedKeyword": "business case",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-051",
+      "normalizedKeyword": "ec model selection",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-051",
+      "normalizedKeyword": "funding options in nepal for graduates",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-006",
+      "normalizedKeyword": "m-commerce",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-006",
+      "normalizedKeyword": "organizations",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-006",
+      "normalizedKeyword": "individuals",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-024",
+      "normalizedKeyword": "international is",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-024",
+      "normalizedKeyword": "outsourcing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-024",
+      "normalizedKeyword": "external service provider",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-034",
+      "normalizedKeyword": "biometrics",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-034",
+      "normalizedKeyword": "firewall",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-034",
+      "normalizedKeyword": "vpn",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-007",
+      "normalizedKeyword": "l-commerce (location-based commerce)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-035",
+      "normalizedKeyword": "ids",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-035",
+      "normalizedKeyword": "ips",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-045",
+      "normalizedKeyword": "trend",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-045",
+      "normalizedKeyword": "pros",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-045",
+      "normalizedKeyword": "cons",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-053",
+      "normalizedKeyword": "cross-selling",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-053",
+      "normalizedKeyword": "up-selling",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-053",
+      "normalizedKeyword": "promotions",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-008",
+      "normalizedKeyword": "social networks",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-008",
+      "normalizedKeyword": "mobile commerce",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-026",
+      "normalizedKeyword": "enterprise systems",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-026",
+      "normalizedKeyword": "erp",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-026",
+      "normalizedKeyword": "scm",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-036",
+      "normalizedKeyword": "technical attacks",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-036",
+      "normalizedKeyword": "non-technical attacks",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-046",
+      "normalizedKeyword": "ach",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-046",
+      "normalizedKeyword": "cryptography",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-054",
+      "normalizedKeyword": "technical",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-054",
+      "normalizedKeyword": "economic",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-054",
+      "normalizedKeyword": "operational",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-009",
+      "normalizedKeyword": "infrastructure",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-009",
+      "normalizedKeyword": "services",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-009",
+      "normalizedKeyword": "products/systems",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-037",
+      "normalizedKeyword": "phishing",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-037",
+      "normalizedKeyword": "spear phishing",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-037",
+      "normalizedKeyword": "vishing/smishing",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-055",
+      "normalizedKeyword": "domain name",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-055",
+      "normalizedKeyword": "hosting",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-055",
+      "normalizedKeyword": "cpanel",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-028",
+      "normalizedKeyword": "data",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-028",
+      "normalizedKeyword": "information",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-028",
+      "normalizedKeyword": "hardware, software, databases, networks, people",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-038",
+      "normalizedKeyword": "computer crime",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s5-mise-038",
+      "normalizedKeyword": "hackers",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s5-mise-038",
+      "normalizedKeyword": "crackers",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s5-mise-056",
+      "normalizedKeyword": "drp",
+      "weight": 1.0,
+      "sortOrder": 1
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s5-mise",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "title: MISE — Board Questions with Answers"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 1: Introduction to E-Commerce"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 1: Introduction to E-Commerce"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 2: The Network Infrastructure for E-Commerce"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 2: The Network Infrastructure for E-Commerce"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 3: Introduction to Management Information System"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 3: Introduction to Management Information System"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 4: E-Commerce Security and Fraud"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 4: E-Commerce Security and Fraud Issues and Protection"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 5: E-Payment Systems"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 5: Electronic Payment System"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s5-mise-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Unit 6: Launching a Successful EC Website"
+        },
+        {
+          "path": "BCA/Semester-5/mise/notes.md",
+          "locator": "Unit 6: Launching a Successful EC Website"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q1. Define E-Commerce and E-Business. Differentiate between them. (Board 2021, 2022; College-01/12/15; Model; Important Q1)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q2. Differentiate between Pure E-Commerce and Partial E-Commerce with examples. (Board 2021; College-02/05/12; Important Q1/Q7)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q3. Explain different types of e-commerce models: B2B, B2C, C2C, G2C with examples. (Board 2017/2018; College-13/14/15; Important Q4)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q4. How do properties like ubiquity, richness, interactivity and information density make e-commerce better than traditional commerce? (Board 2017; College-01/12/15; Important Q6)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q5. What are the benefits and limitations/barriers of E-Commerce? (Important Q2/Q8; College-05/12)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q6. Define M-Commerce and explain its benefits for organizations, individuals and society. (Board 2018; Important Q9)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q7. What is L-Commerce? Explain its idea, components, applications and impact. (Board 2019/2020; Important Q3/Q10)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q8. Explain the role of social networks and mobile commerce in today's online business. (Important Q5; Model-02 Q: social network capabilities)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q9. Explain the EC framework and the role of the Internet and Web in EC growth. (College-05/12; Board 2022 (business plan); Important Q5)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 1: Introduction to E-Commerce / Q10. Discuss the forces fueling e-commerce and the challenges it faces. (College-12 SET B)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q11. What is I-Way? Explain its components and role in E-Commerce. (Board 2020; College-01/03/06/08/09/11/12/13/14/15; Important Q11)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q12. Define wireless communication and compare Wi-Fi, UMTS and LTE. (Board 2018/2021; Important Q12/Q18)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q13. What is WAP? Explain its working and layered architecture. (Board 2017/2022; College-01/06/08/15; Important Q13)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q14. Discuss major wireless technologies used in EC (2G–5G, WiMAX, WLAN, etc.). (Board 2021; College-05/09/13; Important Q14)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q15. What are the security issues in wireless communication and how can EC transactions be protected? (Board 2021; College-10; Model-02; Important Q15/Q33)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q16. How do ADSL, WiMAX, WLAN and WMAN differ? (Board 2021; Important Q16)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q17. What features of Wi-Fi have made it so popular? (Board 2019; Important Q17)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 2: The Network Infrastructure for E-Commerce / Q18. Differentiate LTE 4G and 3G UMTS. (Board 2021; College-09/13; Important Q18)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q19. What is MIS? Explain the components of CBIS and its importance. (College-03/04/06/12; Model-02; Important Q19)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q20. Explain TPS, MIS, DSS and EIS with examples, and how they vary from one another. (Board 2021/2022; College-03/06/08/10/11; Important Q20/Q25)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q21. What is SCM? Explain SCM using the Nike sneakers example. (Board 2020; College-03/04/06/10/11; Important Q21)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q22. What is CRM and how does it improve customer relationships? (Board 2019; College-10/11; Important Q22)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q23. What is an Expert System? Explain its components and characteristics. (Board 2020/2022; College-03/06/07; Important Q23)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q24. What is an International Information System? Discuss outsourcing and offshoring. (Board 2017; College-01/08/14/15; Important Q24)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q25. Why are information systems essential in today's digital world? (Board 2019; College-03/06; Important Q26; Model-02)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q26. What are enterprise systems? Types (ERP, SCM, CRM) and implementation challenges. (College-08/13; College-04/05; important coverage)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q27. What is a neural network? (College-07)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 1 — Units 1 to 3 / Unit 3: Introduction to Management Information System / Q28. Define information system resources; data vs information. (Model-02; College-14/15; College-10/12)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q29. Define and explain confidentiality, integrity, availability, authentication, authorization and non-repudiation. (Board 2017/2019/2021; College-06/08/09/12/14/15; Important Q27)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q30. Differentiate virus, worm and Trojan horse. (Board 2019; Important Q28)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q31. What is ransomware? Types, effects and protection. (Board 2019; Important Q29)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q32. Explain encryption/decryption and symmetric vs asymmetric encryption. (Board 2019; College-09; Important Q30/Q44)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q33. What is a digital signature? How does it ensure secure transactions? (Board 2018; College-07/08/09/15; Important Q31)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q34. Describe EC defense strategies: biometrics, firewalls, VPN, IDS, IPS, SSL. (Board 2017/2022; College-07/14/15; Important Q32)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q35. Describe IDS and IPS and how they work together. (Board 2021; College-07; Important Q35)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-036",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q36. Differentiate technical and non-technical malware attacks. (Board 2021; College-01/05/10; Important Q34)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-037",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q37. Explain social engineering and its forms. (College-02/12/13)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-038",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 4: E-Commerce Security and Fraud / Q38. What is computer crime? Differentiate hackers and crackers. (College-07/10)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-039",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q39. What is Bitcoin? Advantages, disadvantages and legality in Nepal. (Board 2020; College-10; Important Q36)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-040",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q40. What is virtual currency? List types and differences from cryptocurrency. (Board 2019; Model-02; College-12; Important Q37)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-041",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q41. Explain the working of credit cards, e-checking and ACH in online payments. (Board 2017; College-07/12/13/14; Important Q38/Q41)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-042",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q42. Discuss mobile payment systems and challenges in Nepal. (College-05; Important Q39)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-043",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q43. What are the emerging trends and issues in online payments in Nepal? (Important Q40)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-044",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q44. Explain cryptocurrency with its legal provisions in Nepal. (College-03/06; Important Q42)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-045",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q45. Explain the trend of cashless transactions in Nepal with pros and cons. (Board 2018; College-14; Important Q43)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-046",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 5: E-Payment Systems / Q46. Write short notes on ACH and cryptography and its types. (Board 2020; College-03/06; Important Q44)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-047",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q47. What is SEO? Explain its cycle and the use of bots. (Board 2020/2022; College-03/06/07/10/14; Important Q45)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-048",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q48. What are the different types of websites? Explain with examples. (Board 2020; Important Q46)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-049",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q49. Explain website design criteria and factors affecting usability/performance. (Board 2017; College-01/12/15; Important Q47)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-050",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q50. What are the steps in planning an online business? (Board 2022; College-03/06/12; Important Q48)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-051",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q51. Explain business case, EC model selection and funding options. (Board 2022; College-11; Important Q49)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-052",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q52. How to promote an EC website for a strong market presence? (Board 2019; College-02/12; Important Q50)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-053",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q53. How can web content be used for cross-selling and up-selling? (Board 2017; College-01/12/14; Important Q51)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-054",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q54. Evaluate the feasibility of an EC project. What funding techniques suit fresh graduates? (Board 2018; College-03/06; Important Q52)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-055",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q55. Explain the process of building and deploying an EC website (domain, hosting, cPanel). (Board 2022; College-01/02/05/13)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s5-mise-056",
+      "sources": [
+        {
+          "path": "BCA/Semester-5/mise/mise-board-qa.md",
+          "locator": "Part 2 — Units 4 to 6 / Unit 6: Launching a Successful EC Website / Q56. What is disaster recovery planning? Explain its steps. (Model-02 Group C)"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}

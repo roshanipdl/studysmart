@@ -1,0 +1,9 @@
+curriculum/database-stage-1/*.json -text
+curriculum/database-stage-1/subjects/*.json -text
+curriculum/database-stage-1/README.md -text
+curriculum/database-stage-1-reviewed/*.json -text
+curriculum/database-stage-1-reviewed/subjects/*.json -text
+curriculum/database-stage-1-reviewed/review-report.md -text
+curriculum/database-stage-1-formatted/*.json -text
+curriculum/database-stage-1-formatted/subjects/*.json -text
+curriculum/database-stage-1-formatted/conversion-report.md -text

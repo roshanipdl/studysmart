@@ -1,0 +1,1631 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": 1,
+  "subject": {
+    "id": "subject-bca-s4-dbms",
+    "academicPeriodId": "period-bca-semester-4",
+    "code": "CACS 255",
+    "name": "Database Management System",
+    "description": "",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": 1790976460520,
+    "updatedAt": 1790976460520
+  },
+  "chapters": [
+    {
+      "id": "chapter-bca-s4-dbms-01",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 1,
+      "title": "Introduction to DBMS",
+      "description": "",
+      "sortOrder": 1,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-02",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 2,
+      "title": "Database Design, Architecture & Model",
+      "description": "",
+      "sortOrder": 2,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-03",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 3,
+      "title": "Relational Database Model",
+      "description": "",
+      "sortOrder": 3,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-04",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 4,
+      "title": "Normalization",
+      "description": "",
+      "sortOrder": 4,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-05",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 5,
+      "title": "SQL: Creating and Altering Database and Tables",
+      "description": "",
+      "sortOrder": 5,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-06",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 6,
+      "title": "SQL: Manipulating and Querying Data",
+      "description": "",
+      "sortOrder": 6,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-07",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 7,
+      "title": "Stored Procedures, DML Triggers, Indexing",
+      "description": "",
+      "sortOrder": 7,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-08",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 8,
+      "title": "Query Processing and Security",
+      "description": "",
+      "sortOrder": 8,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "chapter-bca-s4-dbms-09",
+      "subjectId": "subject-bca-s4-dbms",
+      "chapterNumber": 9,
+      "title": "Transactions and Concurrency Control",
+      "description": "",
+      "sortOrder": 9,
+      "isActive": true,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "topics": [],
+  "questions": [
+    {
+      "id": "question-bca-s4-dbms-001",
+      "chapterId": "chapter-bca-s4-dbms-01",
+      "topicId": null,
+      "question": "What is a database? What is a DBMS? Explain the objectives/importance of DBMS.",
+      "answer": "- A database is an organized collection of logically related data relevant\nto an enterprise — a repository of data files (university records, phone directory, banking data).\n- A DBMS is the software layer of programs used to store, retrieve and\nmanipulate data conveniently and efficiently; it hides the underlying complexities of data management and provides an easy interface to users (examples: MySQL, Oracle, SQL Server, MS Access, DB2).\n- Objectives / importance:\n  1. Reduce data redundancy — the same fact stored once, saving space and\n     effort.\n  2. Avoid inconsistency — changes propagate consistently instead of copies\n     disagreeing.\n  3. Share data among many users and applications without new stored files.\n  4. Enforce integrity constraints (e.g., unique roll number).\n  5. Enforce security — per-user, per-operation access control.\n  6. Support transactions with commit/rollback.\n  7. Backup and recovery to a previous consistent state.\n  8. Concurrent access without inconsistency.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-002",
+      "chapterId": "chapter-bca-s4-dbms-01",
+      "topicId": null,
+      "question": "Discuss the merits and demerits of DBMS compared to the traditional file system / What is a flat file system?",
+      "answer": "- Flat file system: each application stores its own separate files; data\nis duplicated across files and programs navigate records directly.\n- Merits of DBMS: controls redundancy; consistency; data sharing;\nintegrity, security and standards enforced centrally; backup/recovery; concurrent access; independence of data from programs.\n- Demerits: high initial cost (software, hardware, training); extra\ncomplexity of design and administration; overhead for simple applications; risk of a single point of failure; conversion cost from legacy files.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-003",
+      "chapterId": "chapter-bca-s4-dbms-01",
+      "topicId": null,
+      "question": "List and explain different applications of DBMS.",
+      "answer": "- Banking: accounts, loans, transactions, fraud monitoring.\n- Airlines/railways: reservations, schedules, passenger records.\n- Universities: students, courses, results, registration.\n- Telecommunications: call records, billing, network data.\n- E-commerce: catalogs, orders, customers, inventory.\n- Manufacturing/HR: production and payroll records; also library systems,\nhospitals and social networks.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-004",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "Explain the three-level (three-schema) architecture of a database with a diagram.",
+      "answer": "The DBMS separates the database description into three levels:\n\n- Internal level (physical schema): how data is physically stored — file\norganizations, blocks, access paths and indexes.\n- Conceptual level (logical schema): the community view: entities,\nattributes, relationships, constraints — what data is stored and its structure.\n- External level (view level): individual user/application views hiding\nthe rest of the conceptual schema.\n- Mappings between levels maintain independence: changes at one level need\nnot affect the others.\n\n external views      view 1        view 2        view 3\n                        \\            |            /\n conceptual level      conceptual schema\n internal level        physical schema (files, indexes)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s4-dbms-005",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "How is logical data independence different from physical data independence? *(3–5 marks)*",
+      "answer": "- Logical data independence: ability to change the conceptual schema\n(add/remove tables, columns) without changing external views or application programs.\n- Physical data independence: ability to change the internal schema\n(storage structures, file organization, indexes) without changing the conceptual schema.\n- Logical independence is harder to achieve because views derive from the\nconceptual schema.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-006",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "What is a data model? Describe its types — hierarchical, network, relational, object-oriented.",
+      "answer": "A data model is a collection of concepts for describing data, its relationships, semantics and constraints.\n\n- Hierarchical model: records form a tree of parent–child links\n(one-to-many, one parent per child). Simple and fast for tree data (IBM IMS), but rigid for many-to-many data.\n- Network model: records and relationships form a graph; owner–member\n\"sets\" support many-to-many; more flexible, more complex to design and navigate (CODASYL/DBTG).\n- Relational model: data is stored as relations (tables) of rows and\ncolumns; relationships by shared values (keys); queried with relational algebra and SQL. Simple, flexible, dominant today.\n- Object-oriented model: data and behaviour encapsulated in objects with\nidentity, attributes and methods; supports complex data (frames, students in OODB/ORDB).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-007",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "What is the ER model? Explain entity, attribute, strong vs weak entity set.",
+      "answer": "- The Entity-Relationship model is a high-level conceptual data model that\ndescribes data as entities, their attributes and relationships, drawn as an ER diagram.\n- Entity: a real-world object or concept (Student, Course); attribute:\na property of an entity (roll no, name); relationship: an association between entities.\n- Strong entity set: has its own key attribute, exists independently\n(e.g., Bank with code).\n- Weak entity set: has no key of its own; it is identified by the owner\nentity and a partial key; drawn with a double rectangle and connected by a double diamond, with total participation in the identifying relationship (e.g., Loan of a Customer).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-008",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "Differentiate generalization and aggregation with examples.",
+      "answer": "- Generalization: a bottom-up abstraction that combines common properties\nof several lower-level entity sets into a higher-level superclass — e.g., Car and Truck generalize to Vehicle (IS-A relationship).\n- Aggregation: an abstraction that treats a relationship between entities\nas a higher-level entity so it can participate in another relationship — e.g., a Project uses a Machine; the combination of Employee-works-on- Project is aggregated when another relationship (e.g., monitors) needs it.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-009",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "Roles and responsibilities of a DBA.",
+      "answer": "- Define and maintain the conceptual/internal schemas; decide storage\nstructures and access methods.\n- Grant/revoke user authorizations and enforce security policy.\n- Monitor performance and tune the database; plan capacity.\n- Maintain backups and plan recovery; manage upgrades and standards.\n- Liaise with users on data requirements and documentation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 6,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-010",
+      "chapterId": "chapter-bca-s4-dbms-02",
+      "topicId": null,
+      "question": "Explain unary, binary and ternary relationships (degree of a relationship).",
+      "answer": "The degree of a relationship is the number of entity sets that participate in it.\n\n- Unary (recursive) relationship: one entity set is related to itself —\ne.g., an Employee *manages* another Employee, or a Course has another Course as prerequisite. Roles (manager/subordinate) distinguish the participants.\n- Binary relationship: two entity sets participate — the most common kind\n(Student *enrolls in* Course, Customer *places* Order).\n- Ternary relationship: three entity sets participate simultaneously —\ne.g., Supplier supplies Part to Project (a shipment), or Doctor prescribes Drug to Patient; a diamond connects three entity sets, and the relationship may carry its own attributes (quantity, date).\n\nMost ER diagrams are built from binary relationships; unary and ternary relationships are used when the same set or three sets interact directly.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 7,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-011",
+      "chapterId": "chapter-bca-s4-dbms-03",
+      "topicId": null,
+      "question": "Define/differentiate keys: super key, candidate key, primary key, foreign key, composite key, partial key.",
+      "answer": "- Super key: any attribute set that uniquely identifies a tuple\n(e.g., {Roll, Name}).\n- Candidate key: a minimal super key — no proper subset identifies tuples\n(e.g., Roll).\n- Primary key: the candidate key chosen by the designer to identify\ntuples; it is unique and NOT NULL.\n- Foreign key: attribute(s) in one relation that reference the primary key\nof another relation; enforces referential integrity.\n- Composite key: a key made of two or more attributes (e.g.,\n{BookId, CardNo} of BookIssue).\n- Partial key: an attribute that distinguishes weak-entity instances of\nthe same owner (drawn dotted in the ER diagram).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-012",
+      "chapterId": "chapter-bca-s4-dbms-03",
+      "topicId": null,
+      "question": "Define union compatibility. Show Director ∩ Actor and Actor ∪ Director for the given relations.",
+      "answer": "Two tables are union compatible if they have the same number of attributes and corresponding attributes have the same data type. Then set operations are defined:\n\n- Director ∩ Actor returns the tuples present in both relations.\n- Actor ∪ Director returns all tuples, duplicates removed.\n- Both operations require union compatibility; for the printed example,\n∩ = {Deepak Giri, Bhuwan KC} and ∪ = {Deepak Giri, Bhuwan KC, Rajesh Hamal, Dipendra Khanal} (row order as printed in the solved book).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-013",
+      "chapterId": "chapter-bca-s4-dbms-03",
+      "topicId": null,
+      "question": "Explain selection and projection operators; write the given RA query.",
+      "answer": "- Selection (σ): keeps rows satisfying a condition —\nσLevel='Bachelor'(Student).\n- Projection (π): keeps the named columns, removing duplicates —\nπFname, Lname(Student).\n- Join: combines matching rows of two relations; union/intersection/\ndifference are set operations on union-compatible relations.\n- 2022 RA query (students in 'Bachelor' living in 'Birgunj' under department\nhead 'Ramesh Sharma'):\n\nπFname(σLevel='Bachelor' ∧ Address='Birgunj' ∧ HOD='Ramesh Sharma' (Student JOIN ON Student.Did = Department.Did Department))\n\nEquivalently: select the qualifying Department rows first, join with Student on Did, then project Fname.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-014",
+      "chapterId": "chapter-bca-s4-dbms-03",
+      "topicId": null,
+      "question": "Given Sailors/Boats/Reserves, write RA and SQL for the five listed queries.",
+      "answer": "- a) Name, rating, age of all sailors: SELECT sname, rating, age FROM\nSailors; / πsname,rating,age(Sailors).\n- b) Boats having color blue: SELECT bname, color FROM Boats WHERE color =\n'blue'; / πbname,colour(σcolour='blue'(Boats)).\n- c) Boats reserved on a given date: join Reserves with Boats on bid and\nfilter reservedate.\n- d) Boats and sailors who reserved green boats:\nSELECT s.sname, b.bname FROM Sailors s, Reserves r, Boats b WHERE s.sid = r.sid AND r.bid = b.bid AND b.colour = 'green';.\n- e) Outer joins: Sailors LEFT OUTER JOIN Reserves ON Sailors.sid =\nReserves.sid; and the RIGHT OUTER JOIN counterpart — unmatched rows keep NULLs on the other side.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-015",
+      "chapterId": "chapter-bca-s4-dbms-03",
+      "topicId": null,
+      "question": "DDL vs DML; relational algebra query on borrowing.",
+      "answer": "- DDL: define/modify the structure — CREATE, ALTER, DROP, TRUNCATE.\n- DML: manipulate the data — SELECT, INSERT, UPDATE, DELETE.\n- RA for \"customers who took a loan from branch B1\"\n(Borrower(Customer name, Loan number), Loan(Loan number, Branch name, Amount)):\n\nπCustomer name(σBranch name='B1'(Borrower JOIN Loan))",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-016",
+      "chapterId": "chapter-bca-s4-dbms-04",
+      "topicId": null,
+      "question": "Why is normalization needed? What are the anomalies?",
+      "answer": "- Normalization is the process of eliminating the flaws of a poorly designed\ndatabase; it removes redundant data (storage efficiency, integrity, scalability) and ensures dependencies make sense (only related data stored together).\n- It fixes insert, update and delete anomalies and keeps the structure\nflexible, at the cost of more relations/joins.\n- Insert anomaly: cannot insert some facts because key values are missing.\n- Update anomaly: a repeated fact must be updated in many rows and copies\ncan disagree.\n- Deletion anomaly: deleting a row destroys unrelated vital facts stored\nwith it.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-017",
+      "chapterId": "chapter-bca-s4-dbms-04",
+      "topicId": null,
+      "question": "Explain functional dependencies and normal forms 1NF, 2NF, 3NF, BCNF (and 4NF) with examples. *(5–10 marks)*",
+      "answer": "- Functional dependency X → Y: each value of X determines exactly one\nvalue of Y (e.g., Roll → Name). Types: trivial, non-trivial; partial (part of a composite key determines an attribute) and transitive (X → Y and Y → Z imply X → Z) dependencies cause 2NF/3NF violations.\n- 1NF: every attribute value is atomic; no repeating groups. Convert\nStudent(Sid, Sname, Subjects(Sub1, Sub2)) into one row per subject or a separate subject relation.\n- 2NF: in 1NF and no partial dependency on the key. For\nEmployee-Department(Emp-Id, Emp-Name, Emp-Salary, Dept-No, Dept-Name) with key (Emp-Id, Dept-No), Emp-Name/Salary depend only on Emp-Id and Dept-Name only on Dept-No → split into Employee and Department.\n- 3NF: in 2NF and no transitive dependency of non-prime attributes.\nStudent(Sid, Sex, Hostel-Name) with Sid → Sex, Sex → Hostel-Name → split into Student(Sid, Sex?)/Hostel(Sex, Hostel-Name) (as printed) or keep a hostel id.\n- BCNF: for every non-trivial FD X → Y, X is a super key. Removes\nanomalies from overlapping candidate keys that 3NF misses.\n- 4NF: in BCNF and no non-trivial multivalued dependency; relevant when\nindependent multivalued facts sit in one relation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-018",
+      "chapterId": "chapter-bca-s4-dbms-04",
+      "topicId": null,
+      "question": "Convert a given unnormalized table into BCNF step by step. *(5–10 marks)*",
+      "answer": "flattening repeating groups; (2) remove partial dependencies → decompose to 2NF; (3) remove transitive dependencies → 3NF; (4) check every determinant is a super key → decompose to BCNF; verify all keys preserved. Apply to the given table with its stated FDs; each decomposition splits the offending FD's determinant and dependents into a new relation.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-019",
+      "chapterId": "chapter-bca-s4-dbms-05",
+      "topicId": null,
+      "question": "SQL constraints: create/alter tables with PRIMARY KEY, FOREIGN KEY, CHECK, DEFAULT; DROP and ALTER.",
+      "answer": "CREATE TABLE Student (\n  Roll   INT PRIMARY KEY,\n  Name   VARCHAR(40) NOT NULL,\n  Age    INT CHECK (Age >= 17),\n  Status VARCHAR(10) DEFAULT 'active',\n  DeptId INT REFERENCES Department(DeptId)\n);\n\nALTER TABLE Student ADD Email VARCHAR(60);\nALTER TABLE Student MODIFY Age INT CHECK (Age BETWEEN 17 AND 40);\nDROP TABLE Old_Results;\n\n- PRIMARY KEY: unique + NOT NULL identifier; FOREIGN KEY/REFERENCES:\nreferential integrity; CHECK: value predicate; DEFAULT: value when omitted; NOT NULL/UNIQUE.\n- ALTER modifies structure (add/modify/drop columns, constraints);\nDROP removes a table/column or its definition. DDL changes are auto-committed.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-020",
+      "chapterId": "chapter-bca-s4-dbms-06",
+      "topicId": null,
+      "question": "Explain INSERT, SELECT, UPDATE, DELETE with examples.",
+      "answer": "INSERT INTO Student (Roll, Name, Age) VALUES (1, 'Sita', 19);\nSELECT Name, Age FROM Student WHERE Age > 18 ORDER BY Name ASC;\nUPDATE Student SET Age = 20 WHERE Roll = 1;\nDELETE FROM Student WHERE Roll = 1;\n\n- SELECT returns a result table; WHERE filters rows, ORDER BY sorts,\nGROUP BY groups for aggregate functions, HAVING filters groups.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s4-dbms-021",
+      "chapterId": "chapter-bca-s4-dbms-06",
+      "topicId": null,
+      "question": "How are ORDER BY and GROUP BY / HAVING different?",
+      "answer": "- ORDER BY sorts the final result set by one or more columns\n(ASC/DESC, default ASC), applied after the result is produced.\n- GROUP BY groups rows that share values of the grouping columns so\naggregate functions (COUNT, SUM, AVG, MAX, MIN) compute per group; HAVING then filters whole groups (WHERE filters individual rows before grouping).\n- Example: SELECT Dept, COUNT(*) FROM Student GROUP BY Dept HAVING\nCOUNT(*) > 5 ORDER BY Dept;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-022",
+      "chapterId": "chapter-bca-s4-dbms-06",
+      "topicId": null,
+      "question": "Different types of JOINS in SQL with examples. *(5–10 marks)*",
+      "answer": "- INNER JOIN: matching rows only — A JOIN B on the join condition.\n- LEFT/RIGHT OUTER JOIN: keep unmatched rows of the left/right table with\nNULLs on the other side.\n- FULL OUTER JOIN: keep unmatched rows from both sides.\n- NATURAL JOIN: joins on all common column names.\n- CROSS JOIN: Cartesian product; SELF JOIN: a table joined to itself.\n- Example: SELECT s.sname, b.bname FROM Sailors s INNER JOIN Reserves r ON\ns.sid=r.sid INNER JOIN Boats b ON r.bid=b.bid WHERE b.colour='blue';",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-023",
+      "chapterId": "chapter-bca-s4-dbms-06",
+      "topicId": null,
+      "question": "Nested query; SQL/RA query sets (book-borrower, supplier, restaurant).",
+      "answer": "- Nested query: a subquery inside another query (WHERE, FROM or SELECT);\ne.g. borrowers of books priced above average: SELECT Name FROM Borrower WHERE Card_No IN (SELECT CardNo FROM BookIssue WHERE BookId IN (SELECT Bookid FROM Book WHERE Price > (SELECT AVG(Price) FROM Book)));\n- Typical 10-mark sets follow the printed answers: suppliers/parts (create\ntable, quantities, parts by \"RD Traders\", count by \"S02\", suppliers in \"KTM\"); books/borrowers (books taken by Ramesh Sharma; issued titles with date windows; author Laxmi Prashad Devkota; count on 25 April 2023; above average price); restaurant/cook/food: SELECT Rname, Rlocation FROM Restaurant; SELECT Workinghrs FROM Worksat WHERE Cname='Sita'; SELECT Fname FROM Food WHERE Cname='Ramesh'; SELECT Rname FROM Restaurant NATURAL JOIN Food WHERE Category='breakfast'; SELECT Cname FROM Worksat WHERE Rname='KFC';",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-024",
+      "chapterId": "chapter-bca-s4-dbms-07",
+      "topicId": null,
+      "question": "What is a stored procedure? Advantages; parameters; create/execute with an example. *(5–10 marks)*",
+      "answer": "- A stored procedure is a named PL/SQL block, stored in the database,\nthat accepts parameters, performs one or more operations and may return a value. Advantages: multiple operations in one call; central business rules; easier maintenance/testing; reduced network traffic; reusable and secure (privileges on the procedure, not tables).\n- Parameter modes: IN (read-only input), OUT (output only),\nIN OUT (both).\n- Example:\n\n  CREATE OR REPLACE PROCEDURE Stu_info AS\n    sname VARCHAR(20) := 'Bhupi'; age NUMBER := 33;\n  BEGIN\n    DBMS_OUTPUT.PUT_LINE('My name = ' || sname || ' Age= ' || age);\n  END;\n  -- execute\n  SET SERVEROUTPUT ON;\n  EXECUTE Stu_info;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s4-dbms-025",
+      "chapterId": "chapter-bca-s4-dbms-07",
+      "topicId": null,
+      "question": "Differentiate stored procedure and trigger; types of triggers; before/after INSERT trigger. *(5–10 marks)*",
+      "answer": "- Stored procedure: called explicitly by the user/application; may take\nparameters; does not fire on its own.\n- Trigger: fires automatically when its event (INSERT/UPDATE/DELETE) and\ntiming occur; no direct invocation, cannot return values; used for audit trails, derived data and business rules.\n- Types: row vs statement; BEFORE vs AFTER; INSTEAD OF (views).\n- Example:\n\n  CREATE OR REPLACE TRIGGER Product_audit\n  AFTER INSERT ON Products FOR EACH ROW\n  BEGIN\n    INSERT INTO Product_log (pid, log_date)\n    VALUES (:NEW.pid, SYSDATE);\n  END;",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s4-dbms-026",
+      "chapterId": "chapter-bca-s4-dbms-07",
+      "topicId": null,
+      "question": "Why is indexing essential? Differentiate dense and sparse index; create with SQL.",
+      "answer": "- An index is an auxiliary access structure (search key + pointer) that\nspeeds up retrieval, range searches and joins; without it the DBMS scans all records. Cost: extra space and maintenance on updates.\n- Dense index: one entry per search-key value/record — faster lookups,\nmore space.\n- Sparse index: one entry per block (file must be ordered by the search\nkey) — smaller, but a block scan follows the lookup.\n- SQL: CREATE INDEX idx_student_name ON Student(Name);\nCREATE UNIQUE INDEX idx_roll ON Student(Roll);",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-027",
+      "chapterId": "chapter-bca-s4-dbms-08",
+      "topicId": null,
+      "question": "How is the cost of a query measured? Construct a query expression tree.",
+      "answer": "- Query cost is measured by the resources consumed: number of disk block\naccesses/transfers (dominant), CPU time, and communication cost in distributed systems; optimisation estimates these from statistics (cardinality, block counts, selectivity).\n- Expression tree: leaves are relations; internal nodes are relational\nalgebra operators (σ, π, JOIN, ×, ∪...); evaluation order is chosen to minimise intermediate sizes. Example (2018):\n\n  ΠLFName, LName, Address\n      |\n      σDName='Research'\n          |\n          JOIN Dnumber=Dno\n         /            \\\n   Department        ×\n                    /   \\\n              Employee  Works_on\n\nMoving selections below joins (push-down) reduces cost.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976526740
+    },
+    {
+      "id": "question-bca-s4-dbms-028",
+      "chapterId": "chapter-bca-s4-dbms-08",
+      "topicId": null,
+      "question": "Materialized vs pipelined evaluation; query optimization process.",
+      "answer": "- Materialized evaluation: compute an operation fully, store the result in\na temporary relation, feed the next operator — simple, but temp I/O adds cost.\n- Pipelined evaluation: pass tuples directly from one operator to the\nnext — no (or fewer) temp relations, lower cost, first results sooner, needs buffers.\n- Optimization process: parse/validate → translate to relational algebra →\ngenerate logically equivalent expression trees → estimate costs with statistics → choose the cheapest plan → execute. Heuristics (push selections/projections down, choose join order) plus cost-based choice.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-029",
+      "chapterId": "chapter-bca-s4-dbms-08",
+      "topicId": null,
+      "question": "Database security; discretionary vs mandatory access control; security measures.",
+      "answer": "- Discretionary access control (DAC): owners grant/revoke privileges on\nobjects (GRANT/REVOKE); flexible but vulnerable to Trojan horses.\n- Mandatory access control (MAC): system-wide classification\n(Top Secret → Public) with clearance rules; users cannot override.\n- Measures: authentication (passwords, biometrics), authorization and\nviews, encryption of data/in-transit, auditing and logging, backups, integrity constraints, and physical security. Security applies to each access type (retrieve, modify, delete).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-030",
+      "chapterId": "chapter-bca-s4-dbms-08",
+      "topicId": null,
+      "question": "Describe the steps of query processing.",
+      "answer": "1. Parsing and translation: check syntax/semantics, convert to relational\nalgebra.\n2. Optimization: choose an efficient execution plan among equivalents\nusing cost estimates.\n3. Evaluation: run the plan (scanning, sorting, joining, indexing) and\nreturn results. (Security/catalog checks run with parsing.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1791041338531
+    },
+    {
+      "id": "question-bca-s4-dbms-031",
+      "chapterId": "chapter-bca-s4-dbms-09",
+      "topicId": null,
+      "question": "Explain transaction states and ACID properties.",
+      "answer": "- A transaction is a set of logically related operations (e.g., transfer\nRs 500 between accounts) executed as one unit.\n- States: Active → Partially committed → Committed → Terminated; failures\nmove to Failed → Aborted (rolled back, possibly restarted).\n- ACID: Atomicity (all or nothing), Consistency (valid state to valid\nstate), Isolation (concurrent transactions do not interfere), Durability (committed changes survive failure).",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 1,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-032",
+      "chapterId": "chapter-bca-s4-dbms-09",
+      "topicId": null,
+      "question": "Read/write operations in a transaction.",
+      "answer": "- READ(X) fetches X from the database into the transaction's workspace;\nWRITE(X) writes the workspace value back after the last write. A schedule is the ordered sequence of such operations; serial schedules run transactions one after another.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 2,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-033",
+      "chapterId": "chapter-bca-s4-dbms-09",
+      "topicId": null,
+      "question": "Concurrency control: why needed; two-phase locking; timestamp ordering; serializability. *(5–10 marks)*",
+      "answer": "- Concurrency control prevents interference anomalies (lost update, dirty\nread, unrepeatable read) and keeps schedules serializable (equivalent to some serial order).\n- Two-phase locking (2PL): a growing phase where locks are only acquired\nand a shrinking phase where locks are only released; guarantees conflict-serializability. Strict 2PL holds exclusive locks until commit.\n- Timestamp ordering: each transaction gets a timestamp; conflicting\noperations execute in timestamp order (older first). Read(X) rejected if W_TS(X) > TS(Ti); Write(X) rejected and Ti rolled back if TS(Ti) < R_TS(X) or TS(Ti) < W_TS(X); otherwise execute and update the item's timestamps (worked example: TS(T1)=100, TS(T2)=110 → T1 aborted to avoid a lost update).\n- Deadlock: cycle of transactions waiting for each other's locks;\ndetected via wait-for-graph cycles; prevented by timestamps (wait-die/wound-wait) or avoided via timeouts; recovered by aborting a victim.",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 3,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-034",
+      "chapterId": "chapter-bca-s4-dbms-09",
+      "topicId": null,
+      "question": "Lost update and dirty read problems with examples.",
+      "answer": "- Lost update: T1 and T2 both read X, both update it and write; the\nsecond write overwrites the first, so T1's update is lost.\n- Dirty read: T1 updates X, T2 reads the new X before T1 commits/rolls\nback; when T1 aborts, T2's read was based on a value that never became stable — T2 is \"dirty\".",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 4,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    },
+    {
+      "id": "question-bca-s4-dbms-035",
+      "chapterId": "chapter-bca-s4-dbms-09",
+      "topicId": null,
+      "question": "Design an ER diagram (university/hospital/car-insurance/shipment); participation and cardinality; convert to tables.",
+      "answer": "Method: list entities and attributes (underline primary keys), choose relationships with cardinality (1:1, 1:N, M:N), mark total participation with double lines (e.g., every policy has payments) and partial with single lines, add identifying relationships for weak entities, then convert:\n\n- strong entities → tables with their key;\n- M:N relationships → a table with the keys of both sides;\n- 1:N relationships → the key of the \"1\" side added to the \"N\" side's table;\n- multivalued attributes → separate tables;\n- weak entities → table with owner key + partial key.\n\n(For the printed worked example see model-01 p. 6–7: Bank/Branch/Account/ Loan/Customer → tables.)",
+      "questionType": "written",
+      "difficulty": "normal",
+      "maxScore": 2.0,
+      "explanation": "",
+      "isActive": true,
+      "sortOrder": 5,
+      "createdAt": 1790976460520,
+      "updatedAt": 1790976460520
+    }
+  ],
+  "questionKeywords": [
+    {
+      "questionId": "question-bca-s4-dbms-001",
+      "normalizedKeyword": "database",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-001",
+      "normalizedKeyword": "dbms",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-001",
+      "normalizedKeyword": "objectives / importance",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-004",
+      "normalizedKeyword": "internal level (physical schema)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-004",
+      "normalizedKeyword": "conceptual level (logical schema)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-004",
+      "normalizedKeyword": "external level (view level)",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-011",
+      "normalizedKeyword": "super key",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-011",
+      "normalizedKeyword": "candidate key",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-011",
+      "normalizedKeyword": "primary key",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-016",
+      "normalizedKeyword": "insert anomaly",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-016",
+      "normalizedKeyword": "update anomaly",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-016",
+      "normalizedKeyword": "deletion anomaly",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-019",
+      "normalizedKeyword": "primary key",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-019",
+      "normalizedKeyword": "foreign key/references",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-019",
+      "normalizedKeyword": "check",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-024",
+      "normalizedKeyword": "stored procedure",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-024",
+      "normalizedKeyword": "parameter modes",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-027",
+      "normalizedKeyword": "query cost",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-027",
+      "normalizedKeyword": "expression tree",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-031",
+      "normalizedKeyword": "transaction",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-031",
+      "normalizedKeyword": "states",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-031",
+      "normalizedKeyword": "acid",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-002",
+      "normalizedKeyword": "flat file system",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-002",
+      "normalizedKeyword": "merits of dbms",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-002",
+      "normalizedKeyword": "demerits",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-005",
+      "normalizedKeyword": "logical data independence",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-005",
+      "normalizedKeyword": "conceptual",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-005",
+      "normalizedKeyword": "physical data independence",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-012",
+      "normalizedKeyword": "union compatible",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-017",
+      "normalizedKeyword": "functional dependency x → y",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-017",
+      "normalizedKeyword": "partial",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-017",
+      "normalizedKeyword": "transitive",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-021",
+      "normalizedKeyword": "order by",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-021",
+      "normalizedKeyword": "group by",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-021",
+      "normalizedKeyword": "having",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-025",
+      "normalizedKeyword": "stored procedure",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-025",
+      "normalizedKeyword": "trigger",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-028",
+      "normalizedKeyword": "materialized evaluation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-028",
+      "normalizedKeyword": "pipelined evaluation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-028",
+      "normalizedKeyword": "optimization process",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-003",
+      "normalizedKeyword": "banking",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-003",
+      "normalizedKeyword": "airlines/railways",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-003",
+      "normalizedKeyword": "universities",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-006",
+      "normalizedKeyword": "data model",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-006",
+      "normalizedKeyword": "hierarchical model",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-006",
+      "normalizedKeyword": "network model",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-013",
+      "normalizedKeyword": "selection (σ)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-013",
+      "normalizedKeyword": "projection (π)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-013",
+      "normalizedKeyword": "join",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-022",
+      "normalizedKeyword": "inner join",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-022",
+      "normalizedKeyword": "left/right outer join",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-022",
+      "normalizedKeyword": "full outer join",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-026",
+      "normalizedKeyword": "index",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-026",
+      "normalizedKeyword": "dense index",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-026",
+      "normalizedKeyword": "sparse index",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-029",
+      "normalizedKeyword": "discretionary access control (dac)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-029",
+      "normalizedKeyword": "mandatory access control (mac)",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-029",
+      "normalizedKeyword": "measures",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-033",
+      "normalizedKeyword": "two-phase locking (2pl)",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-033",
+      "normalizedKeyword": "timestamp ordering",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-033",
+      "normalizedKeyword": "deadlock",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-007",
+      "normalizedKeyword": "entity-relationship model",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-007",
+      "normalizedKeyword": "entity",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-007",
+      "normalizedKeyword": "attribute",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-023",
+      "normalizedKeyword": "nested query",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-030",
+      "normalizedKeyword": "parsing and translation",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-030",
+      "normalizedKeyword": "optimization",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-030",
+      "normalizedKeyword": "evaluation",
+      "weight": 1.0,
+      "sortOrder": 3
+    },
+    {
+      "questionId": "question-bca-s4-dbms-034",
+      "normalizedKeyword": "lost update",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-034",
+      "normalizedKeyword": "dirty read",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-008",
+      "normalizedKeyword": "generalization",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-008",
+      "normalizedKeyword": "aggregation",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-015",
+      "normalizedKeyword": "ddl",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-015",
+      "normalizedKeyword": "dml",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-010",
+      "normalizedKeyword": "degree",
+      "weight": 1.0,
+      "sortOrder": 1
+    },
+    {
+      "questionId": "question-bca-s4-dbms-010",
+      "normalizedKeyword": "unary (recursive) relationship",
+      "weight": 1.0,
+      "sortOrder": 2
+    },
+    {
+      "questionId": "question-bca-s4-dbms-010",
+      "normalizedKeyword": "binary relationship",
+      "weight": 1.0,
+      "sortOrder": 3
+    }
+  ],
+  "provenance": [
+    {
+      "entityType": "subject",
+      "entityId": "subject-bca-s4-dbms",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "title: Database Management System (CACS 255) — Board Questions with Answers"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-01",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 1 — Introduction to DBMS"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit I — Introduction to DBMS (3 hrs) (pages 2–4)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-02",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 2 — Database Design, Architecture & Model"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit II — Database Design, Architecture & Model (6 hrs) (pages 5–21)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-03",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 3 — Relational Database Model"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit III — Relational Database Model (4 hrs) (pages 22–31)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-04",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 4 — Normalization"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit IV — Database Normalization (4 hrs) (pages 32–41)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-05",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 5 — SQL: Creating and Altering Database and Tables"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit V — Introduction to SQL Queries (6 hrs) (pages 42–47)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-06",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 6 — SQL: Manipulating and Querying Data"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit VI — Manipulating and Querying Data (8 hrs) (pages 48–57)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-07",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 7 — Stored Procedures, DML Triggers, Indexing"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit VII — Developing Stored Procedures, DML Triggers and Indexing (5 hrs) (pages 58–64)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-08",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 8 — Query Processing and Security"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit VIII — Query Processing & Security (5 hrs) (pages 65–73)"
+        }
+      ]
+    },
+    {
+      "entityType": "chapter",
+      "entityId": "chapter-bca-s4-dbms-09",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Unit 9 — Transactions and Concurrency Control"
+        },
+        {
+          "path": "BCA/Semester-4/dbms/notes.md",
+          "locator": "Unit IX — Transaction & Concurrency Control (4 hrs) (pages 74–82)"
+        }
+      ]
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-001",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 1 — Introduction to DBMS / 1.1 What is a database? What is a DBMS? Explain the objectives/importance of DBMS. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-002",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 1 — Introduction to DBMS / 1.2 Discuss the merits and demerits of DBMS compared to the traditional file system / What is a flat file system? *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-003",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 1 — Introduction to DBMS / 1.3 List and explain different applications of DBMS. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-004",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.1 Explain the three-level (three-schema) architecture of a database with a diagram. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-005",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.2 How is logical data independence different from physical data independence? *(3–5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-006",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.3 What is a data model? Describe its types — hierarchical, network, relational, object-oriented. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-007",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.4 What is the ER model? Explain entity, attribute, strong vs weak entity set. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-008",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.5 Differentiate generalization and aggregation with examples. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-009",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.6 Roles and responsibilities of a DBA. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-010",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 2 — Database Design, Architecture & Model / 2.7 Explain unary, binary and ternary relationships (degree of a relationship). *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-011",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 3 — Relational Database Model / 3.1 Define/differentiate keys: super key, candidate key, primary key, foreign key, composite key, partial key. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-012",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 3 — Relational Database Model / 3.2 Define union compatibility. Show Director ∩ Actor and Actor ∪ Director for the given relations. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-013",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 3 — Relational Database Model / 3.3 Explain selection and projection operators; write the given RA query. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-014",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 3 — Relational Database Model / 3.4 Given Sailors/Boats/Reserves, write RA and SQL for the five listed queries. *(10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-015",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 3 — Relational Database Model / 3.5 DDL vs DML; relational algebra query on borrowing. *(10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-016",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 4 — Normalization / 4.1 Why is normalization needed? What are the anomalies? *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-017",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 4 — Normalization / 4.2 Explain functional dependencies and normal forms 1NF, 2NF, 3NF, BCNF (and 4NF) with examples. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-018",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 4 — Normalization / 4.3 Convert a given unnormalized table into BCNF step by step. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-019",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 5 — SQL: Creating and Altering Database and Tables / 5.1 SQL constraints: create/alter tables with PRIMARY KEY, FOREIGN KEY, CHECK, DEFAULT; DROP and ALTER. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-020",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 6 — SQL: Manipulating and Querying Data / 6.1 Explain INSERT, SELECT, UPDATE, DELETE with examples. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-021",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 6 — SQL: Manipulating and Querying Data / 6.2 How are ORDER BY and GROUP BY / HAVING different? *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-022",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 6 — SQL: Manipulating and Querying Data / 6.3 Different types of JOINS in SQL with examples. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-023",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 6 — SQL: Manipulating and Querying Data / 6.4 Nested query; SQL/RA query sets (book-borrower, supplier, restaurant). *(10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-024",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 7 — Stored Procedures, DML Triggers, Indexing / 7.1 What is a stored procedure? Advantages; parameters; create/execute with an example. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-025",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 7 — Stored Procedures, DML Triggers, Indexing / 7.2 Differentiate stored procedure and trigger; types of triggers; before/after INSERT trigger. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-026",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 7 — Stored Procedures, DML Triggers, Indexing / 7.3 Why is indexing essential? Differentiate dense and sparse index; create with SQL. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-027",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 8 — Query Processing and Security / 8.1 How is the cost of a query measured? Construct a query expression tree. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-028",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 8 — Query Processing and Security / 8.2 Materialized vs pipelined evaluation; query optimization process. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-029",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 8 — Query Processing and Security / 8.3 Database security; discretionary vs mandatory access control; security measures. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-030",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 8 — Query Processing and Security / 8.4 Describe the steps of query processing. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-031",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 9 — Transactions and Concurrency Control / 9.1 Explain transaction states and ACID properties. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-032",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 9 — Transactions and Concurrency Control / 9.2 Read/write operations in a transaction. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-033",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 9 — Transactions and Concurrency Control / 9.3 Concurrency control: why needed; two-phase locking; timestamp ordering; serializability. *(5–10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-034",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 9 — Transactions and Concurrency Control / 9.4 Lost update and dirty read problems with examples. *(5 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    },
+    {
+      "entityType": "question",
+      "entityId": "question-bca-s4-dbms-035",
+      "sources": [
+        {
+          "path": "BCA/Semester-4/dbms/dbms-board-qa.md",
+          "locator": "Database Management System (CACS 255) — Board Questions with Answers / Unit 9 — Transactions and Concurrency Control / 9.5 Design an ER diagram (university/hospital/car-insurance/shipment); participation and cardinality; convert to tables. *(10 marks)*"
+        }
+      ],
+      "notes": "Question and complete reference answer are preserved as plain text; no exam marks were mapped to maxScore 2.0."
+    }
+  ]
+}
