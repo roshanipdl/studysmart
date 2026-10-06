@@ -175,4 +175,6 @@ data class QuestionEntity(
     val sortOrder: Int,
     val createdAt: Instant,
     val updatedAt: Instant,
+    @androidx.room.ColumnInfo(defaultValue = "'plain_text'")
+    val answerFormat: com.studysmart.app.core.model.AnswerFormat = com.studysmart.app.core.model.AnswerFormat.PLAIN_TEXT,
 )

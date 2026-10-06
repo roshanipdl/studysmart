@@ -27,6 +27,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class ReviewUiState(
+    val contextLabel: String = "",
+    val statusQuestions: List<com.studysmart.app.core.database.ReadinessQuestionRow> = emptyList(),
     val isLoading: Boolean = true,
     val isContextRequired: Boolean = false,
     val courseId: String? = null,
@@ -39,8 +41,14 @@ data class ReviewUiState(
     val isReadinessLoading: Boolean = false,
     val readinessError: String? = null,
     val error: String? = null,
+    val statusError: String? = null,
+    val dueError: String? = null,
     val sessionQuestionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
-)
+) {
+    val displayError: String? get() = error ?: statusError ?: dueError
+    val statusPools: Map<ReviewFilter, List<com.studysmart.app.core.database.ReadinessQuestionRow>> =
+        ReviewFilter.entries.associateWith { it.select(statusQuestions) }
+}
 
 sealed interface ReviewEffect {
     data class OpenDueReview(val sessionId: String) : ReviewEffect
@@ -65,13 +73,58 @@ class ReviewViewModel(
     private var observeJob: Job? = null
     private var pendingRequest: DueReviewSessionRequest? = null
     private var creationInProgress = false
+    private var statusRequest: com.studysmart.app.feature.preparation.StatusFilterSessionRequest? = null
+
+    fun startStatusReview(filter: ReviewFilter) {
+        val state = _uiState.value
+        val course = state.courseId ?: return
+        val period = state.academicPeriodId ?: return
+        if (state.isLoading || state.isContextRequired || state.statusError != null || state.isStarting || creationInProgress || state.statusPools[filter].isNullOrEmpty()) return
+        val request = statusRequest?.takeIf { it.courseId == course && it.academicPeriodId == period && it.filter == filter }
+            ?: com.studysmart.app.feature.preparation.StatusFilterSessionRequest(course, period, filter,
+                idGenerator.nextId("status-review-request"), state.sessionQuestionCount).also { statusRequest = it }
+        creationInProgress = true
+        _uiState.value = state.copy(isStarting = true, error = null)
+        viewModelScope.launch(dispatchers.main) {
+            var navigationCommitted = false
+            try {
+                val result = preparationRepository.createStatusFilterSession(request)
+                val current = _uiState.value
+                if (current.courseId != course || current.academicPeriodId != period || current.isContextRequired) {
+                    if (result is PreparationCreationResult.Created) preparationRepository.discardSession(result.sessionId)
+                    statusRequest = null
+                    return@launch
+                }
+                when (result) {
+                    is PreparationCreationResult.Created -> {
+                        navigationCommitted = true
+                        _uiState.value = current.copy(isStarting = true)
+                        _effects.tryEmit(ReviewEffect.OpenDueReview(result.sessionId))
+                    }
+                    PreparationCreationResult.NoQuestions -> _uiState.value = current.copy(statusQuestions = emptyList(), isStarting = false)
+                    PreparationCreationResult.MissingScope -> _uiState.value = current.copy(isContextRequired = true, isStarting = false)
+                }
+                statusRequest = null
+            } catch (error: Throwable) {
+                if (error is CancellationException) throw error
+                _uiState.value = _uiState.value.copy(error = error.message ?: "Unable to start review.")
+            } finally {
+                creationInProgress = false
+                if (!navigationCommitted) _uiState.value = _uiState.value.copy(isStarting = false)
+            }
+        }
+    }
 
     init {
         observe()
     }
 
     fun retry() {
-        if (pendingRequest != null) {
+        if (_uiState.value.statusError != null || _uiState.value.dueError != null) {
+            observe()
+        } else if (statusRequest != null) {
+            startStatusReview(statusRequest!!.filter)
+        } else if (pendingRequest != null) {
             startDueReview()
         } else {
             observe()
@@ -82,7 +135,7 @@ class ReviewViewModel(
         val state = _uiState.value
         val courseId = state.courseId ?: return
         val academicPeriodId = state.academicPeriodId ?: return
-        if (state.isLoading || state.isContextRequired || state.isNoDue || creationInProgress) return
+        if (state.isLoading || state.isContextRequired || state.dueError != null || state.isNoDue || creationInProgress) return
 
         val request = pendingRequest?.takeIf {
             it.courseId == courseId && it.academicPeriodId == academicPeriodId
@@ -93,6 +146,11 @@ class ReviewViewModel(
         viewModelScope.launch(dispatchers.main) {
             try {
                 val result = preparationRepository.createDueReviewSession(request)
+                if (_uiState.value.courseId != courseId || _uiState.value.academicPeriodId != academicPeriodId || _uiState.value.isContextRequired) {
+                    if (result is PreparationCreationResult.Created) preparationRepository.discardSession(result.sessionId)
+                    pendingRequest = null
+                    return@launch
+                }
                 when (result) {
                     is PreparationCreationResult.Created -> {
                         pendingRequest = null
@@ -157,6 +215,8 @@ class ReviewViewModel(
                         _uiState.value = ReviewUiState(
                             isLoading = false,
                             isContextRequired = true,
+                            courseId = courses.firstOrNull { it.id == courseId }?.id,
+                            contextLabel = courses.firstOrNull { it.id == courseId }?.name ?: "",
                         )
                         return@collectLatest
                     }
@@ -183,6 +243,8 @@ class ReviewViewModel(
                             _uiState.value = ReviewUiState(
                                 isLoading = false,
                                 isContextRequired = true,
+                                courseId = courseId,
+                                contextLabel = courses.firstOrNull { it.id == courseId }?.name ?: "",
                             )
                         }
                     } catch (error: Throwable) {
@@ -201,7 +263,10 @@ class ReviewViewModel(
     }
 
     private suspend fun observeDueReview(courseId: String, academicPeriodId: String) {
+        val sameContext = _uiState.value.courseId == courseId && _uiState.value.academicPeriodId == academicPeriodId
         _uiState.value = _uiState.value.copy(
+            contextLabel = if (sameContext) _uiState.value.contextLabel else "",
+            statusQuestions = if (sameContext) _uiState.value.statusQuestions else emptyList(),
             isLoading = true,
             isContextRequired = false,
             courseId = courseId,
@@ -210,8 +275,29 @@ class ReviewViewModel(
             isReadinessLoading = true,
             readinessError = null,
             error = null,
+            statusError = null,
+            dueError = null,
         )
         kotlinx.coroutines.coroutineScope {
+            launch {
+                curriculumRepository.observePeriodSubjects(academicPeriodId).collect { context ->
+                    if (context == null) {
+                        _uiState.value = ReviewUiState(isLoading = false, isContextRequired = true)
+                    } else {
+                        _uiState.value = _uiState.value.copy(contextLabel = "${context.course.name} • ${context.period.name}")
+                    }
+                }
+            }
+            launch {
+                reviewRepository.observeStatusQuestions(courseId, academicPeriodId).catch { error ->
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        statusError = error.message ?: "Unable to load review status questions.",
+                    )
+                }.collect { rows ->
+                    _uiState.value = _uiState.value.copy(statusQuestions = rows, statusError = null)
+                }
+            }
             launch {
                 reviewRepository.observeDueReview(
                     courseId = courseId,
@@ -221,18 +307,17 @@ class ReviewViewModel(
                         isLoading = false,
                         courseId = courseId,
                         academicPeriodId = academicPeriodId,
-                        error = error.message ?: "Unable to load due reviews.",
+                        dueError = error.message ?: "Unable to load due reviews.",
                     )
                 }.collect { summary ->
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        isContextRequired = false,
                         courseId = courseId,
                         academicPeriodId = academicPeriodId,
                         dueCount = summary.dueCount,
                         overdueCount = summary.overdueCount,
                         isNoDue = summary.dueCount == 0,
-                        error = null,
+                        dueError = null,
                     )
                 }
             }

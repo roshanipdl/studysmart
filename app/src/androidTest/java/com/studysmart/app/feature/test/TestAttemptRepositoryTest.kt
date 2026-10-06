@@ -50,6 +50,23 @@ class TestAttemptRepositoryTest {
     }
 
     @Test
+    fun htmlReferenceSnapshotSurvivesCurriculumChangeAndReload() = runBlocking {
+        val html = "<pre><code>  original\n answer</code></pre>"
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET answer = ?, answerFormat = 'html' WHERE chapterId = 'chapter-bca-s1-dbms-01'", arrayOf(html))
+        val repo = repository(TestDefaults(questionSource = TestQuestionSource.ALL))
+        val created = repo.createChapterAttempt(ChapterTestAttemptRequest(
+            chapterId = "chapter-bca-s1-dbms-01", creationRequestId = "formatted-snapshot")) as TestAttemptCreationResult.Created
+        val before = database.testAttemptDao().observeAttemptQuestions(created.attemptId).first()
+        assertTrue(before.all { it.referenceAnswerSnapshot == html &&
+            it.referenceAnswerFormatSnapshot == com.studysmart.app.core.model.AnswerFormat.HTML })
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET answer = 'Changed', answerFormat = 'plain_text' WHERE chapterId = 'chapter-bca-s1-dbms-01'")
+        assertEquals(before, database.testAttemptDao().observeAttemptQuestions(created.attemptId).first())
+        assertEquals(before, repo.observeAttempt(created.attemptId).first()!!.questions)
+    }
+
+    @Test
     fun chapterAttemptPersistsFixedSnapshotsAnswersAndIsIdempotent() = runBlocking {
         val repository = repository(TestDefaults(questionSource = TestQuestionSource.ALL))
         val request = ChapterTestAttemptRequest(

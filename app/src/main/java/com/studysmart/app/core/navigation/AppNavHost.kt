@@ -84,6 +84,8 @@ fun AppNavHost(
                 onRetrySelection = homeViewModel::retrySelection,
                 onSearch = { navController.navigate(AppRoutes.SEARCH) },
                 onSettings = { navController.navigate(AppRoutes.SETTINGS) },
+                onDueReview = { navController.navigate(AppRoutes.REVIEW) },
+                onSaved = { navController.navigate(AppRoutes.IMPORTANT) },
                 onCourseSelected = { courseId ->
                     homeViewModel.selectCourse(courseId) {
                         navController.navigateAcademicPeriod(courseId, AppRoutes.HOME)
@@ -126,6 +128,8 @@ fun AppNavHost(
                 state = state,
                 onRetry = reviewViewModel::retry,
                 onStartDueReview = reviewViewModel::startDueReview,
+                onChangeContext = { navController.navigate(state.courseId?.let(AppRoutes::academicPeriod) ?: AppRoutes.COURSES) },
+                onOpenFilter = { navController.navigate(AppRoutes.reviewQuestions(it.routeValue)) },
             )
         }
         composable(AppRoutes.PROGRESS) {
@@ -667,9 +671,9 @@ fun AppNavHost(
                 factory = container.viewModelFactory { graph -> graph.settingsViewModel() },
             )
             val state by viewModel.uiState.collectAsStateWithLifecycle()
-            LaunchedEffect(pendingTopLevelDestination, state.isSaving, state.isSaveError) {
+            LaunchedEffect(pendingTopLevelDestination, state.isSaving, state.hasSaveError, state.clearConfirmation) {
                 val destination = pendingTopLevelDestination ?: return@LaunchedEffect
-                if (!state.isSaving && !state.isSaveError) {
+                if (!state.isSaving && !state.hasSaveError && !state.clearConfirmation) {
                     onPendingTopLevelDestinationConsumed()
                     navController.navigateTopLevel(destination)
                 }
@@ -677,7 +681,8 @@ fun AppNavHost(
             val navigateBack = {
                 if (!state.isSaving) {
                     onPendingTopLevelDestinationConsumed()
-                    navController.navigateBackOrFallback(AppRoutes.HOME)
+                    if (state.clearConfirmation) viewModel.cancelClear()
+                    else navController.navigateBackOrFallback(AppRoutes.HOME)
                 }
             }
             BackHandler(onBack = navigateBack)
@@ -689,7 +694,17 @@ fun AppNavHost(
                 onDecrementCount = viewModel::decrementQuestionCount,
                     onIncrementCount = viewModel::incrementQuestionCount,
                     onDecrementGoal = viewModel::decrementDailyGoal,
-                    onIncrementGoal = viewModel::incrementDailyGoal,
+                onIncrementGoal = viewModel::incrementDailyGoal,
+                onChooseCourse = { navController.navigate(AppRoutes.COURSES) },
+                onChoosePeriod = { state.courseId?.let { navController.navigate(AppRoutes.academicPeriod(it)) } },
+                onTheme = viewModel::setTheme,
+                onEditName = viewModel::editName,
+                onNameChange = viewModel::changeName,
+                onSaveName = viewModel::saveName,
+                onCancelName = viewModel::cancelName,
+                onRequestClear = viewModel::requestClear,
+                onConfirmClear = viewModel::confirmClear,
+                onCancelClear = viewModel::cancelClear,
             )
         }
         composable(AppRoutes.TEST_DEFAULTS) {
@@ -789,11 +804,24 @@ fun AppNavHost(
                     onBack = { navController.navigateBackOrFallback(AppRoutes.REVIEW) },
                 )
             } else {
-                PlaceholderScreen(
-                    title = "Review Questions",
-                    supportingText = "Filter: $filter",
+                val selectedFilter = com.studysmart.app.feature.review.ReviewFilter.fromRoute(filter)!!
+                val model: ReviewViewModel = viewModel(factory = container.viewModelFactory { graph -> graph.reviewViewModel() })
+                val state by model.uiState.collectAsStateWithLifecycle()
+                LaunchedEffect(model) {
+                    model.effects.collect { effect ->
+                        when (effect) {
+                            is ReviewEffect.OpenDueReview -> navController.navigate(AppRoutes.prepareSession(effect.sessionId)) {
+                                popUpTo(entry.destination.id) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
+                    }
+                }
+                com.studysmart.app.feature.review.ReviewQuestionsScreen(state, selectedFilter,
                     onBack = { navController.navigateBackOrFallback(AppRoutes.REVIEW) },
-                )
+                    onRetry = model::retry,
+                    onStart = { model.startStatusReview(selectedFilter) },
+                    onChoose = { navController.navigate(state.courseId?.let(AppRoutes::academicPeriod) ?: AppRoutes.COURSES) })
             }
         }
     }

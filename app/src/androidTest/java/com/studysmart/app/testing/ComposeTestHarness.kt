@@ -28,6 +28,17 @@ fun SemanticsNodeInteraction.unclippedControlBoundsInRoot(): Rect {
         Size(coordinates.size.width.toFloat(), coordinates.size.height.toFloat()))
 }
 
+/** Axis-aligned envelope of transformed corners, including a settled 180-degree card face. */
+fun SemanticsNodeInteraction.unclippedTransformedBoundsInRoot(): Rect {
+    val coordinates = fetchSemanticsNode().layoutInfo.coordinates
+    val width = coordinates.size.width.toFloat()
+    val height = coordinates.size.height.toFloat()
+    val corners = listOf(Offset.Zero, Offset(width, 0f), Offset(0f, height), Offset(width, height))
+        .map(coordinates::localToRoot)
+    return Rect(corners.minOf { it.x }, corners.minOf { it.y },
+        corners.maxOf { it.x }, corners.maxOf { it.y })
+}
+
 fun ComposeContentTestRule.setStudySmartContent(
     container: AppContainer? = null,
     startRoute: String = com.studysmart.app.core.navigation.AppRoutes.HOME,

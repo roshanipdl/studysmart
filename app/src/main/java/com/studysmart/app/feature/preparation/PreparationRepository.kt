@@ -25,6 +25,7 @@ import java.time.Clock
 import java.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 data class PreparationContextModel(
@@ -56,6 +57,7 @@ data class PreparationItemModel(
     val isCompleted: Boolean,
     val lastRating: Rating?,
     val lastPresentedAt: Instant?,
+    val answerFormatSnapshot: com.studysmart.app.core.model.AnswerFormat = com.studysmart.app.core.model.AnswerFormat.PLAIN_TEXT,
 )
 
 data class PreparationReviewEventModel(
@@ -114,6 +116,14 @@ data class DueReviewSessionRequest(
     val questionCount: Int = com.studysmart.app.core.model.PreparationDefaults.DEFAULT_QUESTION_COUNT,
 )
 
+data class StatusFilterSessionRequest(
+    val courseId: String,
+    val academicPeriodId: String,
+    val filter: com.studysmart.app.feature.review.ReviewFilter,
+    val creationRequestId: String,
+    val questionCount: Int,
+)
+
 data class ImportantPreparationRequest(
     val scope: com.studysmart.app.core.model.SavedQuestionScope,
     val creationRequestId: String,
@@ -141,6 +151,7 @@ data class PreparationRatingResult(
 )
 
 interface PreparationRepository {
+    suspend fun createStatusFilterSession(request: StatusFilterSessionRequest): PreparationCreationResult = PreparationCreationResult.MissingScope
     suspend fun getChapterCoverage(chapterId: String): PreparationChapterCoverage?
     fun observeSession(sessionId: String): Flow<PreparationSessionModel?>
 
@@ -223,13 +234,13 @@ class RoomPreparationRepository(
                 val context = when (request.scopeType) {
                     PreparationScopeType.CHAPTER -> dao.getChapterContext(request.scopeId)
                     PreparationScopeType.TOPIC -> dao.getTopicContext(request.scopeId)
-                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT -> return@withTransaction PreparationCreationResult.MissingScope
+                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT, PreparationScopeType.STATUS_FILTER -> return@withTransaction PreparationCreationResult.MissingScope
                 } ?: return@withTransaction PreparationCreationResult.MissingScope
 
                 val candidateRows = when (request.scopeType) {
                     PreparationScopeType.CHAPTER -> dao.getChapterCandidates(userId, request.scopeId)
                     PreparationScopeType.TOPIC -> dao.getTopicCandidates(userId, request.scopeId)
-                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT -> return@withTransaction PreparationCreationResult.MissingScope
+                    PreparationScopeType.DUE_REVIEW, PreparationScopeType.IMPORTANT, PreparationScopeType.STATUS_FILTER -> return@withTransaction PreparationCreationResult.MissingScope
                 }
                 val selectedAt = clock.instant()
                 val plan = selectionEngine.createPlan(
@@ -328,6 +339,30 @@ class RoomPreparationRepository(
         }
     }
 
+    override suspend fun createStatusFilterSession(request: StatusFilterSessionRequest): PreparationCreationResult = withContext(dispatchers.io) {
+        require(request.questionCount in 1..MAX_UNIQUE_QUESTIONS)
+        require(request.creationRequestId.isNotBlank())
+        database.withTransaction {
+            val context = dao.getCoursePeriodContext(request.courseId, request.academicPeriodId)
+                ?: return@withTransaction PreparationCreationResult.MissingScope
+            dao.getSessionByCreationRequestId(request.creationRequestId)?.let { existing ->
+                return@withTransaction if (existing.userId == userId && existing.scopeType == PreparationScopeType.STATUS_FILTER &&
+                    existing.courseId == request.courseId && existing.academicPeriodId == request.academicPeriodId &&
+                    existing.scopeReferenceId == request.filter.routeValue)
+                    PreparationCreationResult.Created(existing.id) else PreparationCreationResult.MissingScope
+            }
+            val rows = database.readinessDao().observeQuestions(userId, request.courseId, request.academicPeriodId, null, null).first()
+            val selected = request.filter.select(rows).take(request.questionCount)
+            if (selected.isEmpty()) return@withTransaction PreparationCreationResult.NoQuestions
+            val candidates = selected.map { it.chapterId }.distinct().flatMap { dao.getChapterCandidates(userId, it) }.associateBy { it.question.id }
+            val now = clock.instant()
+            val plan = PreparationPlan(randomSource.nextLong(), selected.map { it.questionId })
+            PreparationCreationResult.Created(insertSession(context, PreparationScopeType.STATUS_FILTER,
+                request.filter.routeValue, PreparationOriginType.REVIEW, null, request.creationRequestId,
+                plan, candidates, now))
+        }
+    }
+
     private suspend fun insertSession(
         context: PreparationContextRow,
         scopeType: PreparationScopeType,
@@ -372,6 +407,7 @@ class RoomPreparationRepository(
                     questionId = question.id,
                     questionSnapshot = question.question,
                     answerSnapshot = question.answer,
+                    answerFormatSnapshot = question.answerFormat,
                     questionTypeSnapshot = question.questionType,
                     originalOrder = index,
                     queueSequence = index,
@@ -523,6 +559,7 @@ class RoomPreparationRepository(
         questionId = item.questionId,
         questionSnapshot = item.questionSnapshot,
         answerSnapshot = item.answerSnapshot,
+        answerFormatSnapshot = item.answerFormatSnapshot,
         questionTypeSnapshot = item.questionTypeSnapshot,
         originalOrder = item.originalOrder,
         queueSequence = item.queueSequence,

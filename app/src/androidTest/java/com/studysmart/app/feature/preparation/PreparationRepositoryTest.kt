@@ -54,6 +54,22 @@ class PreparationRepositoryTest {
     }
 
     @Test
+    fun htmlSnapshotFormatSurvivesCurriculumChangeAndReload() = runBlocking {
+        val html = "<p>Original <strong>answer</strong></p>"
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET answer = ?, answerFormat = 'html' WHERE chapterId = 'chapter-bca-s1-dbms-01'", arrayOf(html))
+        val sessionId = createSession("formatted-snapshot")
+        val first = repository.observeSession(sessionId).first()!!.currentItem!!
+        assertEquals(html, first.answerSnapshot)
+        assertEquals(com.studysmart.app.core.model.AnswerFormat.HTML, first.answerFormatSnapshot)
+        database.openHelper.writableDatabase.execSQL(
+            "UPDATE questions SET answer = 'Changed', answerFormat = 'plain_text' WHERE chapterId = 'chapter-bca-s1-dbms-01'")
+        assertEquals(first, repository.observeSession(sessionId).first()!!.currentItem!!)
+        assertEquals(com.studysmart.app.core.model.AnswerFormat.HTML,
+            database.preparationDao().observeSessionItems(sessionId).first().first().answerFormatSnapshot)
+    }
+
+    @Test
     fun chapterCoverageUsesCommittedDistinctQuestionsAndActiveEligibility() = runBlocking {
         val chapter = "chapter-bca-s1-dbms-01"
         assertEquals(PreparationChapterCoverage(2, 0), repository.getChapterCoverage(chapter))

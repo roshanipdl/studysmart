@@ -61,7 +61,11 @@ class AppContainer(
     val preferences: PreferencesRepository = DataStorePreferencesRepository(context),
     val curriculumRepository: CurriculumRepository =
         com.studysmart.app.core.data.RoomCurriculumRepository(database.curriculumDao()),
-    val homeRepository: HomeRepository = CurriculumHomeRepository(curriculumRepository),
+    val homeRepository: HomeRepository = CurriculumHomeRepository(curriculumRepository, database.preparationDao()),
+    val localUserRepository: com.studysmart.app.core.data.LocalUserRepository =
+        com.studysmart.app.core.data.RoomLocalUserRepository(database.userDao(), clock, dispatchers),
+    val learningDataRepository: com.studysmart.app.core.data.LearningDataRepository =
+        com.studysmart.app.core.data.RoomLearningDataRepository(database.learningDataDao(), dispatchers),
     val searchRepository: com.studysmart.app.core.data.SearchRepository =
         com.studysmart.app.core.data.RoomSearchRepository(database.searchDao(), dispatchers, database),
     val chapterDetailRepository: com.studysmart.app.feature.chapters.ChapterDetailRepository =
@@ -79,7 +83,7 @@ class AppContainer(
         idGenerator = idGenerator,
         dispatchers = dispatchers,
     ),
-    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao(), clock, timeUpdates = studyTime.observeTime().map { it.now }),
+    val reviewRepository: ReviewRepository = RoomReviewRepository(database.preparationDao(), clock, timeUpdates = studyTime.observeTime().map { it.now }, readinessDao = database.readinessDao()),
     val readinessRepository: ReadinessRepository = RoomReadinessRepository(
         dao = database.readinessDao(),
         clock = clock,
@@ -109,6 +113,9 @@ class AppContainer(
         preferencesRepository = preferences,
         dispatchers = dispatchers,
         curriculumRepository = curriculumRepository,
+        localUserRepository = localUserRepository,
+        reviewRepository = reviewRepository,
+        bookmarkRepository = bookmarkRepository,
     )
 
     fun coursesViewModel(): CoursesViewModel = CoursesViewModel(
@@ -175,7 +182,7 @@ class AppContainer(
         )
 
     fun settingsViewModel(): com.studysmart.app.feature.settings.SettingsViewModel =
-        com.studysmart.app.feature.settings.SettingsViewModel(preferences, dispatchers)
+        com.studysmart.app.feature.settings.SettingsViewModel(preferences, dispatchers, curriculumRepository, localUserRepository, learningDataRepository)
 
     fun searchViewModel(savedState: androidx.lifecycle.SavedStateHandle) =
         com.studysmart.app.feature.search.SearchViewModel(searchRepository, dispatchers, savedState)

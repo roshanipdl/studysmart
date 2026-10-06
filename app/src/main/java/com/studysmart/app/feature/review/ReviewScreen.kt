@@ -11,11 +11,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.RoundedCornerShape
+import com.studysmart.app.core.ui.LocalStudySmartSemanticColors
 import com.studysmart.app.core.ui.EmptyState
 import com.studysmart.app.core.ui.ErrorState
 import com.studysmart.app.core.ui.LoadingState
@@ -30,13 +35,15 @@ fun ReviewScreen(
     state: ReviewUiState,
     onRetry: () -> Unit,
     onStartDueReview: () -> Unit,
+    onChangeContext: () -> Unit = {},
+    onOpenFilter: (ReviewFilter) -> Unit = {},
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             StudyTopBar(
                 title = "Review",
-                subtitle = "Keep your learning fresh",
+                subtitle = null,
                 variant = StudyTopBarVariant.HOME,
             )
         },
@@ -50,13 +57,17 @@ fun ReviewScreen(
                 .testTag("review_screen"),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(state.contextLabel.ifBlank { "Choose your study context" }, modifier = Modifier.weight(1f))
+                TextButton(onClick = onChangeContext) { Text(if (state.isContextRequired) "Choose" else "Change") }
+            }
             when {
                 state.isLoading -> LoadingState(
                     message = "Loading due reviews",
                     modifier = Modifier.testTag("review_loading"),
                 )
-                state.error != null -> ErrorState(
-                    message = state.error,
+                state.displayError != null -> ErrorState(
+                    message = state.displayError!!,
                     onRetry = onRetry,
                     modifier = Modifier.testTag("review_error"),
                 )
@@ -69,6 +80,7 @@ fun ReviewScreen(
                     state = state,
                     onRetryReadiness = onRetry,
                     onStartDueReview = onStartDueReview,
+                    onOpenFilter = onOpenFilter,
                 )
             }
         }
@@ -80,9 +92,12 @@ private fun DueReviewContent(
     state: ReviewUiState,
     onRetryReadiness: () -> Unit,
     onStartDueReview: () -> Unit,
+    onOpenFilter: (ReviewFilter) -> Unit,
 ) {
+    Card(shape = RoundedCornerShape(18.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     Text(
-        text = "Due reviews",
+        text = "Due now",
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.Bold,
     )
@@ -93,8 +108,8 @@ private fun DueReviewContent(
     )
     if (state.isNoDue) {
         EmptyState(
-            title = "No due reviews",
-            message = "There are no scheduled questions to review in this context.",
+            title = "Nothing due right now",
+            message = "Your next review will appear here when it is scheduled.",
             modifier = Modifier.testTag("review_no_due"),
         )
     } else {
@@ -125,6 +140,26 @@ private fun DueReviewContent(
                 .fillMaxWidth()
                 .testTag("review_start_due"),
         )
+    }
+    }
+    }
+    Text("Review by status", style = MaterialTheme.typography.titleLarge)
+    ReviewFilter.entries.forEach { filter ->
+        Card(onClick = { onOpenFilter(filter) }, shape = RoundedCornerShape(14.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            modifier = Modifier.fillMaxWidth().testTag("review_${filter.routeValue}")) {
+            Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(filter.title, Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                Text(state.statusPools[filter].orEmpty().size.toString(), fontWeight = FontWeight.Bold,
+                    color = when (filter) {
+                        ReviewFilter.NEEDS_IMPROVEMENT -> MaterialTheme.colorScheme.error
+                        ReviewFilter.NOT_STUDIED -> MaterialTheme.colorScheme.onSurfaceVariant
+                        ReviewFilter.GOOD -> LocalStudySmartSemanticColors.current.success
+                        ReviewFilter.MASTERED -> LocalStudySmartSemanticColors.current.info
+                    })
+                Text("›", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
     }
     ReadinessEstimateCard(
         estimate = state.readiness,

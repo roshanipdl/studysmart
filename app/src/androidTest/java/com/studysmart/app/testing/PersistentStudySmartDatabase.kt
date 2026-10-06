@@ -15,6 +15,7 @@ import com.studysmart.app.core.database.MIGRATION_3_4
 import com.studysmart.app.core.database.MIGRATION_4_5
 import com.studysmart.app.core.database.MIGRATION_5_6
 import com.studysmart.app.core.database.MIGRATION_6_7
+import com.studysmart.app.core.database.MIGRATION_7_8
 import com.studysmart.app.core.database.StudySmartDatabase
 import com.studysmart.app.core.model.TestDefaults
 import com.studysmart.app.core.model.TestQuestionSource
@@ -29,7 +30,7 @@ import kotlinx.coroutines.flow.asStateFlow
 fun createPersistentStudySmartDatabase(context: Context, name: String): StudySmartDatabase {
     require(name.startsWith("mvp10-test-")) { "Only isolated MVP-10 test databases are allowed." }
     return Room.databaseBuilder(context, StudySmartDatabase::class.java, name)
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
         .addCallback(DatabaseSeed.callback(includeVariantSeed = false))
         .build()
 }

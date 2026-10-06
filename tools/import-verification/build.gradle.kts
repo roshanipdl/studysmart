@@ -20,6 +20,7 @@ sourceSets {
         // The transactional repository requires the Android Room runtime.
         kotlin.exclude("com/studysmart/app/core/data/SearchRepository.kt")
         kotlin.include("com/studysmart/app/core/common/DispatcherProvider.kt")
+        kotlin.include("com/studysmart/app/core/common/AnswerContentParser.kt")
         kotlin.include("com/studysmart/app/core/database/TestEntities.kt")
         kotlin.include("com/studysmart/app/core/database/CurriculumImportStateEntity.kt")
         kotlin.include("com/studysmart/app/core/database/CurriculumImportDao.kt")
@@ -33,6 +34,7 @@ sourceSets {
     test {
         kotlin.srcDir("../../app/src/test/java")
         kotlin.include("com/studysmart/app/core/data/importer/**")
+        kotlin.include("com/studysmart/app/core/common/AnswerContentParserTest.kt")
         kotlin.include("com/studysmart/app/core/database/SearchDocumentProjectorTest.kt")
         kotlin.include("com/studysmart/app/core/data/SearchQueryTest.kt")
         kotlin.include("com/studysmart/app/core/data/SearchRankingTest.kt")
@@ -41,4 +43,5 @@ sourceSets {
 tasks.test {
     systemProperty("curriculum.snapshot", file("../../../Android data/database-stage-1").absolutePath)
     systemProperty("curriculum.reviewed", file("../../../Android data/database-stage-1-reviewed").absolutePath)
+    systemProperty("curriculum.formatted", file("../../../Android data/database-stage-1-formatted").absolutePath)
 }

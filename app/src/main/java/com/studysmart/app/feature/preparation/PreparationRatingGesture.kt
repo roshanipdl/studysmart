@@ -2,6 +2,26 @@ package com.studysmart.app.feature.preparation
 
 import com.studysmart.app.core.model.Rating
 import kotlin.math.abs
+import androidx.compose.ui.geometry.Offset
+import kotlin.math.hypot
+
+/** Visual displacement only: raw gesture classification and commit distance never use this. */
+internal fun preparationJoystickOffset(
+    x: Float,
+    y: Float,
+    slop: Float,
+    density: Float,
+    availableTravel: Float,
+): Offset {
+    if (!x.isFinite() || !y.isFinite() || !slop.isFinite() || slop < 0f ||
+        !density.isFinite() || density <= 0f || !availableTravel.isFinite() || availableTravel <= 0f) {
+        return Offset.Zero
+    }
+    val radius = hypot(x.toDouble(), y.toDouble())
+    if (radius <= slop) return Offset.Zero
+    val travel = (radius - slop).coerceAtMost(minOf(8f * density, availableTravel).toDouble())
+    return Offset((x / radius * travel).toFloat(), (y / radius * travel).toFloat())
+}
 
 enum class RatingSwipeDirection(val rating: Rating, val arrow: String, val instruction: String) {
     LEFT(Rating.AGAIN, "←", "Swipe left"),
@@ -13,6 +33,11 @@ enum class RatingSwipeDirection(val rating: Rating, val arrow: String, val instr
 fun Rating.swipeDirection(): RatingSwipeDirection = RatingSwipeDirection.entries.first { it.rating == this }
 
 internal enum class PreparationGestureOrigin { PAD_SWIPE, FLIP_JOYSTICK }
+
+internal data class PreparationJoystickVisual(
+    val active: Boolean = false,
+    val offset: Offset = Offset.Zero,
+)
 
 /** Joystick selection is recalculated, never axis-locked: center and diagonals cancel. */
 internal fun ratingJoystickDirection(x: Float, y: Float, slop: Float): RatingSwipeDirection? =

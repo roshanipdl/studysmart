@@ -3,6 +3,14 @@ package com.studysmart.app.core.database
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+val MIGRATION_7_8 = object : Migration(7, 8) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE questions ADD COLUMN answerFormat TEXT NOT NULL DEFAULT 'plain_text'")
+        db.execSQL("ALTER TABLE preparation_session_items ADD COLUMN answerFormatSnapshot TEXT NOT NULL DEFAULT 'plain_text'")
+        db.execSQL("ALTER TABLE test_attempt_questions ADD COLUMN referenceAnswerFormatSnapshot TEXT NOT NULL DEFAULT 'plain_text'")
+    }
+}
+
 val MIGRATION_6_7 = object : Migration(6, 7) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `search_documents` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `entityId` TEXT NOT NULL, `courseId` TEXT NOT NULL, `academicPeriodId` TEXT NOT NULL, `subjectId` TEXT NOT NULL, `chapterId` TEXT, `topicId` TEXT, `text` TEXT NOT NULL)")

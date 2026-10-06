@@ -806,6 +806,7 @@ class RoomTestAttemptRepository(
                 displayOrder = displayOrder,
                 questionTextSnapshot = candidate.question.question,
                 referenceAnswerSnapshot = candidate.question.answer,
+                referenceAnswerFormatSnapshot = candidate.question.answerFormat,
                 questionTypeSnapshot = candidate.question.questionType,
                 maxScoreSnapshot = candidate.question.maxScore,
                 keywordSnapshotJson = KeywordSnapshotCodec.encode(keywords),

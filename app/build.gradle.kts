@@ -9,7 +9,8 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-val curriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1-reviewed")
+val curriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1-formatted")
+val reviewedCurriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1-reviewed")
 val legacyCurriculumSnapshot = rootProject.layout.projectDirectory.dir("../Android data/database-stage-1")
 val curriculumAssets = layout.buildDirectory.dir("generated/curriculumAssets/debug")
 val prepareDebugCurriculumAssets by tasks.registering(Sync::class) {
@@ -25,9 +26,10 @@ val prepareDebugCurriculumAssets by tasks.registering(Sync::class) {
         fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes)
             .joinToString("") { "%02x".format(it.toInt() and 255) }
         val manifest = JsonSlurper().parse(root.resolve("bundle-manifest.json")) as Map<*, *>
-        require(manifest["schemaVersion"] == 1 && manifest["contentVersion"] == 1 && manifest["datasetId"] == "bca-stage1-reviewed") { "Unexpected reviewed Stage 1 manifest" }
+        require(manifest["schemaVersion"] == 2 && manifest["contentVersion"] == 1 && manifest["datasetId"] == "bca-stage1-formatted") { "Unexpected formatted Stage 1 manifest" }
         val rows = manifest["files"] as List<*>
         val entries = rows.map { it as Map<*, *> }.map { it["path"] as String to it["sha256"] as String }
+        require(entries.size == 11) { "Formatted bundle requires exactly 11 data files" }
         require(entries.map { it.first }.distinct().size == entries.size) { "Duplicate manifest file" }
         entries.forEach { (path, expected) ->
             require(path == "curriculum.json" || Regex("subjects/[A-Za-z0-9_-]+\\.json").matches(path)) { "Unsafe manifest path" }
@@ -42,6 +44,7 @@ val prepareDebugCurriculumAssets by tasks.registering(Sync::class) {
         require(actual == entries.map { it.first }.toSet() + "bundle-manifest.json") { "Unexpected snapshot JSON files" }
         val digest = hash(entries.sortedBy { it.first }.joinToString("") { "${it.first}\t${it.second}\n" }.toByteArray(Charsets.UTF_8))
         require(digest == manifest["bundleDigest"]) { "Bundle digest mismatch" }
+        require(digest == "876b3154fca24caa8324c3613d2905da1336924f5c9ec1c5b7576f2d7fede6e5") { "Unapproved formatted bundle" }
     }
 }
 
@@ -100,7 +103,7 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
 
-    sourceSets.getByName("androidTest").assets.srcDir("schemas")
+    sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("schemas"))
     sourceSets.getByName("debug").assets.srcDir(curriculumAssets)
 }
 
@@ -114,7 +117,8 @@ tasks.withType<Test>().configureEach {
     maxHeapSize = "256m"
     // Existing adversarial Stage 1 fixtures stay immutable across content upgrades.
     systemProperty("curriculum.snapshot", legacyCurriculumSnapshot.asFile.absolutePath)
-    systemProperty("curriculum.reviewed", curriculumSnapshot.asFile.absolutePath)
+    systemProperty("curriculum.reviewed", reviewedCurriculumSnapshot.asFile.absolutePath)
+    systemProperty("curriculum.formatted", curriculumSnapshot.asFile.absolutePath)
 }
 
 ksp {

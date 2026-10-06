@@ -178,6 +178,8 @@ data class TestAttemptQuestionEntity(
     val maxScoreSnapshot: Double,
     val keywordSnapshotJson: String,
     val keywordSnapshotVersion: Int,
+    @ColumnInfo(defaultValue = "'plain_text'")
+    val referenceAnswerFormatSnapshot: com.studysmart.app.core.model.AnswerFormat = com.studysmart.app.core.model.AnswerFormat.PLAIN_TEXT,
 )
 
 @Entity(

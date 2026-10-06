@@ -32,12 +32,13 @@ import org.junit.Test
 
 /** Builds historical fixtures from version-controlled schemas without extra test dependencies. */
 class StudySmartMigrationTest {
-    @Test fun populatedVersionOneUpgradesToSeven() = verifyUpgrade(1)
-    @Test fun populatedVersionTwoUpgradesToSeven() = verifyUpgrade(2)
-    @Test fun populatedVersionThreeUpgradesToSeven() = verifyUpgrade(3)
-    @Test fun populatedVersionFourUpgradesToSeven() = verifyUpgrade(4)
-    @Test fun populatedVersionFiveUpgradesToSeven() = verifyUpgrade(5)
-    @Test fun populatedVersionSixUpgradesToSeven() = verifyUpgrade(6)
+    @Test fun populatedVersionOneUpgradesToEight() = verifyUpgrade(1)
+    @Test fun populatedVersionTwoUpgradesToEight() = verifyUpgrade(2)
+    @Test fun populatedVersionThreeUpgradesToEight() = verifyUpgrade(3)
+    @Test fun populatedVersionFourUpgradesToEight() = verifyUpgrade(4)
+    @Test fun populatedVersionFiveUpgradesToEight() = verifyUpgrade(5)
+    @Test fun populatedVersionSixUpgradesToEight() = verifyUpgrade(6)
+    @Test fun populatedVersionSevenUpgradesToEightWithPlainTextDefaults() = verifyUpgrade(7)
 
     private fun verifyUpgrade(version: Int) = runBlocking {
         withTimeout(30_000) {
@@ -67,6 +68,9 @@ class StudySmartMigrationTest {
                         val columns = columns(entity)
                         val query = selectQuery(entity)
                         expected[table] = readRows(source.openHelper.writableDatabase, query)
+                        // External-content FTS derives docids from search_documents.
+                        // Rebuild after copying content instead of inserting text without docids.
+                        if (table == "search_fts") continue
                         source.openHelper.writableDatabase.query(query).use { cursor ->
                             while (cursor.moveToNext()) {
                                 val values = ContentValues()
@@ -83,6 +87,9 @@ class StudySmartMigrationTest {
                             }
                         }
                     }
+                    if (expected.containsKey("search_fts")) {
+                        historical.execSQL("INSERT INTO search_fts(search_fts) VALUES ('rebuild')")
+                    }
                     val setup = schema.getJSONArray("setupQueries")
                     for (index in 0 until setup.length()) historical.execSQL(setup.getString(index))
                     historical.version = version
@@ -90,9 +97,21 @@ class StudySmartMigrationTest {
 
                 val migrated = createPersistentStudySmartDatabase(context, targetName)
                 try {
-                    // Opening through Room validates the complete v7 schema after migration.
+                    // Opening through Room validates the complete v8 schema after migration.
                     val sql = migrated.openHelper.writableDatabase
-                    assertEquals(7, sql.version)
+                    assertEquals(8, sql.version)
+                    listOf("questions" to "answerFormat", "preparation_session_items" to "answerFormatSnapshot",
+                        "test_attempt_questions" to "referenceAnswerFormatSnapshot").forEach { (table, column) ->
+                        sql.query("SELECT $column FROM $table").use {
+                            // Older fixtures predate learning tables; only rows that existed
+                            // at that version must exercise the appended-column default.
+                            if (table == "questions" || version >= 4 ||
+                                (table == "preparation_session_items" && version >= 3)) {
+                                assertTrue(it.count > 0)
+                            }
+                            while (it.moveToNext()) assertEquals("plain_text", it.getString(0))
+                        }
+                    }
                     for (index in 0 until entities.length()) {
                         val entity = entities.getJSONObject(index)
                         assertEquals("Retained rows for ${entity.getString("tableName")} from v$version",
@@ -182,7 +201,8 @@ class StudySmartMigrationTest {
     private fun selectQuery(entity: JSONObject): String {
         val keys = entity.getJSONObject("primaryKey").getJSONArray("columnNames")
         val order = (0 until keys.length()).joinToString { "`${keys.getString(it)}`" }
-        return "SELECT ${columns(entity).joinToString { "`$it`" }} FROM `${entity.getString("tableName")}` ORDER BY $order"
+        val ordering = if (order.isEmpty()) " ORDER BY ${columns(entity).joinToString { "`$it`" }}" else " ORDER BY $order"
+        return "SELECT ${columns(entity).joinToString { "`$it`" }} FROM `${entity.getString("tableName")}`$ordering"
     }
 
     private fun readRows(database: SupportSQLiteDatabase, query: String): List<List<String?>> =

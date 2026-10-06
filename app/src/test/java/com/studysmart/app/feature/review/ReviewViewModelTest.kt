@@ -55,6 +55,79 @@ class ReviewViewModelTest {
     )
 
     @Test
+    fun statusSuccessDoesNotClearDueFailure() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        val rows = kotlinx.coroutines.flow.MutableStateFlow(emptyList<com.studysmart.app.core.database.ReadinessQuestionRow>())
+        val review = object : ReviewRepository {
+            override fun observeStatusQuestions(courseId: String, academicPeriodId: String) = rows
+            override fun observeDueReview(courseId: String, academicPeriodId: String) = kotlinx.coroutines.flow.flow<DueReviewSummary> {
+                throw IllegalStateException("Due unavailable")
+            }
+        }
+        val model = createViewModel(preferences, review = review)
+        val row = com.studysmart.app.core.database.ReadinessQuestionRow("question", null, null, null, false, null, null)
+        rows.value = listOf(row)
+        assertEquals(listOf(row), model.uiState.value.statusQuestions)
+        assertNull(model.uiState.value.statusError)
+        assertEquals("Due unavailable", model.uiState.value.dueError)
+        assertEquals("Due unavailable", model.uiState.value.displayError)
+    }
+
+    @Test
+    fun statusFailureRemainsRetryableAfterDueSuccess() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        var subscriptions = 0
+        val row = com.studysmart.app.core.database.ReadinessQuestionRow("question", null, null, null, false, null, null)
+        val review = object : ReviewRepository {
+            override fun observeStatusQuestions(courseId: String, academicPeriodId: String) = kotlinx.coroutines.flow.flow {
+                subscriptions++
+                if (subscriptions == 1) throw IllegalStateException("Status unavailable")
+                emit(listOf(row))
+            }
+            override fun observeDueReview(courseId: String, academicPeriodId: String) = flowOf(DueReviewSummary(2, 1))
+        }
+        val model = createViewModel(preferences, review = review)
+        assertEquals("Status unavailable", model.uiState.value.displayError)
+        assertEquals("Status unavailable", model.uiState.value.statusError)
+        assertEquals("course-1", model.uiState.value.courseId)
+        assertEquals(2, model.uiState.value.dueCount)
+        model.retry()
+        assertEquals(2, subscriptions)
+        assertNull(model.uiState.value.displayError)
+        assertEquals(listOf(row), model.uiState.value.statusQuestions)
+    }
+
+    @Test
+    fun statusCreationFinishingAfterContextChangeIsDiscardedAndUnlocksStart() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        val preparation = FakePreparationRepository()
+        val completion = kotlinx.coroutines.CompletableDeferred<PreparationCreationResult>()
+        preparation.statusCompletion = completion
+        val viewModel = createViewModel(preferences, preparation, questions = listOf(
+            com.studysmart.app.core.database.ReadinessQuestionRow("question", null, null, null, false, null, null)))
+        viewModel.startStatusReview(ReviewFilter.NOT_STUDIED)
+        preferences.setSelectedContext("course-1", "period-2")
+        completion.complete(PreparationCreationResult.Created("stale-session"))
+        assertEquals(listOf("stale-session"), preparation.discardedSessions)
+        assertEquals("period-2", viewModel.uiState.value.academicPeriodId)
+        assertFalse(viewModel.uiState.value.isStarting)
+    }
+
+    @Test
+    fun statusStartCapturesSavedCountAndPreventsDuplicateNavigationStarts() = runTest {
+        val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
+        preferences.updatePreparationDefaults(com.studysmart.app.core.model.PreparationDefaults(7))
+        val preparation = FakePreparationRepository()
+        val viewModel = createViewModel(preferences, preparation, questions = listOf(
+            com.studysmart.app.core.database.ReadinessQuestionRow("question", null, null, null, false, null, null)))
+        viewModel.startStatusReview(ReviewFilter.NOT_STUDIED)
+        viewModel.startStatusReview(ReviewFilter.NOT_STUDIED)
+        assertEquals(1, preparation.statusRequests.size)
+        assertEquals(7, preparation.statusRequests.single().questionCount)
+        assertEquals("course-1", preparation.statusRequests.single().courseId)
+    }
+
+    @Test
     fun nextSessionUsesNewConfirmedCountWithoutChangingEarlierRequest() = runTest {
         val preferences = TestPreferencesRepository(StudyPreferences(SelectedAcademicContext("course-1", "period-1")))
         val preparation = FakePreparationRepository()
@@ -200,10 +273,12 @@ class ReviewViewModelTest {
         preparation: FakePreparationRepository = FakePreparationRepository(),
         summary: DueReviewSummary = DueReviewSummary(0, 0),
         readiness: ReadinessRepository = FakeReadinessRepository(),
+        questions: List<com.studysmart.app.core.database.ReadinessQuestionRow> = emptyList(),
+        review: ReviewRepository? = null,
     ): ReviewViewModel = ReviewViewModel(
         preferencesRepository = preferences,
         curriculumRepository = FakeCurriculumRepository(courses),
-        reviewRepository = FakeReviewRepository(summary),
+        reviewRepository = review ?: FakeReviewRepository(summary, questions),
         readinessRepository = readiness,
         preparationRepository = preparation,
         clock = clock,
@@ -229,7 +304,9 @@ private class FakeReadinessRepository : ReadinessRepository {
 
 private class FakeReviewRepository(
     private val summary: DueReviewSummary,
+    private val questions: List<com.studysmart.app.core.database.ReadinessQuestionRow>,
 ) : ReviewRepository {
+    override fun observeStatusQuestions(courseId: String, academicPeriodId: String) = flowOf(questions)
     override fun observeDueReview(
         courseId: String,
         academicPeriodId: String,
@@ -241,6 +318,13 @@ private class FakePreparationRepository(
 ) : PreparationRepository {
     override suspend fun getChapterCoverage(chapterId: String): com.studysmart.app.feature.preparation.PreparationChapterCoverage? = null
     val dueRequests = mutableListOf<DueReviewSessionRequest>()
+    val statusRequests = mutableListOf<com.studysmart.app.feature.preparation.StatusFilterSessionRequest>()
+    var statusCompletion: kotlinx.coroutines.CompletableDeferred<PreparationCreationResult>? = null
+    val discardedSessions = mutableListOf<String>()
+    override suspend fun createStatusFilterSession(request: com.studysmart.app.feature.preparation.StatusFilterSessionRequest): PreparationCreationResult {
+        statusRequests += request
+        return statusCompletion?.await() ?: PreparationCreationResult.Created("status-session")
+    }
 
     override fun observeSession(sessionId: String): Flow<PreparationSessionModel?> = emptyFlow()
 
@@ -260,7 +344,10 @@ private class FakePreparationRepository(
     override suspend fun rateCurrent(request: PreparationRatingRequest): PreparationRatingResult =
         PreparationRatingResult(request.sessionId, completed = false)
 
-    override suspend fun discardSession(sessionId: String): Boolean = false
+    override suspend fun discardSession(sessionId: String): Boolean {
+        discardedSessions += sessionId
+        return true
+    }
 }
 
 private class FakeCurriculumRepository(
@@ -270,7 +357,10 @@ private class FakeCurriculumRepository(
 
     override fun observeCoursePeriods(courseId: String): Flow<CoursePeriodsBrowseModel?> = flowOf(null)
 
-    override fun observePeriodSubjects(academicPeriodId: String): Flow<PeriodSubjectsBrowseModel?> = flowOf(null)
+    override fun observePeriodSubjects(academicPeriodId: String): Flow<PeriodSubjectsBrowseModel?> = flowOf(
+        courses.firstOrNull()?.let { course -> PeriodSubjectsBrowseModel(course,
+            com.studysmart.app.core.model.AcademicPeriodBrowseModel(academicPeriodId, course.id, 1,
+                AcademicPeriodType.SEMESTER, "Semester 1", "Sem 1", 0), emptyList()) })
 
     override fun observeSubjectChapters(subjectId: String): Flow<SubjectChaptersBrowseModel?> = flowOf(null)
 

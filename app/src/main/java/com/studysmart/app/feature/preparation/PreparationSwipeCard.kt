@@ -66,6 +66,7 @@ internal fun PreparationSwipeCard(
     scrollingAllowed: Boolean = false,
     readingScrollState: ScrollState? = null,
     onScrollGestureActive: (Boolean) -> Unit = {},
+    onJoystickVisualChanged: (PreparationJoystickVisual) -> Unit = {},
     ratingPad: @Composable (Modifier, Boolean, RatingSwipeDirection?, RatingSwipeDirection?, (Rect) -> Unit) -> Unit = { _, _, _, _, _ -> },
     layout: @Composable (Modifier, @Composable (Boolean) -> Unit, @Composable () -> Unit, @Composable () -> Unit) -> Unit = { modifier, card, _, preview ->
         Box(modifier) { card(false); Box(Modifier.align(Alignment.Center)) { preview() } }
@@ -86,6 +87,10 @@ internal fun PreparationSwipeCard(
     val latestScrollingAllowed by rememberUpdatedState(scrollingAllowed)
     val latestRatingEnabled by rememberUpdatedState(enabled)
     val latestScrollGesture by rememberUpdatedState(onScrollGestureActive)
+    val latestJoystickVisual by rememberUpdatedState(onJoystickVisualChanged)
+    DisposableEffect(Unit) {
+        onDispose { latestJoystickVisual(PreparationJoystickVisual()) }
+    }
     var dragging by remember { mutableStateOf(false) }
     var previewOffset by remember { mutableStateOf(Offset.Zero) }
     var previewRating by remember { mutableStateOf<Rating?>(null) }
@@ -98,6 +103,7 @@ internal fun PreparationSwipeCard(
         tween(100), label = "rating_preview_tint")
     LaunchedEffect(resetPreview) {
         if (resetPreview) {
+            latestJoystickVisual(PreparationJoystickVisual())
             direction = null
             scrollDirection = null
             dragging = false
@@ -137,8 +143,10 @@ internal fun PreparationSwipeCard(
         animatedOffset.animateTo(target, tween(320))
         latestExit(committed.reviewRecordId)
     }
-    val pointerEnabled = inputEnabled && !flipRunning && !settling && feedback == null
-    val cardReady = !flipRunning && !settling && !dragging && feedback == null
+    // A reset invalidates ownership, not just its preview. Changing this pointer-input
+    // key cancels the captured gesture and scroll drive before later input can resume.
+    val pointerEnabled = inputEnabled && !resetPreview && !flipRunning && !settling && feedback == null
+    val cardReady = !resetPreview && !flipRunning && !settling && !dragging && feedback == null
     val padModifier = Modifier.onSizeChanged { padSize = it }
         .onGloballyPositioned { padRootOffset = it.localToRoot(Offset.Zero) }
         .pointerInput(pointerEnabled, padSize, density, readingScrollState) {
@@ -158,6 +166,8 @@ internal fun PreparationSwipeCard(
                          (rootDown - bounds.center).getDistance() <= minOf(bounds.width, bounds.height) / 2f
                       } == true) PreparationGestureOrigin.FLIP_JOYSTICK else PreparationGestureOrigin.PAD_SWIPE
                      val ratingAtDown = latestRatingEnabled
+                     val movingKnob = ratingAtDown && origin == PreparationGestureOrigin.FLIP_JOYSTICK
+                     latestJoystickVisual(PreparationJoystickVisual(active = movingKnob))
                      val scrollAtDown = !ratingAtDown && latestScrollingAllowed &&
                          origin == PreparationGestureOrigin.FLIP_JOYSTICK && readingScrollState != null
                      val drive = PreparationScrollDrive()
@@ -178,6 +188,14 @@ internal fun PreparationSwipeCard(
                         if (change.isConsumed) break
                         // Up may carry the final position: classify it through the same path as moves.
                         accumulated += change.position - change.previousPosition
+                        if (movingKnob && latestRatingEnabled && change.pressed) {
+                            // Reserved center geometry supplies at most 8dp radial travel.
+                            val available = minOf(8f * density,
+                                (latestFlipBounds?.let { minOf(it.width, it.height) / 2f } ?: 0f))
+                            latestJoystickVisual(PreparationJoystickVisual(true,
+                                preparationJoystickOffset(accumulated.x, accumulated.y,
+                                    viewConfiguration.touchSlop, density, available)))
+                        }
                         if (accumulated.getDistance() > viewConfiguration.touchSlop) moved = true
                         if (origin == PreparationGestureOrigin.FLIP_JOYSTICK) {
                             axis = ratingJoystickDirection(accumulated.x, accumulated.y, viewConfiguration.touchSlop)
@@ -256,6 +274,7 @@ internal fun PreparationSwipeCard(
                         distance, ratingDragThreshold(extent.coerceAtLeast(1).toFloat(), density),
                     )
                       direction = null
+                      latestJoystickVisual(PreparationJoystickVisual())
                       cancelScrolling()
                       scrollDirection = null
                       latestScrollGesture(false)
@@ -269,6 +288,7 @@ internal fun PreparationSwipeCard(
                      if (commit) latestRate(selected.rating)
                 }
             } finally {
+                  latestJoystickVisual(PreparationJoystickVisual())
                   direction = null
                   cancelScrolling()
                   scrollDirection = null

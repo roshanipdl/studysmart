@@ -58,6 +58,26 @@ class DueReviewRepositoryTest {
     }
 
     @Test
+    fun statusFilterUsesCanonicalPoolAndFreezesItemsBeforeNavigation() = runBlocking {
+        com.studysmart.app.core.database.applyVariantSeed(database.openHelper.writableDatabase)
+        val rows = database.readinessDao().observeQuestions("local-user", "course-bca", "period-bca-semester-1", null, null).first()
+        val expected = ReviewFilter.NOT_STUDIED.select(rows).take(30).map { it.questionId }
+        assertEquals(30, expected.size)
+        val request = com.studysmart.app.feature.preparation.StatusFilterSessionRequest(
+            "course-bca", "period-bca-semester-1", ReviewFilter.NOT_STUDIED, "status-request", 30)
+        val created = repository.createStatusFilterSession(request) as PreparationCreationResult.Created
+        val session = repository.observeSession(created.sessionId).first()!!
+        assertEquals(PreparationScopeType.STATUS_FILTER, session.scopeType)
+        assertEquals(PreparationOriginType.REVIEW, session.originType)
+        assertEquals(expected, session.items.map { it.questionId })
+        assertEquals(created, repository.createStatusFilterSession(request.copy(questionCount = 1)))
+        assertEquals(PreparationCreationResult.MissingScope,
+            repository.createStatusFilterSession(request.copy(filter = ReviewFilter.GOOD)))
+        assertEquals(PreparationCreationResult.MissingScope,
+            repository.createStatusFilterSession(request.copy(academicPeriodId = "missing", creationRequestId = "stale")))
+    }
+
+    @Test
     fun preparationAndDueReviewHonorLimitsAndFreezeCreatedSelections() = runBlocking {
         com.studysmart.app.core.database.applyVariantSeed(database.openHelper.writableDatabase)
         val chapterId = "debug-sample-dbms-design"

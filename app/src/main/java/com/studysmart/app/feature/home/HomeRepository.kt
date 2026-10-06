@@ -2,6 +2,8 @@ package com.studysmart.app.feature.home
 
 import com.studysmart.app.core.data.CurriculumRepository
 import com.studysmart.app.core.model.AcademicPeriodType
+import com.studysmart.app.core.database.PreparationDao
+import com.studysmart.app.core.database.RecentCompletedStudyRow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -17,6 +19,7 @@ data class HomeCourseUiModel(
 
 interface HomeRepository {
     fun observeCourses(): Flow<List<HomeCourseUiModel>>
+    fun observeRecentStudy(): Flow<RecentCompletedStudyRow?> = flowOf(null)
 }
 
 /** Empty fallback retained for isolated UI tests. */
@@ -26,7 +29,9 @@ class EmptyHomeRepository : HomeRepository {
 
 class CurriculumHomeRepository(
     private val curriculumRepository: CurriculumRepository,
+    private val preparationDao: PreparationDao? = null,
 ) : HomeRepository {
+    override fun observeRecentStudy() = preparationDao?.observeRecentCompletedStudy("local-user") ?: flowOf(null)
     override fun observeCourses(): Flow<List<HomeCourseUiModel>> = curriculumRepository.observeCourses().map { courses ->
         courses.map { course ->
             HomeCourseUiModel(

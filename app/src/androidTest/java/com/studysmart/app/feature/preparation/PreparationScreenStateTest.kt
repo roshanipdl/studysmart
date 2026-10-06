@@ -26,6 +26,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.click
+import androidx.compose.ui.test.swipe
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.graphics.toPixelMap
 import androidx.compose.ui.geometry.Offset
@@ -42,6 +44,7 @@ import com.studysmart.app.testing.createInMemoryStudySmartDatabase
 import com.studysmart.app.testing.unclippedOriginInRoot
 import com.studysmart.app.testing.unclippedCenterInRoot
 import com.studysmart.app.testing.unclippedControlBoundsInRoot
+import com.studysmart.app.testing.unclippedTransformedBoundsInRoot
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -67,6 +70,140 @@ class PreparationScreenStateTest {
             )) as PreparationCreationResult.Created
             repository.observeSession(created.sessionId).first()!!
         }
+    }
+
+    /** Physical vertical scrolling only; never use semantic scrolling to bypass bounds. */
+    private fun bringRealNarrowPadIntoViewport(topTag: String, bottomTag: String, density: Float) {
+        repeat(6) {
+            val viewport = composeRule.onNodeWithTag("preparation_study_viewport").fetchSemanticsNode().boundsInRoot
+            val top = composeRule.onNodeWithTag(topTag).unclippedControlBoundsInRoot()
+            val bottom = composeRule.onNodeWithTag(bottomTag).unclippedControlBoundsInRoot()
+            if (top.top >= viewport.top - 1f && bottom.bottom <= viewport.bottom + 1f) return
+            composeRule.onNodeWithTag("preparation_study_viewport").performTouchInput {
+                // Outside both the 20dp card and the adaptive control group's touch ownership.
+                swipe(Offset(2f * density, height - 48f * density),
+                    Offset(2f * density, 48f * density), durationMillis = 300)
+            }
+            composeRule.waitForIdle()
+        }
+    }
+
+    @Test fun actual320ScreenAt200PercentKeepsMeasuredCirclesInsideViewportAndRealTapsWork() {
+        val session = initialSession().let { initial -> initial.copy(items = initial.items.map {
+            it.copy(isRevealed = true, questionSnapshot = "Short?", answerSnapshot = "Yes.")
+        }) }
+        val ratings = mutableListOf<Rating>()
+        var expectedPad = 0f
+        var expectedRating = 0f
+        var expectedCenter = 0f
+        var density = 1f
+        composeRule.setContent {
+            StudySmartTheme {
+                CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, 2f)) {
+                    density = LocalDensity.current.density
+                    expectedPad = preparationRatingPadWidth(false, 0.dp).value * density
+                    expectedRating = preparationRatingButtonDiameter(false).value * density
+                    expectedCenter = preparationFlipDiameter(false, 0.dp).value * density
+                    Box(Modifier.width(320.dp).height(800.dp)) {
+                        PreparationSessionScreen(
+                            state = PreparationSessionUiState(isLoading = false, session = session),
+                            onReveal = {}, onRate = { ratings += it }, onRetry = {}, onClose = {},
+                            onDiscard = {}, onCancelDiscard = {}, onLoadRetry = {}, onBackFallback = {}, onOpenSummary = {},
+                        )
+                    }
+                }
+            }
+        }
+        bringRealNarrowPadIntoViewport("preparation_rating_good", "preparation_rating_hard", density)
+        val viewport = composeRule.onNodeWithTag("preparation_study_viewport").fetchSemanticsNode().boundsInRoot
+        val pad = composeRule.onNodeWithTag("preparation_rating_pad").unclippedControlBoundsInRoot()
+        val instructions = composeRule.onNodeWithTag("preparation_supporting_text").unclippedControlBoundsInRoot()
+        val card = composeRule.onNodeWithTag("preparation_card").unclippedTransformedBoundsInRoot()
+        val progress = composeRule.onNodeWithTag("preparation_progress").unclippedControlBoundsInRoot()
+        assertEquals(320f * density, viewport.width, 1f)
+        assertEquals(expectedPad, pad.width, 1f)
+        assertEquals(pad.left, instructions.left, 1f)
+        assertEquals(pad.width, instructions.width, 1f)
+        assertEquals(20f * density, card.left - viewport.left, 1f)
+        assertEquals(20f * density, viewport.right - card.right, 1f)
+        assertEquals(viewport.width - 40f * density, card.width, 1f)
+        assertEquals(viewport.width - 40f * density, progress.width, 1f)
+        assertEquals((viewport.width - pad.width) / 2f, pad.left - viewport.left, 1f)
+        listOf("again", "good", "easy", "hard", "flip").forEach { control ->
+            val tag = if (control == "flip") "preparation_flip_button" else "preparation_rating_$control"
+            val node = composeRule.onNodeWithTag(tag)
+            node.assertIsDisplayed().assertIsEnabled()
+            val actual = node.unclippedControlBoundsInRoot()
+            assertTrue("$control is clipped: $actual vs $viewport", actual.left >= viewport.left - 1f &&
+                actual.right <= viewport.right + 1f && actual.top >= viewport.top - 1f && actual.bottom <= viewport.bottom + 1f)
+            assertTrue(actual.width >= 48f * density && actual.height >= 48f * density)
+            assertEquals(actual.width, actual.height, 1f)
+            assertEquals(if (control == "flip") expectedCenter else expectedRating, actual.width, 1f)
+            node.performTouchInput { click(center) }
+        }
+        assertEquals(listOf(Rating.AGAIN, Rating.GOOD, Rating.EASY, Rating.HARD), ratings)
+    }
+
+    @Test fun actual320ScreenAt200PercentKeepsReadingCirclesAtTheirOwnMeasuredDiameter() {
+        val session = initialSession().let { initial -> initial.copy(items = initial.items.map {
+            it.copy(isRevealed = true, questionSnapshot = "Short?", answerSnapshot = "Long answer line.\n".repeat(100))
+        }) }
+        var expectedReading = 0f
+        var density = 1f
+        composeRule.setContent {
+            StudySmartTheme {
+                CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, 2f)) {
+                    density = LocalDensity.current.density
+                    expectedReading = preparationReadingButtonDiameter().value * density
+                    Box(Modifier.width(320.dp).height(800.dp)) {
+                        PreparationSessionScreen(
+                            state = PreparationSessionUiState(isLoading = false, session = session),
+                            onReveal = {}, onRate = {}, onRetry = {}, onClose = {}, onDiscard = {},
+                            onCancelDiscard = {}, onLoadRetry = {}, onBackFallback = {}, onOpenSummary = {},
+                        )
+                    }
+                }
+            }
+        }
+        bringRealNarrowPadIntoViewport("preparation_scroll_forward", "preparation_scroll_backward", density)
+        val viewport = composeRule.onNodeWithTag("preparation_study_viewport").fetchSemanticsNode().boundsInRoot
+        listOf("preparation_scroll_forward", "preparation_scroll_backward").forEach { tag ->
+            val node = composeRule.onNodeWithTag(tag)
+            node.assertIsDisplayed()
+            val actual = node.unclippedControlBoundsInRoot()
+            assertEquals(expectedReading, actual.width, 1f)
+            assertEquals(actual.width, actual.height, 1f)
+            assertTrue(actual.width >= 48f * density)
+            assertTrue(actual.left >= viewport.left - 1f && actual.right <= viewport.right + 1f &&
+                actual.top >= viewport.top - 1f && actual.bottom <= viewport.bottom + 1f)
+        }
+        composeRule.onNodeWithTag("preparation_scroll_forward").assertIsEnabled()
+            .performTouchInput { click(center) }
+        composeRule.onNodeWithTag("preparation_scroll_backward").assertIsEnabled()
+    }
+
+    @Test
+    fun revealedHtmlAnswerRendersAndMalformedPersistedAnswerDoesNotCrash() {
+        val initial = initialSession()
+        val session = initial.copy(items = initial.items.map { it.copy(isRevealed = true,
+            answerSnapshot = "<p>Formatted <strong>answer</strong></p>",
+            answerFormatSnapshot = com.studysmart.app.core.model.AnswerFormat.HTML) })
+        val state = mutableStateOf(PreparationSessionUiState(isLoading = false, session = session))
+        composeRule.setContent {
+            StudySmartTheme {
+                PreparationSessionScreen(state = state.value, onReveal = {}, onRate = {}, onRetry = {},
+                    onClose = {}, onDiscard = {}, onCancelDiscard = {}, onLoadRetry = {},
+                    onBackFallback = {}, onOpenSummary = {})
+            }
+        }
+        composeRule.onNodeWithText("Formatted answer", useUnmergedTree = true).assertIsDisplayed()
+        composeRule.runOnIdle {
+            state.value = state.value.copy(session = session.copy(items = session.items.map {
+                it.copy(answerSnapshot = "<script>bad</script>")
+            }))
+        }
+        composeRule.onNodeWithText("This answer cannot be displayed because its formatting is invalid.",
+            useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
@@ -148,10 +285,67 @@ class PreparationScreenStateTest {
             composeRule.runOnIdle { enabled.value = false }
             tags.forEach { tag ->
                 composeRule.onNodeWithTag(tag).assertIsNotEnabled()
-                assertEquals("Disabled background: $tag", colors.getValue(tag), background(tag))
+                if (tag == "preparation_flip_button") {
+                    assertEquals("Flip stays independently white", colors.getValue(tag), background(tag))
+                } else {
+                    assertTrue("Disabled rating loses semantic color: $tag", colors.getValue(tag) != background(tag))
+                    assertEquals(background("preparation_rating_again"), background(tag))
+                }
             }
         }
         assertEquals(10, taps)
+    }
+
+    @Test
+    fun exactInstructionVariantsReserveStableSpaceAtLargeFont() {
+        val variant = mutableStateOf(0)
+        val saving = mutableStateOf(false)
+        val messages = listOf(
+            "Think first. Tap the card or Flip to reveal the answer.",
+            "Scroll to read the question. Tap the card or Flip to reveal the answer.",
+            "Read to the end to unlock ratings. Scroll the card or drag Flip up to read further.",
+            "Choose a rating by tapping a button.",
+        )
+        composeRule.setContent {
+            StudySmartTheme {
+                CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, fontScale = 2f)) {
+                    Box(Modifier.width(280.dp)) {
+                        PreparationSupportingStatus(saving.value, variant.value == 2,
+                            if (variant.value in 1..2) PreparationControlMode.CONTENT_SCROLL else PreparationControlMode.RATING,
+                            variant.value == 3, showUnlockNotice = false)
+                    }
+                }
+            }
+        }
+        val original = composeRule.onNodeWithTag("preparation_supporting_status").fetchSemanticsNode().boundsInRoot
+        messages.forEachIndexed { index, message ->
+            composeRule.runOnIdle { variant.value = index }
+            composeRule.onNodeWithTag("preparation_supporting_text").assertTextEquals(message)
+            assertEquals(original, composeRule.onNodeWithTag("preparation_supporting_status").fetchSemanticsNode().boundsInRoot)
+            composeRule.runOnIdle { saving.value = true }
+            composeRule.onNodeWithTag("preparation_saving").assertIsDisplayed()
+            assertEquals(original, composeRule.onNodeWithTag("preparation_supporting_status").fetchSemanticsNode().boundsInRoot)
+            composeRule.runOnIdle { saving.value = false }
+        }
+    }
+
+    @Test
+    fun disabledPreviewCannotExposeStaleSelectionAndFlipActionIsContextual() {
+        val answer = mutableStateOf(false)
+        composeRule.setContent {
+            StudySmartTheme {
+                PreparationRatingPad(enabled = false, flipEnabled = true, onRate = {},
+                    showAnswer = answer.value, previewDirection = RatingSwipeDirection.LEFT)
+            }
+        }
+        val rating = composeRule.onNodeWithTag("preparation_rating_again").fetchSemanticsNode().config
+        assertTrue(!rating[androidx.compose.ui.semantics.SemanticsProperties.StateDescription].contains("Selected"))
+        fun flipLabel() = composeRule.onNodeWithTag("preparation_flip_button").fetchSemanticsNode().config[
+            androidx.compose.ui.semantics.SemanticsActions.OnClick].label
+        assertEquals("Show answer", flipLabel())
+        composeRule.runOnIdle { answer.value = true }
+        assertEquals("Show question", flipLabel())
+        composeRule.onNodeWithTag("preparation_flip_button").assertIsEnabled()
     }
 
     @Test
@@ -189,7 +383,10 @@ class PreparationScreenStateTest {
         composeRule.onNodeWithTag("preparation_flip_button").performClick()
         composeRule.awaitNodeWithTag("preparation_answer", useUnmergedTree = true)
         composeRule.waitForIdle()
-        tags.forEach { assertEquals(colors.getValue(it), background(it)) }
+        tags.forEach {
+            if (it == "preparation_flip_button") assertEquals(colors.getValue(it), background(it))
+            else assertTrue("Reveal enables semantic rating colors", colors.getValue(it) != background(it))
+        }
         composeRule.onNodeWithTag("preparation_flip_button").performClick()
         composeRule.waitForIdle()
         composeRule.runOnIdle {
@@ -439,7 +636,7 @@ class PreparationScreenStateTest {
         composeRule.setContent {
             StudySmartTheme {
                 CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, fontScale = 2f)) {
-                    Box(Modifier.width(360.dp).height(600.dp)) {
+                    Box(Modifier.width(320.dp).height(600.dp)) {
                         PreparationSessionScreen(
                             state = PreparationSessionUiState(isLoading = false, session = session),
                             onReveal = {}, onRate = {}, onRetry = {}, onClose = {}, onDiscard = {},
@@ -459,7 +656,7 @@ class PreparationScreenStateTest {
         assertTrue(instruction.bottom < pad.top)
         val density = ApplicationProvider.getApplicationContext<android.content.Context>().resources.displayMetrics.density
         val availableHorizontalClearance = (viewport.width - pad.width).coerceAtLeast(0f)
-        val expectedClearance = minOf(12f * density, availableHorizontalClearance)
+        val expectedClearance = minOf(12f * density, availableHorizontalClearance / 2f)
         assertTrue(viewport.right - pad.right >= expectedClearance - 1f)
         listOf("again", "good", "easy", "hard").forEach { rating ->
             val button = composeRule.onNodeWithTag("preparation_rating_$rating")

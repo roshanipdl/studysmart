@@ -16,6 +16,7 @@ data class DueReviewSummary(
 )
 
 interface ReviewRepository {
+    fun observeStatusQuestions(courseId: String, academicPeriodId: String): Flow<List<com.studysmart.app.core.database.ReadinessQuestionRow>> = kotlinx.coroutines.flow.flowOf(emptyList())
     fun observeDueReview(
         courseId: String,
         academicPeriodId: String,
@@ -29,7 +30,10 @@ class RoomReviewRepository(
     private val userId: String = LOCAL_USER_ID,
     private val clockRefreshMillis: Long = 60_000L,
     private val timeUpdates: Flow<java.time.Instant>? = null,
+    private val readinessDao: com.studysmart.app.core.database.ReadinessDao? = null,
 ) : ReviewRepository {
+    override fun observeStatusQuestions(courseId: String, academicPeriodId: String) =
+        readinessDao?.observeQuestions(userId, courseId, academicPeriodId, null, null) ?: kotlinx.coroutines.flow.flowOf(emptyList())
     init {
         require(clockRefreshMillis > 0L) { "clockRefreshMillis must be positive" }
     }

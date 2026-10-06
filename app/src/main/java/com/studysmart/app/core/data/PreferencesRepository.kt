@@ -28,6 +28,7 @@ data class StudyPreferences(
     val testDefaults: TestDefaults = TestDefaults(),
     val preparationDefaults: PreparationDefaults = PreparationDefaults(),
     val dailyCardGoal: Int = com.studysmart.app.core.model.DailyCardGoal.DEFAULT,
+    val theme: com.studysmart.app.core.model.ThemePreference = com.studysmart.app.core.model.ThemePreference.SYSTEM,
 ) {
     val selectedCourseId: String?
         get() = selectedCourseIdOverride ?: selectedContext?.courseId
@@ -37,6 +38,7 @@ data class StudyPreferences(
 }
 
 interface PreferencesRepository {
+    suspend fun updateTheme(theme: com.studysmart.app.core.model.ThemePreference) { throw UnsupportedOperationException("Theme updates unavailable") }
     val preferences: Flow<StudyPreferences>
 
     suspend fun selectCourse(courseId: String)
@@ -83,6 +85,7 @@ class DataStorePreferencesRepository(
             val courseId = values[SELECTED_COURSE_ID]
             val periodId = values[SELECTED_ACADEMIC_PERIOD_ID]
             StudyPreferences(
+                theme = com.studysmart.app.core.model.ThemePreference.fromStored(runCatching { values[THEME] }.getOrNull()),
                 selectedContext = if (!courseId.isNullOrBlank() && !periodId.isNullOrBlank()) {
                     SelectedAcademicContext(courseId, periodId)
                 } else {
@@ -183,6 +186,10 @@ class DataStorePreferencesRepository(
         dataStore.edit { it[DAILY_CARD_GOAL] = goal }
     }
 
+    override suspend fun updateTheme(theme: com.studysmart.app.core.model.ThemePreference) {
+        dataStore.edit { it[THEME] = theme.name }
+    }
+
     private fun readTestDefaults(values: Preferences): TestDefaults {
         val count = runCatching { values[DEFAULT_QUESTION_COUNT] }
             .getOrNull()
@@ -206,6 +213,7 @@ class DataStorePreferencesRepository(
     }
 
     private companion object {
+        val THEME = stringPreferencesKey("theme")
         val PREPARATION_QUESTION_COUNT = intPreferencesKey("preparation_review_question_count")
         val DAILY_CARD_GOAL = intPreferencesKey("daily_card_goal")
         val SELECTED_COURSE_ID = stringPreferencesKey("selected_course_id")

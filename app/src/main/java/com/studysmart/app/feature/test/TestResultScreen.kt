@@ -347,7 +347,14 @@ private fun ExpandedQuestion(report: TestQuestionReport) {
             title = "Your answer",
             value = report.answer.answerText.ifBlank { "No answer entered." },
         )
-        EvidenceTextBlock(title = "Reference answer", value = report.snapshot.referenceAnswerSnapshot)
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text("Reference answer", style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            com.studysmart.app.core.ui.FormattedAnswerContent(
+                content = report.snapshot.referenceAnswerSnapshot,
+                format = report.snapshot.referenceAnswerFormatSnapshot,
+            )
+        }
         if (report.status == TestQuestionReportStatus.NOT_EVALUABLE) {
             Text(
                 "This question had no keyword data, so keyword match could not be evaluated.",

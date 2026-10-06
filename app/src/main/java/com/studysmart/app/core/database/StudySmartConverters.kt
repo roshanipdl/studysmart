@@ -16,6 +16,13 @@ import java.time.Instant
 
 class StudySmartConverters {
     @TypeConverter
+    fun answerFormatToStorage(value: com.studysmart.app.core.model.AnswerFormat): String = value.storedValue
+
+    @TypeConverter
+    fun storageToAnswerFormat(value: String): com.studysmart.app.core.model.AnswerFormat =
+        com.studysmart.app.core.model.AnswerFormat.fromStoredValue(value)
+
+    @TypeConverter
     fun academicPeriodTypeToStorage(value: AcademicPeriodType): String = value.name.lowercase()
 
     @TypeConverter

@@ -22,6 +22,19 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 class PreferencesRepositoryTest {
+    @Test fun themePersistsAndInvalidValuesFallBackToSystem() = runTest {
+        val store = PreferenceDataStoreFactory.create { temporaryFolder.root.resolve("theme.preferences_pb") }
+        val repository = DataStorePreferencesRepository(store)
+        assertEquals(com.studysmart.app.core.model.ThemePreference.SYSTEM, repository.preferences.first().theme)
+        for (theme in com.studysmart.app.core.model.ThemePreference.entries) {
+            repository.updateTheme(theme)
+            assertEquals(theme, repository.preferences.first().theme)
+        }
+        store.edit { it[stringPreferencesKey("theme")] = "unknown" }
+        assertEquals(com.studysmart.app.core.model.ThemePreference.SYSTEM, repository.preferences.first().theme)
+        store.edit { it[intPreferencesKey("theme")] = 1 }
+        assertEquals(com.studysmart.app.core.model.ThemePreference.SYSTEM, repository.preferences.first().theme)
+    }
     @Test fun dailyGoalDefaultsValidationAndCorruptFallbackAreIndependent() = runTest {
         val dataStore = PreferenceDataStoreFactory.create { temporaryFolder.root.resolve("daily_goal.preferences_pb") }
         val repository = DataStorePreferencesRepository(dataStore)
@@ -178,6 +191,7 @@ class PreferencesRepositoryTest {
             repository.updateTestDefaults(defaults)
             repository.updatePreparationDefaults(PreparationDefaults(15))
             repository.updateDailyCardGoal(24)
+            repository.updateTheme(com.studysmart.app.core.model.ThemePreference.DARK)
             job.cancelAndJoin()
             job = SupervisorJob()
             repository = DataStorePreferencesRepository(PreferenceDataStoreFactory.create(
@@ -188,6 +202,7 @@ class PreferencesRepositoryTest {
             assertEquals(defaults, reopened.testDefaults)
             assertEquals(PreparationDefaults(15), reopened.preparationDefaults)
             assertEquals(24, reopened.dailyCardGoal)
+            assertEquals(com.studysmart.app.core.model.ThemePreference.DARK, reopened.theme)
 
             repository.selectCourse("course-2")
             job.cancelAndJoin()

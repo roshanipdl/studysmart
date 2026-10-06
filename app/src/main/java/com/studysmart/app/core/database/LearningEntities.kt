@@ -121,6 +121,8 @@ data class PreparationSessionItemEntity(
     val isCompleted: Boolean,
     val lastRating: Rating?,
     val lastPresentedAt: Instant?,
+    @androidx.room.ColumnInfo(defaultValue = "'plain_text'")
+    val answerFormatSnapshot: com.studysmart.app.core.model.AnswerFormat = com.studysmart.app.core.model.AnswerFormat.PLAIN_TEXT,
 )
 
 @Entity(

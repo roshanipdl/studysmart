@@ -48,7 +48,7 @@ class CurriculumImportTest {
             } catch (_: CancellationException) { cancelled = true }
             assertTrue(cancelled)
             assertEquals(before, dao.questions())
-            assertNull(dao.state("bca-stage1-reviewed"))
+            assertNull(dao.state("bca-stage1-formatted"))
         } finally { db.close() }
     }
 
@@ -64,7 +64,7 @@ class CurriculumImportTest {
             assertEquals(initialQuestions.size + 434, dao.questions().size)
             assertTrue(dao.questions().containsAll(initialQuestions))
             assertEquals(CurriculumImportResult.ALREADY_CURRENT, importer.importIfNeeded())
-            assertNotNull(dao.state("bca-stage1-reviewed"))
+            assertNotNull(dao.state("bca-stage1-formatted"))
             sql.query("SELECT COUNT(*) FROM user_question_flags").use { assertTrue(it.moveToFirst()); assertEquals(1, it.getInt(0)) }
         } finally { db.close() }
     }
@@ -85,7 +85,7 @@ class CurriculumImportTest {
             assertEquals(beforeCourses, dao.courses())
             assertEquals(beforePeriods, dao.periods())
             assertEquals(beforeSubjects, dao.subjects())
-            assertNull(dao.state("bca-stage1-reviewed"))
+            assertNull(dao.state("bca-stage1-formatted"))
         } finally { db.close() }
     }
 
@@ -94,6 +94,8 @@ class CurriculumImportTest {
         assertEquals(434, payload.questions.size)
         assertEquals(427, payload.questions.count { it.isActive })
         assertEquals(1L, payload.manifest.contentVersion)
-        assertEquals("bca-stage1-reviewed", payload.manifest.datasetId)
+        assertEquals("bca-stage1-formatted", payload.manifest.datasetId)
+        assertEquals(2, payload.manifest.schemaVersion)
+        assertTrue(payload.questions.all { it.answerFormat == com.studysmart.app.core.model.AnswerFormat.HTML })
     }
 }

@@ -2,6 +2,7 @@ package com.studysmart.app.core.data.importer
 
 import com.studysmart.app.core.database.*
 import com.studysmart.app.core.model.AcademicPeriodType
+import com.studysmart.app.core.model.AnswerFormat
 import com.studysmart.app.core.model.QuestionType
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
@@ -19,10 +20,11 @@ class CurriculumJsonParser {
             val path = checkedBundlePath(row.text("path"))
             require(path != "bundle-manifest.json" && files.put(path, row.text("sha256")) == null) { "Duplicate/invalid manifest path: $path" }
         }
-        require(metadata.integer("schemaVersion") == 1L) { "Unsupported bundle schema version" }
+        val schemaVersion = metadata.integer("schemaVersion")
+        require(schemaVersion in 1L..2L) { "Unsupported bundle schema version" }
         val manifest = CurriculumBundleManifest(metadata.text("datasetId"), metadata.integer("contentVersion"),
-            1, metadata.text("bundleDigest"), files)
-        require(manifest.schemaVersion == 1 && manifest.contentVersion > 0 && manifest.datasetId.isNotBlank()) { "Unsupported bundle version" }
+            schemaVersion.toInt(), metadata.text("bundleDigest"), files)
+        require(manifest.contentVersion > 0 && manifest.datasetId.isNotBlank()) { "Unsupported bundle version" }
         require(manifest.bundleDigest == sha256(files.toSortedMap().entries.joinToString("") { "${it.key}\t${it.value}\n" }.toByteArray(StandardCharsets.UTF_8))) { "Bundle digest mismatch" }
         val documents = files.mapValues { (path, expected) ->
             val raw = source.read(path)
@@ -30,7 +32,7 @@ class CurriculumJsonParser {
             json(raw)
         }
         val catalog = requireNotNull(documents["curriculum.json"]) { "Catalog missing" }
-        checkEnvelope(catalog)
+        checkEnvelope(catalog, schemaVersion)
         val inventory = catalog.rows("subjectFiles")
         require(inventory.map { it.text("path") }.toSet().size == inventory.size) { "Duplicate subject paths" }
         require(documents.keys == setOf("curriculum.json") + inventory.map { checkedBundlePath(it.text("path")) }) { "Manifest/catalog inventory mismatch" }
@@ -42,7 +44,7 @@ class CurriculumJsonParser {
         inventory.forEach { entry ->
             val path = entry.text("path")
             val doc = requireNotNull(documents[path]) { "Missing subject file: $path" }
-            checkEnvelope(doc)
+            checkEnvelope(doc, schemaVersion)
             val subject = doc.objectValue("subject").let { r -> SubjectEntity(r.text("id"), r.text("academicPeriodId"), r.text("code"), r.text("name"), r.text("description"), r.int("sortOrder"), r.bool("isActive"), r.instant("createdAt"), r.instant("updatedAt")) }
             require(subject.id == entry.text("subjectId") && subject.academicPeriodId == entry.text("academicPeriodId")) { "Subject inventory mismatch: $path" }
             subjects += subject
@@ -57,7 +59,14 @@ class CurriculumJsonParser {
             }
             doc.rows("questions").forEach { r ->
                 require(r.text("chapterId") in localChapters && r.text("questionType") == "written") { "Invalid question owner/type: $path" }
-                questions += QuestionEntity(r.text("id"), r.text("chapterId"), r.nullableText("topicId"), r.text("question"), r.text("answer"), QuestionType.WRITTEN, r.text("difficulty"), r.number("maxScore"), r.text("explanation"), r.bool("isActive"), r.int("sortOrder"), r.instant("createdAt"), r.instant("updatedAt"))
+                val format = if (schemaVersion == 1L) {
+                    require(!r.has("answerFormat")) { "Version 1 forbids answerFormat" }
+                    AnswerFormat.PLAIN_TEXT
+                } else {
+                    require(r.has("answerFormat")) { "Version 2 requires answerFormat" }
+                    AnswerFormat.fromStoredValue(r.text("answerFormat"))
+                }
+                questions += QuestionEntity(r.text("id"), r.text("chapterId"), r.nullableText("topicId"), r.text("question"), r.text("answer"), QuestionType.WRITTEN, r.text("difficulty"), r.number("maxScore"), r.text("explanation"), r.bool("isActive"), r.int("sortOrder"), r.instant("createdAt"), r.instant("updatedAt"), format)
             }
             val localQuestions = doc.rows("questions").map { it.text("id") }.toSet()
             doc.rows("questionKeywords").forEach { r ->
@@ -77,8 +86,8 @@ class CurriculumJsonParser {
         return payload
     }
 
-    private fun checkEnvelope(doc: JSONObject) {
-        require(doc.integer("schemaVersion") == 1L && doc.integer("contentRevision") > 0) { "Unsupported curriculum envelope" }
+    private fun checkEnvelope(doc: JSONObject, schemaVersion: Long) {
+        require(doc.integer("schemaVersion") == schemaVersion && doc.integer("contentRevision") > 0) { "Unsupported curriculum envelope" }
     }
 
     private fun periodType(value: String) = when (value) {

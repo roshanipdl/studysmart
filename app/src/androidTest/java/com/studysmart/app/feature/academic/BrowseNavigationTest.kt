@@ -65,7 +65,7 @@ class BrowseNavigationTest {
         }
         composeRule.setStudySmartContent(container, startRoute = AppRoutes.SETTINGS)
         composeRule.awaitNodeWithTag("review_question_count")
-        composeRule.onNodeWithTag("review_count_increment").performClick()
+        composeRule.onNodeWithTag("review_count_increment").performScrollTo().performClick()
         composeRule.awaitNodeWithText("11")
         assertEquals(11, backing.current.preparationDefaults.questionCount)
         assertEquals(10, backing.current.testDefaults.questionCount)
@@ -120,7 +120,7 @@ class BrowseNavigationTest {
         }
         composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.SETTINGS)
         composeRule.awaitNodeWithTag("review_question_count")
-        composeRule.onNodeWithTag("review_count_increment").performClick()
+        composeRule.onNodeWithTag("review_count_increment").performScrollTo().performClick()
         composeRule.waitUntil(5_000) { entered.isCompleted }
         composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
         composeRule.onNodeWithTag("settings_screen").assertIsDisplayed()
@@ -159,6 +159,30 @@ class BrowseNavigationTest {
         release.complete(Unit)
         composeRule.awaitNodeWithTag("courses_screen")
         assertEquals(11, backing.current.testDefaults.questionCount)
+    }
+
+    @Test
+    fun settingsGoalFailureKeepsTabExitPendingUntilRetry() {
+        val backing = InMemoryPreferencesRepository()
+        var writes = 0
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateDailyCardGoal(goal: Int) {
+                writes++
+                if (writes == 1) error("injected goal save failure")
+                backing.updateDailyCardGoal(goal)
+            }
+        }
+        composeRule.setStudySmartContent(container(preferences), startRoute = AppRoutes.SETTINGS)
+        composeRule.awaitNodeWithTag("daily_goal_increment")
+        composeRule.onNodeWithTag("daily_goal_increment").performScrollTo().performClick()
+        composeRule.onNodeWithText("injected goal save failure").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("bottom_navigation_courses").performClick()
+        composeRule.onNodeWithTag("settings_screen").assertIsDisplayed()
+        composeRule.assertNoNodeWithTag("courses_screen")
+        composeRule.onNodeWithText("Retry").performScrollTo().performClick()
+        composeRule.awaitNodeWithTag("courses_screen")
+        assertEquals(11, backing.current.dailyCardGoal)
+        assertEquals(2, writes)
     }
 
     @Test
@@ -623,6 +647,10 @@ private class InMemoryPreferencesRepository(
 
     override suspend fun updateTestDefaults(defaults: TestDefaults) {
         state.value = state.value.copy(testDefaults = defaults)
+    }
+
+    override suspend fun updateDailyCardGoal(goal: Int) {
+        state.value = state.value.copy(dailyCardGoal = goal)
     }
 
     override suspend fun clearSelectedCourseIfUnchanged(courseId: String, academicPeriodId: String?): Boolean {

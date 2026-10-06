@@ -15,6 +15,11 @@ data class ReadinessQuestionRow(
     @ColumnInfo(name = "has_committed_rating") val hasCommittedRating: Boolean,
     @ColumnInfo(name = "latest_test_submitted_at") val latestTestSubmittedAt: Instant?,
     @ColumnInfo(name = "latest_test_requires_review") val latestTestRequiresReview: Boolean?,
+    val questionText: String = "",
+    val chapterTitle: String = "",
+    val chapterId: String = "",
+    val topicTitle: String? = null,
+    val latestRating: com.studysmart.app.core.model.Rating? = null,
 )
 
 data class ReadinessTestAnswerRow(
@@ -30,6 +35,9 @@ interface ReadinessDao {
     @Query(
         """
         SELECT q.id AS question_id,
+               q.question AS questionText, ch.title AS chapterTitle, ch.id AS chapterId, t.title AS topicTitle,
+               (SELECT rr.rating FROM review_records rr WHERE rr.userId = :userId AND rr.questionId = q.id
+                 ORDER BY rr.reviewedAt DESC, rr.id DESC LIMIT 1) AS latestRating,
                schedule.learningState AS learning_state,
                schedule.lastReviewedAt AS last_reviewed_at,
                schedule.nextReviewAt AS next_review_at,

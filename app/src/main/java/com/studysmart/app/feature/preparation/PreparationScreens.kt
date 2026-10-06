@@ -54,6 +54,8 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
+import com.studysmart.app.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.Constraints
 import kotlinx.coroutines.delay
@@ -255,15 +257,19 @@ fun PreparationSessionScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
+                .padding(vertical = 12.dp)
                 .testTag("preparation_session_screen"),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            state.bookmarks?.let { com.studysmart.app.core.ui.BookmarkStatus(it, onRetryBookmark) }
+            state.bookmarks?.let {
+                Box(Modifier.padding(horizontal = 20.dp)) {
+                    com.studysmart.app.core.ui.BookmarkStatus(it, onRetryBookmark)
+                }
+            }
             if (state.isLoading || session == null || item == null) {
                 LoadingState(
                     message = "Loading card",
-                    modifier = Modifier.testTag("preparation_session_loading"),
+                    modifier = Modifier.padding(horizontal = 20.dp).testTag("preparation_session_loading"),
                 )
             } else {
                 val interactionEnabled = !state.isSaving && state.mutationError == null &&
@@ -336,6 +342,7 @@ fun PreparationSessionScreen(
                     val progressProjection = projectPreparationProgress(session)
                     val remaining = projectPreparationRemaining(session)
                     androidx.compose.runtime.key(session.id, currentCardKey) {
+                        var joystickVisual by remember { mutableStateOf(PreparationJoystickVisual()) }
                         PreparationSwipeCard(
                             enabled = ratingEligible,
                             inputEnabled = interactionEnabled,
@@ -352,9 +359,12 @@ fun PreparationSessionScreen(
                             scrollingAllowed = interactionEnabled && controlMode == PreparationControlMode.CONTENT_SCROLL,
                             readingScrollState = scrollState,
                             onScrollGestureActive = { scrollGestureActive = it },
+                            onJoystickVisualChanged = { joystickVisual = it },
                             ratingPad = { modifier, ready, previewDirection, scrollDirection, onFlipBounds ->
                                 PreparationRatingPad(
                                     enabled = ratingEligible && ready,
+                                    ratingsUnlocked = ratingEligible,
+                                    joystickVisual = joystickVisual,
                                     onRate = rateIfEligible,
                                     modifier = modifier.testTag("preparation_rating_pad"),
                                     flipEnabled = interactionEnabled && ready,
@@ -466,13 +476,13 @@ private fun PreparationItemModel.cardKey(): PreparationCardKey = PreparationCard
 
 /** Both copy variants and the inline status reserve space even while idle. */
 @Composable
-private fun PreparationSupportingStatus(isSaving: Boolean,
+internal fun PreparationSupportingStatus(isSaving: Boolean,
     showAnswer: Boolean, mode: PreparationControlMode, unlocked: Boolean, showUnlockNotice: Boolean) {
     val messages = listOf(
-        "Think first, then tap the card or Flip to view the answer.",
-        "Tap a rating, swipe the controls, or drag Flip.",
-        "Scroll the question, then tap the card or Flip to view the answer.",
-        "Scroll to the end of the answer to unlock ratings. Drag Flip up to read further.",
+        stringResource(R.string.preparation_instruction_question),
+        stringResource(R.string.preparation_instruction_unlocked),
+        stringResource(R.string.preparation_instruction_long_question),
+        stringResource(R.string.preparation_instruction_locked_answer),
     )
     val messageIndex = when {
         unlocked && mode == PreparationControlMode.RATING -> 1
@@ -481,17 +491,22 @@ private fun PreparationSupportingStatus(isSaving: Boolean,
         else -> 0
     }
     val measurer = rememberTextMeasurer()
-    val style = MaterialTheme.typography.bodySmall.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+    val style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium,
+        textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+    val statusStyle = MaterialTheme.typography.bodySmall.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center)
     val color = MaterialTheme.colorScheme.onSurfaceVariant
     SubcomposeLayout(Modifier.fillMaxWidth().testTag("preparation_supporting_status")) { constraints ->
-        val statusSize = measurer.measure(AnnotatedString("Saving"), style = style).size
+        val statusHeight = listOf("Saving", "Ratings unlocked").maxOf {
+            measurer.measure(AnnotatedString(it), style = statusStyle,
+                constraints = Constraints.fixedWidth(constraints.maxWidth)).size.height
+        }
         val gap = 4.dp.roundToPx()
         val textWidth = constraints.maxWidth
         val copyHeight = messages.maxOf { message ->
             measurer.measure(AnnotatedString(message), style = style,
                 constraints = Constraints.fixedWidth(textWidth)).size.height
         }
-        val height = copyHeight + gap + statusSize.height
+        val height = copyHeight + gap + statusHeight
         val copy = subcompose("copy") {
             Text(messages[messageIndex],
                 Modifier.testTag("preparation_supporting_text"), style = style, color = color)
@@ -503,10 +518,10 @@ private fun PreparationSupportingStatus(isSaving: Boolean,
             }, contentAlignment = Alignment.Center) {
                 if (isSaving) Text("Saving", Modifier.testTag("preparation_saving").semantics {
                     liveRegion = LiveRegionMode.Polite
-                }, style = style, color = color)
-                else if (showUnlockNotice) Text("Ratings unlocked", Modifier.testTag("preparation_ratings_unlocked"), style = style, color = color)
+                }, style = statusStyle, color = color)
+                else if (showUnlockNotice) Text("Ratings unlocked", Modifier.testTag("preparation_ratings_unlocked"), style = statusStyle, color = color)
             }
-        }.single().measure(Constraints.fixed(textWidth, statusSize.height))
+        }.single().measure(Constraints.fixed(textWidth, statusHeight))
         layout(constraints.maxWidth, height) {
             copy.placeRelative(0, 0)
             status.placeRelative(0, copyHeight + gap)
@@ -533,15 +548,19 @@ private fun PreparationStudyLayout(
         .then(if (overflow) Modifier.testTag("preparation_study_scroll") else Modifier)) { constraints ->
         val gap = 12.dp.roundToPx()
         val width = constraints.maxWidth
+        val contentMargin = 20.dp.roundToPx()
+        val contentWidth = (width - contentMargin * 2).coerceAtLeast(0)
         val progressPlaceable = subcompose("progress", progress).single()
-            .measure(Constraints.fixedWidth(width))
-        val padPixels = padWidth.roundToPx().coerceAtMost(constraints.maxWidth)
+            .measure(Constraints.fixedWidth(contentWidth))
+        // Measure controls against the full screen, never the 20dp-inset card width.
+        // Keep the measured width intact: an oversized pad is a product gate, not compression.
+        val padPixels = padWidth.roundToPx()
         val instructionsPlaceable = subcompose("instructions", instructions).single()
             .measure(Constraints.fixedWidth(padPixels))
         val padPlaceable = subcompose("pad", pad).single().measure(Constraints.fixedWidth(padPixels))
         val recoveryPlaceable = subcompose("recovery") {
             Box(Modifier.fillMaxWidth()) { recovery() }
-        }.single().measure(Constraints.fixedWidth(width))
+        }.single().measure(Constraints.fixedWidth(contentWidth))
         val hasRecovery = recoveryPlaceable.height > 0
         val fixedHeight = progressPlaceable.height + gap + instructionsPlaceable.height +
             gap + padPlaceable.height + (if (hasRecovery) gap + recoveryPlaceable.height else 0)
@@ -554,7 +573,7 @@ private fun PreparationStudyLayout(
             Box(Modifier.testTag("preparation_card_viewport")) {
                 card(true)
             }
-        }.single().measure(Constraints(minWidth = constraints.maxWidth, maxWidth = constraints.maxWidth, maxHeight = cardHeight))
+        }.single().measure(Constraints(minWidth = contentWidth, maxWidth = contentWidth, maxHeight = cardHeight))
         val reservedHeight = cardHeight
         val height = maxOf(
             viewportHeight,
@@ -567,17 +586,15 @@ private fun PreparationStudyLayout(
         val instructionsTop = maxOf(cardTop + reservedHeight + gap, height - lowerGroupHeight)
         val padTop = instructionsTop + instructionsPlaceable.height + gap
         val recoveryTop = padTop + padPlaceable.height + gap
-        val centeredPadLeft = (width - padPixels) / 2
-        val desiredOffset = 12.dp.roundToPx()
-        val rightClearance = 12.dp.roundToPx()
-        val maxSafeLeft = (width - padPixels - rightClearance).coerceAtLeast(0)
-        val padLeft = minOf(centeredPadLeft + desiredOffset, maxSafeLeft)
+        val controls = preparationControlGroupGeometry(width.toFloat(), padPixels.toFloat(),
+            contentMargin.toFloat(), 12.dp.toPx())
+        val padLeft = controls.left.toInt()
         layout(constraints.maxWidth, height) {
-            progressPlaceable.place(0, 0)
-            cardPlaceable.place(0, cardTop)
+            progressPlaceable.place(contentMargin, 0)
+            cardPlaceable.place(contentMargin, cardTop)
             instructionsPlaceable.place(padLeft, instructionsTop)
             padPlaceable.place(padLeft, padTop)
-            if (hasRecovery) recoveryPlaceable.place(0, recoveryTop)
+            if (hasRecovery) recoveryPlaceable.place(contentMargin, recoveryTop)
         }
     }
 }
@@ -678,8 +695,9 @@ private fun PreparationFlashcard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .pointerInput(enabled) {
-                if (!enabled) return@pointerInput
+            .pointerInput(enabled, showAnswer) {
+                // The revealed answer owns nested horizontal code scrolling and selection.
+                if (!enabled || showAnswer) return@pointerInput
                 awaitEachGesture {
                     val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
                     var movement = Offset.Zero
@@ -757,10 +775,10 @@ private fun PreparationFlashcard(
                     PreparationScrollableContent(scrollState, scrollEnabled,
                         rotation == targetRotation && showAnswer, true,
                         { onBodyMeasured(true, it) }) {
-                      Text(
-                        text = item.answerSnapshot,
-                        modifier = Modifier.padding(8.dp),
-                        style = MaterialTheme.typography.bodyLarge,
+                       com.studysmart.app.core.ui.FormattedAnswerContent(
+                         content = item.answerSnapshot,
+                         format = item.answerFormatSnapshot,
+                         modifier = Modifier.padding(8.dp),
                     )
                     }
                 }

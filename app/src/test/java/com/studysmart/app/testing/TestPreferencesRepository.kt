@@ -84,4 +84,8 @@ class TestPreferencesRepository(
         require(goal in 1..100)
         state.value = state.value.copy(dailyCardGoal = goal)
     }
+
+    override suspend fun updateTheme(theme: com.studysmart.app.core.model.ThemePreference) {
+        state.value = state.value.copy(theme = theme)
+    }
 }

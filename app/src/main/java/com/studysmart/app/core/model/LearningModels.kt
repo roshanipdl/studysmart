@@ -21,6 +21,7 @@ enum class PreparationScopeType {
     CHAPTER,
     TOPIC,
     DUE_REVIEW,
+    STATUS_FILTER,
     IMPORTANT,
 }
 

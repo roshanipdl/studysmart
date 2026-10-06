@@ -20,6 +20,64 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
+    @Test fun themeFailureBlocksNavigationAndMutationsUntilOriginalIntentRetries() = runTest {
+        val backing = TestPreferencesRepository()
+        var fail = true
+        val preferences = object : PreferencesRepository by backing {
+            override suspend fun updateTheme(theme: com.studysmart.app.core.model.ThemePreference) {
+                check(!fail)
+                backing.updateTheme(theme)
+            }
+        }
+        val vm = SettingsViewModel(preferences, TestDispatcherProvider())
+        vm.setTheme(com.studysmart.app.core.model.ThemePreference.DARK)
+        assertTrue(vm.uiState.value.hasSaveError)
+        assertEquals(com.studysmart.app.core.model.ThemePreference.SYSTEM, vm.uiState.value.theme)
+        vm.setTheme(com.studysmart.app.core.model.ThemePreference.LIGHT)
+        vm.incrementQuestionCount()
+        assertEquals(10, vm.uiState.value.preparationDefaults!!.questionCount)
+        fail = false
+        vm.retry()
+        assertEquals(com.studysmart.app.core.model.ThemePreference.DARK, vm.uiState.value.theme)
+        assertFalse(vm.uiState.value.hasSaveError)
+        backing.updateTestDefaults(com.studysmart.app.core.model.TestDefaults(questionCount = 23, timedMode = true))
+        assertEquals(23, vm.uiState.value.testDefaults!!.questionCount)
+        assertTrue(vm.uiState.value.testDefaults!!.timedMode)
+    }
+
+    @Test fun goalSaveFailureIsPartOfNavigationGate() {
+        assertTrue(SettingsUiState(isGoalSaveError = true).hasSaveError)
+        assertTrue(SettingsUiState(isSaveError = true).hasSaveError)
+        assertTrue(SettingsUiState(isPreferenceSaveError = true).hasSaveError)
+        assertFalse(SettingsUiState(isLoading = false).hasSaveError)
+    }
+    @Test fun nameSaveCancelValidationAndRetryPreserveConfirmedValue() = runTest {
+        val storedName = kotlinx.coroutines.flow.MutableStateFlow<String?>("Student")
+        var fail = true
+        val repository = object : com.studysmart.app.core.data.LocalUserRepository {
+            override val displayName = storedName
+            override suspend fun updateDisplayName(name: String) { check(!fail); storedName.value = name }
+        }
+        val vm = SettingsViewModel(TestPreferencesRepository(), TestDispatcherProvider(), localUserRepository = repository)
+        vm.editName()
+        vm.changeName("  ")
+        vm.saveName()
+        assertEquals("Name must not be blank.", vm.uiState.value.nameError)
+        vm.cancelName()
+        assertEquals(null, vm.uiState.value.nameDraft)
+        vm.editName()
+        vm.changeName("  Ada  ")
+        vm.saveName()
+        assertTrue(vm.uiState.value.hasSaveError)
+        assertEquals("Student", vm.uiState.value.displayName)
+        vm.incrementDailyGoal()
+        assertEquals(10, vm.uiState.value.dailyCardGoal)
+        fail = false
+        vm.retry()
+        assertEquals("Ada", storedName.value)
+        assertEquals(null, vm.uiState.value.nameDraft)
+        assertFalse(vm.uiState.value.hasSaveError)
+    }
     @Test fun dailyGoalBoundsAndSessionCountsAreIndependent() = runTest {
         val backing = TestPreferencesRepository()
         val vm = SettingsViewModel(backing, TestDispatcherProvider())

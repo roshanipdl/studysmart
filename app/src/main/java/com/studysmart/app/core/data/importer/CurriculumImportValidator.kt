@@ -54,6 +54,7 @@ object CurriculumImportValidator {
                 require(topic.chapterId == it.chapterId && (!it.isActive || topic.isActive)) { "Invalid question topic: ${it.id}" }
             }
             require(it.answer.isNotBlank() && it.difficulty == "normal" && it.maxScore.isFinite() && it.maxScore > 0) { "Invalid answer/score: ${it.id}" }
+            com.studysmart.app.core.common.AnswerContentParser.parse(it.answer, it.answerFormat)
             row(it.id, it.sortOrder, it.createdAt, it.updatedAt, it.question)
         }
         unique(p.keywords.map { it.questionId to it.normalizedKeyword }, "keyword key")

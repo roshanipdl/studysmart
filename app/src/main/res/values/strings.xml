@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="preparation_flip">Flip</string>
+    <string name="preparation_drag">Drag</string>
+    <string name="preparation_rating_again">Again</string>
+    <string name="preparation_rating_hard">Hard</string>
+    <string name="preparation_rating_good">Good</string>
+    <string name="preparation_rating_easy">Easy</string>
+    <string name="preparation_show_question">Show question</string>
+    <string name="preparation_show_answer">Show answer</string>
+    <string name="preparation_instruction_question">Think first. Tap the card or Flip to reveal the answer.</string>
+    <string name="preparation_instruction_long_question">Scroll to read the question. Tap the card or Flip to reveal the answer.</string>
+    <string name="preparation_instruction_locked_answer">Read to the end to unlock ratings. Scroll the card or drag Flip up to read further.</string>
+    <string name="preparation_instruction_unlocked">Choose a rating by tapping a button.</string>
+    <string name="answer_content_unavailable">This answer cannot be displayed because its formatting is invalid.</string>
     <string name="app_name">StudySmart</string>
     <string name="chapter_detail_title">Chapter</string>
     <string name="chapter_detail_error">Unable to load this chapter.</string>
@@ -77,4 +90,20 @@
     <string name="search_chapters">Chapters</string>
     <string name="search_topics">Topics</string>
     <string name="search_questions">Questions</string>
+    <string name="settings_privacy_title">Privacy</string>
+    <string name="settings_privacy_notice">Your local name and learning history are stored on this device. Learning data is excluded from Android cloud backup and device transfer; preferences may be backed up. Learning history is kept until you clear it below.</string>
+    <string name="settings_crash_reporting_off">Crash reporting: Off</string>
+    <string name="settings_diagnostics_notice">Product analytics is not collected. Crash reporting is not available in this build. No crash-reporting data is sent.</string>
+    <string name="settings_learning_data">Learning data</string>
+    <string name="settings_clear_progress">Clear learning progress</string>
+    <string name="settings_clear_title">Clear learning progress?</string>
+    <string name="settings_clear_deletes">Deletes: preparation sessions, review history and schedules, test attempts, answers and question snapshots, and bookmarks for this local user. Progress estimates reset.</string>
+    <string name="settings_clear_keeps">Keeps: curriculum content, your local name, course and academic period, theme, daily goal, notification preferences, and Test Defaults.</string>
+    <string name="settings_clear_irreversible">This cannot be undone.</string>
+    <string name="settings_clear_pending">Clearing learning progress…</string>
+    <string name="settings_clear_failure">Learning progress was not cleared. Retry or cancel.</string>
+    <string name="settings_clear_success">Learning progress cleared. Curriculum and preferences were kept.</string>
+    <string name="settings_clear_confirm">Clear</string>
+    <string name="settings_clear_cancel">Cancel</string>
+    <string name="settings_clear_retry">Retry</string>
 </resources>

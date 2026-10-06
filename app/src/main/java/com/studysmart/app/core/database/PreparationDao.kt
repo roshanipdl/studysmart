@@ -35,6 +35,40 @@ data class PreparationContextRow(
 
 @Dao
 interface PreparationDao {
+    @Query("""
+        WITH completed AS (
+            SELECT 'prep:' || id AS id, userId, courseId, academicPeriodId, subjectId, chapterId, topicId, completedAt
+            FROM preparation_sessions WHERE status = 'completed' AND completedAt IS NOT NULL
+              AND EXISTS (SELECT 1 FROM review_records history WHERE history.preparationSessionId = preparation_sessions.id AND history.userId = :userId)
+            UNION ALL
+            SELECT 'test:' || id AS id, userId, courseId, academicPeriodId, subjectId, chapterId, NULL AS topicId, submittedAt AS completedAt
+            FROM test_attempts WHERE status = 'submitted' AND submittedAt IS NOT NULL
+              AND EXISTS (SELECT 1 FROM test_attempt_questions snapshot WHERE snapshot.testAttemptId = test_attempts.id)
+        )
+        SELECT COALESCE(s.id, '') AS subjectId, COALESCE(s.name, c.name) AS subjectName, c.code AS courseCode,
+               p.name AS periodName,
+               COUNT(DISTINCT CASE WHEN rr.id IS NOT NULL THEN q.id END) AS studied,
+               COUNT(DISTINCT q.id) AS total
+        FROM completed ps
+        JOIN academic_periods p ON p.id = ps.academicPeriodId
+        JOIN courses c ON c.id = p.courseId AND c.id = ps.courseId
+        LEFT JOIN subjects s ON s.id = ps.subjectId AND s.academicPeriodId = p.id AND s.isActive = 1
+        JOIN subjects eligibleSubject ON eligibleSubject.academicPeriodId = p.id AND eligibleSubject.isActive = 1
+          AND (ps.subjectId IS NULL OR eligibleSubject.id = s.id)
+        JOIN chapters ch ON ch.subjectId = eligibleSubject.id
+        JOIN questions q ON q.chapterId = ch.id
+        LEFT JOIN topics t ON t.id = q.topicId
+        LEFT JOIN review_records rr ON rr.questionId = q.id AND rr.userId = :userId
+        WHERE ps.userId = :userId
+          AND (ps.subjectId IS NULL OR s.id IS NOT NULL)
+          AND p.isActive = 1 AND c.isActive = 1 AND ch.isActive = 1 AND q.isActive = 1
+          AND (q.topicId IS NULL OR (t.isActive = 1 AND t.chapterId = ch.id))
+          AND (ps.chapterId IS NULL OR EXISTS (SELECT 1 FROM chapters source WHERE source.id = ps.chapterId AND source.subjectId = s.id AND source.isActive = 1))
+          AND (ps.topicId IS NULL OR EXISTS (SELECT 1 FROM topics source WHERE source.id = ps.topicId AND source.chapterId = ps.chapterId AND source.isActive = 1))
+        GROUP BY ps.id
+        ORDER BY ps.completedAt DESC, ps.id DESC LIMIT 1
+    """)
+    fun observeRecentCompletedStudy(userId: String): Flow<RecentCompletedStudyRow?>
     @Query(
         """
         SELECT q.*,
@@ -391,3 +425,12 @@ interface PreparationDao {
     @Query("DELETE FROM preparation_sessions WHERE status = 'active'")
     suspend fun deleteActiveSessions(): Int
 }
+
+data class RecentCompletedStudyRow(
+    val subjectId: String,
+    val subjectName: String,
+    val courseCode: String,
+    val periodName: String,
+    val studied: Int,
+    val total: Int,
+)
