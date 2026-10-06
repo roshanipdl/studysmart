@@ -126,6 +126,7 @@ fun RatingButton(
     interactionSource: androidx.compose.foundation.interaction.MutableInteractionSource? = null,
     disabledContainerColor: Color? = null,
     disabledContentColor: Color? = null,
+    keepEnabledAppearance: Boolean = false,
 ) {
     val semanticColors = LocalStudySmartSemanticColors.current
     val (container, content) = when (rating) {
@@ -149,8 +150,8 @@ fun RatingButton(
         colors = ButtonDefaults.filledTonalButtonColors(
             containerColor = container,
             contentColor = content,
-            disabledContainerColor = disabledContainerColor ?: if (preserveDisabledColor) container else Color(0xFFE6E6EC),
-            disabledContentColor = disabledContentColor ?: if (preserveDisabledColor) content.copy(alpha = 0.65f) else Color(0xFF85869A),
+            disabledContainerColor = if (keepEnabledAppearance) container else disabledContainerColor ?: if (preserveDisabledColor) container else Color(0xFFE6E6EC),
+            disabledContentColor = if (keepEnabledAppearance) content else disabledContentColor ?: if (preserveDisabledColor) content.copy(alpha = 0.65f) else Color(0xFF85869A),
         ),
     ) {
         androidx.compose.foundation.layout.Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {

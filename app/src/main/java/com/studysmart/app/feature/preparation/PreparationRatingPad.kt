@@ -17,13 +17,13 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Flip
 import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.spring
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.studysmart.app.R
 import androidx.compose.material3.MaterialTheme
@@ -145,6 +145,7 @@ internal fun PreparationRatingPad(
     scrollDirection: RatingSwipeDirection? = null,
     ratingsUnlocked: Boolean = enabled,
     joystickVisual: PreparationJoystickVisual = PreparationJoystickVisual(),
+    ratingGestureActive: Boolean = false,
 ) {
     // These positions describe physical swipe directions, not reading order.
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr, LocalRippleConfiguration provides null) {
@@ -182,14 +183,14 @@ internal fun PreparationRatingPad(
         ) {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                  if (scrollMode) ScrollPadButton(true, scrollForwardEnabled, onScroll, Modifier.size(readingDiameter), scrollDirection == RatingSwipeDirection.UP)
-                 else PadButton(Rating.GOOD, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked)
+                  else PadButton(Rating.GOOD, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked, ratingGestureActive && ratingsUnlocked)
             }
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                 PadButton(Rating.AGAIN, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked)
+                  PadButton(Rating.AGAIN, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked, ratingGestureActive && ratingsUnlocked)
                 OutlinedButton(
                     onClick = onFlip,
                     enabled = flipEnabled,
@@ -248,7 +249,7 @@ internal fun PreparationRatingPad(
                                   style = MaterialTheme.typography.labelLarge, color = foreground)
                               ratingsUnlocked -> Icon(Icons.Filled.Gamepad, contentDescription = null,
                                   modifier = Modifier.size(24.dp), tint = foreground)
-                              else -> Icon(painterResource(R.drawable.ic_preparation_flip), contentDescription = null,
+                              else -> Icon(Icons.Filled.Flip, contentDescription = null,
                                   modifier = Modifier.size(24.dp), tint = foreground)
                           }
                           Text(selected?.let { labels.getValue(it.rating) }
@@ -256,11 +257,11 @@ internal fun PreparationRatingPad(
                               style = MaterialTheme.typography.labelLarge, color = foreground)
                      }
                  }
-                 PadButton(Rating.EASY, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked)
+                  PadButton(Rating.EASY, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked, ratingGestureActive && ratingsUnlocked)
             }
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                  if (scrollMode) ScrollPadButton(false, scrollBackwardEnabled, onScroll, Modifier.size(readingDiameter), scrollDirection == RatingSwipeDirection.DOWN)
-                 else PadButton(Rating.HARD, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked)
+                  else PadButton(Rating.HARD, enabled, onRate, Modifier.size(diameter), showDirectionHints, previewDirection, ratingsUnlocked, ratingGestureActive && ratingsUnlocked)
             }
         }
         }
@@ -283,7 +284,8 @@ private fun ScrollPadButton(forward: Boolean, enabled: Boolean, onScroll: (Boole
 
 @Composable
 private fun PadButton(rating: Rating, enabled: Boolean, onRate: (Rating) -> Unit, modifier: Modifier,
-    showDirectionHint: Boolean, previewDirection: RatingSwipeDirection?, previewEnabled: Boolean = enabled) {
+     showDirectionHint: Boolean, previewDirection: RatingSwipeDirection?, previewEnabled: Boolean = enabled,
+     keepEnabledAppearance: Boolean = false) {
     val interactions = remember { MutableInteractionSource() }
     val pressed by interactions.collectIsPressedAsState()
       val selected = previewEnabled && previewDirection?.rating == rating
@@ -292,6 +294,7 @@ private fun PadButton(rating: Rating, enabled: Boolean, onRate: (Rating) -> Unit
         rating = RatingButtonVariant.valueOf(rating.name),
         onClick = { onRate(rating) },
         enabled = enabled,
+        keepEnabledAppearance = keepEnabledAppearance,
         directionHint = if (showDirectionHint) rating.swipeDirection().arrow else null,
         shape = CircleShape,
          preserveDisabledColor = false,
@@ -299,7 +302,7 @@ private fun PadButton(rating: Rating, enabled: Boolean, onRate: (Rating) -> Unit
          disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f),
         interactionSource = interactions,
         modifier = modifier.border(if (selected) 3.dp else 1.dp,
-             if (selected) selectionColor else if (!enabled || pressed) MaterialTheme.colorScheme.outline else Color.Transparent, CircleShape)
+              if (selected) selectionColor else if (!enabled && !keepEnabledAppearance || pressed) MaterialTheme.colorScheme.outline else Color.Transparent, CircleShape)
             .testTag("preparation_rating_${rating.name.lowercase()}")
             .semantics { stateDescription = if (selected) "Selected: ${rating.name.lowercase()}" else rating.swipeDirection().instruction },
     )

@@ -360,10 +360,11 @@ fun PreparationSessionScreen(
                             readingScrollState = scrollState,
                             onScrollGestureActive = { scrollGestureActive = it },
                             onJoystickVisualChanged = { joystickVisual = it },
-                            ratingPad = { modifier, ready, previewDirection, scrollDirection, onFlipBounds ->
+                            ratingPad = { modifier, ready, ratingGestureActive, previewDirection, scrollDirection, onFlipBounds ->
                                 PreparationRatingPad(
                                     enabled = ratingEligible && ready,
                                     ratingsUnlocked = ratingEligible,
+                                    ratingGestureActive = ratingGestureActive,
                                     joystickVisual = joystickVisual,
                                     onRate = rateIfEligible,
                                     modifier = modifier.testTag("preparation_rating_pad"),

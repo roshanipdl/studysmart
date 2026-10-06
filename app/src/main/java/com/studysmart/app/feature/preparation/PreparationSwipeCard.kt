@@ -67,7 +67,7 @@ internal fun PreparationSwipeCard(
     readingScrollState: ScrollState? = null,
     onScrollGestureActive: (Boolean) -> Unit = {},
     onJoystickVisualChanged: (PreparationJoystickVisual) -> Unit = {},
-    ratingPad: @Composable (Modifier, Boolean, RatingSwipeDirection?, RatingSwipeDirection?, (Rect) -> Unit) -> Unit = { _, _, _, _, _ -> },
+    ratingPad: @Composable (Modifier, Boolean, Boolean, RatingSwipeDirection?, RatingSwipeDirection?, (Rect) -> Unit) -> Unit = { _, _, _, _, _, _ -> },
     layout: @Composable (Modifier, @Composable (Boolean) -> Unit, @Composable () -> Unit, @Composable () -> Unit) -> Unit = { modifier, card, _, preview ->
         Box(modifier) { card(false); Box(Modifier.align(Alignment.Center)) { preview() } }
     },
@@ -92,6 +92,7 @@ internal fun PreparationSwipeCard(
         onDispose { latestJoystickVisual(PreparationJoystickVisual()) }
     }
     var dragging by remember { mutableStateOf(false) }
+    var ratingGestureActive by remember { mutableStateOf(false) }
     var previewOffset by remember { mutableStateOf(Offset.Zero) }
     var previewRating by remember { mutableStateOf<Rating?>(null) }
     var previewIntensity by remember { mutableFloatStateOf(0f) }
@@ -107,6 +108,7 @@ internal fun PreparationSwipeCard(
             direction = null
             scrollDirection = null
             dragging = false
+            ratingGestureActive = false
             retainedPreview = false
              previewOffset = Offset.Zero
              previewRating = null
@@ -204,6 +206,7 @@ internal fun PreparationSwipeCard(
                         }
                         if (moved) {
                             dragging = true
+                            ratingGestureActive = ratingAtDown && latestRatingEnabled
                             change.consume()
                             if (scrollAtDown) {
                                 latestScrollGesture(true)
@@ -274,6 +277,7 @@ internal fun PreparationSwipeCard(
                         distance, ratingDragThreshold(extent.coerceAtLeast(1).toFloat(), density),
                     )
                       direction = null
+                      ratingGestureActive = false
                       latestJoystickVisual(PreparationJoystickVisual())
                       cancelScrolling()
                       scrollDirection = null
@@ -288,6 +292,7 @@ internal fun PreparationSwipeCard(
                      if (commit) latestRate(selected.rating)
                 }
             } finally {
+                   ratingGestureActive = false
                   latestJoystickVisual(PreparationJoystickVisual())
                   direction = null
                   cancelScrolling()
@@ -312,7 +317,7 @@ internal fun PreparationSwipeCard(
             cardReady,
             scrollEnabled,
         )
-    }, { ratingPad(padModifier, cardReady, direction, scrollDirection) { flipBounds = it } }, {
+    }, { ratingPad(padModifier, cardReady, ratingGestureActive && enabled && pointerEnabled, direction, scrollDirection) { flipBounds = it } }, {
             scrollDirection?.let { scrolling ->
                 Surface(Modifier.testTag("preparation_scroll_preview"), color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = MaterialTheme.shapes.small) {

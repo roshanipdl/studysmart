@@ -63,11 +63,14 @@ fun ImportantScreen(
                 state.isLoading -> item { LoadingState() }
                 state.hasError -> item { ErrorState(stringResource(R.string.important_error), onRetry = onRefresh) }
                 state.context == null -> item {
+                    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     EmptyState(stringResource(R.string.important_context_title), stringResource(R.string.important_context_body))
-                    PrimaryButton(stringResource(R.string.important_choose_context), onChooseContext)
+                    PrimaryButton(stringResource(R.string.important_choose_context), onChooseContext, modifier = Modifier.fillMaxWidth())
+                    }
                 }
                 else -> {
                     item {
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         SecondaryButton("${state.context.course.code} · ${state.context.period.name}", onChooseContext,
                             enabled = state.removingId == null && !state.isStarting, modifier = Modifier.fillMaxWidth().testTag("important_context"))
                         FilterMenu(state.scope?.subjectId?.let { id -> state.context.subjects.find { it.id == id }?.name }
@@ -77,15 +80,18 @@ fun ImportantScreen(
                         FilterMenu(state.scope?.chapterId?.let { id -> state.chapters.find { it.id == id }?.title }
                             ?: stringResource(R.string.important_all_chapters),
                             state.chapters.map { it.id to it.title }, stringResource(R.string.important_all_chapters),
-                            state.removingId == null && !state.isStarting && state.scope?.subjectId != null, "important_chapter_filter", onChapter)
+                             state.removingId == null && !state.isStarting && state.scope?.subjectId != null, "important_chapter_filter", onChapter)
+                        }
                     }
                     item {
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         val enabled = state.rows.isNotEmpty() && state.removingId == null && !state.isStarting && !state.hasRemoveError && !state.hasLaunchError
                         SavedAction(stringResource(R.string.important_prepare_saved), "important_prepare", enabled, onPrepare)
                         SavedAction(stringResource(R.string.important_test_saved), "important_test", enabled, onTest)
                         Text(stringResource(R.string.important_saved_count, state.rows.size), style = MaterialTheme.typography.titleMedium)
                         TextButton(onRefresh, enabled = state.removingId == null && !state.isStarting, modifier = Modifier.testTag("important_refresh")) {
                             Text(stringResource(R.string.important_refresh))
+                        }
                         }
                     }
                     if (state.hasRemoveError) item {
@@ -94,8 +100,10 @@ fun ImportantScreen(
                     if (state.isStarting) item { Text(stringResource(R.string.important_starting)) }
                     if (state.hasLaunchError) item { ErrorState(stringResource(R.string.important_launch_error), onRetry = onRetryLaunch) }
                     if (state.noQuestions) item {
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(stringResource(R.string.important_no_questions))
-                        if (state.noTestQuestions) SecondaryButton(stringResource(R.string.important_test_defaults), onOpenDefaults)
+                        if (state.noTestQuestions) SecondaryButton(stringResource(R.string.important_test_defaults), onOpenDefaults, modifier = Modifier.fillMaxWidth())
+                        }
                     }
                     if (state.displayedRows.isEmpty()) item {
                         EmptyState(stringResource(R.string.important_empty_title), stringResource(R.string.important_empty_body))

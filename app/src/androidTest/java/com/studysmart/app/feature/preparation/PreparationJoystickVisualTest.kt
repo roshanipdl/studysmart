@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -22,6 +23,11 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.graphics.toPixelMap
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.studysmart.app.core.model.Rating
@@ -44,9 +50,9 @@ class PreparationJoystickVisualTest {
     private var flipped = 0
     private var density = 1f
 
-    private fun setContent(fontScale: Float = 1f) {
+    private fun setContent(fontScale: Float = 1f, darkTheme: Boolean = false) {
         composeRule.setContent {
-            StudySmartTheme {
+            StudySmartTheme(darkTheme = darkTheme) {
                 CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, fontScale)) {
                     density = LocalDensity.current.density
                     key(presentation.value) {
@@ -62,10 +68,11 @@ class PreparationJoystickVisualTest {
                             scrollingAllowed = !unlocked.value,
                             readingScrollState = bodyScroll,
                             onJoystickVisualChanged = { visual.value = it },
-                            ratingPad = { modifier, ready, direction, scrollDirection, bounds ->
+                            ratingPad = { modifier, ready, ratingGestureActive, direction, scrollDirection, bounds ->
                                 PreparationRatingPad(
                                     enabled = unlocked.value && ready,
                                     ratingsUnlocked = unlocked.value,
+                                    ratingGestureActive = ratingGestureActive,
                                     joystickVisual = visual.value,
                                     flipEnabled = input.value && ready,
                                     onFlip = { flipped++ }, onRate = { rated += it },
@@ -77,8 +84,12 @@ class PreparationJoystickVisualTest {
                                 )
                             },
                             layout = { modifier, card, pad, _ ->
-                                Box(modifier.width(320.dp).height(500.dp).testTag("viewport")) { pad() }
-                                card(true)
+                                Box(modifier.width(320.dp).height(500.dp).testTag("viewport")) {
+                                    pad()
+                                    // Keep the translated reading layer outside all pad pixel captures.
+                                    Box(Modifier.align(Alignment.BottomStart).width(320.dp).height(48.dp)
+                                        .testTag("reading_slot")) { card(true) }
+                                }
                             },
                         ) { modifier, _, _, _, _ ->
                             Box(modifier.height(48.dp).verticalScroll(bodyScroll)) {
@@ -103,8 +114,97 @@ class PreparationJoystickVisualTest {
     private fun centerLabel(label: String) = composeRule.onNode(
         hasText(label) and hasAnyAncestor(hasTestTag("preparation_joystick_knob")), true)
 
+    // Interior excludes circular edges and selected outlines but includes arrows/labels.
+    private fun ratingPixels(): Map<String, List<Color>> = listOf("again", "hard", "good", "easy").associateWith { name ->
+        val pixels = composeRule.onNodeWithTag("preparation_rating_$name").captureToImage().toPixelMap()
+        buildList {
+            for (y in pixels.height / 4 until pixels.height * 3 / 4)
+                for (x in pixels.width / 4 until pixels.width * 3 / 4) add(pixels[x, y])
+        }
+    }
+
+    private fun assertReadingDoesNotOverlapPad() {
+        val pad = composeRule.onNodeWithTag("pad").unclippedControlBoundsInRoot()
+        val reading = composeRule.onNodeWithTag("reading_slot", true).unclippedControlBoundsInRoot()
+        // The production preview can translate the reading card by at most 16dp.
+        assertTrue("Reading layer must remain outside pad, including preview travel",
+            reading.top - 16 * density >= pad.bottom)
+    }
+
+    private fun assertRatingPixelsEqual(expected: Map<String, List<Color>>, phase: String) {
+        val actual = ratingPixels()
+        expected.forEach { (rating, before) ->
+            val after = actual.getValue(rating)
+            assertEquals("$phase/$rating sample size", before.size, after.size)
+            val first = before.indices.firstOrNull { before[it] != after[it] }
+            // Do not dump entire images: Android truncates the message before actual pixels.
+            assertTrue("$phase/$rating: first mismatch=$first, expected=${first?.let { before[it] }}, " +
+                "actual=${first?.let { after[it] }}, changed=${before.indices.count { before[it] != after[it] }}",
+                first == null)
+        }
+    }
+
+    private fun verifyDragColors(dark: Boolean, ordinary: Boolean) {
+        setContent(darkTheme = dark)
+        assertReadingDoesNotOverlapPad()
+        listOf("again", "hard", "good", "easy").forEach {
+            composeRule.onNodeWithTag("preparation_rating_$it").assertIsEnabled()
+        }
+        val idle = ratingPixels()
+        val pad = composeRule.onNodeWithTag("pad").unclippedControlBoundsInRoot()
+        val start = if (ordinary) composeRule.onNodeWithTag("preparation_rating_again")
+            .unclippedControlBoundsInRoot().center - pad.topLeft else flipStart()
+        composeRule.onNodeWithTag("pad").performTouchInput {
+            down(start); moveTo(start + Offset(100 * density, 0f))
+        }
+        listOf("again", "hard", "good", "easy").forEach {
+            composeRule.onNodeWithTag("preparation_rating_$it").assertIsNotEnabled()
+        }
+        assertRatingPixelsEqual(idle, "claimed drag")
+        if (!ordinary) {
+            composeRule.onNodeWithTag("pad").performTouchInput { moveTo(start + Offset(40 * density, 40 * density)) }
+            assertRatingPixelsEqual(idle, "held diagonal")
+            composeRule.onNodeWithTag("pad").performTouchInput { moveTo(start) }
+            assertRatingPixelsEqual(idle, "held center")
+            composeRule.onNodeWithTag("pad").performTouchInput { up() }
+            assertTrue(rated.isEmpty())
+        } else {
+            composeRule.onNodeWithTag("pad").performTouchInput { up() }
+            assertEquals(listOf(Rating.EASY), rated)
+        }
+        assertEquals(0, flipped)
+    }
+
+    @Test fun lightJoystickDragKeepsAllIdleContainerAndContentPixels() = verifyDragColors(false, false)
+    @Test fun darkJoystickDragKeepsAllIdleContainerAndContentPixels() = verifyDragColors(true, false)
+    @Test fun lightOrdinaryDragKeepsAllIdleContainerAndContentPixels() = verifyDragColors(false, true)
+    @Test fun darkOrdinaryDragKeepsAllIdleContainerAndContentPixels() = verifyDragColors(true, true)
+
+    @Test fun cancellationThenResetRestoresMutedColorsWithoutRating() {
+        setContent()
+        assertReadingDoesNotOverlapPad()
+        val idle = ratingPixels()
+        val start = flipStart()
+        composeRule.onNodeWithTag("pad").performTouchInput { down(start); moveTo(start + Offset(100 * density, 0f)) }
+        assertRatingPixelsEqual(idle, "before cancellation")
+        composeRule.onNodeWithTag("pad").performTouchInput { cancel() }
+        assertRatingPixelsEqual(idle, "after cancellation")
+        composeRule.onNodeWithTag("pad").performTouchInput { down(start); moveTo(start + Offset(100 * density, 0f)) }
+        composeRule.runOnIdle { reset.value = true }
+        composeRule.waitForIdle()
+        val muted = ratingPixels()
+        idle.keys.forEach { rating ->
+            composeRule.onNodeWithTag("preparation_rating_$rating").assertIsNotEnabled()
+            assertTrue("Reset must mute $rating", idle.getValue(rating) != muted.getValue(rating))
+        }
+        composeRule.onNodeWithTag("pad").performTouchInput { up() }
+        assertTrue(rated.isEmpty())
+        assertEquals(0, flipped)
+    }
+
     @Test fun narrow200PercentTargetsStayInsideViewportAndRealTapsWork() {
         setContent(2f)
+        assertReadingDoesNotOverlapPad()
         val viewport = composeRule.onNodeWithTag("viewport").fetchSemanticsNode().boundsInRoot
         listOf("again", "good", "easy", "hard").forEach { rating ->
             val node = composeRule.onNodeWithTag("preparation_rating_$rating")
