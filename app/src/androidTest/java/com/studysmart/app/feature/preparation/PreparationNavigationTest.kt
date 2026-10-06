@@ -80,6 +80,9 @@ class PreparationNavigationTest {
         composeRule.onNodeWithTag("preparation_card").performClick()
         awaitRatingEnabled()
         composeRule.onNodeWithTag("preparation_rating_good").assertIsEnabled().performClick()
+        // Summary navigation acknowledges the committed rating and exit animation.
+        // A raw SQLite count alone is not the UI transaction-completion contract.
+        composeRule.awaitNodeWithTag("preparation_summary_screen")
         composeRule.waitUntil(5_000) {
             database!!.openHelper.readableDatabase.query("SELECT COUNT(*) FROM review_records").use {
                 it.moveToFirst(); it.getInt(0) == 2
@@ -89,6 +92,24 @@ class PreparationNavigationTest {
             "SELECT questionId FROM review_records ORDER BY questionId",
         ).use { cursor -> buildList { while (cursor.moveToNext()) add(cursor.getString(0)) } }
         assertEquals(listOf("question-bca-s1-dbms-direct", "question-bca-s1-dbms-topic"), reviewedIds)
+        val candidates = runBlocking {
+            database!!.preparationDao().getChapterCandidates("local-user", "chapter-bca-s1-dbms-01")
+        }
+        val reviewOwners = database!!.openHelper.readableDatabase.query(
+            "SELECT questionId, userId FROM review_records ORDER BY questionId",
+        ).use { cursor -> buildList {
+            while (cursor.moveToNext()) add(cursor.getString(0) to cursor.getString(1))
+        } }
+        val rawFlags = database!!.openHelper.readableDatabase.query(
+            """SELECT q.id, EXISTS(SELECT 1 FROM review_records rr
+                WHERE rr.questionId = q.id AND rr.userId = 'local-user')
+                FROM questions q WHERE q.chapterId = 'chapter-bca-s1-dbms-01' ORDER BY q.id""",
+        ).use { cursor -> buildList {
+            while (cursor.moveToNext()) add(cursor.getString(0) to cursor.getInt(1))
+        } }
+        assertEquals("Committed flags: owners=$reviewOwners raw=$rawFlags mapped=" +
+            candidates.map { Triple(it.question.id, it.hasReview, it.latestRating) },
+            2, candidates.count { it.hasReview })
         assertEquals(PreparationChapterCoverage(2, 2), runBlocking {
             graph.preparationRepository.getChapterCoverage("chapter-bca-s1-dbms-01")
         })

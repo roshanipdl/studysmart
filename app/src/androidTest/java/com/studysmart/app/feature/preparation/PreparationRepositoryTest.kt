@@ -73,6 +73,27 @@ class PreparationRepositoryTest {
     }
 
     @Test
+    fun chapterCandidatesKeepReviewsForBothQuestionsWhenTimestampsDiffer() = runBlocking {
+        val sessionId = createSession("coverage-different-times")
+        val item = repository.observeSession(sessionId).first()!!.currentItem!!
+        repository.revealCurrent(sessionId, item.questionId)
+        repository.rateCurrent(PreparationRatingRequest(sessionId, item.questionId, item.presentationCount,
+            Rating.GOOD, "coverage-earlier"))
+        val earlier = database.preparationDao().getReviewRecord("coverage-earlier")!!
+        val otherId = if (item.questionId == "question-bca-s1-dbms-direct")
+            "question-bca-s1-dbms-topic" else "question-bca-s1-dbms-direct"
+        database.preparationDao().insertReviewRecord(earlier.copy(
+            id = "coverage-later", questionId = otherId, preparationSessionId = null,
+            reviewedAt = earlier.reviewedAt.plusSeconds(10), rating = Rating.EASY,
+        ))
+        val rows = database.preparationDao().getChapterCandidates("local-user", "chapter-bca-s1-dbms-01")
+        assertEquals(2, rows.count { it.hasReview })
+        assertEquals(Rating.GOOD, rows.single { it.question.id == item.questionId }.latestRating)
+        assertEquals(Rating.EASY, rows.single { it.question.id == otherId }.latestRating)
+        assertEquals(0, database.preparationDao().getChapterCandidates("another-user", "chapter-bca-s1-dbms-01").count { it.hasReview })
+    }
+
+    @Test
     fun sessionCreationPersistsSnapshotsAndIsIdempotent() = runBlocking {
         val request = chapterRequest("request-1")
         val first = repository.createSession(request)

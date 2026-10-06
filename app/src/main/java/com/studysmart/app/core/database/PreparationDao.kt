@@ -39,7 +39,8 @@ interface PreparationDao {
         """
         SELECT q.*,
                latest.rating AS latest_rating,
-               CASE WHEN latest.id IS NULL THEN 0 ELSE 1 END AS has_review,
+               EXISTS(SELECT 1 FROM review_records rr
+                      WHERE rr.userId = :userId AND rr.questionId = q.id) AS has_review,
                schedule.nextReviewAt AS next_review_at
         FROM questions q
         JOIN chapters ch ON ch.id = q.chapterId
@@ -50,13 +51,13 @@ interface PreparationDao {
         LEFT JOIN review_schedules schedule
           ON schedule.questionId = q.id AND schedule.userId = :userId
         LEFT JOIN review_records latest
-          ON latest.id = (
-              SELECT rr.id
-              FROM review_records rr
-              WHERE rr.userId = :userId AND rr.questionId = q.id
-              ORDER BY rr.reviewedAt DESC, rr.id DESC
-              LIMIT 1
-          )
+          ON latest.questionId = q.id AND latest.userId = :userId
+         AND NOT EXISTS (
+             SELECT 1 FROM review_records newer
+             WHERE newer.questionId = latest.questionId AND newer.userId = latest.userId
+               AND (newer.reviewedAt > latest.reviewedAt OR
+                    (newer.reviewedAt = latest.reviewedAt AND newer.id > latest.id))
+         )
         WHERE q.chapterId = :chapterId
           AND q.isActive = 1
           AND ch.isActive = 1
